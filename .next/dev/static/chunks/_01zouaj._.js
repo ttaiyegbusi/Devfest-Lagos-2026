@@ -184,6 +184,7 @@ function HeroNav() {
                         children: LINKS.map((link)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                     href: link.href,
+                                    onClick: ()=>setOpen(false),
                                     children: link.label
                                 }, void 0, false, {
                                     fileName: "[project]/app/hero/HeroNav.tsx",
@@ -203,10 +204,11 @@ function HeroNav() {
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                         className: "hero-nav__ticket",
                         href: "#tickets",
+                        onClick: ()=>setOpen(false),
                         children: "Buy Ticket"
                     }, void 0, false, {
                         fileName: "[project]/app/hero/HeroNav.tsx",
-                        lineNumber: 50,
+                        lineNumber: 52,
                         columnNumber: 9
                     }, this)
                 ]

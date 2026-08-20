@@ -42,12 +42,18 @@ export function HeroNav() {
         <ul className="hero-nav__links">
           {LINKS.map((link) => (
             <li key={link.href}>
-              <a href={link.href}>{link.label}</a>
+              <a href={link.href} onClick={() => setOpen(false)}>
+                {link.label}
+              </a>
             </li>
           ))}
         </ul>
 
-        <a className="hero-nav__ticket" href="#tickets">
+        <a
+          className="hero-nav__ticket"
+          href="#tickets"
+          onClick={() => setOpen(false)}
+        >
           Buy Ticket
         </a>
       </div>

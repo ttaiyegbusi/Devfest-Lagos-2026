@@ -101,7 +101,9 @@ export function HeroScene() {{
         </g>
         <g className="hero-scene__traffic">
           <g className="hero-scene__keke">
-{band("keke", 12)}
+            <g className="hero-scene__keke-body">
+{band("keke", 14)}
+            </g>
           </g>
           <g className="hero-scene__bus">
 {band("bus", 12)}

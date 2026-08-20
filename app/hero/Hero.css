@@ -64,115 +64,189 @@
   }
 }
 
-/* Traffic. The road converges on 999,791 in artwork coordinates — the point
-   where its near edge meets its far edge behind the bridge. Scaling the danfo
-   and the keke about that single point *is* perspective travel: every part of
-   them slides along its own ray from the vanishing point, so the roofs rise,
-   the wheels drop, and they stay on the tarmac the whole way down.
+/* Traffic.
+   ---------------------------------------------------------------------------
+   Anything standing on flat ground obeys one exact rule: its size on screen is
+   proportional to how far its wheels sit below the horizon. Here the horizon
+   runs through 791 — the line the road converges on, behind the bridge — and
+   the danfo's wheels are drawn 83 units below it. So scale is not a number
+   picked by hand: it falls out of the path, and the tyres stay planted on the
+   tarmac in every frame.
 
-   Past the design position the road bends right and down towards the corner,
-   so the last stretch adds a translation on top of the scale and they carry on
-   out of frame instead of stopping. They share one transform because they
-   share one road — the keke holds its station behind the danfo throughout. */
-.hero-scene__traffic {
+   A vehicle in a straight lane images as a straight ray out of the vanishing
+   point at 999,791, which is what `translate(c * s) scale(s)` describes — the
+   translation grows in step with the scale, so the whole loop is one straight
+   lane with no swerve in it. `c` is the only real choice: it aims the lane.
+   The bigger it is, the more obliquely the lane crosses the view, and the more
+   ground the vehicle covers per unit of growth. Aim it straight at the camera
+   (c = 0) and you get inflation with no travel; aim it across the view and you
+   get travel with little growth. These lanes sit well over towards the second,
+   so the vehicles read as driving rather than zooming, and they are clear of
+   the right-hand edge by roughly 1.2x rather than having to swell to 2.7x
+   before their back ends finally clear it.
+
+   Sideways speed climbing towards the end is not scripted — it is what
+   perspective does to anything passing you. The pacing eases the far stretch
+   along a little faster than constant road speed would, which otherwise parks
+   the vehicle in the distance for most of the loop.
+
+   The keke needs one extra correction: it is drawn larger than its position on
+   the road implies, so it is scaled against a deeper reference than its own
+   wheels suggest. Otherwise it swells to twice the height of the danfo by the
+   time it reaches the corner. Its translate carries a small vertical component
+   to keep the wheels on the tarmac while that plays out.
+
+   The two run the same cycle half a period apart on their own lanes, so one is
+   always well down the road while the other is being born at the bridge: no
+   empty road, no restart beat, and no more moving like they are welded
+   together. Their paths never cross, and where they overlap the danfo is
+   always the nearer of the two — which is the order they are painted in. */
+.hero-scene__bus,
+.hero-scene__keke {
   transform-box: view-box;
   transform-origin: 999px 791px;
-  animation: hero-traffic var(--traffic-duration, 14s) linear infinite;
+  animation-duration: var(--traffic-duration, 12s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
   will-change: transform, opacity;
 }
 
-/* Every step carries the same transform functions so the browser interpolates
-   them component-wise rather than falling back to matrix decomposition.
+.hero-scene__bus {
+  animation-name: hero-danfo;
+}
 
-   Scale steps trace 1/(a - bt) — constant speed along the road, so the
-   on-screen motion accelerates towards the camera the way a real vehicle does.
-   They enter already a good way down the road rather than as specks at the
-   vanishing point: from there the whole approach covers ground, instead of
-   spending most of the loop growing in place with barely any travel. */
-@keyframes hero-traffic {
+.hero-scene__keke {
+  animation-name: hero-keke;
+  /* Half a cycle behind, so the road is never empty. */
+  animation-delay: calc(var(--traffic-duration, 12s) / -2);
+}
+
+/* Born a few pixels wide at the foot of the bridge, gone once the back end is
+   past x = 1440 — both ends of the loop happen where there is nothing to see. */
+@keyframes hero-danfo {
   0% {
-    transform: translate(0px, 0px) scale(0.36);
+    transform: translate(34.5px, 0px) scale(0.15);
     opacity: 0;
   }
-  3% {
-    transform: translate(0px, 0px) scale(0.369);
+  4% {
+    transform: translate(36.5px, 0px) scale(0.159);
     opacity: 1;
   }
-  11.3% {
-    transform: translate(0px, 0px) scale(0.398);
+  9.6% {
+    transform: translate(42px, 0px) scale(0.183);
     opacity: 1;
   }
-  22.5% {
-    transform: translate(0px, 0px) scale(0.445);
+  19.2% {
+    transform: translate(55.7px, 0px) scale(0.242);
     opacity: 1;
   }
-  33.8% {
-    transform: translate(0px, 0px) scale(0.506);
+  28.8% {
+    transform: translate(73.4px, 0px) scale(0.319);
     opacity: 1;
   }
-  45% {
-    transform: translate(0px, 0px) scale(0.584);
+  38.4% {
+    transform: translate(94.4px, 0px) scale(0.411);
     opacity: 1;
   }
-  54% {
-    transform: translate(0px, 0px) scale(0.667);
+  48% {
+    transform: translate(118.3px, 0px) scale(0.514);
     opacity: 1;
   }
-  61.5% {
-    transform: translate(0px, 0px) scale(0.758);
+  57.6% {
+    transform: translate(144.6px, 0px) scale(0.629);
     opacity: 1;
   }
-  67.5% {
-    transform: translate(0px, 0px) scale(0.849);
+  67.2% {
+    transform: translate(173.3px, 0px) scale(0.753);
     opacity: 1;
   }
-  72% {
-    transform: translate(0px, 0px) scale(0.934);
+  76.8% {
+    transform: translate(204px, 0px) scale(0.887);
     opacity: 1;
   }
-  /* The design file's position. */
-  75% {
-    transform: translate(0px, 0px) scale(1);
+  86.4% {
+    transform: translate(236.8px, 0px) scale(1.029);
     opacity: 1;
   }
-  /* Past the bend: the road swings towards the bottom-right corner, so the
-     last stretch adds a translation on top of the scale. */
-  80% {
-    transform: translate(46px, 22px) scale(1.134);
+  93% {
+    transform: translate(260.5px, 0px) scale(1.133);
     opacity: 1;
   }
-  85% {
-    transform: translate(121px, 57px) scale(1.311);
-    opacity: 1;
-  }
-  89% {
-    transform: translate(194px, 91px) scale(1.497);
-    opacity: 1;
-  }
-  92% {
-    transform: translate(255px, 120px) scale(1.675);
-    opacity: 1;
-  }
-  /* Clear of the frame — both near edges are past x = 1440. */
-  95% {
-    transform: translate(320px, 150px) scale(1.901);
-    opacity: 1;
-  }
-  95.1% {
-    transform: translate(320px, 150px) scale(1.901);
+  96% {
+    transform: translate(271.4px, 0px) scale(1.18);
     opacity: 0;
   }
   100% {
-    transform: translate(0px, 0px) scale(0.36);
+    transform: translate(34.5px, 0px) scale(0.15);
     opacity: 0;
   }
 }
 
-/* Kekes are not known for their suspension. */
-.hero-scene__keke {
+@keyframes hero-keke {
+  0% {
+    transform: translate(63.5px, 3.6px) scale(0.4);
+    opacity: 0;
+  }
+  4% {
+    transform: translate(65.3px, 3.7px) scale(0.411);
+    opacity: 1;
+  }
+  9.6% {
+    transform: translate(72.4px, 4.1px) scale(0.456);
+    opacity: 1;
+  }
+  19.2% {
+    transform: translate(88.6px, 5.0px) scale(0.558);
+    opacity: 1;
+  }
+  28.8% {
+    transform: translate(109.7px, 6.2px) scale(0.691);
+    opacity: 1;
+  }
+  38.4% {
+    transform: translate(134.6px, 7.6px) scale(0.848);
+    opacity: 1;
+  }
+  48% {
+    transform: translate(162.9px, 9.1px) scale(1.026);
+    opacity: 1;
+  }
+  57.6% {
+    transform: translate(194.2px, 10.9px) scale(1.223);
+    opacity: 1;
+  }
+  67.2% {
+    transform: translate(228.2px, 12.8px) scale(1.437);
+    opacity: 1;
+  }
+  76.8% {
+    transform: translate(264.7px, 14.8px) scale(1.667);
+    opacity: 1;
+  }
+  86.4% {
+    transform: translate(303.6px, 17.0px) scale(1.913);
+    opacity: 1;
+  }
+  90.2% {
+    transform: translate(319.7px, 17.9px) scale(2.014);
+    opacity: 1;
+  }
+  96% {
+    transform: translate(344.7px, 19.3px) scale(2.171);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(63.5px, 3.6px) scale(0.4);
+    opacity: 0;
+  }
+}
+
+/* Kekes are not known for their suspension. Nested inside the lane transform,
+   so the bounce foreshortens with distance like everything else. */
+.hero-scene__keke-body {
   transform-box: fill-box;
   transform-origin: 50% 100%;
-  animation: hero-keke-bob 0.9s ease-in-out infinite;
+  animation: hero-keke-bob 0.85s ease-in-out infinite;
 }
 
 @keyframes hero-keke-bob {
@@ -181,14 +255,15 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-1px);
+    transform: translateY(-1.2px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-scene__clouds,
-  .hero-scene__traffic,
-  .hero-scene__keke {
+  .hero-scene__bus,
+  .hero-scene__keke,
+  .hero-scene__keke-body {
     animation: none;
   }
 

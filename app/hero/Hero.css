@@ -69,65 +69,96 @@
    and the keke about that single point *is* perspective travel: every part of
    them slides along its own ray from the vanishing point, so the roofs rise,
    the wheels drop, and they stay on the tarmac the whole way down.
-   Scale is capped at 1, which is the position they occupy in the design file. */
+
+   Past the design position the road bends right and down towards the corner,
+   so the last stretch adds a translation on top of the scale and they carry on
+   out of frame instead of stopping. They share one transform because they
+   share one road — the keke holds its station behind the danfo throughout. */
 .hero-scene__traffic {
   transform-box: view-box;
   transform-origin: 999px 791px;
-  animation: hero-traffic var(--traffic-duration, 24s) linear infinite;
+  animation: hero-traffic var(--traffic-duration, 20s) linear infinite;
   will-change: transform, opacity;
 }
 
+/* Every step carries the same transform functions so the browser interpolates
+   them component-wise rather than falling back to matrix decomposition. */
 @keyframes hero-traffic {
-  /* Scale steps trace 1/(a - bt): constant speed on the road, which on screen
-     reads as acceleration towards the camera rather than a linear crawl.
-     They ease into 1 — the position the design file draws them at — hold for a
-     beat at the crest of the bend, then fade for the next one to come through. */
+  /* Approach. Scale steps trace 1/(a - bt), i.e. constant speed along the
+     road, which on screen reads as acceleration towards the camera. */
   0% {
-    transform: scale(0.32);
+    transform: translate(0px, 0px) scale(0.18);
     opacity: 0;
   }
-  5% {
-    transform: scale(0.335);
+  4% {
+    transform: translate(0px, 0px) scale(0.187);
     opacity: 1;
   }
-  17% {
-    transform: scale(0.383);
+  12.6% {
+    transform: translate(0px, 0px) scale(0.205);
     opacity: 1;
   }
-  29% {
-    transform: scale(0.443);
+  25.2% {
+    transform: translate(0px, 0px) scale(0.239);
     opacity: 1;
   }
-  41% {
-    transform: scale(0.518);
+  37.8% {
+    transform: translate(0px, 0px) scale(0.285);
     opacity: 1;
   }
-  53% {
-    transform: scale(0.617);
+  50.4% {
+    transform: translate(0px, 0px) scale(0.354);
     opacity: 1;
   }
-  63% {
-    transform: scale(0.73);
+  60.5% {
+    transform: translate(0px, 0px) scale(0.44);
     opacity: 1;
   }
-  70% {
-    transform: scale(0.845);
+  68.9% {
+    transform: translate(0px, 0px) scale(0.549);
     opacity: 1;
   }
-  76% {
-    transform: scale(1);
+  75.6% {
+    transform: translate(0px, 0px) scale(0.687);
     opacity: 1;
   }
+  79.8% {
+    transform: translate(0px, 0px) scale(0.814);
+    opacity: 1;
+  }
+  /* The design file's position. */
   84% {
-    transform: scale(1);
+    transform: translate(0px, 0px) scale(1);
     opacity: 1;
   }
-  97% {
-    transform: scale(1);
+  /* Past the bend: the road swings towards the bottom-right corner. */
+  86.2% {
+    transform: translate(46px, 22px) scale(1.134);
+    opacity: 1;
+  }
+  88.4% {
+    transform: translate(121px, 57px) scale(1.311);
+    opacity: 1;
+  }
+  90.1% {
+    transform: translate(194px, 91px) scale(1.497);
+    opacity: 1;
+  }
+  91.4% {
+    transform: translate(255px, 120px) scale(1.675);
+    opacity: 1;
+  }
+  /* Clear of the frame — the danfo's near edge is past x = 1440. */
+  92.7% {
+    transform: translate(320px, 150px) scale(1.901);
+    opacity: 1;
+  }
+  92.8% {
+    transform: translate(320px, 150px) scale(1.901);
     opacity: 0;
   }
   100% {
-    transform: scale(0.32);
+    transform: translate(0px, 0px) scale(0.18);
     opacity: 0;
   }
 }
@@ -159,6 +190,20 @@
   .hero__rotator,
   .hero__rotator-word {
     transition: none;
+  }
+}
+
+/* Portrait-ish viewports. Covering the frame there would centre the crop on
+   the pylons and bury the copy in cables — and push the road and the traffic
+   off the right edge entirely. Instead the artwork keeps its own proportions,
+   sits in a band along the bottom, and is anchored right so the bridge, the
+   road and the traffic are what survives the crop. */
+@media (max-aspect-ratio: 6 / 5) {
+  .hero__scene {
+    inset: auto 0 0 auto;
+    width: auto;
+    height: 56%;
+    aspect-ratio: 1440 / 1024;
   }
 }
 
@@ -420,13 +465,17 @@
 }
 
 @media (max-width: 899px) {
+  .hero-nav {
+    position: relative;
+  }
+
   .hero-nav__toggle {
     display: block;
   }
 
   .hero-nav__menu {
     position: absolute;
-    top: 100px;
+    top: 100%;
     right: 0;
     left: 0;
     z-index: 3;
@@ -451,18 +500,6 @@
 }
 
 @media (max-width: 767px) {
-  /* Covering the whole phone screen would centre the crop on the pylons and
-     bury the copy in cables. Instead the artwork keeps its own proportions,
-     sits in the bottom band, and is nudged right so the bridge, the road and
-     the traffic are what shows. */
-  .hero__scene {
-    inset: auto auto 0 50%;
-    width: 1440px;
-    height: 1024px;
-    transform: translate(calc(-50% + 130px), 0) scale(0.44);
-    transform-origin: bottom center;
-  }
-
   .hero__title {
     font-size: 44px;
     line-height: 52px;
@@ -476,7 +513,6 @@
 
   .hero__copy {
     margin-top: 64px;
-    padding-bottom: 340px;
   }
 
   .hero__break {

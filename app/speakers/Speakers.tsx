@@ -53,11 +53,23 @@ export function Speakers() {
         >
           {SPEAKERS.map((s, i) => {
             const offset = i - active;
+            const n = Math.abs(offset);
+            const dir = Math.sign(offset);
             return (
               <li
                 key={s.org}
                 className="speakers__slot"
-                style={{ ["--i" as string]: i }}
+                data-far={n > 2 || undefined}
+                style={{
+                  // Measured off the reference: the wall is concave, so cards
+                  // swing their *outer* edge towards the viewer and grow as they
+                  // go out (274px wide at centre, 1.10x one step out, 1.28x two).
+                  transform: [
+                    `translateX(${dir * 297.6 * n ** 0.681}px)`,
+                    `translateZ(${150 * n ** 1.3}px)`,
+                    `rotateY(${-offset * 24}deg)`,
+                  ].join(" "),
+                }}
                 data-current={i === active || undefined}
                 aria-current={i === active ? "true" : undefined}
               >

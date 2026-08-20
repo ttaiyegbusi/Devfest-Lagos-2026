@@ -1,0 +1,200 @@
+/* ---------------------------------------------------------------------------
+   Footer — an oversized watermark with the panel sitting over its lower half.
+   --------------------------------------------------------------------------- */
+
+.foot {
+  position: relative;
+  padding: 0 0 48px;
+  background: #171717;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* The watermark is sized off the viewport so it keeps the same relationship to
+   the panel at every width, and is clipped by the section rather than scaled
+   down to fit. */
+.foot__mark {
+  display: flex;
+  justify-content: center;
+  padding-top: 44px;
+  /* The panel rides up over the bottom of the wordmark, so the letters run on
+     behind it rather than sitting neatly above. */
+  margin-bottom: -62px;
+  pointer-events: none;
+}
+
+.foot__glyph {
+  width: min(1240px, 132%);
+  height: auto;
+  color: #3a3a3a;
+}
+
+/* The lockup ships in full Google colour; as a watermark it has to go flat. */
+.foot__glyph path {
+  fill: currentColor;
+  stroke: none;
+}
+
+.foot__panel {
+  position: relative;
+  width: min(1180px, 100% - var(--gutter) * 2);
+  margin-inline: auto;
+  padding: 44px 40px 28px;
+  border-radius: 12px;
+  background: #232323;
+}
+
+.foot__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) repeat(3, minmax(0, 1fr));
+  gap: 40px;
+  padding-bottom: 44px;
+}
+
+/* --- sign-up ------------------------------------------------------------- */
+
+.foot__heading {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.foot__sub {
+  margin: 4px 0 0;
+  font-size: 14.5px;
+  line-height: 21px;
+  color: #a3a3a3;
+}
+
+.foot__form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(348px, 100%);
+  margin-top: 30px;
+  padding: 0 14px 0 20px;
+  background: #fff;
+}
+
+.foot__input {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  border: 0;
+  background: transparent;
+  color: #171717;
+  font: inherit;
+  font-size: 14.5px;
+  outline: none;
+}
+
+.foot__input::placeholder {
+  color: #8a8a8a;
+}
+
+.foot__form:focus-within {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.foot__submit {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #171717;
+  cursor: pointer;
+  transition: opacity 150ms ease;
+}
+
+.foot__submit:hover {
+  opacity: 0.6;
+}
+
+/* --- link columns -------------------------------------------------------- */
+
+.foot__colhead {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.foot__col ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.foot__col li + li {
+  margin-top: 8px;
+}
+
+.foot__col a {
+  color: #a8a8a8;
+  font-size: 14.5px;
+  line-height: 22px;
+  transition: color 150ms ease;
+}
+
+.foot__col a:hover {
+  color: #fff;
+}
+
+.foot__legal {
+  margin: 0;
+  padding-top: 26px;
+  border-top: 1px solid #3a3a3a;
+  color: #b0b0b0;
+  font-size: 14.5px;
+  line-height: 22px;
+  text-align: center;
+}
+
+/* --- responsive ---------------------------------------------------------- */
+
+@media (max-width: 1023px) {
+  .foot__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 36px;
+  }
+
+  .foot__signup {
+    grid-column: 1 / -1;
+  }
+
+  .foot__mark {
+    margin-bottom: -48px;
+  }
+}
+
+@media (max-width: 599px) {
+  .foot__panel {
+    padding: 32px 22px 24px;
+  }
+
+  .foot__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+  }
+
+  .foot__mark {
+    padding-top: 32px;
+    margin-bottom: -26px;
+  }
+
+  .foot__glyph {
+    width: 170%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .foot__col a,
+  .foot__submit {
+    transition: none;
+  }
+}

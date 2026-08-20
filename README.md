@@ -10,13 +10,25 @@ npm run dev
 
 Next.js 16 (App Router) · TypeScript · plain CSS · oxlint.
 
+## Page order
+
+Hero → What to expect → Speakers → FAQs → Footer.
+
 ## Layout
 
 ```
 app/
   layout.tsx            metadata + globals
-  page.tsx
+  page.tsx              section order
   globals.css           @font-face, palette tokens, gutter scale, reset
+  expect/               "What to expect" — the fanned track cards
+    Expect.tsx  Expect.css  tracks.ts
+  speakers/             "Meet Our Speakers" — the curved screen wall
+    Speakers.tsx  Speakers.css  lineup.ts
+  faq/                  category rail + accordion
+    Faq.tsx  Faq.css  questions.ts
+  footer/               watermark + sign-up + link columns
+    SiteFooter.tsx  SiteFooter.css
   hero/
     Hero.tsx            hero markup (server)
     Hero.css            all hero layout + motion
@@ -50,6 +62,16 @@ The heading face is Faculty Glyphic (the diamond tittles on the `i` are the
 giveaway) and the UI face is Geist — identified by fitting per-word ink widths
 and inter-word gaps from the reference against every font on the design
 machine; Geist matched to under a pixel, Product Sans and Inter did not.
+
+## Placeholder content
+
+Three files carry copy that is standing in until the real thing exists, and all
+three say so at the top: `app/speakers/lineup.ts` (the lineup — set `image` to a
+file in `public/speakers/` and the tinted placeholder card is replaced by a real
+photo), `app/faq/questions.ts` (the answers; the questions themselves come from
+the design), and the blurbs in `app/expect/tracks.ts`.
+
+## Verifying the hero
 
 Verify a change by rendering at exactly 1440 × 1024 and diffing against
 `public/design/HERO.png`. `--force-prefers-reduced-motion` parks every
@@ -108,6 +130,31 @@ the reduced-motion state are all the reference line. Words are measured on mount
 and the box transitions between those widths, which is what lets the comma glide
 instead of jumping. The comma stays a comma — the design's tagline runs on into
 "Endless Opportunities."
+
+## The other sections
+
+**What to expect** deals four cards out in a fan: they overlap by a fixed pitch
+rather than sitting in a grid, and each carries its own tilt and vertical lift
+from `tracks.ts`. Hovering one lifts it clear of its neighbours so the copy that
+runs under the next card can be read. Below 900px the fan becomes a snap
+scroller — same cards, same tilts.
+
+**Speakers** is a concave wall of screens. The geometry was measured off the
+reference rather than guessed: cards swing their *outer* edge towards the viewer
+and grow as they go out (1.00x at centre, 1.10x one step out, 1.28x two), which
+is why the row curves toward you at the ends instead of receding. Each card's
+transform is computed in the component from its offset — `translateX(297.6 *
+n^0.681)`, `translateZ(150 * n^1.3)`, `rotateY(-24deg * offset)` — because CSS
+cannot take an absolute value or a power. Cards more than two steps out are
+dropped rather than left for the perspective to blow up off-screen.
+
+**FAQ** filters by category and opens one answer at a time. The rail becomes a
+scrollable chip row below 900px.
+
+**Footer** sizes its watermark off the viewport so it keeps the same
+relationship to the panel at every width, and the panel rides up over the bottom
+of the wordmark. The lockup ships in full Google colour, so the watermark
+flattens it to a single grey in CSS.
 
 ## The illustration
 

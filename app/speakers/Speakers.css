@@ -15,17 +15,17 @@
 .speakers {
   --card-w: 274px;
   --card-h: 256px;
-  --angle: 9deg;
-  /* radius = (card width + gap) / 2 / tan(angle / 2) — keeps the cards edge to
-     edge around the curve. */
-  --radius: 1800px;
+  --angle: 10.5deg;
+  /* Spacing around the curve is 2 * radius * sin(angle / 2). At 1790/10.5deg
+     that is 328px — the 274px card plus the 53px gap the reference leaves. */
+  --radius: 1790px;
   --accent: #ea4335;
   --panel: #0d0d0d;
   --ink-dim: #9b9490;
 
   position: relative;
   overflow: hidden;
-  padding: 96px 0 104px;
+  padding: 88px 0 96px;
   background: #1b1616;
   color: #fff;
 }
@@ -67,9 +67,8 @@
 /* --- intro --------------------------------------------------------------- */
 
 .speakers__intro {
-  max-width: 430px;
+  width: min(452px, 100% - 48px);
   margin-inline: auto;
-  padding-inline: 24px;
   text-align: center;
 }
 
@@ -78,12 +77,12 @@
   font-family: var(--font-display);
   font-size: 40px;
   font-weight: 400;
-  line-height: 1.1;
+  line-height: 44px;
   letter-spacing: -0.8px;
 }
 
 .speakers__lede {
-  margin: 14px 0 0;
+  margin: 10px 0 0;
   font-size: 16px;
   line-height: 22px;
   color: var(--ink-dim);
@@ -106,10 +105,6 @@
   padding: 0;
   list-style: none;
   transform-style: preserve-3d;
-  transform: translateZ(calc(var(--radius) * -1))
-    rotateY(calc(var(--active) * var(--angle) * -1));
-  transition: transform 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
-  will-change: transform;
 }
 
 .speakers__slot {
@@ -119,8 +114,18 @@
   width: var(--card-w);
   height: var(--card-h);
   margin-left: calc(var(--card-w) / -2);
-  transform: rotateY(calc(var(--i) * var(--angle))) translateZ(var(--radius));
   transform-style: preserve-3d;
+  transition:
+    transform 620ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 400ms ease;
+  will-change: transform;
+}
+
+/* Beyond two steps out a card is past the frame edge; drop it rather than let
+   the perspective blow it up off-screen. */
+.speakers__slot[data-far] {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* --- card ---------------------------------------------------------------- */
@@ -223,7 +228,7 @@
   align-items: center;
   justify-content: center;
   gap: 46px;
-  margin-top: 150px;
+  margin-top: 154px;
 }
 
 .speakers__arrow {
@@ -279,7 +284,7 @@
   .speakers {
     --card-w: 236px;
     --card-h: 220px;
-    --radius: 1550px;
+    --radius: 1550px; /* 2 * 1550 * sin(5.25deg) = 284 = card + 48 gap */
     padding-block: 76px 84px;
   }
 
@@ -300,8 +305,8 @@
   .speakers {
     --card-w: 200px;
     --card-h: 188px;
-    --angle: 11deg;
-    --radius: 1080px;
+    --angle: 13deg;
+    --radius: 1080px; /* 2 * 1080 * sin(6.5deg) = 245 = card + 45 gap */
     padding-block: 64px 72px;
   }
 

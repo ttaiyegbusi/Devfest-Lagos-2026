@@ -77,10 +77,12 @@ its far edge behind the bridge. Scaling about that single point *is* perspective
 travel: every part of the danfo and the keke slides along its own ray from the
 vanishing point, so roofs rise, wheels drop, and they stay on the tarmac all the
 way down. Scale steps trace `1/(a − bt)` — constant speed on the road, which on
-screen reads as acceleration towards the camera. Past the design position (84%
-of the cycle) the road bends towards the bottom-right corner, so the last
-stretch adds a translation on top of the scale and they carry on out of frame.
-Tune with `--traffic-duration` (default 20s).
+screen reads as acceleration towards the camera. They enter already a good way
+down the road rather than as specks at the vanishing point, so the whole
+approach covers ground instead of growing in place. Past the design position
+(75% of the cycle) the road bends towards the bottom-right corner, so the last
+stretch adds a translation on top of the scale and they carry on out of frame
+rather than stopping. Tune with `--traffic-duration` (default 14s).
 
 **The headline word** cycles Community → Event → Place → Experience → Network →
 Ecosystem. It rests on "Ecosystem", so the server render, the first paint and

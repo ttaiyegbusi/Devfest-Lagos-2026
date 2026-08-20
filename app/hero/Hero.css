@@ -77,88 +77,93 @@
 .hero-scene__traffic {
   transform-box: view-box;
   transform-origin: 999px 791px;
-  animation: hero-traffic var(--traffic-duration, 20s) linear infinite;
+  animation: hero-traffic var(--traffic-duration, 14s) linear infinite;
   will-change: transform, opacity;
 }
 
 /* Every step carries the same transform functions so the browser interpolates
-   them component-wise rather than falling back to matrix decomposition. */
+   them component-wise rather than falling back to matrix decomposition.
+
+   Scale steps trace 1/(a - bt) — constant speed along the road, so the
+   on-screen motion accelerates towards the camera the way a real vehicle does.
+   They enter already a good way down the road rather than as specks at the
+   vanishing point: from there the whole approach covers ground, instead of
+   spending most of the loop growing in place with barely any travel. */
 @keyframes hero-traffic {
-  /* Approach. Scale steps trace 1/(a - bt), i.e. constant speed along the
-     road, which on screen reads as acceleration towards the camera. */
   0% {
-    transform: translate(0px, 0px) scale(0.18);
+    transform: translate(0px, 0px) scale(0.36);
     opacity: 0;
   }
-  4% {
-    transform: translate(0px, 0px) scale(0.187);
+  3% {
+    transform: translate(0px, 0px) scale(0.369);
     opacity: 1;
   }
-  12.6% {
-    transform: translate(0px, 0px) scale(0.205);
+  11.3% {
+    transform: translate(0px, 0px) scale(0.398);
     opacity: 1;
   }
-  25.2% {
-    transform: translate(0px, 0px) scale(0.239);
+  22.5% {
+    transform: translate(0px, 0px) scale(0.445);
     opacity: 1;
   }
-  37.8% {
-    transform: translate(0px, 0px) scale(0.285);
+  33.8% {
+    transform: translate(0px, 0px) scale(0.506);
     opacity: 1;
   }
-  50.4% {
-    transform: translate(0px, 0px) scale(0.354);
+  45% {
+    transform: translate(0px, 0px) scale(0.584);
     opacity: 1;
   }
-  60.5% {
-    transform: translate(0px, 0px) scale(0.44);
+  54% {
+    transform: translate(0px, 0px) scale(0.667);
     opacity: 1;
   }
-  68.9% {
-    transform: translate(0px, 0px) scale(0.549);
+  61.5% {
+    transform: translate(0px, 0px) scale(0.758);
     opacity: 1;
   }
-  75.6% {
-    transform: translate(0px, 0px) scale(0.687);
+  67.5% {
+    transform: translate(0px, 0px) scale(0.849);
     opacity: 1;
   }
-  79.8% {
-    transform: translate(0px, 0px) scale(0.814);
+  72% {
+    transform: translate(0px, 0px) scale(0.934);
     opacity: 1;
   }
   /* The design file's position. */
-  84% {
+  75% {
     transform: translate(0px, 0px) scale(1);
     opacity: 1;
   }
-  /* Past the bend: the road swings towards the bottom-right corner. */
-  86.2% {
+  /* Past the bend: the road swings towards the bottom-right corner, so the
+     last stretch adds a translation on top of the scale. */
+  80% {
     transform: translate(46px, 22px) scale(1.134);
     opacity: 1;
   }
-  88.4% {
+  85% {
     transform: translate(121px, 57px) scale(1.311);
     opacity: 1;
   }
-  90.1% {
+  89% {
     transform: translate(194px, 91px) scale(1.497);
     opacity: 1;
   }
-  91.4% {
+  92% {
     transform: translate(255px, 120px) scale(1.675);
     opacity: 1;
   }
-  /* Clear of the frame — the danfo's near edge is past x = 1440. */
-  92.7% {
+  /* Clear of the frame — both near edges are past x = 1440. */
+  95% {
     transform: translate(320px, 150px) scale(1.901);
     opacity: 1;
   }
-  92.8% {
+  95.1% {
     transform: translate(320px, 150px) scale(1.901);
     opacity: 0;
   }
   100% {
-    transform: translate(0px, 0px) scale(0.18);
+    transform: translate(0px, 0px) scale(0.36);
     opacity: 0;
   }
 }

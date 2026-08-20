@@ -45,6 +45,12 @@
   backface-visibility: hidden;
 }
 
+/* Everything handed to the stack is a full-bleed layer rather than flowing
+   content, so it fills its stage. */
+.stack__slab > * {
+  height: 100%;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .stack__slab {
     transform: none;

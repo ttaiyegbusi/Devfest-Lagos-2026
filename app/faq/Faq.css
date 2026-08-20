@@ -75,11 +75,10 @@
 
 /* --- questions ----------------------------------------------------------- */
 
-/* Height is reserved for the longest category, so switching filters swaps the
-   questions without the section growing or shrinking under the pointer. The
-   value is the "All" list: 7 rows at 57px. */
+/* --rows comes from the component: the longest category's question count. A row
+   is 56px of trigger plus its 1px rule. */
 .faq__list {
-  min-height: 399px;
+  min-height: calc(var(--rows, 7) * 57px);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -165,9 +164,9 @@
 /* --- responsive ---------------------------------------------------------- */
 
 @media (max-width: 899px) {
-  /* Rows wrap to two lines at this width, so the reserved height goes up. */
+  /* Rows wrap to two lines at this width, so each one is taller. */
   .faq__list {
-    min-height: 470px;
+    min-height: calc(var(--rows, 7) * 67px);
   }
 
   .faq__body {

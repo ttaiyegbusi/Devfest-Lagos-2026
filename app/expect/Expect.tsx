@@ -1,18 +1,13 @@
-import { Stack } from "../stack/Stack";
 import { TRACKS, type Media, type Shot, type Track } from "./tracks";
 import "./Expect.css";
 
-export function Expect() {
-  return (
-    <>
-      <WarpDef />
-      <Stack>
-        {TRACKS.map((track) => (
-          <Panel key={track.n} track={track} />
-        ))}
-      </Stack>
-    </>
-  );
+/* The panels are handed to the stack in page.tsx as siblings of the hero
+   rather than wrapped in a stack of their own here. 01 has to rise over the
+   hero the same way 02 rises over 01, and it can only do that if the hero is
+   a pinned layer in the same stack — a stack starting at 01 leaves 01 with
+   nothing underneath to climb over. */
+export function expectPanels() {
+  return TRACKS.map((track) => <Panel key={track.n} track={track} />);
 }
 
 function Panel({ track }: { track: Track }) {
@@ -69,9 +64,14 @@ function MediaBlock({ media }: { media: Media }) {
   switch (media.kind) {
     case "photo":
       return (
-        <figure className="frame">
-          <Art shot={media.shot} className="frame__shot" />
-        </figure>
+        <>
+          {/* Only one panel is a photo, so the one clip path is defined where
+              it is used and its id cannot collide. */}
+          <WarpDef />
+          <figure className="frame">
+            <Art shot={media.shot} className="frame__shot" />
+          </figure>
+        </>
       );
 
     case "pills":

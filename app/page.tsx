@@ -1,5 +1,6 @@
+import { Stack } from "./stack/Stack";
 import { Hero } from "./hero/Hero";
-import { Expect } from "./expect/Expect";
+import { expectPanels } from "./expect/Expect";
 import { Speakers } from "./speakers/Speakers";
 import { Faq } from "./faq/Faq";
 import { SiteFooter } from "./footer/SiteFooter";
@@ -7,8 +8,12 @@ import { SiteFooter } from "./footer/SiteFooter";
 export default function Page() {
   return (
     <>
-      <Hero />
-      <Expect />
+      {/* The hero is the stack's first pinned layer, which is what gives panel
+          01 something to rise over. */}
+      <Stack>
+        <Hero />
+        {expectPanels()}
+      </Stack>
       <Speakers />
       <Faq />
       <SiteFooter />

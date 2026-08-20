@@ -11,6 +11,14 @@ export function Faq() {
 
   const shown = FAQS.filter((f) => group === "All" || f.group === group);
 
+  // The list reserves the height of the longest category so switching filters
+  // swaps the questions without the section growing or shrinking under the
+  // pointer. "All" is always the longest, but derive it rather than assume.
+  const tallest = Math.max(
+    FAQS.length,
+    ...GROUPS.map((g) => FAQS.filter((f) => f.group === g).length),
+  );
+
   return (
     <section className="faq" aria-labelledby={`${id}-title`}>
       <div className="faq__intro">
@@ -39,7 +47,7 @@ export function Faq() {
           ))}
         </nav>
 
-        <ul className="faq__list">
+        <ul className="faq__list" style={{ ["--rows" as string]: tallest }}>
           {shown.map((f) => {
             const isOpen = open === f.q;
             return (

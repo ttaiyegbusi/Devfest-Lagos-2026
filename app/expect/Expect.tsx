@@ -1,43 +1,152 @@
-import { TRACKS } from "./tracks";
+import { Stack } from "../stack/Stack";
+import { TRACKS, type Media, type Shot, type Track } from "./tracks";
 import "./Expect.css";
 
 export function Expect() {
   return (
-    <section className="expect" aria-labelledby="expect-title">
-      <div className="expect__intro">
-        <h2 className="expect__title" id="expect-title">
-          What to expect this year!
-        </h2>
-        <p className="expect__lede">
-          Dive into the most complete visual library out there, curated to help
-          you discover the references.
+    <>
+      <WarpDef />
+      <Stack>
+        {TRACKS.map((track) => (
+          <Panel key={track.n} track={track} />
+        ))}
+      </Stack>
+    </>
+  );
+}
+
+function Panel({ track }: { track: Track }) {
+  const id = `expect-${track.n}`;
+
+  return (
+    <section
+      className={`panel panel--${track.side} panel--${track.media.kind}`}
+      aria-labelledby={id}
+      style={{
+        ["--bg" as string]: track.bg,
+        ["--ink" as string]: track.ink,
+        ["--fg" as string]: track.fg,
+        ["--line" as string]: track.line,
+      }}
+    >
+      <div className="panel__head">
+        {/* The number is the first line of the heading block, on the same
+            leading as the title, which is how the reference sets it. */}
+        <p className="panel__n" aria-hidden="true">
+          {track.n}
         </p>
+        <h2 className="panel__title" id={id}>
+          {track.title.split("\n").map((line) => (
+            <span key={line}>{line}</span>
+          ))}
+        </h2>
       </div>
 
-      <ul className="expect__fan">
-        {TRACKS.map((t) => (
-          <li
-            key={t.n}
-            className="expect__card"
-            style={{
-              ["--bg" as string]: t.bg,
-              ["--ink" as string]: t.ink,
-              ["--tilt" as string]: `${t.tilt}deg`,
-              ["--lift" as string]: `${t.lift}px`,
-            }}
-          >
-            <p className="expect__n" aria-hidden="true">
-              {t.n}
-            </p>
-            <h3 className="expect__name">
-              {t.title.split("\n").map((line, i) => (
-                <span key={i}>{line}</span>
-              ))}
-            </h3>
-            <p className="expect__blurb">{t.blurb}</p>
-          </li>
-        ))}
-      </ul>
+      <hr className="panel__rule" />
+
+      <div className="panel__body">
+        {track.body ? <p className="panel__prose">{track.body}</p> : null}
+
+        {track.points ? (
+          <ul className="panel__points">
+            {track.points.map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </ul>
+        ) : null}
+
+        {track.close ? <p className="panel__close">{track.close}</p> : null}
+      </div>
+
+      <div className="panel__media">
+        <MediaBlock media={track.media} />
+      </div>
     </section>
+  );
+}
+
+function MediaBlock({ media }: { media: Media }) {
+  switch (media.kind) {
+    case "photo":
+      return (
+        <figure className="frame">
+          <Art shot={media.shot} className="frame__shot" />
+        </figure>
+      );
+
+    case "pills":
+      return (
+        <ul className="pills">
+          {media.rows.map((row, r) => (
+            <li key={r} className="pills__row">
+              <ul className="pills__line">
+                {row.map((pill) => (
+                  <li
+                    key={pill.label}
+                    className="pills__pill"
+                    style={{
+                      ["--pill-bg" as string]: pill.bg,
+                      ["--pill-fg" as string]: pill.fg,
+                    }}
+                  >
+                    {pill.label}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      );
+
+    case "grid":
+      return (
+        <div className="shots shots--grid">
+          {media.shots.map((s, i) => (
+            <Art key={i} shot={s} className="shots__shot" />
+          ))}
+        </div>
+      );
+
+    case "strip":
+      return (
+        <div className="shots shots--strip">
+          {media.shots.map((s, i) => (
+            <Art key={i} shot={s} className="shots__shot" />
+          ))}
+        </div>
+      );
+  }
+}
+
+/* A shot is either the photograph or, until there is one, a tinted block in
+   its place — same box either way, so the layout does not move when the real
+   pictures land. */
+function Art({ shot, className }: { shot: Shot; className: string }) {
+  if (shot.image) {
+    return <img className={className} src={shot.image} alt={shot.alt ?? ""} />;
+  }
+  return (
+    <span
+      className={`${className} art--placeholder`}
+      style={{
+        ["--from" as string]: shot.tint[0],
+        ["--to" as string]: shot.tint[1],
+      }}
+    />
+  );
+}
+
+/* Panel 01's frame has bowed edges, the way a print photographed slightly
+   off-flat does. objectBoundingBox units, so the one path serves the frame at
+   every width and the sliver behind it can reuse the path verbatim. */
+function WarpDef() {
+  return (
+    <svg className="panel__defs" aria-hidden="true" focusable="false">
+      <defs>
+        <clipPath id="expect-warp" clipPathUnits="objectBoundingBox">
+          <path d="M.010.030 Q.500.008 .990.016 Q1.002.500 .986.980 Q.500 1.002 .020.988 Q.002.500 .010.030 Z" />
+        </clipPath>
+      </defs>
+    </svg>
   );
 }

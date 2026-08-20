@@ -75,7 +75,11 @@
 
 /* --- questions ----------------------------------------------------------- */
 
+/* Height is reserved for the longest category, so switching filters swaps the
+   questions without the section growing or shrinking under the pointer. The
+   value is the "All" list: 7 rows at 57px. */
 .faq__list {
+  min-height: 399px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -161,6 +165,11 @@
 /* --- responsive ---------------------------------------------------------- */
 
 @media (max-width: 899px) {
+  /* Rows wrap to two lines at this width, so the reserved height goes up. */
+  .faq__list {
+    min-height: 470px;
+  }
+
   .faq__body {
     grid-template-columns: minmax(0, 1fr);
     gap: 28px;

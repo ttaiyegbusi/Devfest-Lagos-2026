@@ -1,0 +1,52 @@
+/* ---------------------------------------------------------------------------
+   The pinned stack. See Stack.tsx for what the three classes are doing; the
+   short version is that `--stage` is one panel's worth of screen, a section is
+   two of them, and the negative margin overlaps each section's entrance with
+   the previous one's pin.
+   --------------------------------------------------------------------------- */
+
+.stack {
+  /* svh rather than vh so the mobile URL bar collapsing does not resize every
+     panel mid-scroll. The floor keeps a very short window from crushing the
+     panel interiors, which are calibrated against 900. */
+  --stage: max(100svh, 620px);
+
+  position: relative;
+}
+
+.stack__sec {
+  position: relative;
+  height: calc(var(--stage) * 2);
+}
+
+/* Each panel's entrance runs underneath the previous panel's pin rather than
+   after it — this is the whole trick. */
+.stack__sec + .stack__sec {
+  margin-top: calc(var(--stage) * -1);
+}
+
+.stack__layer {
+  position: sticky;
+  top: 0;
+  height: var(--stage);
+  /* Clips the tilted slab back to the screen, so what shows above its leading
+     edge is the panel behind. */
+  overflow: hidden;
+}
+
+.stack__slab {
+  position: absolute;
+  inset: 0;
+  transform: rotate(var(--rot, 0deg)) scale(var(--cover, 1));
+  transform-origin: 0 0;
+  /* The tilt is sub-pixel for most of its life; without this the text inside
+     shimmers as it resolves. */
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stack__slab {
+    transform: none;
+  }
+}

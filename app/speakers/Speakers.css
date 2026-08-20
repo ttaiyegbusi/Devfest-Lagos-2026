@@ -1,24 +1,32 @@
 /* ---------------------------------------------------------------------------
-   Meet Our Speakers — a curved wall of screens.
+   Meet Our Speakers — a concave wall of screens.
 
-   The cards sit on the surface of a cylinder: each one is rotated by its index
-   times --angle and pushed out by --radius, and the whole track is pulled back
-   by the same radius so the centred card lands flat against the viewer. That is
-   what makes the row curve away at both ends instead of just sliding. Advancing
-   rotates the track by one step, so the cards travel around the barrel rather
-   than shuffling sideways.
+   Cards swing their *outer* edge towards the viewer and come forward as they go
+   out, so the row curves toward you at the ends rather than receding. Each
+   card's placement is computed in the component from its offset — CSS can
+   neither take an absolute value nor raise to a power — but the distances it
+   multiplies live here as --step and --depth so the whole thing scales with the
+   card at each breakpoint.
 
-   Geometry is taken from the reference at 1440: card 274 x 256, 38px chrome
-   bar, 11px inset around the artwork.
+   Every constant below was solved from the reference rather than dialled in by
+   eye: its centre card, the two edge heights of the card one step out, and the
+   projected centre offsets give one exact solution for perspective, depth,
+   rotation and step (scripts/carousel.py). It lands on 680px / 35.2px / 18.5deg
+   / 353px.
+
+   The rotation is what keeps the cards apart. At 18.5deg a card one step out is
+   1.14x nearer at its leading edge, but turned just enough that cos(18.5deg)
+   cancels the gain — so it projects to the same *width* as the centre card and
+   the 60px gap between them survives. Raise the angle and the cards go
+   trapezoidal; drop it and they grow into each other.
    --------------------------------------------------------------------------- */
 
 .speakers {
-  --card-w: 274px;
-  --card-h: 256px;
-  --angle: 10.5deg;
-  /* Spacing around the curve is 2 * radius * sin(angle / 2). At 1790/10.5deg
-     that is 328px — the 274px card plus the 53px gap the reference leaves. */
-  --radius: 1790px;
+  --card-w: 312px;
+  --card-h: 294px;
+  --step: 353px;
+  --depth: 35.2px;
+  --persp: 680px;
   --accent: #ea4335;
   --panel: #0d0d0d;
   --ink-dim: #9b9490;
@@ -42,20 +50,17 @@
     transparent 0
   );
   background-size: 24px 24px;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    #000 22%,
-    #000 78%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    #000 22%,
-    #000 78%,
-    transparent 100%
-  );
+  /* Two masks: an ellipse that bows the top edge of the dot field into an arc
+     under the heading, and a vertical fade so it never meets the section edges
+     as a hard line. */
+  -webkit-mask-image:
+    radial-gradient(140% 118% at 50% 122%, #000 52%, transparent 84%),
+    linear-gradient(to bottom, transparent 0%, #000 20%, #000 76%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(140% 118% at 50% 122%, #000 52%, transparent 84%),
+    linear-gradient(to bottom, transparent 0%, #000 20%, #000 76%, transparent 100%);
+  mask-composite: intersect;
   pointer-events: none;
 }
 
@@ -93,7 +98,7 @@
 .speakers__stage {
   height: var(--card-h);
   margin-top: 116px;
-  perspective: 1500px;
+  perspective: var(--persp);
   perspective-origin: 50% 50%;
   outline: none;
 }
@@ -134,7 +139,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  padding: 0 11px 11px;
+  padding: 0 12px 10px;
   border: 0;
   border-radius: 4px;
   background: var(--panel);
@@ -164,9 +169,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 38px;
-  margin-inline: -3px;
-  padding-inline: 11px;
+  height: 40px;
+  margin-inline: -4px;
+  padding-inline: 12px;
 }
 
 .card__light {
@@ -188,9 +193,9 @@
 .card__view {
   position: relative;
   display: block;
-  height: calc(100% - 38px);
+  height: calc(100% - 40px);
   overflow: hidden;
-  border-radius: 2px;
+  border-radius: 3px;
   background: #000;
 }
 
@@ -214,7 +219,7 @@
   place-items: center;
   padding-inline: 12px;
   color: #fff;
-  font-size: 30px;
+  font-size: 34px;
   line-height: 1.1;
   letter-spacing: -0.6px;
   text-align: center;
@@ -282,9 +287,11 @@
 
 @media (max-width: 1023px) {
   .speakers {
-    --card-w: 236px;
-    --card-h: 220px;
-    --radius: 1550px; /* 2 * 1550 * sin(5.25deg) = 284 = card + 48 gap */
+    --card-w: 262px;
+    --card-h: 248px;
+    --step: 296px;
+    --depth: 29.6px;
+    --persp: 571px;
     padding-block: 76px 84px;
   }
 
@@ -303,10 +310,11 @@
 
 @media (max-width: 767px) {
   .speakers {
-    --card-w: 200px;
-    --card-h: 188px;
-    --angle: 13deg;
-    --radius: 1080px; /* 2 * 1080 * sin(6.5deg) = 245 = card + 45 gap */
+    --card-w: 208px;
+    --card-h: 196px;
+    --step: 235px;
+    --depth: 23.5px;
+    --persp: 454px;
     padding-block: 64px 72px;
   }
 

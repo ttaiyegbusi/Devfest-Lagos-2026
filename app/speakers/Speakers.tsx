@@ -61,13 +61,18 @@ export function Speakers() {
                 className="speakers__slot"
                 data-far={n > 2 || undefined}
                 style={{
-                  // Measured off the reference: the wall is concave, so cards
-                  // swing their *outer* edge towards the viewer and grow as they
-                  // go out (274px wide at centre, 1.10x one step out, 1.28x two).
+                  // Concave wall. Cards swing their *outer* edge towards the
+                  // viewer and come forward as they go out, so the row curves
+                  // toward you at the ends instead of receding.
+                  //
+                  // The distances come from CSS so they scale with the card at
+                  // each breakpoint; only the offset maths is done here, since
+                  // CSS can neither take an absolute value nor raise to a
+                  // power.
                   transform: [
-                    `translateX(${dir * 297.6 * n ** 0.681}px)`,
-                    `translateZ(${150 * n ** 1.3}px)`,
-                    `rotateY(${-offset * 24}deg)`,
+                    `translateX(calc(var(--step) * ${(dir * n ** 0.823).toFixed(4)}))`,
+                    `translateZ(calc(var(--depth) * ${n}))`,
+                    `rotateY(${-offset * 18.5}deg)`,
                   ].join(" "),
                 }}
                 data-current={i === active || undefined}

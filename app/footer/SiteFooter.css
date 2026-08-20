@@ -26,7 +26,23 @@
 .foot__glyph {
   width: min(1240px, 132%);
   height: auto;
-  color: #3a3a3a;
+  color: #4a4a4a;
+  /* Fades top to bottom so the wordmark dissolves into the section instead of
+     stopping dead where the panel covers it. */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.55) 46%,
+    rgba(0, 0, 0, 0.12) 78%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.55) 46%,
+    rgba(0, 0, 0, 0.12) 78%,
+    transparent 100%
+  );
 }
 
 /* The lockup ships in full Google colour; as a watermark it has to go flat. */

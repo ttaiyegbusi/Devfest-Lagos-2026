@@ -22,8 +22,7 @@
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  height: 100%;
-  min-height: 620px;
+  min-height: var(--stage, 900px);
   padding: 64px var(--pad) 0;
   background: var(--bg);
   color: var(--fg);
@@ -264,6 +263,31 @@
   white-space: nowrap;
 }
 
+/* The pit the pills fall into. It is the physics engine's coordinate space, so
+   the inset is a margin rather than padding — an absolutely positioned child is
+   placed against the padding box, and padding here would put the walls and the
+   pills in two different frames. */
+.pit {
+  position: relative;
+  height: min(686px, 74vh);
+  margin: 94px 0 0 46px;
+  /* Vertical panning still belongs to the page; only a hit on a pill takes the
+     pointer, and that is decided in JS. */
+  touch-action: pan-y;
+}
+
+.pit__pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: grab;
+  will-change: transform;
+}
+
+.pit.is-grabbing .pit__pill {
+  cursor: grabbing;
+}
+
 /* --- 03 and 04: photographs ---------------------------------------------- */
 
 .shots__shot {
@@ -452,7 +476,6 @@
       "body"
       "media";
     grid-template-rows: none;
-    height: auto;
     padding-inline: var(--gutter);
   }
 

@@ -1,12 +1,16 @@
 /* ---------------------------------------------------------------------------
-   The pinned stack. See Stack.tsx for what the three classes are doing; the
-   short version is that `--stage` is one panel's worth of screen, a section is
-   two of them, and the negative margin overlaps each section's entrance with
-   the previous one's pin.
+   The pinned stack. Stack.tsx carries the reasoning; the short version is that
+   `--stage` is one panel's worth of screen, a section is the panel's own
+   height plus one stage, and the negative margin overlaps each section's
+   entrance with the previous one's pin.
+
+   --sec-h and --pin are written by the component because both depend on a
+   layer's own height, which CSS cannot reference. The fallbacks here are the
+   case where a panel fits the screen exactly, which is what desktop is.
    --------------------------------------------------------------------------- */
 
 .stack {
-  /* svh rather than vh so the mobile URL bar collapsing does not resize every
+  /* svh rather than vh so a collapsing mobile URL bar does not resize every
      panel mid-scroll. The floor keeps a very short window from crushing the
      panel interiors, which are calibrated against 900. */
   --stage: max(100svh, 620px);
@@ -16,7 +20,7 @@
 
 .stack__sec {
   position: relative;
-  height: calc(var(--stage) * 2);
+  height: var(--sec-h, calc(var(--stage) * 2));
 }
 
 /* Each panel's entrance runs underneath the previous panel's pin rather than
@@ -27,16 +31,19 @@
 
 .stack__layer {
   position: sticky;
-  top: 0;
-  height: var(--stage);
-  /* Clips the tilted slab back to the screen, so what shows above its leading
+  /* Negative for a panel taller than the screen, which makes it catch on its
+     bottom edge — so all of it has been read by the time it parks. */
+  top: var(--pin, 0px);
+  min-height: var(--stage);
+  /* Clips the tilted slab back to the panel, so what shows above its leading
      edge is the panel behind. */
   overflow: hidden;
 }
 
+/* In flow, not absolute: the layer takes its height from the panel inside, and
+   that height is what the two lengths above are derived from. */
 .stack__slab {
-  position: absolute;
-  inset: 0;
+  position: relative;
   transform: rotate(var(--rot, 0deg)) scale(var(--cover, 1));
   transform-origin: 0 0;
   /* The tilt is sub-pixel for most of its life; without this the text inside
@@ -45,10 +52,10 @@
   backface-visibility: hidden;
 }
 
-/* Everything handed to the stack is a full-bleed layer rather than flowing
-   content, so it fills its stage. */
+/* Whatever is handed to the stack is a full-bleed layer, so it fills the
+   screen at minimum — and is free to run past it, which is what mobile does. */
 .stack__slab > * {
-  height: 100%;
+  min-height: var(--stage);
 }
 
 @media (prefers-reduced-motion: reduce) {

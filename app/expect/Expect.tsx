@@ -1,4 +1,5 @@
 import { TRACKS, type Media, type Shot, type Track } from "./tracks";
+import { PillPit } from "./PillPit";
 import "./Expect.css";
 
 /* The panels are handed to the stack in page.tsx as siblings of the hero
@@ -75,28 +76,7 @@ function MediaBlock({ media }: { media: Media }) {
       );
 
     case "pills":
-      return (
-        <ul className="pills">
-          {media.rows.map((row, r) => (
-            <li key={r} className="pills__row">
-              <ul className="pills__line">
-                {row.map((pill) => (
-                  <li
-                    key={pill.label}
-                    className="pills__pill"
-                    style={{
-                      ["--pill-bg" as string]: pill.bg,
-                      ["--pill-fg" as string]: pill.fg,
-                    }}
-                  >
-                    {pill.label}
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ul>
-      );
+      return <PillPit rows={media.rows} />;
 
     case "grid":
       return (

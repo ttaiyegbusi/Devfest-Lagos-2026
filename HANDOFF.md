@@ -204,6 +204,35 @@ The distances live in CSS as `--step` / `--depth` / `--persp` so they scale per
 breakpoint; only the offset maths is done in the component, because CSS can
 neither take an absolute value nor raise to a power.
 
+### Falling pills (panel 02)
+
+The topic cloud is a matter-js drop, ported from `app/talks/TalksSection.tsx` in
+the *New DevFest Lagos 2026 Website* repo. `app/expect/PillPit.tsx`.
+
+The pills stay **real DOM elements** — selectable, searchable, crisp — and the
+engine only ever hands each one a position and an angle; drawing them into a
+canvas would cost all of that for nothing. Bodies are sized from what the DOM
+actually measured, so the physics outline matches the rendered pill at any font
+size. matter-js is imported on demand when the panel scrolls into view, so it
+stays out of the initial bundle.
+
+Three things in there are load-bearing and easy to undo by accident:
+
+* **The fixed 60fps step.** Frame-derived stepping lets a slow frame tunnel a
+  pill straight through the floor.
+* **The generation counter.** Strict Mode mounts twice; without it the second
+  mount starts a second world while the first is still awaiting its import, and
+  two engines write to the same pills.
+* **Hand-rolled pointer dragging** rather than matter's `MouseConstraint`, which
+  binds wheel and touchmove with `preventDefault` and would stop the page
+  scrolling past the panel. A pointer-down that misses every pill is left alone.
+
+The pit's inset is a **margin, not padding** — an absolutely positioned child is
+placed against the padding box, so padding would put the walls and the pills in
+two different coordinate frames.
+
+Reduced motion gets the cloud laid out statically in the eight hand-set rows.
+
 ---
 
 ## 7. FAQ and Footer

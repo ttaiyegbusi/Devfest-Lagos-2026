@@ -7,19 +7,15 @@
 }
 
 .hero__scene {
-  width: 1937px;
-  height: 1154px;
-  transform: translateX(-50%) scale(var(--scene-scale, 1));
-  transform-origin: top;
   pointer-events: none;
   z-index: 0;
   position: absolute;
-  inset: 0 auto auto 50%;
+  inset: 0;
 }
 
 .hero-scene {
-  width: 1937px;
-  height: 1154px;
+  width: 100%;
+  height: 100%;
   display: block;
 }
 
@@ -48,14 +44,14 @@
   }
 
   to {
-    transform: translateX(1937px);
+    transform: translateX(1440px);
   }
 }
 
 .hero-scene__traffic {
   transform-box: view-box;
-  transform-origin: 1245px 791px;
-  animation: hero-traffic var(--traffic-duration, 21s) linear infinite;
+  transform-origin: 999px 791px;
+  animation: hero-traffic var(--traffic-duration, 24s) linear infinite;
   will-change: transform, opacity;
 }
 
@@ -65,52 +61,52 @@
     transform: scale(.32);
   }
 
-  6% {
+  5% {
     opacity: 1;
-    transform: scale(.334);
+    transform: scale(.335);
   }
 
-  18% {
+  17% {
     opacity: 1;
-    transform: scale(.386);
+    transform: scale(.383);
   }
 
-  30% {
+  29% {
     opacity: 1;
-    transform: scale(.45);
+    transform: scale(.443);
   }
 
-  42% {
+  41% {
     opacity: 1;
-    transform: scale(.53);
+    transform: scale(.518);
   }
 
-  54% {
+  53% {
     opacity: 1;
-    transform: scale(.64);
+    transform: scale(.617);
   }
 
   63% {
     opacity: 1;
-    transform: scale(.76);
+    transform: scale(.73);
   }
 
   70% {
     opacity: 1;
-    transform: scale(.9);
+    transform: scale(.845);
   }
 
-  75% {
+  76% {
     opacity: 1;
     transform: scale(1);
   }
 
-  88% {
+  84% {
     opacity: 1;
     transform: scale(1);
   }
 
-  96% {
+  97% {
     opacity: 0;
     transform: scale(1);
   }
@@ -172,13 +168,13 @@
 
 .hero-nav__menu {
   align-items: center;
-  gap: 38px;
+  gap: 41px;
   display: flex;
 }
 
 .hero-nav__links {
   align-items: center;
-  gap: 21px;
+  gap: 18px;
   margin: 0;
   padding: 0;
   font-size: 14px;
@@ -246,16 +242,16 @@
 }
 
 .hero__copy {
-  margin-top: 150px;
+  margin-top: 153px;
 }
 
 .hero__title {
   max-width: 20ch;
   font-family: var(--font-display);
-  letter-spacing: 0;
+  letter-spacing: -2.85px;
   color: var(--ink);
   margin: 0;
-  font-size: 64px;
+  font-size: 70px;
   font-weight: 400;
   line-height: 80px;
 }
@@ -266,20 +262,20 @@
 
 .hero__lede {
   color: var(--ink);
-  margin: 23px 0 0;
+  margin: 20px 0 0;
   font-size: 24px;
   font-weight: 400;
-  line-height: 29px;
+  line-height: 30px;
 }
 
 .hero__ask {
   background: var(--ink);
   color: #fff;
   align-items: center;
-  gap: 13px;
+  gap: 10px;
   width: 347px;
   height: 60px;
-  margin-top: 42px;
+  margin-top: 40px;
   padding-inline: 22px;
   display: flex;
 }
@@ -331,10 +327,6 @@
 }
 
 @media (max-width: 1199px) {
-  .hero {
-    --scene-scale: .86;
-  }
-
   .hero__title {
     font-size: 52px;
     line-height: 64px;
@@ -382,13 +374,12 @@
 }
 
 @media (max-width: 767px) {
-  .hero {
-    --scene-scale: .62;
-  }
-
   .hero__scene {
     transform-origin: bottom;
+    width: 1440px;
+    height: 1024px;
     inset: auto auto 0 50%;
+    transform: translate(calc(130px - 50%))scale(.44);
   }
 
   .hero__title {

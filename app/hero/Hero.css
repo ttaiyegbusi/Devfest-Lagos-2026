@@ -16,25 +16,21 @@
 
 /* --- artwork ------------------------------------------------------------- */
 
-/* The illustration is placed at its intrinsic 1937 x 1154 and centred, so the
-   viewport crops it rather than the other way round. That crop is the
-   composition: the bridge deck runs off the right edge and the lagoon runs off
-   the bottom. */
+/* The artwork is authored at exactly the 1440 x 1024 reference frame, so at
+   that size it lands 1:1. Everywhere else the SVG's own "slice" fit covers the
+   hero from the top edge: wider viewports reveal more road, taller ones let
+   the lagoon bleed off the bottom the way the design file crops it. */
 .hero__scene {
   position: absolute;
-  inset: 0 auto auto 50%;
-  width: 1937px;
-  height: 1154px;
-  transform: translateX(-50%) scale(var(--scene-scale, 1));
-  transform-origin: top center;
+  inset: 0;
   pointer-events: none;
   z-index: 0;
 }
 
 .hero-scene {
   display: block;
-  width: 1937px;
-  height: 1154px;
+  width: 100%;
+  height: 100%;
 }
 
 /* Cloud drift. Each parallax band carries a duplicate of itself one artwork
@@ -64,11 +60,11 @@
     transform: translateX(0);
   }
   to {
-    transform: translateX(1937px);
+    transform: translateX(1440px);
   }
 }
 
-/* Traffic. The road converges on 1245,791 in artwork coordinates — the point
+/* Traffic. The road converges on 999,791 in artwork coordinates — the point
    where its near edge meets its far edge behind the bridge. Scaling the danfo
    and the keke about that single point *is* perspective travel: every part of
    them slides along its own ray from the vanishing point, so the roofs rise,
@@ -76,55 +72,57 @@
    Scale is capped at 1, which is the position they occupy in the design file. */
 .hero-scene__traffic {
   transform-box: view-box;
-  transform-origin: 1245px 791px;
-  animation: hero-traffic var(--traffic-duration, 21s) linear infinite;
+  transform-origin: 999px 791px;
+  animation: hero-traffic var(--traffic-duration, 24s) linear infinite;
   will-change: transform, opacity;
 }
 
 @keyframes hero-traffic {
-  /* Scale steps trace 1/(a - bt): constant road speed, so the approach reads
-     as acceleration on screen rather than a linear crawl. */
+  /* Scale steps trace 1/(a - bt): constant speed on the road, which on screen
+     reads as acceleration towards the camera rather than a linear crawl.
+     They ease into 1 — the position the design file draws them at — hold for a
+     beat at the crest of the bend, then fade for the next one to come through. */
   0% {
     transform: scale(0.32);
     opacity: 0;
   }
-  6% {
-    transform: scale(0.334);
+  5% {
+    transform: scale(0.335);
     opacity: 1;
   }
-  18% {
-    transform: scale(0.386);
+  17% {
+    transform: scale(0.383);
     opacity: 1;
   }
-  30% {
-    transform: scale(0.45);
+  29% {
+    transform: scale(0.443);
     opacity: 1;
   }
-  42% {
-    transform: scale(0.53);
+  41% {
+    transform: scale(0.518);
     opacity: 1;
   }
-  54% {
-    transform: scale(0.64);
+  53% {
+    transform: scale(0.617);
     opacity: 1;
   }
   63% {
-    transform: scale(0.76);
+    transform: scale(0.73);
     opacity: 1;
   }
   70% {
-    transform: scale(0.9);
+    transform: scale(0.845);
     opacity: 1;
   }
-  75% {
+  76% {
     transform: scale(1);
     opacity: 1;
   }
-  88% {
+  84% {
     transform: scale(1);
     opacity: 1;
   }
-  96% {
+  97% {
     transform: scale(1);
     opacity: 0;
   }
@@ -195,13 +193,13 @@
 .hero-nav__menu {
   display: flex;
   align-items: center;
-  gap: 38px;
+  gap: 41px;
 }
 
 .hero-nav__links {
   display: flex;
   align-items: center;
-  gap: 21px;
+  gap: 18px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -275,17 +273,17 @@
 /* 150px of clear air between the nav and the headline line box. The band is
    deliberate — it is what lets the bridge read behind the type. */
 .hero__copy {
-  margin-top: 150px;
+  margin-top: 153px;
 }
 
 .hero__title {
   margin: 0;
   max-width: 20ch;
   font-family: var(--font-display);
-  font-size: 64px;
+  font-size: 70px;
   font-weight: 400;
   line-height: 80px;
-  letter-spacing: 0;
+  letter-spacing: -2.85px;
   color: var(--ink);
 }
 
@@ -294,20 +292,20 @@
 }
 
 .hero__lede {
-  margin: 23px 0 0;
+  margin: 20px 0 0;
   font-size: 24px;
   font-weight: 400;
-  line-height: 29px;
+  line-height: 30px;
   color: var(--ink);
 }
 
 .hero__ask {
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: 10px;
   width: 347px;
   height: 60px;
-  margin-top: 42px;
+  margin-top: 40px;
   padding-inline: 22px;
   background: var(--ink);
   color: #fff;
@@ -361,10 +359,6 @@
 }
 
 @media (max-width: 1199px) {
-  .hero {
-    --scene-scale: 0.86;
-  }
-
   .hero__title {
     font-size: 52px;
     line-height: 64px;
@@ -412,12 +406,15 @@
 }
 
 @media (max-width: 767px) {
-  .hero {
-    --scene-scale: 0.62;
-  }
-
+  /* Covering the whole phone screen would centre the crop on the pylons and
+     bury the copy in cables. Instead the artwork keeps its own proportions,
+     sits in the bottom band, and is nudged right so the bridge, the road and
+     the traffic are what shows. */
   .hero__scene {
     inset: auto auto 0 50%;
+    width: 1440px;
+    height: 1024px;
+    transform: translate(calc(-50% + 130px), 0) scale(0.44);
     transform-origin: bottom center;
   }
 

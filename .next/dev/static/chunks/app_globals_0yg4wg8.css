@@ -1,24 +1,16 @@
 /* [project]/app/globals.css [app-client] (css) */
 @font-face {
-  font-family: Product Sans;
-  src: url("/fonts/ProductSans-Regular.woff2") format("woff2");
+  font-family: Geist;
+  src: url("/fonts/Geist-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: Product Sans;
-  src: url("/fonts/ProductSans-Medium.woff2") format("woff2");
+  font-family: Geist;
+  src: url("/fonts/Geist-Medium.woff2") format("woff2");
   font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Product Sans;
-  src: url("/fonts/ProductSans-Bold.woff2") format("woff2");
-  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -36,8 +28,8 @@
   --ink: #171717;
   --amber: #f9ab00;
   --placeholder: #a3a3a3;
-  --font-sans: "Product Sans", "Google Sans", "Helvetica Neue", Arial, sans-serif;
-  --font-display: "Faculty Glyphic", "Product Sans", Georgia, serif;
+  --font-sans: "Geist", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Faculty Glyphic", "Geist", Georgia, serif;
   --gutter: 70px;
   --shell: 1300px;
 }

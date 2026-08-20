@@ -20,7 +20,7 @@ export function Hero() {
           </h1>
 
           <p className="hero__lede">
-            Join the largest annual tech conference in Africa, hosted by
+            Join the largest annual tech conference in Africa, hosted by{" "}
             <br className="hero__break" />
             Google Developer Group Lagos (GDG Lagos).
           </p>
@@ -38,14 +38,14 @@ export function Hero() {
               aria-hidden="true"
             >
               <circle
-                cx="7"
-                cy="7"
-                r="5.25"
+                cx="6.6"
+                cy="6.6"
+                r="5.35"
                 stroke="currentColor"
                 strokeWidth="1.5"
               />
               <path
-                d="M11 11L14.5 14.5"
+                d="M10.6 10.6L15.1 15.1"
                 stroke="currentColor"
                 strokeWidth="1.5"
                 strokeLinecap="round"

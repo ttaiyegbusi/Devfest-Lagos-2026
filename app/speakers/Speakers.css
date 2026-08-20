@@ -1,0 +1,337 @@
+/* ---------------------------------------------------------------------------
+   Meet Our Speakers — a curved wall of screens.
+
+   The cards sit on the surface of a cylinder: each one is rotated by its index
+   times --angle and pushed out by --radius, and the whole track is pulled back
+   by the same radius so the centred card lands flat against the viewer. That is
+   what makes the row curve away at both ends instead of just sliding. Advancing
+   rotates the track by one step, so the cards travel around the barrel rather
+   than shuffling sideways.
+
+   Geometry is taken from the reference at 1440: card 274 x 256, 38px chrome
+   bar, 11px inset around the artwork.
+   --------------------------------------------------------------------------- */
+
+.speakers {
+  --card-w: 274px;
+  --card-h: 256px;
+  --angle: 9deg;
+  /* radius = (card width + gap) / 2 / tan(angle / 2) — keeps the cards edge to
+     edge around the curve. */
+  --radius: 1800px;
+  --accent: #ea4335;
+  --panel: #0d0d0d;
+  --ink-dim: #9b9490;
+
+  position: relative;
+  overflow: hidden;
+  padding: 96px 0 104px;
+  background: #1b1616;
+  color: #fff;
+}
+
+/* The dotted field behind the cards, faded out top and bottom so it reads as
+   depth rather than as a pattern swatch. */
+.speakers::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(255, 255, 255, 0.075) 1px,
+    transparent 0
+  );
+  background-size: 24px 24px;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 22%,
+    #000 78%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 22%,
+    #000 78%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.speakers > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- intro --------------------------------------------------------------- */
+
+.speakers__intro {
+  max-width: 430px;
+  margin-inline: auto;
+  padding-inline: 24px;
+  text-align: center;
+}
+
+.speakers__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.8px;
+}
+
+.speakers__lede {
+  margin: 14px 0 0;
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--ink-dim);
+}
+
+/* --- carousel ------------------------------------------------------------ */
+
+.speakers__stage {
+  height: var(--card-h);
+  margin-top: 116px;
+  perspective: 1500px;
+  perspective-origin: 50% 50%;
+  outline: none;
+}
+
+.speakers__track {
+  position: relative;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--radius) * -1))
+    rotateY(calc(var(--active) * var(--angle) * -1));
+  transition: transform 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+.speakers__slot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--card-w);
+  height: var(--card-h);
+  margin-left: calc(var(--card-w) / -2);
+  transform: rotateY(calc(var(--i) * var(--angle))) translateZ(var(--radius));
+  transform-style: preserve-3d;
+}
+
+/* --- card ---------------------------------------------------------------- */
+
+.card {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0 11px 11px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--panel);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  /* The off-centre cards read as unlit screens on the same wall. */
+  filter: brightness(0.62);
+  transition:
+    filter 620ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.speakers__slot[data-current] .card {
+  filter: none;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.85);
+  cursor: default;
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.card__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 38px;
+  margin-inline: -3px;
+  padding-inline: 11px;
+}
+
+.card__light {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 2.5px rgba(234, 67, 53, 0.28);
+}
+
+/* The three-dot affordance in the opposite corner. */
+.card__menu {
+  width: 14px;
+  height: 2px;
+  background-image: radial-gradient(circle, #6a6a6a 1px, transparent 1px);
+  background-size: 5px 2px;
+}
+
+.card__view {
+  position: relative;
+  display: block;
+  height: calc(100% - 38px);
+  overflow: hidden;
+  border-radius: 2px;
+  background: #000;
+}
+
+.card__art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__art--placeholder {
+  background:
+    radial-gradient(120% 90% at 20% 15%, var(--from) 0%, transparent 60%),
+    linear-gradient(150deg, var(--from) 0%, var(--to) 55%, #0b0b0b 100%);
+}
+
+.card__org {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding-inline: 12px;
+  color: #fff;
+  font-size: 30px;
+  line-height: 1.1;
+  letter-spacing: -0.6px;
+  text-align: center;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+}
+
+/* --- controls ------------------------------------------------------------ */
+
+.speakers__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 46px;
+  margin-top: 150px;
+}
+
+.speakers__arrow {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 150ms ease;
+}
+
+.speakers__arrow:hover:not(:disabled) {
+  opacity: 0.65;
+}
+
+.speakers__arrow:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+
+.speakers__arrow:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.speakers__progress {
+  position: relative;
+  display: block;
+  width: 152px;
+  height: 2px;
+  background: #4a4442;
+}
+
+.speakers__thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: calc(100% / var(--count));
+  background: var(--accent);
+  transform: translateX(calc(var(--index) * 100%));
+  transition: transform 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* --- responsive ---------------------------------------------------------- */
+
+@media (max-width: 1023px) {
+  .speakers {
+    --card-w: 236px;
+    --card-h: 220px;
+    --radius: 1550px;
+    padding-block: 76px 84px;
+  }
+
+  .speakers__stage {
+    margin-top: 84px;
+  }
+
+  .speakers__controls {
+    margin-top: 110px;
+  }
+
+  .card__org {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 767px) {
+  .speakers {
+    --card-w: 200px;
+    --card-h: 188px;
+    --angle: 11deg;
+    --radius: 1080px;
+    padding-block: 64px 72px;
+  }
+
+  .speakers__title {
+    font-size: 32px;
+  }
+
+  .speakers__lede {
+    font-size: 15px;
+    line-height: 21px;
+  }
+
+  .speakers__stage {
+    margin-top: 60px;
+  }
+
+  .speakers__controls {
+    gap: 28px;
+    margin-top: 80px;
+  }
+
+  .card__org {
+    font-size: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .speakers__track,
+  .speakers__thumb,
+  .card {
+    transition: none;
+  }
+}

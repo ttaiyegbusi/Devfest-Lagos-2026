@@ -71,18 +71,36 @@ carries a duplicate of itself one artwork-width to the left, so translating by
 exactly one artwork width lands the copy where the original started — the loop
 has no seam.
 
-**Traffic** is one transform on both vehicles, because they share one road. The
-road converges on **999, 791** in artwork coordinates, where its near edge meets
-its far edge behind the bridge. Scaling about that single point *is* perspective
-travel: every part of the danfo and the keke slides along its own ray from the
-vanishing point, so roofs rise, wheels drop, and they stay on the tarmac all the
-way down. Scale steps trace `1/(a − bt)` — constant speed on the road, which on
-screen reads as acceleration towards the camera. They enter already a good way
-down the road rather than as specks at the vanishing point, so the whole
-approach covers ground instead of growing in place. Past the design position
-(75% of the cycle) the road bends towards the bottom-right corner, so the last
-stretch adds a translation on top of the scale and they carry on out of frame
-rather than stopping. Tune with `--traffic-duration` (default 14s).
+**Traffic.** Anything standing on flat ground obeys one exact rule: its size on
+screen is proportional to how far its wheels sit below the horizon. The horizon
+here is 791 — the line the road converges on, behind the bridge — and the
+danfo's wheels are drawn 83 units below it. So scale is not a hand-picked
+number; it falls out of the path, and the tyres stay planted in every frame.
+
+A vehicle in a straight lane images as a straight ray out of the vanishing point
+at 999, 791, which is exactly what `translate(c * s) scale(s)` describes: the
+translation grows in step with the scale, so each loop is one straight lane with
+no swerve in it. `c` aims the lane, and it is the only real choice. The larger
+it is, the more obliquely the lane crosses the view and the more ground the
+vehicle covers per unit of growth — aim it at the camera and you get inflation
+with no travel, aim it across the view and you get travel with no growth. These
+lanes sit well towards the second, so the vehicles clear the right-hand edge at
+about 1.2x instead of having to swell past 2.7x first. Sideways speed picking up
+towards the end is not scripted; it is what perspective does to anything passing
+you.
+
+The keke needs one correction on top: it is drawn larger than its position on
+the road implies, so it is scaled against a deeper reference (35) than its own
+wheels suggest (26). Without that it swells to twice the danfo's height by the
+corner. Its translate carries a small vertical term to keep the wheels down
+while that plays out.
+
+The two run the same cycle half a period apart on their own lanes, so one is
+always well down the road while the other is being born at the bridge — no empty
+road, no restart beat, and they no longer move like they are welded together.
+Verified across the whole cycle: both stay on the tarmac at every frame (lane
+fractions 0.14–0.56 and 0.33–0.66 across the road), they never overlap, and the
+road is never empty. Tune with `--traffic-duration` (default 12s).
 
 **The headline word** cycles Community → Event → Place → Experience → Network →
 Ecosystem. It rests on "Ecosystem", so the server render, the first paint and

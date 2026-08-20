@@ -155,6 +155,11 @@
   .hero-scene__keke {
     animation: none;
   }
+
+  .hero__rotator,
+  .hero__rotator-word {
+    transition: none;
+  }
 }
 
 /* --- shell --------------------------------------------------------------- */
@@ -287,8 +292,48 @@
   color: var(--ink);
 }
 
-.hero__accent {
+/* Rotating headline word. Only the coloured word swaps; "One" and the comma
+   stay put, and the comma glides as the box resizes to the incoming word. */
+.hero__rotator {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
   color: var(--amber);
+}
+
+.hero__rotator-strut {
+  display: inline-block;
+  width: 0;
+  visibility: hidden;
+}
+
+.hero__rotator-word {
+  display: none;
+}
+
+.hero__rotator-word[data-active] {
+  display: inline;
+}
+
+.hero__rotator[data-measured] {
+  transition: width 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.hero__rotator[data-measured] .hero__rotator-word {
+  display: inline;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: translateY(0.16em);
+  transition:
+    opacity 340ms ease,
+    transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.hero__rotator[data-measured] .hero__rotator-word[data-active] {
+  opacity: 1;
+  transform: none;
 }
 
 .hero__lede {

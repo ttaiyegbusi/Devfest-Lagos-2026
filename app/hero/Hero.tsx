@@ -1,4 +1,5 @@
 import { HeroNav } from "./HeroNav";
+import { RotatingWord } from "./RotatingWord";
 import { HeroScene } from "./HeroScene";
 import "./Hero.css";
 
@@ -14,7 +15,7 @@ export function Hero() {
 
         <div className="hero__copy">
           <h1 className="hero__title">
-            One <span className="hero__accent">Ecosystem</span>,
+            One <RotatingWord />,
             <br />
             Endless Opportunities.
           </h1>

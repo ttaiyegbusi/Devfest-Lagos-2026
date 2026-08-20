@@ -1,0 +1,2613 @@
+module.exports = [
+"[externals]/next/dist/shared/lib/no-fallback-error.external.js [external] (next/dist/shared/lib/no-fallback-error.external.js, cjs)", ((__turbopack_context__, module, exports) => {
+
+var mod = __turbopack_context__.x("next/dist/shared/lib/no-fallback-error.external.js", () => require("next/dist/shared/lib/no-fallback-error.external.js"));
+
+module.exports = mod;
+}),
+"[project]/app/hero/Hero.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "Hero",
+    ()=>Hero
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hero$2f$HeroNav$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/hero/HeroNav.tsx [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hero$2f$RotatingWord$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/hero/RotatingWord.tsx [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hero$2f$HeroScene$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/hero/HeroScene.tsx [app-rsc] (ecmascript)");
+;
+;
+;
+;
+;
+function Hero() {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+        className: "hero",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "hero__scene",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hero$2f$HeroScene$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["HeroScene"], {}, void 0, false, {
+                    fileName: "[project]/app/hero/Hero.tsx",
+                    lineNumber: 10,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/hero/Hero.tsx",
+                lineNumber: 9,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "hero__shell",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hero$2f$HeroNav$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["HeroNav"], {}, void 0, false, {
+                        fileName: "[project]/app/hero/Hero.tsx",
+                        lineNumber: 14,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "hero__copy",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                                className: "hero__title",
+                                children: [
+                                    "One ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hero$2f$RotatingWord$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["RotatingWord"], {}, void 0, false, {
+                                        fileName: "[project]/app/hero/Hero.tsx",
+                                        lineNumber: 18,
+                                        columnNumber: 17
+                                    }, this),
+                                    ",",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
+                                        fileName: "[project]/app/hero/Hero.tsx",
+                                        lineNumber: 19,
+                                        columnNumber: 13
+                                    }, this),
+                                    "Endless Opportunities."
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/hero/Hero.tsx",
+                                lineNumber: 17,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "hero__lede",
+                                children: [
+                                    "Join the largest annual tech conference in Africa, hosted by",
+                                    " ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {
+                                        className: "hero__break"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/Hero.tsx",
+                                        lineNumber: 25,
+                                        columnNumber: 13
+                                    }, this),
+                                    "Google Developer Group Lagos (GDG Lagos)."
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/hero/Hero.tsx",
+                                lineNumber: 23,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
+                                className: "hero__ask",
+                                action: "#",
+                                role: "search",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                        className: "visually-hidden",
+                                        htmlFor: "hero-ask",
+                                        children: "Ask about DevFest Lagos"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/Hero.tsx",
+                                        lineNumber: 30,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                        className: "hero__ask-icon",
+                                        width: "16",
+                                        height: "16",
+                                        viewBox: "0 0 16 16",
+                                        fill: "none",
+                                        "aria-hidden": "true",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
+                                                cx: "6.6",
+                                                cy: "6.6",
+                                                r: "5.35",
+                                                stroke: "currentColor",
+                                                strokeWidth: "1.5"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/hero/Hero.tsx",
+                                                lineNumber: 41,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                d: "M10.6 10.6L15.1 15.1",
+                                                stroke: "currentColor",
+                                                strokeWidth: "1.5",
+                                                strokeLinecap: "round"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/hero/Hero.tsx",
+                                                lineNumber: 48,
+                                                columnNumber: 15
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/hero/Hero.tsx",
+                                        lineNumber: 33,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                        id: "hero-ask",
+                                        className: "hero__ask-input",
+                                        type: "search",
+                                        name: "q",
+                                        placeholder: "Ask me anything...",
+                                        autoComplete: "off"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/Hero.tsx",
+                                        lineNumber: 55,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/hero/Hero.tsx",
+                                lineNumber: 29,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/hero/Hero.tsx",
+                        lineNumber: 16,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/hero/Hero.tsx",
+                lineNumber: 13,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/hero/Hero.tsx",
+        lineNumber: 8,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/hero/HeroNav.tsx [app-rsc] (client reference proxy)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "HeroNav",
+    ()=>HeroNav
+]);
+// This file is generated by next-core EcmascriptClientReferenceModule.
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server.js [app-rsc] (ecmascript)");
+;
+const HeroNav = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerClientReference"])(function() {
+    throw new Error("Attempted to call HeroNav() from the server but HeroNav is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+}, "[project]/app/hero/HeroNav.tsx", "HeroNav");
+}),
+"[project]/app/hero/HeroNav.tsx [app-rsc] (client reference proxy) <module evaluation>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "HeroNav",
+    ()=>HeroNav
+]);
+// This file is generated by next-core EcmascriptClientReferenceModule.
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server.js [app-rsc] (ecmascript)");
+;
+const HeroNav = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerClientReference"])(function() {
+    throw new Error("Attempted to call HeroNav() from the server but HeroNav is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+}, "[project]/app/hero/HeroNav.tsx <module evaluation>", "HeroNav");
+}),
+"[project]/app/hero/HeroNav.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hero$2f$HeroNav$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__$3c$module__evaluation$3e$__ = __turbopack_context__.i("[project]/app/hero/HeroNav.tsx [app-rsc] (client reference proxy) <module evaluation>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hero$2f$HeroNav$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__ = __turbopack_context__.i("[project]/app/hero/HeroNav.tsx [app-rsc] (client reference proxy)");
+;
+__turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hero$2f$HeroNav$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__);
+}),
+"[project]/app/hero/HeroScene.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+// Generated from the supplied "BG Newww.svg" (1440 x 1024) by
+// app/hero/generate-scene.py — do not hand-edit the path data.
+//
+// The flat Figma export is one long list of path elements in paint order.
+// It is sliced here into four bands so the drifting clouds and the traffic can
+// be transformed independently while every overlap stays exactly as drawn:
+// clouds sit behind the scene, the keke and the danfo in front of the road.
+//
+// "slice" makes the artwork behave like background-size: cover anchored to the
+// top edge, so wider viewports reveal more road rather than letterboxing, and
+// the surplus bleeds off the bottom the way the design file crops it.
+__turbopack_context__.s([
+    "HeroScene",
+    ()=>HeroScene
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
+;
+function HeroScene() {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+        className: "hero-scene",
+        viewBox: "0 0 1440 1024",
+        preserveAspectRatio: "xMidYMin slice",
+        fill: "none",
+        xmlns: "http://www.w3.org/2000/svg",
+        "aria-hidden": "true",
+        focusable: "false",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("defs", {
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("linearGradient", {
+                        id: "paint0_linear_11099_11033",
+                        x1: "1094.93",
+                        y1: "736.038",
+                        x2: "1144.43",
+                        y2: "736.038",
+                        gradientUnits: "userSpaceOnUse",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                stopColor: "white"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 25,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.15",
+                                stopColor: "#939393"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 26,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.44",
+                                stopColor: "white"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 27,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.74",
+                                stopColor: "#D6D6D6"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 28,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "1",
+                                stopColor: "white"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 29,
+                                columnNumber: 7
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/hero/HeroScene.tsx",
+                        lineNumber: 24,
+                        columnNumber: 7
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("linearGradient", {
+                        id: "paint1_linear_11099_11033",
+                        x1: "1118",
+                        y1: "785.792",
+                        x2: "1139.58",
+                        y2: "785.792",
+                        gradientUnits: "userSpaceOnUse",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.02",
+                                stopColor: "#F9B429"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 32,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.51",
+                                stopColor: "#FAAC18"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 33,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.92",
+                                stopColor: "#FFC867"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 34,
+                                columnNumber: 7
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/hero/HeroScene.tsx",
+                        lineNumber: 31,
+                        columnNumber: 7
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("linearGradient", {
+                        id: "paint2_linear_11099_11033",
+                        x1: "1296.12",
+                        y1: "756.333",
+                        x2: "1393.77",
+                        y2: "755.651",
+                        gradientUnits: "userSpaceOnUse",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                stopColor: "white"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 37,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.15",
+                                stopColor: "#939393"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 38,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.44",
+                                stopColor: "white"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 39,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.74",
+                                stopColor: "#D6D6D6"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 40,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "1",
+                                stopColor: "white"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 41,
+                                columnNumber: 7
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/hero/HeroScene.tsx",
+                        lineNumber: 36,
+                        columnNumber: 7
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("linearGradient", {
+                        id: "paint3_linear_11099_11033",
+                        x1: "1244.47",
+                        y1: "759.576",
+                        x2: "1296.15",
+                        y2: "759.215",
+                        gradientUnits: "userSpaceOnUse",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                stopColor: "white"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 44,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.13",
+                                stopColor: "#939393"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 45,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.29",
+                                stopColor: "#939393"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 46,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.64",
+                                stopColor: "#BBBBBB"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 47,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.8",
+                                stopColor: "#D6D6D6"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 48,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "1",
+                                stopColor: "#939598"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 49,
+                                columnNumber: 7
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/hero/HeroScene.tsx",
+                        lineNumber: 43,
+                        columnNumber: 7
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("linearGradient", {
+                        id: "paint4_linear_11099_11033",
+                        x1: "1199.88",
+                        y1: "753.919",
+                        x2: "1240.56",
+                        y2: "753.635",
+                        gradientUnits: "userSpaceOnUse",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                stopColor: "white"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 52,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.13",
+                                stopColor: "#939393"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 53,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.29",
+                                stopColor: "#939393"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 54,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.64",
+                                stopColor: "#BBBBBB"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 55,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.8",
+                                stopColor: "#D6D6D6"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 56,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "1",
+                                stopColor: "#939598"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 57,
+                                columnNumber: 7
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/hero/HeroScene.tsx",
+                        lineNumber: 51,
+                        columnNumber: 7
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("linearGradient", {
+                        id: "paint5_linear_11099_11033",
+                        x1: "1174.46",
+                        y1: "751.797",
+                        x2: "1201.19",
+                        y2: "751.61",
+                        gradientUnits: "userSpaceOnUse",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                stopColor: "white"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 60,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.13",
+                                stopColor: "#939393"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 61,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.29",
+                                stopColor: "#939393"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 62,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.64",
+                                stopColor: "#BBBBBB"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 63,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.8",
+                                stopColor: "#D6D6D6"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 64,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "1",
+                                stopColor: "#939598"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 65,
+                                columnNumber: 7
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/hero/HeroScene.tsx",
+                        lineNumber: 59,
+                        columnNumber: 7
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("linearGradient", {
+                        id: "paint6_linear_11099_11033",
+                        x1: "1380.91",
+                        y1: "848.915",
+                        x2: "1490.67",
+                        y2: "848.149",
+                        gradientUnits: "userSpaceOnUse",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.09",
+                                stopColor: "#231F20"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 68,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "0.29",
+                                stopColor: "#949699"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 69,
+                                columnNumber: 7
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
+                                offset: "1",
+                                stopColor: "white"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 70,
+                                columnNumber: 7
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/hero/HeroScene.tsx",
+                        lineNumber: 67,
+                        columnNumber: 7
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("clipPath", {
+                        id: "clip0_11099_11033",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("rect", {
+                            width: "1440",
+                            height: "1024",
+                            fill: "white"
+                        }, void 0, false, {
+                            fileName: "[project]/app/hero/HeroScene.tsx",
+                            lineNumber: 73,
+                            columnNumber: 7
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/hero/HeroScene.tsx",
+                        lineNumber: 72,
+                        columnNumber: 7
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/hero/HeroScene.tsx",
+                lineNumber: 23,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
+                clipPath: "url(#clip0_11099_11033)",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
+                        className: "hero-scene__clouds hero-scene__clouds--far",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.5",
+                                        d: "M361 643.41L465.36 641.26C465.36 641.26 463.93 630.86 453.17 631.58C442.41 632.3 440.62 633.01 439.18 630.86C437.74 628.71 437.03 624.76 427.7 622.61C418.37 620.46 422.32 614 417.3 614C412.28 614 410.49 627.63 406.9 627.27C403.31 626.91 402.95 621.17 394.71 625.84C386.46 630.5 387.18 636.96 383.95 637.32C380.72 637.68 361 643.42 361 643.42V643.41Z",
+                                        fill: "white"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 79,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.5",
+                                        d: "M1189 159.48L1375.25 155.64C1375.25 155.64 1372.69 137.08 1353.49 138.36C1334.29 139.64 1331.09 140.92 1328.53 137.08C1325.97 133.24 1324.69 126.2 1308.05 122.36C1291.41 118.52 1298.45 107 1289.49 107C1280.53 107 1277.33 131.32 1270.93 130.68C1264.53 130.04 1263.89 119.8 1249.17 128.12C1234.45 136.44 1235.73 147.96 1229.97 148.6C1224.21 149.24 1189.01 159.48 1189.01 159.48H1189Z",
+                                        fill: "white"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 80,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 78,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
+                                transform: "translate(-1440 0)",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.5",
+                                        d: "M361 643.41L465.36 641.26C465.36 641.26 463.93 630.86 453.17 631.58C442.41 632.3 440.62 633.01 439.18 630.86C437.74 628.71 437.03 624.76 427.7 622.61C418.37 620.46 422.32 614 417.3 614C412.28 614 410.49 627.63 406.9 627.27C403.31 626.91 402.95 621.17 394.71 625.84C386.46 630.5 387.18 636.96 383.95 637.32C380.72 637.68 361 643.42 361 643.42V643.41Z",
+                                        fill: "white"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 83,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.5",
+                                        d: "M1189 159.48L1375.25 155.64C1375.25 155.64 1372.69 137.08 1353.49 138.36C1334.29 139.64 1331.09 140.92 1328.53 137.08C1325.97 133.24 1324.69 126.2 1308.05 122.36C1291.41 118.52 1298.45 107 1289.49 107C1280.53 107 1277.33 131.32 1270.93 130.68C1264.53 130.04 1263.89 119.8 1249.17 128.12C1234.45 136.44 1235.73 147.96 1229.97 148.6C1224.21 149.24 1189.01 159.48 1189.01 159.48H1189Z",
+                                        fill: "white"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 84,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 82,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/hero/HeroScene.tsx",
+                        lineNumber: 77,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
+                        className: "hero-scene__clouds hero-scene__clouds--mid",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.5",
+                                        d: "M1298.67 286.857C1309.01 328.214 1220.15 349.164 1262.53 375.332C1304.9 401.501 1321.1 386.545 1321.1 386.545C1321.1 386.545 1301.16 442.625 1358.49 468.793C1415.81 494.961 1536.69 465.058 1526.73 421.442C1526.73 421.442 1606.48 420.2 1591.53 381.56C1591.53 381.56 1663.81 400.25 1676.27 375.332C1688.73 350.406 1697.45 335.45 1681.25 315.518C1665.06 295.586 1597.76 258.196 1567.85 290.592C1537.94 322.996 1545.42 224.541 1501.8 232.019C1458.19 239.497 1460.68 240.739 1450.71 281.863C1450.71 281.863 1384.66 212.078 1352.26 225.783C1319.86 239.489 1342.29 256.937 1343.54 279.371C1344.78 301.804 1296.19 276.878 1298.68 286.848L1298.67 286.857Z",
+                                        fill: "white"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 89,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.5",
+                                        d: "M712.5 495.975L1108.47 487.81C1108.47 487.81 1102.69 445.91 1059.34 448.8C1015.99 451.69 1008.77 454.58 1002.99 445.91C997.21 437.24 994.32 421.35 956.75 412.68C919.18 404.01 935.08 378 914.85 378C894.62 378 887.4 432.9 872.95 431.46C858.5 430.02 857.06 406.9 823.82 425.68C790.59 444.46 793.48 470.47 780.47 471.92C767.47 473.36 712.5 495.975 712.5 495.975Z",
+                                        fill: "white"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 90,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 88,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
+                                transform: "translate(-1440 0)",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.5",
+                                        d: "M1298.67 286.857C1309.01 328.214 1220.15 349.164 1262.53 375.332C1304.9 401.501 1321.1 386.545 1321.1 386.545C1321.1 386.545 1301.16 442.625 1358.49 468.793C1415.81 494.961 1536.69 465.058 1526.73 421.442C1526.73 421.442 1606.48 420.2 1591.53 381.56C1591.53 381.56 1663.81 400.25 1676.27 375.332C1688.73 350.406 1697.45 335.45 1681.25 315.518C1665.06 295.586 1597.76 258.196 1567.85 290.592C1537.94 322.996 1545.42 224.541 1501.8 232.019C1458.19 239.497 1460.68 240.739 1450.71 281.863C1450.71 281.863 1384.66 212.078 1352.26 225.783C1319.86 239.489 1342.29 256.937 1343.54 279.371C1344.78 301.804 1296.19 276.878 1298.68 286.848L1298.67 286.857Z",
+                                        fill: "white"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 93,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.5",
+                                        d: "M712.5 495.975L1108.47 487.81C1108.47 487.81 1102.69 445.91 1059.34 448.8C1015.99 451.69 1008.77 454.58 1002.99 445.91C997.21 437.24 994.32 421.35 956.75 412.68C919.18 404.01 935.08 378 914.85 378C894.62 378 887.4 432.9 872.95 431.46C858.5 430.02 857.06 406.9 823.82 425.68C790.59 444.46 793.48 470.47 780.47 471.92C767.47 473.36 712.5 495.975 712.5 495.975Z",
+                                        fill: "white"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 94,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 92,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/hero/HeroScene.tsx",
+                        lineNumber: 87,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
+                        className: "hero-scene__clouds hero-scene__clouds--near",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.5",
+                                        d: "M165.718 53.4068C174.542 88.6962 98.7231 106.573 134.881 128.902C171.039 151.231 184.86 138.469 184.86 138.469C184.86 138.469 167.845 186.322 216.764 208.651C265.684 230.98 368.821 205.464 360.321 168.246C360.321 168.246 428.376 167.187 415.614 134.215C415.614 134.215 477.288 150.164 487.922 128.902C498.557 107.633 505.998 94.8709 492.176 77.8628C478.355 60.8473 420.928 28.9507 395.412 56.5935C369.889 84.2436 376.269 0.233443 339.052 6.61424C301.834 12.995 303.961 14.0548 295.453 49.1455C295.453 49.1455 239.093 -10.4012 211.451 1.29323C183.808 12.9877 202.943 27.8762 204.01 47.0186C205.077 66.161 163.606 44.8917 165.733 53.3994L165.718 53.4068Z",
+                                        fill: "white"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 99,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.5",
+                                        d: "M-198.333 330.857C-187.992 372.214 -276.847 393.164 -234.472 419.332C-192.098 445.501 -175.9 430.545 -175.9 430.545C-175.9 430.545 -195.841 486.625 -138.51 512.793C-81.1887 538.961 39.6907 509.058 29.7288 465.442C29.7288 465.442 109.484 464.2 94.5284 425.56C94.5284 425.56 166.806 444.25 179.269 419.332C191.732 394.406 200.452 379.45 184.254 359.518C168.057 339.586 100.756 302.196 70.8528 334.592C40.9413 366.996 48.4192 268.541 4.80261 276.019C-38.814 283.497 -36.3214 284.739 -46.2919 325.863C-46.2919 325.863 -112.342 256.078 -144.738 269.783C-177.142 283.489 -154.708 300.937 -153.458 323.371C-152.216 345.804 -200.809 320.878 -198.316 330.848L-198.333 330.857Z",
+                                        fill: "white"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 100,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 98,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
+                                transform: "translate(-1440 0)",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.5",
+                                        d: "M165.718 53.4068C174.542 88.6962 98.7231 106.573 134.881 128.902C171.039 151.231 184.86 138.469 184.86 138.469C184.86 138.469 167.845 186.322 216.764 208.651C265.684 230.98 368.821 205.464 360.321 168.246C360.321 168.246 428.376 167.187 415.614 134.215C415.614 134.215 477.288 150.164 487.922 128.902C498.557 107.633 505.998 94.8709 492.176 77.8628C478.355 60.8473 420.928 28.9507 395.412 56.5935C369.889 84.2436 376.269 0.233443 339.052 6.61424C301.834 12.995 303.961 14.0548 295.453 49.1455C295.453 49.1455 239.093 -10.4012 211.451 1.29323C183.808 12.9877 202.943 27.8762 204.01 47.0186C205.077 66.161 163.606 44.8917 165.733 53.3994L165.718 53.4068Z",
+                                        fill: "white"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 103,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.5",
+                                        d: "M-198.333 330.857C-187.992 372.214 -276.847 393.164 -234.472 419.332C-192.098 445.501 -175.9 430.545 -175.9 430.545C-175.9 430.545 -195.841 486.625 -138.51 512.793C-81.1887 538.961 39.6907 509.058 29.7288 465.442C29.7288 465.442 109.484 464.2 94.5284 425.56C94.5284 425.56 166.806 444.25 179.269 419.332C191.732 394.406 200.452 379.45 184.254 359.518C168.057 339.586 100.756 302.196 70.8528 334.592C40.9413 366.996 48.4192 268.541 4.80261 276.019C-38.814 283.497 -36.3214 284.739 -46.2919 325.863C-46.2919 325.863 -112.342 256.078 -144.738 269.783C-177.142 283.489 -154.708 300.937 -153.458 323.371C-152.216 345.804 -200.809 320.878 -198.316 330.848L-198.333 330.857Z",
+                                        fill: "white"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 104,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 102,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/hero/HeroScene.tsx",
+                        lineNumber: 97,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
+                        className: "hero-scene__static",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M240.363 843.365L249.33 836.019C249.33 836.019 252.193 831.448 249.573 826.858C246.952 822.267 235.084 807.992 235.084 807.992C235.084 807.992 234.967 804.042 228.65 804.722C222.322 805.391 217.285 803.8 217.285 803.8C217.285 803.8 219.411 800.83 213.035 803.945C206.669 807.06 204.922 802.062 204.922 802.062L198.983 806.352L193.121 808.497L192.558 814.649C192.558 814.649 188.23 816.94 187.619 819.744C187.007 822.549 184.833 827.954 187.201 830.148C189.569 832.331 185.338 835.524 186.735 837.203C188.133 838.882 189.288 841.191 190.384 842.909C191.481 844.617 192.432 847.868 196.654 847.422C200.865 846.975 199.924 849.508 199.924 849.508L204.437 849.033L207.406 851.158C207.406 851.158 207.455 848.712 211.967 848.237C216.48 847.761 240.382 843.394 240.382 843.394L240.363 843.365Z",
+                                fill: "#52BB72"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 108,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M193.539 849.866C193.539 849.866 179.855 850.099 177.643 852.166C175.43 854.233 169.374 854.563 165.57 853.146C161.766 851.72 165.133 860.503 156.312 852.001C147.491 843.5 148.383 837.619 148.383 837.619C148.383 837.619 151.353 831.214 147.918 830.36C144.482 829.506 143.764 825.624 147.345 824.935C150.926 824.246 152.721 826.799 151.935 822.315C151.159 817.832 153.527 817.269 155.206 815.881C156.885 814.493 154.264 809.893 160.825 808.583C167.385 807.273 172.596 807.632 175.614 807.312C178.623 806.992 180.166 807.137 182.573 806.875C184.979 806.613 190.686 808.758 193.102 808.496C195.509 808.243 205.844 802.265 207.057 813.717C208.27 825.159 201.341 840.21 198.983 843.811C196.625 847.411 193.539 849.866 193.539 849.866Z",
+                                fill: "#00AD5E"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 109,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M180.952 849.102L183.951 847.947C183.951 847.947 185.756 862.64 186.552 863.64C187.347 864.639 189.259 868.327 189.259 868.327L181.02 870.481C181.02 870.481 183.175 868.045 183.184 866.017C183.194 863.989 180.952 849.092 180.952 849.092V849.102Z",
+                                fill: "#514D4F"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 110,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M210.648 845.442L213.647 844.287C213.647 844.287 215.452 858.98 216.247 859.979C217.043 860.979 218.955 864.667 218.955 864.667L210.716 866.821C210.716 866.821 212.87 864.385 212.88 862.357C212.89 860.329 210.648 845.432 210.648 845.432V845.442Z",
+                                fill: "#514D4F"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 111,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M313.05 824.51L322.018 817.163C322.018 817.163 324.88 812.592 322.26 808.002C319.64 803.412 307.771 789.137 307.771 789.137C307.771 789.137 307.655 785.187 301.337 785.866C295.01 786.536 289.973 784.944 289.973 784.944C289.973 784.944 292.098 781.975 285.722 785.09C279.356 788.205 277.609 783.207 277.609 783.207L271.67 787.496L265.809 789.641L265.246 795.794C265.246 795.794 260.917 798.084 260.306 800.889C259.695 803.693 257.521 809.099 259.889 811.292C262.257 813.476 258.026 816.668 259.423 818.347C260.82 820.026 261.975 822.336 263.072 824.054C264.168 825.771 265.12 829.013 269.341 828.566C273.553 828.12 272.611 830.653 272.611 830.653L277.124 830.177L280.094 832.302C280.094 832.302 280.142 829.857 284.655 829.381C289.168 828.906 313.07 824.539 313.07 824.539L313.05 824.51Z",
+                                fill: "#52BB72"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 112,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M266.226 831.001C266.226 831.001 252.543 831.234 250.33 833.301C248.118 835.368 242.062 835.698 238.258 834.281C234.454 832.854 237.821 841.637 229 833.136C220.178 824.634 221.071 818.754 221.071 818.754C221.071 818.754 224.04 812.349 220.605 811.495C217.17 810.641 216.452 806.759 220.033 806.07C223.613 805.381 225.409 807.933 224.623 803.449C223.837 798.966 226.214 798.403 227.893 797.015C229.572 795.618 226.952 791.028 233.512 789.717C240.072 788.407 245.284 788.766 248.302 788.446C251.31 788.126 252.853 788.271 255.26 788.009C257.667 787.747 263.373 789.892 265.79 789.63C268.206 789.368 278.532 783.4 279.745 794.851C280.958 806.293 274.029 821.345 271.671 824.945C269.312 828.545 266.226 831.001 266.226 831.001Z",
+                                fill: "#00AD5E"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 113,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M253.639 830.235L256.638 829.08C256.638 829.08 258.443 843.773 259.239 844.772C260.034 845.772 261.946 849.46 261.946 849.46L253.707 851.614C253.707 851.614 255.861 849.178 255.871 847.15C255.881 845.122 253.639 830.225 253.639 830.225V830.235Z",
+                                fill: "#514D4F"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 114,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M283.336 826.585L286.335 825.43C286.335 825.43 288.14 840.122 288.935 841.122C289.731 842.122 291.643 845.809 291.643 845.809L283.404 847.964C283.404 847.964 285.558 845.528 285.568 843.5C285.587 841.471 283.336 826.575 283.336 826.575V826.585Z",
+                                fill: "#514D4F"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 115,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M17.6943 905.446L25.805 897.164C25.805 897.164 28.1514 892.307 25.0453 888.031C21.9392 883.754 8.58195 870.861 8.58195 870.861C8.58195 870.861 8.03468 866.948 1.82903 868.313C-4.38732 869.67 -9.56774 868.638 -9.56774 868.638C-9.56774 868.638 -7.77959 865.454 -13.777 869.247C-19.7647 873.039 -22.0471 868.262 -22.0471 868.262L-27.4822 873.175L-33.0743 875.947L-32.9616 882.125C-32.9616 882.125 -37.0137 884.874 -37.3151 887.729C-37.6164 890.583 -39.1866 896.194 -36.5933 898.115C-34.001 900.027 -37.858 903.663 -36.2855 905.179C-34.713 906.695 -33.3127 908.865 -32.035 910.453C-30.7583 912.031 -29.4578 915.158 -25.3103 914.253C-21.1725 913.349 -21.8315 915.97 -21.8315 915.97L-17.3978 915.004L-14.2138 916.792C-14.2138 916.792 -14.4328 914.356 -9.9991 913.391C-5.56544 912.425 17.7167 905.473 17.7167 905.473L17.6943 905.446Z",
+                                fill: "#52BB72"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 116,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M87.8867 878.76L95.9974 870.478C95.9974 870.478 98.3437 865.622 95.2377 861.345C92.1316 857.069 78.7743 844.176 78.7743 844.176C78.7743 844.176 78.227 840.262 72.0214 841.628C65.805 842.985 60.6246 841.953 60.6246 841.953C60.6246 841.953 62.4128 838.769 56.4154 842.562C50.4276 846.354 48.1452 841.577 48.1452 841.577L42.7102 846.489L37.1181 849.262L37.2308 855.439C37.2308 855.439 33.1787 858.188 32.8773 861.043C32.576 863.898 31.0058 869.508 33.5991 871.43C36.1914 873.342 32.3344 876.977 33.9069 878.494C35.4794 880.01 36.8797 882.179 38.1574 883.767C39.4351 885.355 40.7346 888.473 44.8821 887.568C49.0199 886.664 48.3609 889.284 48.3609 889.284L52.7946 888.319L55.9786 890.107C55.9786 890.107 55.7596 887.671 60.1933 886.705C64.627 885.739 87.9091 878.787 87.9091 878.787L87.8867 878.76Z",
+                                fill: "#52BB72"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 117,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M42.0515 890.332C42.0515 890.332 28.4754 892.058 26.5019 894.354C24.5283 896.651 18.5449 897.64 14.6087 896.648C10.6714 895.645 14.9783 904.007 5.28086 896.521C-4.41658 889.034 -4.17162 883.091 -4.17162 883.091C-4.17162 883.091 -1.91957 876.4 -5.42773 875.926C-8.93588 875.453 -10.0738 871.673 -6.58954 870.597C-3.10527 869.52 -1.04183 871.861 -2.31303 867.49C-3.58423 863.12 -1.28234 862.3 0.234882 860.738C1.75105 859.165 -1.355 854.888 5.02289 852.869C11.4008 850.85 16.6202 850.638 19.5852 849.99C22.5407 849.343 24.0904 849.319 26.4541 848.796C28.8178 848.272 34.7242 849.781 37.0976 849.256C39.4709 848.732 49.0827 841.671 51.5396 852.921C53.9955 864.162 48.7523 879.881 46.8016 883.717C44.8509 887.554 42.0515 890.332 42.0515 890.332Z",
+                                fill: "#00AD5E"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 118,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M29.4567 890.945L32.3113 889.469C32.3113 889.469 35.7108 903.877 36.611 904.784C37.5112 905.69 39.8145 909.147 39.8145 909.147L31.86 912.189C31.86 912.189 33.7354 909.532 33.5234 907.515C33.3115 905.498 29.4557 890.935 29.4557 890.935L29.4567 890.945Z",
+                                fill: "#514D4F"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 119,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M58.5759 884.072L61.4305 882.596C61.4305 882.596 64.8299 897.004 65.7302 897.91C66.6304 898.817 68.9336 902.274 68.9336 902.274L60.9792 905.316C60.9792 905.316 62.8545 902.659 62.6426 900.642C62.4403 898.624 58.5748 884.062 58.5748 884.062L58.5759 884.072Z",
+                                fill: "#514D4F"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 120,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M-87.5737 1010.36L-39.4196 926.318L243.44 844.062C243.44 844.062 810.449 808.262 892.181 822.334C973.923 836.405 1222.15 863.394 1222.15 863.394L1176.28 1010.56L841.261 1142.96L289.575 1153L-57.4895 1062.73V1016.67L-87.5737 1010.36Z",
+                                fill: "#206F58"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 121,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M708.105 658.69C594.969 643.657 552.366 675.1 545.204 692.704L555.054 708.814L849.529 692.704L835.205 683.756L708.105 658.699V658.69Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 122,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M690.21 669.431C605.712 662.269 585.788 683.153 586.38 694.488L598.909 720.448L779.715 710.598L837.001 687.326C823.279 684.347 774.707 676.583 690.21 669.421V669.431Z",
+                                fill: "#335991"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 123,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M574.745 792.056L544.311 691.808H581.004L599.802 698.077L640.978 706.132L615.921 711.498H655.302V698.077L682.155 701.658L689.317 711.508L723.331 706.141V694.506L750.184 691.817L756.453 701.668L805.684 691.817V677.493L829.849 687.344L902.352 669.439V659.589L915.773 669.439L1001.7 651.534L1008.86 638.112L1013.33 651.534L1101.05 630.048L1115.38 614.831V630.048L1186.98 614.831L1215.62 601.41V609.464H1272.01L1299.75 596.043V609.464H1346.3L1365.99 601.41V614.831L1391.05 624.681L1408.95 619.315L1404.48 635.424L1408.95 641.693H1425.06L1380.3 789.378L1391.05 816.23H811.944L726.912 820.704H558.645L574.754 792.066L574.745 792.056Z",
+                                fill: "#FFFBED"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 124,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1344.95 801.005C1342.56 804.285 1337.43 811.301 1336 813.087H1333.76L1320.78 785.788C1323.47 785.186 1330.28 784.895 1336 788.476C1341.73 792.057 1344.36 798.326 1344.95 801.005Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 125,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1298.41 790.71C1302.88 798.172 1312.37 813.088 1314.51 813.088L1273.34 817.116L1263.94 790.71V785.789C1265.58 784.741 1271.02 782.742 1279.61 783.101C1288.2 783.46 1295.72 788.322 1298.41 790.71Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 126,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1241.57 790.709L1257.23 813.088L1199.5 817.115L1196.81 813.088C1194.28 804.887 1189.2 787.933 1189.2 785.789C1189.2 783.644 1205.91 783.1 1214.26 783.1C1225.72 780.956 1237.23 787.273 1241.56 790.709H1241.57Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 127,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1169.97 788.476C1173.55 795.784 1181.43 811.748 1184.29 817.114H1107.76L1103.73 785.788C1107.61 784.895 1119.75 783.1 1137.3 783.1C1154.85 783.1 1166.39 786.681 1169.97 788.466V788.476Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 128,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1087.61 788.477C1090 796.677 1095.13 813.893 1096.56 817.115H1008.84V788.477C1030.77 780.422 1047.77 783.11 1050.91 783.11C1070.24 780.965 1083.43 785.798 1087.6 788.477H1087.61Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 129,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M999 788.478C998.699 792.952 998.282 804.947 999 817.116H914.415L916.656 788.478C918.151 786.692 928.739 783.111 959.172 783.111C989.606 783.111 998.408 786.692 999 788.478Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 130,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M904.574 788.479V814.438L821.338 817.127L829.839 788.488C833.867 787.596 846.482 785.266 864.746 783.122C883.01 780.977 898.907 785.81 904.574 788.488V788.479Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 131,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M814.176 788.478L808.353 817.116H740.78L751.077 792.505C752.862 789.371 761.276 783.111 780.618 783.111C799.959 783.111 811.051 786.692 814.186 788.478H814.176Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 132,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M734.065 788.477L724.215 817.115H669.617L687.075 792.505C694.596 787.138 706.319 785.789 711.24 785.789L734.065 788.477Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 133,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M667.384 788.477C663.211 798.026 654.856 817.746 654.856 820.249H621.288V817.115C625.169 811.146 633.642 798.317 636.504 794.736C639.367 791.155 646.054 789.068 649.033 788.467H667.384V788.477Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 134,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M615.921 792.507L603.839 820.252H589.069C592.349 812.644 600.617 796.447 607.42 792.507C614.223 788.567 615.921 790.867 615.921 792.507Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 135,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1370.45 745.057C1371.89 741.117 1374.03 746.697 1374.93 749.977L1368.21 771.007L1361.5 775.927C1363.88 767.27 1369.02 748.987 1370.44 745.047L1370.45 745.057Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 136,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1352.11 749.989L1346.29 767.448C1338.41 772.814 1326.9 772.077 1322.12 771.029L1328.39 741.488C1329.73 741.789 1334.3 742.206 1341.81 741.488C1349.34 740.77 1351.81 746.855 1352.11 749.989Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 137,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1306.91 763.856L1310.93 745.058C1308.4 742.971 1301 738.701 1291.69 738.342C1282.38 737.983 1272.89 740.283 1269.31 741.477L1264.84 767.437C1270.2 768.63 1282.3 771.018 1287.66 771.018C1293.03 771.018 1302.73 766.243 1306.91 763.856Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 138,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1248.28 763.857L1252.31 741.478C1247.39 740.43 1235.39 737.81 1226.79 735.655C1218.21 733.511 1201.14 738.635 1193.67 741.478L1190.98 763.857C1195.61 765.051 1207.99 767.438 1220.53 767.438C1233.06 767.438 1244.24 765.051 1248.27 763.857H1248.28Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 139,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1175.33 761.179L1178.91 741.488C1177.72 740.44 1169.16 737.82 1144.45 735.665C1119.74 733.52 1108.21 738.644 1105.52 741.488V761.179C1110.44 763.265 1124.49 767.448 1141.32 767.448C1158.15 767.448 1171 763.275 1175.33 761.179Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 140,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1089.85 761.177L1092.99 741.487C1089.26 739.546 1076.52 735.664 1055.39 735.664C1034.27 735.664 1017.05 739.546 1011.09 741.487C1010.79 747.009 1010.37 758.674 1011.09 761.177C1011.98 764.312 1034.36 767.447 1048.24 767.447C1059.34 767.447 1080.62 763.274 1089.86 761.177H1089.85Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 141,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M998.107 761.177V741.487C990.052 739.546 970.362 735.664 956.038 735.664C941.714 735.664 922.023 739.546 913.968 741.487L916.656 761.177C924.711 763.264 944.402 767.447 958.726 767.447C973.05 767.447 990.945 763.274 998.107 761.177Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 142,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M902.333 761.177C902.478 755.956 902.692 744.709 902.333 741.487C894.724 739.546 875.752 735.664 860.71 735.664C845.668 735.664 829.684 741.933 823.561 745.058L826.695 763.409C830.723 764.011 844.154 765.651 865.63 767.437C887.116 769.232 899.043 764.001 902.323 761.168L902.333 761.177Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 143,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M812.827 763.409L810.586 741.476C806.558 740.584 794.563 738.701 778.813 738.342C763.062 737.983 748.68 742.67 743.459 745.057L747.486 767.436C753.6 768.63 768.429 770.93 778.813 770.571C789.197 770.212 805.811 765.65 812.827 763.409Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 144,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M733.173 767.436L729.592 745.058C728.097 743.864 720.644 741.477 702.739 741.477C684.834 741.477 677.08 745.65 675.44 747.746L680.36 767.436C686.328 769.523 699.692 773.705 705.417 773.705C711.143 773.705 726.302 769.533 733.163 767.436H733.173Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 145,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M637.397 745.057C643.123 742.912 654.7 744.164 659.776 745.057L666.045 770.57C663.958 772.356 658.165 775.937 651.721 775.937C645.277 775.937 633.525 772.356 628.449 770.57L623.976 750.433C626.062 749.541 631.671 747.211 637.397 745.067V745.057Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 146,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M615.019 775.938L608.749 750.425C608.749 749.532 607.138 747.736 600.695 747.736C594.251 747.736 590.844 752.511 589.952 754.898L595.318 773.696C596.813 775.191 600.598 778.257 603.819 778.616C607.041 778.975 612.622 776.976 615.009 775.928L615.019 775.938Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 147,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1366.42 704.785L1352.1 728.95C1347.09 728.95 1337.78 726.261 1333.75 724.922L1358.36 635.863L1374.02 643.025L1382.52 656.447L1366.42 704.776L1366.42 704.785Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 148,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1319.44 720L1344.95 632.727L1333.76 629.592C1324.81 627.088 1303.77 626.758 1294.38 626.904L1275.13 719.99C1275.43 720.883 1279.69 723.125 1294.38 724.911C1309.06 726.696 1317.2 722.378 1319.44 719.99V720Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 149,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1259.47 715.972L1281.85 626.913V624.225H1269.32L1212.48 626.913C1207.56 655.26 1197.8 712.75 1198.16 715.972C1198.6 719.999 1224.12 724.919 1230.82 724.919C1236.19 724.919 1252.15 718.951 1259.46 715.972H1259.47Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 150,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1182.94 715.973L1198.16 630.049L1114.46 642.131L1108.2 715.973C1114.91 717.021 1130.84 719.729 1140.86 722.242C1150.89 724.746 1173.08 719.108 1182.93 715.973H1182.94Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 151,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1095.22 713.732L1102.83 645.703L1011.53 663.162V713.732L1049.57 722.233C1067.12 722.233 1087.31 716.566 1095.22 713.732Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 152,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1000.35 713.733L1003.04 665.404L1000.35 663.162L909.951 683.299C910.252 693.44 911.203 714.179 912.639 715.965C914.425 718.206 955.601 722.234 961.424 722.234C966.082 722.234 989.324 716.566 1000.36 713.733H1000.35Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 153,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M900.993 713.73V683.297L817.301 700.299C817.902 704.181 819.358 712.741 820.435 715.962C822.58 719.903 849.374 721.785 862.505 722.232C881.118 724.017 895.918 717.311 900.993 713.73Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 154,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M808.799 717.759L807.014 700.301L736.306 714.178L737.645 720.001C745.555 721.641 763.692 725.106 772.999 725.824C782.306 726.542 800.745 720.748 808.799 717.769V717.759Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 155,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M726.457 720.002L724.215 715.975L666.929 720.002V725.825C674.984 727.164 692.704 729.677 699.148 728.959C705.592 728.241 720.032 722.69 726.447 720.012L726.457 720.002Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 156,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M654.4 725.815V722.234H613.669L616.358 725.815C620.531 728.057 630.138 732.531 635.155 732.531C640.173 732.531 650.071 728.057 654.4 725.815Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 157,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M603.829 728.949L601.587 722.234V719.992H586.817C589.059 725.068 594.066 735.209 596.211 735.209C598.356 735.209 602.179 731.036 603.819 728.94L603.829 728.949Z",
+                                fill: "#547EBF",
+                                fillOpacity: "0.48"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 158,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M143.288 891.258C143.288 891.258 306.849 841.823 401.537 845.802C496.225 849.781 656.205 805.344 656.205 805.344L886.484 785.148L1002.3 794.572L1057.51 802.655L1090.48 829.149L1045.39 934.628L782.791 1070.64L184.873 1090.83L-48.2703 1064.64L-90 956.434L143.298 891.258H143.288Z",
+                                fill: "#9DC4E8"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 159,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                opacity: "0.24",
+                                d: "M308.48 961.394C308.48 961.394 607.371 877.877 515.071 961.394C422.761 1044.91 277.716 1053.7 189.802 1031.72C101.889 1009.74 308.48 961.394 308.48 961.394Z",
+                                fill: "#E1EDF9"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 160,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                opacity: "0.24",
+                                d: "M395.151 879.845C395.151 879.845 448.963 871.635 416.385 895.635C383.807 919.634 366.465 911.812 363.505 896.925C360.545 882.038 395.151 879.845 395.151 879.845Z",
+                                fill: "#E1EDF9"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 161,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                opacity: "0.24",
+                                d: "M610.408 865.803C610.408 865.803 642.424 860.922 623.044 875.197C603.664 889.473 593.348 884.824 591.591 875.964C589.835 867.104 610.418 865.803 610.418 865.803H610.408Z",
+                                fill: "#E1EDF9"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 162,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                opacity: "0.24",
+                                d: "M937.297 840.077C937.297 840.077 1016.52 817.94 992.051 840.077C967.585 862.213 929.145 864.542 905.845 858.719C882.544 852.896 937.297 840.077 937.297 840.077Z",
+                                fill: "#E1EDF9"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 163,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M984.891 615.26C938.085 619.66 926.11 650.362 923.676 658.845C923.283 660.221 923.142 661.008 923.142 661.008L922.505 775.873",
+                                stroke: "black",
+                                strokeWidth: "0.936302",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 164,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M923.47 660.398C923.47 660.398 897.113 607.16 835.626 642.655",
+                                stroke: "black",
+                                strokeWidth: "0.936302",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 165,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1002.49 611.037L1002.31 614.239L990.256 614.614L990.05 617.151L983.393 615.166L983.627 612.601L1002.49 611.037Z",
+                                fill: "black",
+                                stroke: "black",
+                                strokeWidth: "0.936302",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 166,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1001.4 612.965V616.457L990.021 616.682V613.976L1001.4 612.965Z",
+                                fill: "#EFEEEB"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 167,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M820.374 644.52L821.525 647.516L833.126 644.211L834.09 646.561L839.83 642.648L838.828 640.27L820.374 644.52Z",
+                                fill: "black",
+                                stroke: "black",
+                                strokeWidth: "0.936302",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 168,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M822.003 646.018L823.061 649.351L833.969 646.102L833.154 643.527L822.003 646.018Z",
+                                fill: "#EFEEEB"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 169,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M827.779 675.934C796.479 678.883 788.473 699.407 786.844 705.081C786.582 705.998 786.488 706.532 786.488 706.532L786.058 783.346",
+                                stroke: "black",
+                                strokeWidth: "0.936302",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 170,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M786.704 706.128C786.704 706.128 769.083 670.53 727.96 694.265",
+                                stroke: "black",
+                                strokeWidth: "0.936302",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 171,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M839.558 673.115L839.427 675.259L831.365 675.512L831.225 677.207L826.777 675.877L826.936 674.164L839.558 673.115Z",
+                                fill: "black",
+                                stroke: "black",
+                                strokeWidth: "0.936302",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 172,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M838.819 674.408V676.74L831.216 676.889V675.082L838.819 674.408Z",
+                                fill: "#EFEEEB"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 173,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M717.764 695.503L718.532 697.507L726.285 695.297L726.94 696.87L730.779 694.258L730.105 692.666L717.764 695.503Z",
+                                fill: "black",
+                                stroke: "black",
+                                strokeWidth: "0.936302",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 174,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M718.851 696.514L719.562 698.733L726.856 696.57L726.304 694.848L718.851 696.514Z",
+                                fill: "#EFEEEB"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 175,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1025.05 795.312H1009.86C1009.86 795.312 925.108 438.646 919.715 400.427C914.322 362.216 920.099 283.932 930.435 181.604L935.389 225.769L934.405 294.849L929.995 384.996L968.206 542.267L1022.59 732.851L1033.89 772.887L1025.03 795.312H1025.05Z",
+                                fill: "#13331B"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 176,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M955.856 148.467C955.856 148.467 931.55 359.5 939.284 394.855C962.776 502.258 1051.99 791.51 1051.99 791.51L1025.03 790.92C1025.03 790.92 934.864 460.04 924.921 397.064L930.445 181.612L955.856 148.467Z",
+                                fill: "#34A853"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 177,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1497.49 799.159L1496.64 827.127C1496.64 827.127 956.773 773.729 926.259 776.276L1033.9 772.887C1033.9 772.887 1433.07 794.075 1497.49 799.159Z",
+                                fill: "#8FCD97"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 178,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1500.71 771.877L1501.44 799.845C1501.44 799.845 959.423 777.027 929.106 781.287L1036.38 771.821C1036.38 771.821 1436.11 770.426 1500.71 771.868V771.877Z",
+                                fill: "#ABD6AF"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 179,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1150.81 559.121C1087.65 565.067 1071.49 606.498 1068.2 617.94C1067.67 619.793 1067.48 620.861 1067.48 620.861L1066.62 775.866",
+                                stroke: "black",
+                                strokeWidth: "0.936302",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 180,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1067.93 620.044C1067.93 620.044 1032.37 548.201 949.377 596.102",
+                                stroke: "black",
+                                strokeWidth: "0.936302",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 181,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1174.58 553.428L1174.31 557.753L1158.05 558.259L1157.77 561.686L1148.79 559.008L1149.11 555.544L1174.58 553.428Z",
+                                fill: "black",
+                                stroke: "black",
+                                strokeWidth: "0.936302",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 182,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1173.1 556.029V560.739L1157.74 561.048V557.396L1173.1 556.029Z",
+                                fill: "#EFEEEB"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 183,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M928.797 598.613L930.351 602.648L946.006 598.192L947.317 601.366L955.051 596.085L953.703 592.883L928.797 598.613Z",
+                                fill: "black",
+                                stroke: "black",
+                                strokeWidth: "0.936302",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 184,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M930.997 600.633L932.43 605.127L947.148 600.745L946.043 597.271L930.997 600.633Z",
+                                fill: "#EFEEEB"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 185,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1334.45 1062.39C1334.45 1062.39 1176.68 813.486 1003.04 791.23L995.274 790.93C995.274 790.93 989.507 773.964 1167.99 798.505C1346.48 823.045 1657.22 852.492 1657.22 852.492L1664.93 1077.04L1334.45 1062.4V1062.39Z",
+                                fill: "#666766"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 186,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1496.65 827.129L1494.68 834.526L979.199 783.694L975.051 783.291L1011.86 781.119L1496.65 827.129Z",
+                                fill: "#EFEEEB"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 187,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M998.823 903.857L997.588 831.106L972.307 832.342L957.514 823.091C957.514 823.091 821.872 814.458 756.518 824.945C691.164 835.422 457.015 862.117 384.554 835.611C384.554 835.611 455.682 835.656 468.014 833.184C480.345 830.722 643.684 807.062 670.2 806.444L805.224 789.796C805.224 789.796 962.139 783.635 1012.38 829.252L1023.79 839.121L1017.01 841.583L1020.7 892.761L998.814 903.857H998.823Z",
+                                fill: "#13331B"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 188,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M805.234 814.608C805.234 814.608 668.759 827.539 638.6 832.801C608.433 838.072 494.944 846.209 473.399 846.209C451.855 846.209 385.525 835.611 385.525 835.611C385.525 835.611 510.271 832.314 533.257 824.655C556.243 816.996 676.914 805.498 676.914 805.498L785.132 792.09L805.234 789.787V814.599V814.608Z",
+                                fill: "#102315"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 189,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M740.498 1051.84L914.453 1090.7C914.453 1090.7 1048.67 978.246 1057.5 939.39C1066.33 900.533 1084.88 869.935 1081.34 850.919C1077.81 831.902 1070.74 817.015 1061.03 812.062L1051.32 807.1C1051.32 807.1 1063.83 827.492 1062.88 842.099C1061.92 856.705 803.192 1017.11 740.498 1051.84Z",
+                                fill: "#8FCD97"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 190,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M710.582 1084.37L1010.55 895.695C1010.55 895.695 1068.43 861.455 1063.63 835.884C1058.84 810.323 1062.57 785.287 927.289 779.959C927.289 779.959 1048.15 783.283 1052.45 826.83C1056.71 869.807 601.737 1072.46 601.737 1072.46L710.582 1084.37Z",
+                                fill: "#34A853"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 191,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M906.055 1085.01C906.055 1085.01 1170.94 839.889 1017.72 790.92C1017.72 790.92 1186.14 810.451 1325.43 1054.23L906.055 1085.01Z",
+                                fill: "#ABD6AF"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 192,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1342.92 1069.27C1342.92 1069.27 1202.72 808.065 1016.47 791.221C1016.47 791.221 1204.98 820.958 1329.05 1064.86L1342.91 1069.27H1342.92Z",
+                                fill: "#EFEEEB"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 193,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M1032.31 850.067C1032.31 850.067 1005.11 783.608 809.4 790.415C809.4 790.415 603.751 810.827 525.261 827.043C446.77 843.27 384.554 836.096 384.554 836.096L397.17 835.125C397.17 835.125 501.188 828.083 551.955 817.1C602.721 806.117 756.031 782.045 772.781 780.472C789.523 778.899 906.738 771.577 959.068 778.374C1011.4 785.181 1088.32 818.664 1032.32 850.067H1032.31Z",
+                                fill: "#18592D"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 194,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M569.51 1070.62C569.51 1070.62 1020.63 871.293 1052.8 843.316L531.739 1062.23L569.51 1070.62Z",
+                                fill: "#43AF5B"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 195,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M651.006 834.376L650.481 859.525L671.174 859.263L670.911 828.618L679.029 827.307L679.553 857.428L679.291 859.787L697.362 860.049L698.673 832.541L706.528 831.239L707.839 859.263L726.434 859.525L726.172 825.996L734.561 824.947L735.086 857.952L762.847 857.165L764.42 872.624L624.808 874.974L623.759 861.622L641.839 861.098L641.053 836.211L651.006 834.376Z",
+                                fill: "#13331B"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 196,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M574.182 841.078L573.368 849.196L581.083 848.381L579.865 854.879L461.685 858.128L461.273 851.63L474.681 851.228L474.269 842.295H480.365V850.011L523.818 851.228L523.416 843.101L529.914 842.295V849.608L546.561 850.413L545.756 840.666H553.059V848.793H568.087L568.901 840.264L574.182 841.078Z",
+                                fill: "#13331B"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 197,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M975.032 809.152L972.307 832.335L957.514 823.093L961.315 804.732L975.032 809.152Z",
+                                fill: "#18592D"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 198,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M721.135 995.372V1035.18L729.533 1032.97L728.653 994.492L721.135 995.372Z",
+                                fill: "#EFEEEB"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 199,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M840.12 943.621L841.89 975.464L849.408 973.255L847.639 938.752L840.12 943.621Z",
+                                fill: "#EFEEEB"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 200,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M911.335 912.659L912.215 933.894L917.973 930.355L916.204 906.91L911.335 912.659Z",
+                                fill: "#EFEEEB"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 201,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M953.797 892.314L953.356 909.561L957.776 905.581L957.336 889.215L953.797 892.314Z",
+                                fill: "#EFEEEB"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 202,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M984.32 879.485L985.649 891.423L989.629 888.333L986.53 875.506L984.32 879.485Z",
+                                fill: "#EFEEEB"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 203,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M902.655 224.318L926.568 226.565L925.07 242.258L900.408 240.011L902.655 224.318Z",
+                                fill: "white"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 204,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M904.145 275.887H921.335V292.328L904.894 291.579L904.145 275.887Z",
+                                fill: "white"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 205,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M902.562 332.32L920.586 330.447L919.847 344.651L902.656 342.404L902.562 332.32Z",
+                                fill: "white"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 206,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M906.392 382.77L919.847 381.271V396.964L907.244 399.277L906.392 382.77Z",
+                                fill: "white"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 207,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M852.798 881.48L838.697 890.609L720.901 899.738L718.41 883.146L742.464 880.656L890.952 397.028C890.952 397.028 886.551 224.027 872.984 133L895.924 229.458L902.562 332.32V394.537L809.653 729.677L785.599 878.165L852.798 881.48Z",
+                                fill: "#13331B"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 208,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M785.838 877.826L907.244 399.275C907.244 399.275 908.349 218.072 899.51 176.089L872.994 133C872.994 133 902.824 311.993 897.3 367.235C891.776 422.476 753.662 879.907 753.662 879.907L782.442 877.826H785.838Z",
+                                fill: "#34A853"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 209,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M887.806 252.51L650.201 806.426",
+                                stroke: "black",
+                                strokeWidth: "0.468151",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 210,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M889.341 279.354L666.801 799.151",
+                                stroke: "black",
+                                strokeWidth: "0.468151",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 211,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M890.877 304.66L676.904 805.507",
+                                stroke: "black",
+                                strokeWidth: "0.468151",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 212,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M891.645 358.357L699.066 805.048",
+                                stroke: "black",
+                                strokeWidth: "0.468151",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 213,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M892.412 381.373L711.2 802.475",
+                                stroke: "black",
+                                strokeWidth: "0.468151",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 214,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M870.934 463.438L722.249 799.467",
+                                stroke: "black",
+                                strokeWidth: "0.468151",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 215,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M944.47 256.986L1287.74 783.169",
+                                stroke: "black",
+                                strokeWidth: "0.468151",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 216,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M941.269 288.678L1266.16 786.622",
+                                stroke: "black",
+                                strokeWidth: "0.468151",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 217,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M939.2 316.674L1248.02 789.216",
+                                stroke: "black",
+                                strokeWidth: "0.468151",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 218,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M937.121 341.57L1229.02 788.346",
+                                stroke: "black",
+                                strokeWidth: "0.468151",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 219,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M936.082 367.496L1207.44 781.445",
+                                stroke: "black",
+                                strokeWidth: "0.468151",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 220,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M936.082 390.307L1192.76 789.218",
+                                stroke: "black",
+                                strokeWidth: "0.468151",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 221,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M949.564 438.008L1176.36 789.215",
+                                stroke: "black",
+                                strokeWidth: "0.468151",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 222,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                d: "M958.899 472.24L1157.36 784.899",
+                                stroke: "black",
+                                strokeWidth: "0.468151",
+                                strokeMiterlimit: "10"
+                            }, void 0, false, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 223,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/hero/HeroScene.tsx",
+                        lineNumber: 107,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
+                        className: "hero-scene__traffic",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
+                                className: "hero-scene__keke",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1139.82 726.565C1139.82 726.565 1123.23 727.458 1121.28 730.874L1122.65 749.177L1117.85 753.166L1088.81 752.923H1070.1L1071.16 731.369L1073.6 727.38L1093.69 721.364L1102.23 719.248L1127.93 720.141L1138.59 721.276L1139.81 726.565H1139.82Z",
+                                        fill: "#B69FAC"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 227,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1077.65 755.378L1077.18 736.803L1077.91 727.865L1076.44 727.953L1075.77 735.736L1075.98 755.203L1077.65 755.378Z",
+                                        fill: "#59424B"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 228,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1071.28 748.641C1071.28 748.641 1072.65 748.127 1072.88 748.011C1073.11 747.894 1082.87 747.952 1082.87 747.952L1094.63 747.719L1096.85 744.527H1100.22L1116.32 744.41C1116.32 744.41 1118.03 744.983 1118.03 746.691V751.427L1119.34 773.864L1073.67 773.805L1071.15 757.705L1071.27 748.632L1071.28 748.641Z",
+                                        fill: "#463947"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 229,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1078.41 748.381L1080.62 764.83L1093.08 764.355L1090.01 753.068L1089.55 747.789L1078.34 747.935L1078.41 748.381Z",
+                                        fill: "#6B5668"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 230,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1111 721.246L1106.79 724.72L1105.12 728.195L1103.92 734.085L1103.38 745.246H1102.04L1102.38 734.415L1103.59 728.466L1105.32 724.39L1109.07 721.314L1111 721.246Z",
+                                        fill: "#59424B"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 231,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1071.56 733.883H1091.42L1102.38 734.019L1110.53 734.484L1116.29 737.153L1116.15 738.095L1110.47 735.348L1071.56 734.814V733.883Z",
+                                        fill: "#59424B"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 232,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1120.83 744.507L1114.68 731.94C1114.68 731.94 1114.14 729.805 1108.8 728.601C1103.45 727.398 1075.7 727.534 1075.7 727.534L1075.64 728.339C1075.64 728.339 1105.39 728.136 1108.52 729.543C1111.67 730.95 1111.53 730.009 1114.21 732.881L1120.16 745.051L1120.83 744.517V744.507Z",
+                                        fill: "#59424B"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 233,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1139.42 721.197C1139.42 721.197 1130.3 715.423 1099.39 717.781C1099.39 717.781 1093.53 717.946 1090.52 719.159C1090.52 719.159 1085.32 719.324 1082.3 721.197C1079.29 723.07 1076.04 722.827 1076.04 722.827C1076.04 722.827 1072.06 724.05 1070.68 725.515C1069.3 726.981 1067.99 735.851 1067.99 735.851C1067.99 735.851 1068.23 740.567 1067.5 745.041C1066.78 749.515 1066.45 753.989 1066.45 753.989C1066.45 753.989 1065.39 755.338 1065.8 756.104C1066.2 756.871 1070.92 757.89 1070.92 757.89L1071.65 755.852L1072.13 733.405C1072.13 733.405 1072.71 729.912 1074.17 729.582C1075.64 729.252 1090.19 725.185 1090.19 725.185L1093.69 724.128L1099.95 720.304L1122.48 720.712L1138.5 722.177L1139.4 721.197H1139.42Z",
+                                        fill: "#232223"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 234,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1146.25 770.225C1146.25 770.225 1146.53 757.91 1146.45 756.134C1146.37 754.358 1142.99 726.438 1141.22 723.128C1139.45 719.819 1138.68 720.586 1138.68 720.586C1138.68 720.586 1101.96 714.511 1091.85 719.742C1091.85 719.742 1090.23 721.1 1090.32 730.038C1090.41 738.976 1089.86 748.37 1090.41 753.785C1090.95 759.2 1090.68 761.549 1090.68 761.549L1078.85 761.636L1079.57 762.354L1079.75 772.379L1074.69 772.292L1073.79 764.169C1073.79 764.169 1072.53 760.375 1072.43 757.939C1072.43 757.939 1066.75 757.58 1066.2 756.852C1065.66 756.124 1066.02 772.738 1066.02 772.738L1065.93 775.63C1065.93 775.63 1064.84 777.164 1064.84 777.979C1064.84 778.794 1065.12 782.676 1065.12 782.676C1065.12 782.676 1065.3 784.394 1065.47 784.665C1065.65 784.937 1067.82 784.034 1067.82 784.034L1070.17 787.829L1090.48 795.049L1093.38 797.669L1098.16 799.659L1098.98 799.474L1101.68 799.562L1121.82 798.931L1135.81 796.767C1135.81 796.767 1142.67 795.408 1142.76 789.275L1144.21 787.916C1144.21 787.916 1146.45 770.584 1146.24 770.225H1146.25Z",
+                                        fill: "#F9B429"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 235,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1098.1 722.316C1098.1 722.316 1128.01 722.209 1134.25 722.422C1134.25 722.422 1138.41 722.093 1139.4 727.576C1140.39 733.049 1144.33 746.092 1144.33 746.092C1144.33 746.092 1145.32 749.489 1141.16 749.489C1137 749.489 1106.87 750.255 1102.71 749.382C1098.55 748.508 1097.02 747.742 1096.36 741.162C1095.7 734.592 1094.93 725.829 1094.93 725.829C1094.93 725.829 1095.26 722.655 1098.1 722.325V722.316Z",
+                                        fill: "url(#paint0_linear_11099_11033)",
+                                        stroke: "#231F20",
+                                        strokeWidth: "2.91137",
+                                        strokeMiterlimit: "10"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 236,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1080.49 726.602L1080.88 749.127L1080.27 749.301L1079.88 726.438L1080.49 726.602Z",
+                                        fill: "#4C3C48"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 237,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1090.47 750.961L1081.38 750.903L1081.04 751.679L1081.32 759.064L1090.65 758.783L1090.7 759.948L1081.38 760.064V761.559L1080.26 761.675V749.302L1080.88 749.127V749.738H1090.76V751.019L1090.47 750.961Z",
+                                        fill: "#F9B429"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 238,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1147.53 758.26L1146.18 757.688C1146.18 757.688 1141.08 758.26 1140.04 759.609C1138.98 760.958 1137.64 763.258 1137.64 763.258L1116.79 764.316C1116.79 764.316 1116.22 761.433 1114.48 761.045C1112.75 760.657 1094.22 758.93 1094.22 758.93C1094.22 758.93 1092.59 759.318 1093.93 764.112C1095.28 768.916 1097.01 771.128 1097.01 771.128C1097.01 771.128 1097.97 772.38 1102.19 772.759C1106.41 773.137 1116.21 773.147 1116.21 773.147L1118.33 771.798L1135.9 770.643C1135.9 770.643 1135.8 771.798 1137.53 771.895C1139.26 771.992 1146.56 770.934 1146.95 769.585C1147.33 768.236 1147.52 758.25 1147.52 758.25L1147.53 758.26Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 239,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1098.45 762.295L1112.67 763.159C1112.67 763.159 1115.16 764.411 1115.74 769.214L1114.98 770.563C1114.98 770.563 1102.78 770.369 1101.72 769.7C1100.66 769.03 1098.27 766.342 1098.45 762.305V762.295Z",
+                                        fill: "#F8F8FC"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 240,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1141.38 762.102L1147.15 760.568L1146.86 767.003C1146.86 767.003 1144.74 769.4 1139.94 769.215C1139.94 769.215 1138.98 769.215 1138.98 767.866C1138.98 766.517 1141.37 762.102 1141.37 762.102H1141.38Z",
+                                        fill: "#F8F8FC"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 241,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1126.79 752.785L1127.18 754.037C1127.18 754.037 1127.57 754.425 1128.14 753.649C1128.71 752.873 1140.53 733.861 1140.53 733.861L1126.8 752.785H1126.79Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 242,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1143.6 724.74L1146.28 724.837L1147.34 729.253L1146.48 731.271L1146 733.193L1145.62 735.59L1145.42 736.162L1142.93 736.832L1142.83 735.968L1144.75 735.871L1145.42 732.601L1144.27 731.068C1144.27 731.068 1143.5 731.931 1143.01 730.592C1142.54 729.243 1143.59 724.73 1143.59 724.73L1143.6 724.74Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 243,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1091.08 724.486L1088.39 724.583L1087.33 728.999L1088.19 731.017L1088.67 732.939L1089.06 735.336L1089.25 735.909L1091.75 736.578L1091.84 735.714L1089.92 735.617L1089.25 732.347L1090.41 730.814C1090.41 730.814 1091.17 731.677 1091.66 730.338C1092.14 728.999 1091.09 724.477 1091.09 724.477L1091.08 724.486Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 244,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1091.67 791.839L1084.97 789.782L1091.5 789.209C1091.5 789.209 1091.68 789.898 1091.68 791.839H1091.67Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 245,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1080.28 787.595L1080.45 786.509L1077.87 786.567L1076.78 785.703L1075.18 786.101L1074.78 789.362L1076.16 790.167L1076.56 789.42C1076.56 789.42 1076.62 789.08 1076.85 789.08C1077.08 789.08 1078.63 789.653 1078.63 789.653V788.217L1080.29 787.586L1080.28 787.595Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 246,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1080.61 767.557L1080.44 762.287L1090.63 761.947L1091.49 789.207L1082.9 789.722C1082.9 789.722 1081.82 773.632 1081.58 772.03C1081.35 770.429 1080.84 768.362 1080.61 768.081C1080.39 767.799 1080.61 767.566 1080.61 767.566V767.557Z",
+                                        fill: "#D5982B"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 247,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1080.39 772.243L1079.8 772.224L1073.83 772.078L1074.59 783.811L1075.01 785.829L1080.23 788.227L1079.93 774.679L1080.39 772.243Z",
+                                        fill: "#D5982B"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 248,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.26",
+                                        d: "M1085.83 764.518C1085.83 764.518 1083.88 765.954 1083.88 767.099C1083.88 768.244 1084.45 770.874 1089.54 771.912L1090.98 772.087C1090.98 772.087 1087.09 771.175 1086.06 768.991C1085.03 766.818 1085.37 765.672 1085.83 764.527V764.518Z",
+                                        fill: "#A4722A"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 249,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.26",
+                                        d: "M1079.64 775.979C1079.64 775.979 1078.39 775.921 1078.46 776.794C1078.53 777.668 1078.64 781.297 1078.64 781.297C1078.64 781.297 1078.7 781.734 1079.95 782.113C1081.21 782.491 1079.03 781.744 1078.96 781.181C1078.88 780.618 1078.66 776.717 1078.79 776.591C1078.92 776.465 1079.47 776.154 1079.63 775.989L1079.64 775.979Z",
+                                        fill: "#A4722A"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 250,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.26",
+                                        d: "M1077.27 774.34C1077.27 774.34 1076.79 774.592 1076.64 775.252C1076.48 775.912 1077.14 782.482 1077.14 782.482C1077.14 782.482 1077.11 782.987 1077.74 783.617C1077.74 783.617 1076.96 783.52 1076.83 783.084C1076.7 782.647 1076.3 775.106 1076.3 775.106L1077.27 774.35V774.34Z",
+                                        fill: "#A4722A"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 251,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.26",
+                                        d: "M1086.51 773.069C1086.51 773.069 1086.11 772.991 1086.11 773.758C1086.11 774.524 1086.67 785.015 1086.71 785.296C1086.75 785.578 1086.71 786.791 1086.99 787.558C1087.27 788.324 1087.51 787.878 1087.51 787.878C1087.51 787.878 1086.95 789.004 1086.34 786.509L1085.61 773.767C1085.61 773.767 1085.93 773.001 1086.5 773.078L1086.51 773.069Z",
+                                        fill: "#A4722A"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 252,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1065.95 784.094L1066.21 778.232C1066.21 778.232 1067.94 779.086 1068.48 780.659C1069.03 782.231 1069.65 785.724 1069.75 786.52C1069.84 787.316 1069.9 787.452 1069.9 787.452L1067.83 784.036L1065.94 784.249V784.094H1065.95Z",
+                                        fill: "#D5982B"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 253,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1091.61 753.649C1091.61 753.649 1092.63 753.572 1092.63 753.941C1092.63 754.309 1092.92 755.979 1092.92 755.979C1092.92 755.979 1108.21 756.561 1109.52 756.415C1110.83 756.27 1126.79 755.687 1126.79 755.687L1139.61 755.396L1145.59 754.96L1145.51 752.407L1146.02 752.262L1146.54 757.793L1146.19 757.667L1145.81 756.26C1145.81 756.26 1137.14 756.92 1134.23 756.842C1131.32 756.765 1123.6 757.425 1123.6 757.425L1115.08 757.648C1115.08 757.648 1099.93 757.648 1098.76 757.725C1097.6 757.803 1092.93 757.357 1092.93 757.357L1093.15 759.472L1090.71 759.938L1090.42 753.776L1091.62 753.64L1091.61 753.649Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 254,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        opacity: "0.37",
+                                        d: "M1123.42 779.59C1123.42 779.59 1133.3 777.358 1134.74 781.424C1136.17 785.49 1132.5 792.419 1132.5 792.419C1132.5 792.419 1122.06 795.923 1119.6 795.447C1117.12 794.972 1112.11 793.38 1114.42 785.888C1116.73 778.396 1123.42 779.59 1123.42 779.59Z",
+                                        fill: "#D5982B"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 255,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1131.75 790.918C1131.75 790.918 1135.48 793.296 1136.41 800.176C1137.34 807.057 1136.56 814.869 1133.19 815.179C1133.19 815.179 1129.11 817.091 1127.14 814.141C1125.17 811.191 1123.41 807.571 1123.41 805.242C1123.41 802.913 1122.28 796.809 1123.26 791.791L1131.74 790.908L1131.75 790.918Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 256,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1127.45 792.207C1127.45 792.207 1133.19 802.348 1131.53 808.249C1129.87 814.149 1127.14 814.149 1127.14 814.149C1127.14 814.149 1123.87 809.083 1123.46 806.055L1122.91 798.641V794.167L1123.16 792.256L1127.45 792.217V792.207Z",
+                                        fill: "#1E1E1D"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 257,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1121.74 790.023C1121.74 790.023 1117.95 804.609 1119.41 804.901C1120.87 805.192 1126.27 804.978 1126.27 804.978L1128.01 803.523L1129.03 802.067V800.611H1127.35L1124.95 800.98L1123.99 790.839L1121.73 790.033L1121.74 790.023Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 258,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1074.57 788.568C1074.57 788.568 1075.78 794.895 1074.47 798.825L1073.83 800.427C1073.83 800.427 1071.34 801.222 1070.25 800.941C1069.16 800.659 1067.02 796.195 1067.31 789.625C1067.6 783.055 1068.2 784.181 1069.42 783.473L1074.56 788.568H1074.57Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 259,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1070.86 787.363C1070.86 787.363 1072.3 795.894 1070.51 800.911V800.989C1070.51 800.989 1065.66 796.651 1067.82 784.801C1067.82 784.801 1068.19 784.093 1068.7 784.161C1069.2 784.229 1070.11 784.588 1070.86 787.363Z",
+                                        fill: "#1E1E1D"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 260,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1124.26 792.488L1117.99 792.003C1117.99 792.003 1118.15 785.248 1119.29 783.793C1120.42 782.337 1123.44 781.308 1123.44 781.308V779.853L1126.47 779.096L1126.58 780.445C1126.58 780.445 1133.49 779.096 1137.27 784.385C1141.05 789.674 1139.06 790.489 1139.06 790.489L1130.8 792.168L1124.27 792.488H1124.26Z",
+                                        fill: "url(#paint1_linear_11099_11033)"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 261,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1068.9 786.8C1068.9 786.8 1067.99 786.052 1067.85 790.517C1067.72 794.981 1068.63 796.902 1069.04 796.902C1069.45 796.902 1070.59 792.914 1069.61 789.303C1068.63 785.693 1068.9 786.809 1068.9 786.809V786.8Z",
+                                        fill: "#F8F8FC"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 262,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 226,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
+                                className: "hero-scene__bus",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1402.49 836.94C1402.49 836.94 1407.43 812.582 1407.41 809.923C1407.39 807.264 1412.03 798.035 1408.49 790.494C1404.96 782.954 1368.44 735.169 1368.44 735.169C1368.44 735.169 1364.94 731.51 1346.94 729.598C1328.94 727.677 1263.92 725.949 1263.92 725.949L1186.03 731.656C1186.03 731.656 1176.3 732.063 1174.66 737.604C1173.02 743.155 1164.62 764.515 1164.62 764.515L1164.35 773.405C1164.35 773.405 1163.69 774.919 1163.86 775.928C1164.04 776.937 1165.18 796.045 1165.18 796.045L1169.28 805.75L1193.83 821.578L1208.31 827.556L1244.43 842.957L1277.08 851.74C1277.08 851.74 1278.77 853.991 1279.62 853.982C1280.46 853.972 1303.07 860.717 1303.07 860.717L1360.94 859.397L1398.78 844.267L1402.49 836.931V836.94Z",
+                                        fill: "#F7AB1B"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 265,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1399.13 817.736C1399.13 817.736 1398.72 826.063 1397.51 828.382C1396.29 830.702 1387.37 832.458 1387.37 832.458L1386.77 834.001L1349.98 843.201L1348.43 841.668L1333.81 844.395L1332.11 843.327L1334.49 830.983C1334.49 830.983 1393.93 822.395 1399.14 817.736H1399.13Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 266,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1317.82 833.924L1316.19 845.21L1310.99 845.628L1306.15 844.24C1306.15 844.24 1305.24 835.438 1307.41 834.477L1311.95 834.448L1317.82 833.934V833.924Z",
+                                        fill: "#C63827"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 267,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1311.68 835.952L1310.99 845.618L1316.19 845.21L1317.82 833.924L1311.95 834.438L1311.68 835.952Z",
+                                        fill: "#EF4623"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 268,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1406.04 814.93L1406.63 817.23L1406.7 819.384L1405.52 823.8L1402.85 824.819L1404.17 816.987L1406.04 814.93Z",
+                                        fill: "#EF4423"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 269,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1291.63 735.499L1311.05 796.56C1311.05 796.56 1313.36 801.743 1317.42 802.199C1321.48 802.655 1328.62 803.256 1328.62 803.256L1407.28 791.989L1409 791.485L1398.18 774.715L1372.91 741.108L1369.43 736.664C1369.43 736.664 1363.54 733.17 1359.08 732.733C1354.61 732.297 1323.23 730.938 1323.23 730.938C1323.23 730.938 1290.03 729.705 1291.63 735.499Z",
+                                        fill: "#FECC52"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 270,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1296.3 778.255C1296.3 778.255 1298.35 783.806 1294.55 783.729C1290.77 783.641 1218.84 772.122 1218.84 772.122L1167.31 763.233C1167.31 763.233 1170.53 761.981 1174.54 762.175C1178.54 762.369 1202.64 766.212 1202.64 766.212L1247.36 772.695L1293.97 779.604L1296.3 778.255Z",
+                                        fill: "#FECC52"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 271,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1297.95 844.229C1297.95 844.229 1298.92 856.011 1299.38 857.01C1299.83 858.01 1279.77 852.032 1279.77 852.032L1274.89 837.834L1297.96 844.229H1297.95Z",
+                                        fill: "#AD6B28",
+                                        stroke: "#EAB07D",
+                                        strokeWidth: "0.970458",
+                                        strokeMiterlimit: "10"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 272,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1286.38 853.322C1286.38 853.322 1281.18 844.947 1279.11 838.221C1277.04 831.496 1271.48 826.333 1268.35 824.975C1265.22 823.616 1251.94 819.579 1248.63 819.754C1245.32 819.928 1241.13 824.703 1241.51 826.692C1241.89 828.682 1245.17 844.141 1245.17 844.141L1286.37 853.322H1286.38Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 273,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1281.18 852.885C1281.18 852.885 1286.62 861.008 1280.45 873.73C1274.28 886.453 1257.63 880.737 1257.63 880.737C1257.63 880.737 1240.63 867.888 1246.86 842.491C1246.86 842.491 1250.09 825.858 1267.03 829.38C1283.95 832.903 1281.18 852.885 1281.18 852.885Z",
+                                        fill: "#0C0D0D"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 274,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1174.67 737.604L1180.33 737.623L1172.36 760.448L1167.14 759.905L1167.12 758.168L1174.67 737.604Z",
+                                        fill: "#040504"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 275,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1176.68 734.888L1289.4 733.811C1289.4 733.811 1291 734.956 1289.71 737.149L1300.6 779.141L1301.8 784.643L1300.74 799.016L1299.14 798.88L1300.05 784.08C1300.05 784.08 1291.49 741.487 1288.41 737.013L1176.26 736.343L1176.69 734.888H1176.68Z",
+                                        fill: "#040504"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 276,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1324.84 802.469L1320.35 803.372C1320.35 803.372 1317.01 803.682 1317.03 805.429C1317.05 807.176 1316.43 822.412 1316.43 822.412C1316.43 822.412 1316.14 824.159 1320.08 824.994C1324 825.838 1396.88 812.562 1396.88 812.562L1406.15 809.884L1407.27 805.235C1407.27 805.235 1410.03 793.968 1407.29 791.998L1324.85 802.479L1324.84 802.469Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 277,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1300.15 796.977L1300.05 803.673L1164.35 773.405L1164.38 770.988L1300.15 796.977Z",
+                                        fill: "#AF6B28"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 278,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1299.32 811.97L1299.34 814.949L1164.66 781.934L1164.64 780.197L1299.32 811.97Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 279,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1299.03 816.367L1298.89 818.891L1164.67 783.663L1164.66 781.936L1299.03 816.367Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 280,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1328.93 805.422C1328.93 805.422 1332.01 807.819 1331.73 813.632C1331.45 819.445 1325.82 821.91 1325.82 821.91C1325.82 821.91 1322.59 821.444 1319.32 815.495C1319.32 815.495 1318 810.828 1323.3 807.722C1328.6 804.617 1328.94 805.422 1328.94 805.422H1328.93Z",
+                                        fill: "#DFDFDE"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 281,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1402.14 794.891C1402.14 794.891 1397.85 804.605 1400.12 806.691C1402.39 808.778 1403.2 808.448 1403.2 808.448C1403.2 808.448 1406.56 805.682 1406.55 803.256C1406.53 800.84 1405.71 797.453 1405.7 796.647C1405.69 795.842 1402.14 794.9 1402.14 794.9V794.891Z",
+                                        fill: "#DFDFDE"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 282,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1375.55 801.703C1375.55 801.703 1380.06 800.704 1380.26 806.032C1380.46 811.359 1376.44 813.485 1376.44 813.485C1376.44 813.485 1372.24 813.194 1372.2 807.381C1372.16 801.567 1375.55 801.703 1375.55 801.703Z",
+                                        stroke: "#EDEDED",
+                                        strokeWidth: "1.94092",
+                                        strokeMiterlimit: "10"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 283,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1359.08 777.121L1370.85 798.665L1372.62 798.005L1361.01 776.461L1359.08 777.121Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 284,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1362.78 776.287L1365.2 775.947L1376 797.181L1373.91 797.841L1362.78 776.287Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 285,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1295.99 735.267C1295.99 735.267 1314.86 733.355 1321.15 732.666C1327.44 731.977 1359.91 735.626 1366.22 737.033C1372.53 738.44 1393.92 773.648 1393.92 773.648C1393.92 773.648 1316.15 780.005 1315.67 779.684C1315.18 779.364 1310.99 779.714 1309.84 776.977C1308.69 774.24 1295.99 735.267 1295.99 735.267Z",
+                                        fill: "url(#paint2_linear_11099_11033)",
+                                        stroke: "black",
+                                        strokeWidth: "0.970458",
+                                        strokeMiterlimit: "10"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 286,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1252.29 739.167L1286.29 739.963L1296.3 778.248L1293.97 779.597L1246.1 772.57C1246.1 772.57 1243.81 771.134 1244.82 767.602C1245.83 764.069 1249.81 741.652 1249.81 741.652C1249.81 741.652 1250.62 738.536 1252.29 739.148V739.167Z",
+                                        fill: "url(#paint3_linear_11099_11033)",
+                                        stroke: "black",
+                                        strokeWidth: "0.970458",
+                                        strokeMiterlimit: "10"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 287,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1240.33 741.138L1234.68 767.612C1234.68 767.612 1235.62 769.776 1230.69 769.126C1225.76 768.475 1200.56 765.098 1200.56 765.098C1200.56 765.098 1199.64 763.73 1200.08 761.556C1200.52 759.382 1204.96 740.002 1204.96 740.002C1204.96 740.002 1205.29 738.401 1207.46 738.265C1209.64 738.129 1238.48 738.275 1238.48 738.275C1238.48 738.275 1241.11 738.372 1240.33 741.118V741.138Z",
+                                        fill: "url(#paint4_linear_11099_11033)",
+                                        stroke: "black",
+                                        strokeWidth: "0.970458",
+                                        strokeMiterlimit: "10"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 288,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1201.07 740.042L1195.85 762.624C1195.85 762.624 1195.75 765.147 1191.96 764.594C1188.18 764.051 1174.54 762.178 1174.54 762.178L1175.2 755.326L1181.72 738.683L1199 738.566C1199 738.566 1201.52 738.78 1201.07 740.042Z",
+                                        fill: "url(#paint5_linear_11099_11033)",
+                                        stroke: "black",
+                                        strokeWidth: "0.970458",
+                                        strokeMiterlimit: "10"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 289,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1237.27 787.1L1248.34 789.196L1248.24 792.612L1236.6 790.186L1237.27 787.1Z",
+                                        fill: "#050403"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 290,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1311.47 784.878C1311.47 784.878 1314.66 784.625 1314.67 786.11C1314.68 787.595 1315.73 790.322 1313.21 790.341C1310.71 790.361 1309.22 789.225 1309.55 787.857C1309.88 786.489 1311.47 784.878 1311.47 784.878Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 291,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1355.66 778.635C1355.66 778.635 1356.46 778.974 1355.67 780.343C1354.89 781.721 1353.52 782.643 1353.52 782.07C1353.52 781.498 1354.41 779.324 1355.66 778.635Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 292,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1378.68 776.646L1376.76 779.053C1376.76 779.053 1375.97 780.771 1376.99 780.422C1378.01 780.072 1379.71 778.238 1378.67 776.646H1378.68Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 293,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1325.48 783.4L1331.36 775.947L1355.73 772.239L1355.95 771.667L1351.62 771.579L1351.64 771.065L1360.5 770.958L1362.7 769.309L1339.65 771.415V772.074L1332.25 773.715V774.336L1339.66 773.443L1339.84 774.19L1331.07 775.18L1323.14 783.526L1323.24 784.322C1323.24 784.322 1324.87 784.302 1325.48 783.4Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 294,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1371.4 779.111L1373.86 773.123L1388.35 766.621L1386.4 766.747V766.204L1391.92 764.748L1393.21 763.225L1378.49 768.426L1373.74 771.493L1378.72 769.62V770.27L1373.21 772.696L1369.77 778.897L1369.89 779.878L1371.4 779.111Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 295,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1275.47 763.476C1275.47 763.476 1273.12 773.433 1273.69 774.18C1274.25 774.927 1281.99 778.673 1281.99 778.673L1281.64 780.352L1277.45 780.566L1277.34 777.13L1260.96 774.549C1260.96 774.549 1262.27 761.525 1262.55 760.875C1262.82 760.225 1262.91 758.828 1263.46 758.73C1264.01 758.633 1274.15 759.769 1274.15 759.769C1274.15 759.769 1276.11 760.312 1275.48 763.476H1275.47Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 296,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1176.49 822.005L1171.24 822.044L1171.38 801.645L1172.1 800.616L1172.36 796.676C1172.36 796.676 1172.79 795.22 1175.13 795.638C1177.47 796.055 1181.7 797.045 1184.37 803.877C1187.04 810.709 1189.86 818.123 1192.63 819.996L1193.82 821.578L1176.48 822.005H1176.49Z",
+                                        fill: "black"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 297,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1255.36 840.602C1255.36 840.602 1247.22 843.717 1248.67 855.624C1250.11 867.522 1253.47 872.772 1260.2 873.413C1266.92 874.044 1268.91 854.295 1265.55 848.957C1264.26 846.9 1263.33 845.221 1262.34 843.921C1260.77 841.853 1259.02 840.737 1255.36 840.611V840.602Z",
+                                        stroke: "black",
+                                        strokeWidth: "0.970458",
+                                        strokeMiterlimit: "10"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 298,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1261.34 843.794C1261.34 843.794 1255.37 842.047 1254.11 855.585C1252.85 869.123 1261.11 871.365 1261.11 871.365C1261.11 871.365 1257.98 873.432 1253.35 867.59C1253.35 867.59 1245.32 851.315 1254.62 842.484C1254.62 842.484 1257.58 840.165 1261.35 843.794H1261.34Z",
+                                        fill: "#B5B5B6"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 299,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1259.17 843.414L1253.35 848.373L1252.58 858.951L1255.63 868.19L1258.31 870.791L1261.12 871.363C1261.12 871.363 1268.15 869.733 1267.07 857.282C1265.99 844.831 1261.35 843.802 1261.35 843.802L1259.17 843.424V843.414Z",
+                                        fill: "#EDEDED"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 300,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1195.35 821.57C1195.35 821.57 1196.57 835.331 1190 836.951C1183.43 838.572 1181.88 836.359 1181.88 836.359C1181.88 836.359 1173.23 829.333 1175.83 812.709C1178.42 796.085 1187.05 805.8 1187.05 805.8L1195.35 821.57Z",
+                                        fill: "#151515"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 301,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1184.47 812.29C1184.47 812.29 1183.52 808.098 1181.21 808.738C1178.9 809.389 1178.23 815.396 1178.35 819.724C1178.47 824.052 1179.6 830.729 1182.21 830.913C1184.82 831.108 1186.38 825.256 1185.79 820.462C1185.21 815.677 1184.47 812.281 1184.47 812.281V812.29Z",
+                                        fill: "#EDEDED"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 302,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1183.42 811.38C1183.42 811.38 1181.26 810.05 1180.92 815.058C1180.58 820.065 1180.6 822.957 1181.13 826.189C1181.65 829.421 1182.49 830.042 1183.29 829.789C1184.09 829.537 1184.79 828.178 1184.79 828.178C1184.79 828.178 1184.47 829.983 1182.87 830.207C1181.28 830.43 1178.07 822.132 1179.4 813.796C1180.73 805.47 1183.42 811.37 1183.42 811.37V811.38Z",
+                                        fill: "#B5B5B6"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 303,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1241.51 826.355L1188.07 806.955C1188.07 806.955 1187.73 813.933 1193.07 819.493C1198.42 825.054 1244.02 840.95 1244.02 840.95L1241.5 826.345L1241.51 826.355Z",
+                                        fill: "#AD6B28",
+                                        stroke: "#EAB07D",
+                                        strokeWidth: "0.970458",
+                                        strokeMiterlimit: "10"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 304,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1400.74 830.709L1412.25 832.815C1412.25 832.815 1414.18 837.89 1409.84 841.995L1392.29 849.39L1359.34 860.822C1359.34 860.822 1323.45 867.334 1321.71 867.344C1319.96 867.353 1306.27 865.558 1305.38 863.53C1304.49 861.502 1303.07 860.725 1303.07 860.725C1303.07 860.725 1303.4 851.758 1304.42 851.603C1305.44 851.448 1311.71 853.884 1311.71 853.884L1350.37 848.517L1368.68 844.46L1390.02 837.764L1402.79 833.019L1400.73 830.709H1400.74Z",
+                                        fill: "url(#paint6_linear_11099_11033)"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 305,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        d: "M1308.06 855.515L1318.18 858.204L1321.96 856.796L1335.27 856.01C1335.27 856.01 1360.05 852.274 1366 850.285C1371.96 848.295 1395.1 841.473 1397.95 840.075C1400.82 838.678 1412.23 832.807 1412.23 832.807L1412.44 833.437L1401.14 839.144L1383.72 845.558L1366.86 850.731L1349.99 854.409L1337.16 856.301L1322.97 857.679L1318.36 859.387L1308.03 855.515H1308.06Z",
+                                        fill: "#DFDFDE"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hero/HeroScene.tsx",
+                                        lineNumber: 306,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/hero/HeroScene.tsx",
+                                lineNumber: 264,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/hero/HeroScene.tsx",
+                        lineNumber: 225,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/hero/HeroScene.tsx",
+                lineNumber: 76,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/hero/HeroScene.tsx",
+        lineNumber: 14,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/hero/RotatingWord.tsx [app-rsc] (client reference proxy)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "RotatingWord",
+    ()=>RotatingWord
+]);
+// This file is generated by next-core EcmascriptClientReferenceModule.
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server.js [app-rsc] (ecmascript)");
+;
+const RotatingWord = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerClientReference"])(function() {
+    throw new Error("Attempted to call RotatingWord() from the server but RotatingWord is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+}, "[project]/app/hero/RotatingWord.tsx", "RotatingWord");
+}),
+"[project]/app/hero/RotatingWord.tsx [app-rsc] (client reference proxy) <module evaluation>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "RotatingWord",
+    ()=>RotatingWord
+]);
+// This file is generated by next-core EcmascriptClientReferenceModule.
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server.js [app-rsc] (ecmascript)");
+;
+const RotatingWord = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerClientReference"])(function() {
+    throw new Error("Attempted to call RotatingWord() from the server but RotatingWord is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+}, "[project]/app/hero/RotatingWord.tsx <module evaluation>", "RotatingWord");
+}),
+"[project]/app/hero/RotatingWord.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hero$2f$RotatingWord$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__$3c$module__evaluation$3e$__ = __turbopack_context__.i("[project]/app/hero/RotatingWord.tsx [app-rsc] (client reference proxy) <module evaluation>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hero$2f$RotatingWord$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__ = __turbopack_context__.i("[project]/app/hero/RotatingWord.tsx [app-rsc] (client reference proxy)");
+;
+__turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hero$2f$RotatingWord$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__);
+}),
+"[project]/app/page.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>Page
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hero$2f$Hero$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/hero/Hero.tsx [app-rsc] (ecmascript)");
+;
+;
+function Page() {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hero$2f$Hero$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Hero"], {}, void 0, false, {
+        fileName: "[project]/app/page.tsx",
+        lineNumber: 4,
+        columnNumber: 10
+    }, this);
+}
+}),
+"[project]/app/page.tsx [app-rsc] (ecmascript, Next.js Server Component)", (function(__turbopack_context__){
+
+__turbopack_context__.n(__turbopack_context__.i("[project]/app/page.tsx [app-rsc] (ecmascript)"));
+}),
+];
+
+//# sourceMappingURL=%5Broot-of-the-server%5D__1stwf1a._.js.map

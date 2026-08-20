@@ -137,6 +137,10 @@
   .hero-scene__clouds, .hero-scene__traffic, .hero-scene__keke {
     animation: none;
   }
+
+  .hero__rotator, .hero__rotator-word {
+    transition: none;
+  }
 }
 
 .hero__shell {
@@ -256,8 +260,44 @@
   line-height: 80px;
 }
 
-.hero__accent {
+.hero__rotator {
+  white-space: nowrap;
   color: var(--amber);
+  display: inline-block;
+  position: relative;
+}
+
+.hero__rotator-strut {
+  visibility: hidden;
+  width: 0;
+  display: inline-block;
+}
+
+.hero__rotator-word {
+  display: none;
+}
+
+.hero__rotator-word[data-active] {
+  display: inline;
+}
+
+.hero__rotator[data-measured] {
+  transition: width .42s cubic-bezier(.22, .61, .36, 1);
+}
+
+.hero__rotator[data-measured] .hero__rotator-word {
+  opacity: 0;
+  transition: opacity .34s, transform .42s cubic-bezier(.22, .61, .36, 1);
+  display: inline;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(.16em);
+}
+
+.hero__rotator[data-measured] .hero__rotator-word[data-active] {
+  opacity: 1;
+  transform: none;
 }
 
 .hero__lede {

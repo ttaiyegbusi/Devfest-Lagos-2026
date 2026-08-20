@@ -1,0 +1,104 @@
+/* Product Sans is the UI face used throughout the DevFest Lagos design files.
+   Faculty Glyphic (OFL, see public/fonts/FacultyGlyphic-OFL.txt) sets the
+   editorial display headline. Both are self-hosted so the hero paints in the
+   right metrics on first frame — a swap would visibly reflow the headline. */
+@font-face {
+  font-family: "Product Sans";
+  src: url("/fonts/ProductSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Product Sans";
+  src: url("/fonts/ProductSans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Product Sans";
+  src: url("/fonts/ProductSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Faculty Glyphic";
+  src: url("/fonts/FacultyGlyphic-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --cream: #fff5d4;
+  --ink: #171717;
+  --amber: #f9ab00;
+  --placeholder: #a3a3a3;
+
+  --font-sans: "Product Sans", "Google Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Faculty Glyphic", "Product Sans", Georgia, serif;
+
+  /* Page gutter. The nav and every line of hero copy share this left edge. */
+  --gutter: 70px;
+  --shell: 1300px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 1439px) {
+  :root {
+    --gutter: 56px;
+  }
+}
+
+@media (max-width: 1199px) {
+  :root {
+    --gutter: 36px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --gutter: 20px;
+  }
+}

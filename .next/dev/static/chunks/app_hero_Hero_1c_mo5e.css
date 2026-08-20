@@ -1,0 +1,421 @@
+/* [project]/app/hero/Hero.css [app-client] (css) */
+.hero {
+  background: var(--cream);
+  min-height: 100svh;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__scene {
+  width: 1937px;
+  height: 1154px;
+  transform: translateX(-50%) scale(var(--scene-scale, 1));
+  transform-origin: top;
+  pointer-events: none;
+  z-index: 0;
+  position: absolute;
+  inset: 0 auto auto 50%;
+}
+
+.hero-scene {
+  width: 1937px;
+  height: 1154px;
+  display: block;
+}
+
+.hero-scene__clouds {
+  will-change: transform;
+  animation-name: hero-cloud-drift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.hero-scene__clouds--far {
+  animation-duration: 240s;
+}
+
+.hero-scene__clouds--mid {
+  animation-duration: 190s;
+}
+
+.hero-scene__clouds--near {
+  animation-duration: 150s;
+}
+
+@keyframes hero-cloud-drift {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(1937px);
+  }
+}
+
+.hero-scene__traffic {
+  transform-box: view-box;
+  transform-origin: 1245px 791px;
+  animation: hero-traffic var(--traffic-duration, 21s) linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes hero-traffic {
+  0% {
+    opacity: 0;
+    transform: scale(.32);
+  }
+
+  6% {
+    opacity: 1;
+    transform: scale(.334);
+  }
+
+  18% {
+    opacity: 1;
+    transform: scale(.386);
+  }
+
+  30% {
+    opacity: 1;
+    transform: scale(.45);
+  }
+
+  42% {
+    opacity: 1;
+    transform: scale(.53);
+  }
+
+  54% {
+    opacity: 1;
+    transform: scale(.64);
+  }
+
+  63% {
+    opacity: 1;
+    transform: scale(.76);
+  }
+
+  70% {
+    opacity: 1;
+    transform: scale(.9);
+  }
+
+  75% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  88% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  96% {
+    opacity: 0;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(.32);
+  }
+}
+
+.hero-scene__keke {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: .9s ease-in-out infinite hero-keke-bob;
+}
+
+@keyframes hero-keke-bob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-1px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-scene__clouds, .hero-scene__traffic, .hero-scene__keke {
+    animation: none;
+  }
+}
+
+.hero__shell {
+  z-index: 2;
+  width: min(var(--shell), 100% - var(--gutter) * 2);
+  margin-inline: auto;
+  position: relative;
+}
+
+.hero-nav {
+  background: var(--ink);
+  color: #fff;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  margin-top: 30px;
+  padding-inline: 20px;
+  display: flex;
+}
+
+.hero-nav__brand {
+  align-items: center;
+  display: flex;
+}
+
+.hero-nav__logo {
+  display: block;
+}
+
+.hero-nav__menu {
+  align-items: center;
+  gap: 38px;
+  display: flex;
+}
+
+.hero-nav__links {
+  align-items: center;
+  gap: 21px;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1;
+  list-style: none;
+  display: flex;
+}
+
+.hero-nav__links a {
+  padding-block: 4px;
+  transition: opacity .15s;
+  display: inline-block;
+}
+
+.hero-nav__links a:hover {
+  opacity: .7;
+}
+
+.hero-nav__ticket {
+  width: 99px;
+  height: 40px;
+  color: var(--ink);
+  background: #fff;
+  place-items: center;
+  font-size: 14px;
+  line-height: 1;
+  transition: opacity .15s;
+  display: grid;
+}
+
+.hero-nav__ticket:hover {
+  opacity: .85;
+}
+
+.hero-nav__toggle {
+  width: 40px;
+  height: 40px;
+  color: inherit;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  display: none;
+}
+
+.hero-nav__toggle-bars, .hero-nav__toggle-bars:before, .hero-nav__toggle-bars:after {
+  background: currentColor;
+  width: 20px;
+  height: 1.5px;
+  margin-inline: auto;
+  display: block;
+}
+
+.hero-nav__toggle-bars:before, .hero-nav__toggle-bars:after {
+  content: "";
+  position: relative;
+}
+
+.hero-nav__toggle-bars:before {
+  top: -6px;
+}
+
+.hero-nav__toggle-bars:after {
+  top: 4.5px;
+}
+
+.hero__copy {
+  margin-top: 150px;
+}
+
+.hero__title {
+  max-width: 20ch;
+  font-family: var(--font-display);
+  letter-spacing: 0;
+  color: var(--ink);
+  margin: 0;
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 80px;
+}
+
+.hero__accent {
+  color: var(--amber);
+}
+
+.hero__lede {
+  color: var(--ink);
+  margin: 23px 0 0;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 29px;
+}
+
+.hero__ask {
+  background: var(--ink);
+  color: #fff;
+  align-items: center;
+  gap: 13px;
+  width: 347px;
+  height: 60px;
+  margin-top: 42px;
+  padding-inline: 22px;
+  display: flex;
+}
+
+.hero__ask-icon {
+  flex: none;
+}
+
+.hero__ask-input {
+  color: #fff;
+  min-width: 0;
+  font: inherit;
+  appearance: none;
+  background: none;
+  border: 0;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.hero__ask-input::placeholder {
+  color: var(--placeholder);
+  opacity: 1;
+}
+
+.hero__ask:focus-within {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.hero__ask-input::-webkit-search-decoration {
+  appearance: none;
+}
+
+.hero__ask-input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+@media (max-width: 1439px) {
+  .hero__title {
+    font-size: 60px;
+    line-height: 74px;
+  }
+
+  .hero__copy {
+    margin-top: 120px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .hero {
+    --scene-scale: .86;
+  }
+
+  .hero__title {
+    font-size: 52px;
+    line-height: 64px;
+  }
+
+  .hero__lede {
+    font-size: 21px;
+    line-height: 27px;
+  }
+
+  .hero__copy {
+    margin-top: 96px;
+  }
+}
+
+@media (max-width: 899px) {
+  .hero-nav__toggle {
+    display: block;
+  }
+
+  .hero-nav__menu {
+    z-index: 3;
+    background: var(--ink);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 20px;
+    display: none;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+  }
+
+  .hero-nav__menu[data-open] {
+    display: flex;
+  }
+
+  .hero-nav__links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    --scene-scale: .62;
+  }
+
+  .hero__scene {
+    transform-origin: bottom;
+    inset: auto auto 0 50%;
+  }
+
+  .hero__title {
+    max-width: 14ch;
+    font-size: 44px;
+    line-height: 52px;
+  }
+
+  .hero__lede {
+    font-size: 18px;
+    line-height: 25px;
+  }
+
+  .hero__copy {
+    margin-top: 64px;
+    padding-bottom: 340px;
+  }
+
+  .hero__break {
+    display: none;
+  }
+
+  .hero__ask {
+    width: 100%;
+    max-width: 347px;
+    margin-top: 32px;
+  }
+}
+
+/*# sourceMappingURL=app_hero_Hero_1c_mo5e.css.map*/

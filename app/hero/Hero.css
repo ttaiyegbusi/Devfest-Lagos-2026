@@ -1,0 +1,449 @@
+/* ---------------------------------------------------------------------------
+   Hero — calibrated against the 1440 x 1024 reference render.
+   Reference landmarks this file is tuned to hit:
+     nav rect        70,30  1300 x 70
+     H1 line box top 250            (cap top 265, second cap top 345)
+     lede cap top    439
+     ask rect        70,533  347 x 60
+   --------------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+/* --- artwork ------------------------------------------------------------- */
+
+/* The illustration is placed at its intrinsic 1937 x 1154 and centred, so the
+   viewport crops it rather than the other way round. That crop is the
+   composition: the bridge deck runs off the right edge and the lagoon runs off
+   the bottom. */
+.hero__scene {
+  position: absolute;
+  inset: 0 auto auto 50%;
+  width: 1937px;
+  height: 1154px;
+  transform: translateX(-50%) scale(var(--scene-scale, 1));
+  transform-origin: top center;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-scene {
+  display: block;
+  width: 1937px;
+  height: 1154px;
+}
+
+/* Cloud drift. Each parallax band carries a duplicate of itself one artwork
+   width to the left, so translating the band by exactly one artwork width
+   lands the copy where the original started and the loop has no seam. */
+.hero-scene__clouds {
+  animation-name: hero-cloud-drift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+.hero-scene__clouds--far {
+  animation-duration: 240s;
+}
+
+.hero-scene__clouds--mid {
+  animation-duration: 190s;
+}
+
+.hero-scene__clouds--near {
+  animation-duration: 150s;
+}
+
+@keyframes hero-cloud-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(1937px);
+  }
+}
+
+/* Traffic. The road converges on 1245,791 in artwork coordinates — the point
+   where its near edge meets its far edge behind the bridge. Scaling the danfo
+   and the keke about that single point *is* perspective travel: every part of
+   them slides along its own ray from the vanishing point, so the roofs rise,
+   the wheels drop, and they stay on the tarmac the whole way down.
+   Scale is capped at 1, which is the position they occupy in the design file. */
+.hero-scene__traffic {
+  transform-box: view-box;
+  transform-origin: 1245px 791px;
+  animation: hero-traffic var(--traffic-duration, 21s) linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes hero-traffic {
+  /* Scale steps trace 1/(a - bt): constant road speed, so the approach reads
+     as acceleration on screen rather than a linear crawl. */
+  0% {
+    transform: scale(0.32);
+    opacity: 0;
+  }
+  6% {
+    transform: scale(0.334);
+    opacity: 1;
+  }
+  18% {
+    transform: scale(0.386);
+    opacity: 1;
+  }
+  30% {
+    transform: scale(0.45);
+    opacity: 1;
+  }
+  42% {
+    transform: scale(0.53);
+    opacity: 1;
+  }
+  54% {
+    transform: scale(0.64);
+    opacity: 1;
+  }
+  63% {
+    transform: scale(0.76);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  88% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  96% {
+    transform: scale(1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.32);
+    opacity: 0;
+  }
+}
+
+/* Kekes are not known for their suspension. */
+.hero-scene__keke {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hero-keke-bob 0.9s ease-in-out infinite;
+}
+
+@keyframes hero-keke-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-scene__clouds,
+  .hero-scene__traffic,
+  .hero-scene__keke {
+    animation: none;
+  }
+}
+
+/* --- shell --------------------------------------------------------------- */
+
+/* At 1440 this resolves to a 1300px column with the 70px gutters the reference
+   shows; narrower viewports fall back to the gutter itself. */
+.hero__shell {
+  position: relative;
+  z-index: 2;
+  width: min(var(--shell), 100% - var(--gutter) * 2);
+  margin-inline: auto;
+}
+
+/* --- nav ----------------------------------------------------------------- */
+
+.hero-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  margin-top: 30px;
+  padding-inline: 20px;
+  background: var(--ink);
+  color: #fff;
+}
+
+.hero-nav__brand {
+  display: flex;
+  align-items: center;
+}
+
+.hero-nav__logo {
+  display: block;
+}
+
+.hero-nav__menu {
+  display: flex;
+  align-items: center;
+  gap: 38px;
+}
+
+.hero-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 21px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.hero-nav__links a {
+  display: inline-block;
+  padding-block: 4px;
+  transition: opacity 150ms ease;
+}
+
+.hero-nav__links a:hover {
+  opacity: 0.7;
+}
+
+.hero-nav__ticket {
+  display: grid;
+  place-items: center;
+  width: 99px;
+  height: 40px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1;
+  transition: opacity 150ms ease;
+}
+
+.hero-nav__ticket:hover {
+  opacity: 0.85;
+}
+
+.hero-nav__toggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.hero-nav__toggle-bars,
+.hero-nav__toggle-bars::before,
+.hero-nav__toggle-bars::after {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  margin-inline: auto;
+  background: currentColor;
+}
+
+.hero-nav__toggle-bars::before,
+.hero-nav__toggle-bars::after {
+  content: "";
+  position: relative;
+}
+
+.hero-nav__toggle-bars::before {
+  top: -6px;
+}
+
+.hero-nav__toggle-bars::after {
+  top: 4.5px;
+}
+
+/* --- copy ---------------------------------------------------------------- */
+
+/* 150px of clear air between the nav and the headline line box. The band is
+   deliberate — it is what lets the bridge read behind the type. */
+.hero__copy {
+  margin-top: 150px;
+}
+
+.hero__title {
+  margin: 0;
+  max-width: 20ch;
+  font-family: var(--font-display);
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 80px;
+  letter-spacing: 0;
+  color: var(--ink);
+}
+
+.hero__accent {
+  color: var(--amber);
+}
+
+.hero__lede {
+  margin: 23px 0 0;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 29px;
+  color: var(--ink);
+}
+
+.hero__ask {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 347px;
+  height: 60px;
+  margin-top: 42px;
+  padding-inline: 22px;
+  background: var(--ink);
+  color: #fff;
+}
+
+.hero__ask-icon {
+  flex: none;
+}
+
+.hero__ask-input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.hero__ask-input::placeholder {
+  color: var(--placeholder);
+  opacity: 1;
+}
+
+.hero__ask:focus-within {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.hero__ask-input::-webkit-search-decoration,
+.hero__ask-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* --- responsive ---------------------------------------------------------- */
+
+@media (max-width: 1439px) {
+  .hero__title {
+    font-size: 60px;
+    line-height: 74px;
+  }
+
+  .hero__copy {
+    margin-top: 120px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .hero {
+    --scene-scale: 0.86;
+  }
+
+  .hero__title {
+    font-size: 52px;
+    line-height: 64px;
+  }
+
+  .hero__lede {
+    font-size: 21px;
+    line-height: 27px;
+  }
+
+  .hero__copy {
+    margin-top: 96px;
+  }
+}
+
+@media (max-width: 899px) {
+  .hero-nav__toggle {
+    display: block;
+  }
+
+  .hero-nav__menu {
+    position: absolute;
+    top: 100px;
+    right: 0;
+    left: 0;
+    z-index: 3;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 20px;
+    background: var(--ink);
+  }
+
+  .hero-nav__menu[data-open] {
+    display: flex;
+  }
+
+  .hero-nav__links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    --scene-scale: 0.62;
+  }
+
+  .hero__scene {
+    inset: auto auto 0 50%;
+    transform-origin: bottom center;
+  }
+
+  .hero__title {
+    font-size: 44px;
+    line-height: 52px;
+    max-width: 14ch;
+  }
+
+  .hero__lede {
+    font-size: 18px;
+    line-height: 25px;
+  }
+
+  .hero__copy {
+    margin-top: 64px;
+    padding-bottom: 340px;
+  }
+
+  .hero__break {
+    display: none;
+  }
+
+  .hero__ask {
+    width: 100%;
+    max-width: 347px;
+    margin-top: 32px;
+  }
+}

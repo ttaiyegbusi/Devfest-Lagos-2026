@@ -1,0 +1,32 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Deliberately not committed. npm on macOS records the linux-musl `sharp`
+# binaries (an optional dependency of Next) with no version, which is harmless
+# locally but makes `npm install` fail on Vercel's Linux builders with
+# "Invalid Version:". Letting the deploy resolve its own tree avoids it.
+# Trade-off: installs are no longer pinned. Commit a lockfile generated on
+# Linux if reproducible builds become important.
+package-lock.json

@@ -34,7 +34,8 @@ export type Media =
   /** One print, edges bowed. Panel 01. */
   | {
       kind: "photo";
-      shot: Shot;
+      /** More than one cross-fades on a slow loop; one just sits there. */
+      shots: Shot[];
       /** The artwork already carries the bowed edge and its colour sliver, so
           the CSS frame stays off rather than applying them a second time. */
       framed?: boolean;
@@ -90,11 +91,30 @@ export const TRACKS: Track[] = [
     media: {
       kind: "photo",
       framed: true,
-      shot: {
-        image: "/expect/panel-sessions.jpg",
-        alt: "A four-person panel seated on stage at DevFest Lagos, with the audience watching from the floor.",
-        tint: ["#34a853", "#0e2a1c"],
-      },
+      // Four sessions, cross-fading in the one frame. The first is the print
+      // the reference uses, so it is what the page rests on.
+      shots: [
+        {
+          image: "/expect/panel-sessions-1.png",
+          alt: "A four-person panel seated on stage at DevFest Lagos, with the audience watching from the floor.",
+          tint: ["#34a853", "#0e2a1c"],
+        },
+        {
+          image: "/expect/panel-sessions-2.png",
+          alt: "Three panellists on stage in front of the sponsor banner, with the audience in the foreground.",
+          tint: ["#4285f4", "#0d1f3f"],
+        },
+        {
+          image: "/expect/panel-sessions-3.png",
+          alt: "A wide view of Panel Session 2 on the DevFest stage, seen from the back of a full auditorium.",
+          tint: ["#8b5cf6", "#231449"],
+        },
+        {
+          image: "/expect/panel-sessions-4.png",
+          alt: "Two speakers on stage for Panel Session 1, one of them holding a microphone.",
+          tint: ["#f4511e", "#3a1210"],
+        },
+      ],
     },
   },
   {

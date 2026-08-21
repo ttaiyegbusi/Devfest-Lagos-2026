@@ -216,8 +216,11 @@
   clip-path: url(#expect-warp);
 }
 
+/* Stacked rather than stanced in flow, so several prints can share the one
+   frame and cross-fade between them. */
 .frame__shot {
-  position: relative;
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
@@ -225,9 +228,47 @@
   clip-path: url(#expect-warp);
 }
 
+/* Each print is held for its share of the loop and dissolved into the next.
+   The keyframe windows below track the number of prints — four, at 25% each —
+   so changing the count means changing those percentages and --panel-cycle
+   together, not just the data. */
+.frame--cycling .frame__shot {
+  opacity: 0;
+  animation: expect-panel-cycle var(--panel-cycle, 24s) linear infinite;
+  animation-delay: calc(var(--panel-cycle, 24s) / 4 * var(--i));
+}
+
+/* What the frame shows before the loop starts, and what it rests on when the
+   loop is off: the print the reference uses. */
+.frame--cycling .frame__shot:first-child {
+  opacity: 1;
+}
+
+@keyframes expect-panel-cycle {
+  0% {
+    opacity: 0;
+  }
+  3% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+  }
+  28% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 /* Artwork that arrives already bowed, fringed and squared up carries its own
    frame — applying the CSS one on top would draw both a second time. */
 .frame--bare {
+  /* The artwork's own ratio, not the design box's. These arrive with the bowed
+     edge drawn into them, and cover-fitting a 492x567 print into a 490x585
+     box would crop that edge straight back off. */
+  aspect-ratio: 492 / 567;
   transform: none;
 }
 
@@ -600,5 +641,14 @@
 @media (prefers-reduced-motion: reduce) {
   .shots--strip {
     animation: none;
+  }
+
+  .frame--cycling .frame__shot {
+    animation: none;
+    opacity: 0;
+  }
+
+  .frame--cycling .frame__shot:first-child {
+    opacity: 1;
   }
 }

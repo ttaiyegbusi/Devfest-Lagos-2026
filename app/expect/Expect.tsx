@@ -1,3 +1,4 @@
+import { type CSSProperties } from "react";
 import { TRACKS, type Media, type Shot, type Track } from "./tracks";
 import { PillPit } from "./PillPit";
 import { onDisk } from "./assets";
@@ -67,18 +68,33 @@ function Panel({ track }: { track: Track }) {
 
 function MediaBlock({ media }: { media: Media }) {
   switch (media.kind) {
-    case "photo":
+    case "photo": {
+      // With one print there is nothing to cross-fade to, so the loop only
+      // switches on once there is more than one.
+      const cycling = media.shots.length > 1;
       return (
         <>
           {/* Only one panel is a photo, so the one clip path is defined where
               it is used and its id cannot collide. Artwork that already has
               the bowed edge drawn into it needs neither. */}
           {media.framed ? null : <WarpDef />}
-          <figure className={media.framed ? "frame frame--bare" : "frame"}>
-            <Art shot={media.shot} className="frame__shot" />
+          <figure
+            className={["frame", media.framed && "frame--bare", cycling && "frame--cycling"]
+              .filter(Boolean)
+              .join(" ")}
+          >
+            {media.shots.map((s, i) => (
+              <Art
+                key={s.image ?? i}
+                shot={s}
+                className="frame__shot"
+                style={{ ["--i" as string]: i }}
+              />
+            ))}
           </figure>
         </>
       );
+    }
 
     case "pills":
       return <PillPit rows={media.rows} />;
@@ -128,7 +144,15 @@ function MediaBlock({ media }: { media: Media }) {
 /* A shot is either the photograph or, until there is one, a tinted block in
    its place — same box either way, so the layout does not move when the real
    pictures land. */
-function Art({ shot, className }: { shot: Shot; className: string }) {
+function Art({
+  shot,
+  className,
+  style,
+}: {
+  shot: Shot;
+  className: string;
+  style?: CSSProperties;
+}) {
   // A path that has no file behind it yet falls back to the placeholder, so
   // the section is never a grid of broken frames while the shots are landing.
   if (shot.image && onDisk(shot.image)) {
@@ -137,6 +161,7 @@ function Art({ shot, className }: { shot: Shot; className: string }) {
         className={className}
         src={shot.image}
         alt={shot.alt ?? ""}
+        style={style}
         loading="lazy"
         decoding="async"
       />
@@ -146,6 +171,7 @@ function Art({ shot, className }: { shot: Shot; className: string }) {
     <span
       className={`${className} art--placeholder`}
       style={{
+        ...style,
         ["--from" as string]: shot.tint[0],
         ["--to" as string]: shot.tint[1],
       }}

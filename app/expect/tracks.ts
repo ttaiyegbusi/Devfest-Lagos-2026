@@ -5,11 +5,12 @@
 // What changes is which side the copy sits on and what fills the other half —
 // hence `side` and `media`.
 //
-// PLACEHOLDER COPY: the numbering, titles and topic pills come from the
-// design; the prose does not. The reference repeats one paragraph across 02,
-// 03 and 04, and 01's list repeats "Learn from industry giants" and carries
-// two typos ("finanaicl", "cab"), so all of it is standing in until the
-// programme is confirmed.
+// COPY: the numbering, titles and topic pills are the design's. The prose is
+// not — the reference sheet repeats one paragraph across 02, 03 and 04, and
+// 01's list repeats a bullet and carries two typos, so it was never meant to
+// ship. What is here now is written to fit each panel, but it still describes
+// a programme that has not been confirmed: check it against the real schedule
+// before launch, and note it deliberately makes no claim about ticket tiers.
 //
 // PLACEHOLDER ART: drop files in public/expect/ and set `image` on a shot to
 // use a real photograph; without one the frame falls back to a tinted block so
@@ -77,12 +78,12 @@ export const TRACKS: Track[] = [
     n: "01",
     title: "Panel Sessions and\nGlobal Keynotes",
     points: [
-      "Learn from industry giants",
-      "Build new relationships",
-      "Get financial support",
-      "Ask your questions live",
+      "Engineers who shipped it, on stage",
+      "Questions taken from the floor",
+      "Speakers from Lagos and beyond",
+      "Ideas you can use on Monday",
     ],
-    close: "All in one place people can access instantly",
+    close: "All of it on the main stage, from the first talk to the last.",
     side: "right",
     bg: "#ef4e22",
     ink: "#171717",
@@ -121,7 +122,7 @@ export const TRACKS: Track[] = [
     n: "02",
     title: "Different talks\nfrom different\nindustries.",
     body:
-      "One track never fits a room this mixed. Sessions run across engineering, design, data and the business of building.",
+      "No two rooms are running the same thing. Pick a track and stay with it, or move between engineering, design, data and product all day.",
     side: "left",
     bg: "#fcefcb",
     ink: "#f9ab00",
@@ -167,7 +168,7 @@ export const TRACKS: Track[] = [
     n: "03",
     title: "Hands on\nWorkshops",
     body:
-      "One track never fits a room this mixed. Sessions run across engineering, design, data and the business of building.",
+      "Bring a laptop and leave with working code. Small rooms, real problems, and someone beside you for the moment it stops compiling.",
     side: "left",
     bg: "#000000",
     ink: "#f4511e",
@@ -205,7 +206,7 @@ export const TRACKS: Track[] = [
     n: "04",
     title: "After Party\nCelebration",
     body:
-      "One track never fits a room this mixed. Sessions run across engineering, design, data and the business of building.",
+      "When the last talk ends, the room stays open. Music, food, and the conversations that only start once the badges come off.",
     side: "left",
     bg: "#f04e23",
     ink: "#171717",

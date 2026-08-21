@@ -1,32 +1,39 @@
 /* ---------------------------------------------------------------------------
    Meet Our Speakers — a concave wall of screens.
 
-   Cards swing their *outer* edge towards the viewer and come forward as they go
-   out, so the row curves toward you at the ends rather than receding. Each
-   card's placement is computed in the component from its offset — CSS can
-   neither take an absolute value nor raise to a power — but the distances it
-   multiplies live here as --step and --depth so the whole thing scales with the
+   The cards lie on a circle. A card `t` degrees around it sits at
+   (R sin t, R(1 - cos t)) and is turned by exactly that same t, so its facing
+   and its position come from one angle — which is what makes the row read as a
+   single curved surface rather than a set of separately placed cards. The
+   placement is computed in the component because CSS can take neither a sine
+   nor a cosine, but the radius lives here as --arc-r so the arc scales with the
    card at each breakpoint.
 
-   Every constant below was solved from the reference rather than dialled in by
-   eye: its centre card, the two edge heights of the card one step out, and the
-   projected centre offsets give one exact solution for perspective, depth,
-   rotation and step (scripts/carousel.py). It lands on 680px / 35.2px / 18.5deg
-   / 353px.
+   ARC is 18.5deg between neighbours, kept from the original solve against the
+   reference: at that angle a card one step out is turned just enough that
+   cos(18.5deg) cancels the gain from coming forward, so it projects to the same
+   *width* as the centre card and the gap between them survives. Raise it and
+   the cards go trapezoidal; drop it and they grow into each other.
 
-   The rotation is what keeps the cards apart. At 18.5deg a card one step out is
-   1.14x nearer at its leading edge, but turned just enough that cos(18.5deg)
-   cancels the gain — so it projects to the same *width* as the centre card and
-   the 60px gap between them survives. Raise the angle and the cards go
-   trapezoidal; drop it and they grow into each other.
+   Radius follows from that angle and the horizontal step: R = step / sin(18.5),
+   giving 1112px against a 353px step.
+
+   Perspective is then pinned at 1.429 R. The number to hold is not the scale at
+   a card's centre but at its *near edge*: a card turned 37deg has that edge
+   pulled (card-w / 2) sin(37deg) further forward than its middle, and it is the
+   near edge that sets how tall the card stands. At 1.429 R the card two steps
+   out reaches 1.25x there — enough to read as an arc coming towards you, little
+   enough that it still sits inside the section. Every breakpoint keeps both that
+   ratio and card-w / R at 0.281, so the wall is one shape at every size and only
+   its scale changes.
    --------------------------------------------------------------------------- */
 
 .speakers {
   --card-w: 312px;
   --card-h: 294px;
   --step: 353px;
-  --depth: 35.2px;
-  --persp: 680px;
+  --arc-r: 1112px;
+  --persp: 1589px;
   --accent: #ea4335;
   --panel: #0d0d0d;
   --ink-dim: #9b9490;
@@ -301,8 +308,8 @@
     --card-w: 262px;
     --card-h: 248px;
     --step: 296px;
-    --depth: 29.6px;
-    --persp: 571px;
+    --arc-r: 933px;
+    --persp: 1333px;
     padding-block: 76px 84px;
   }
 
@@ -324,8 +331,8 @@
     --card-w: 208px;
     --card-h: 196px;
     --step: 235px;
-    --depth: 23.5px;
-    --persp: 454px;
+    --arc-r: 741px;
+    --persp: 1059px;
     padding-block: 64px 72px;
   }
 

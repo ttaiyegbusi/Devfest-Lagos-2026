@@ -18,9 +18,11 @@ const SETTLE = 9;
  *  what makes the row endless without a seam — and without ever showing a card
  *  at a size the geometry was not solved for. */
 const FADE_FROM = 2;
-const FADE_TO = 2.75;
+const FADE_TO = 2.5;
 /** Pointer travel, in px, past which a press counts as a drag and not a click. */
 const SLOP = 3;
+/** Degrees of arc between neighbouring cards. */
+const ARC = 18.5;
 
 /** Distance from the wall's position to card `i`, taking the short way round.
  *  This is the whole trick: the card furthest off to the left is also the one
@@ -59,14 +61,19 @@ export function Speakers() {
 
       const offset = wrapped(i - pos.current);
       const n = Math.abs(offset);
-      const dir = Math.sign(offset);
 
-      // The calibrated wall — the constants and the reasoning are in
-      // Speakers.css. The only change is that the offset is now fractional.
+      // Cards sit on a circle of radius --arc-r, one ARC of turn apart. A card
+      // at angle t is at (R sin t, R(1 - cos t)) and faces along the tangent,
+      // which is the whole definition of lying on an arc: rotation and position
+      // come from the same angle, so the row reads as one curved surface.
+      // Deriving x and z from separate curves — a power law and a linear depth,
+      // as this did before — leaves every card facing slightly wrong for where
+      // it actually is, and the arc looks broken.
+      const t = (offset * ARC * Math.PI) / 180;
       el.style.transform = [
-        `translateX(calc(var(--step) * ${(dir * n ** 0.823).toFixed(4)}))`,
-        `translateZ(calc(var(--depth) * ${n.toFixed(4)}))`,
-        `rotateY(${(-offset * 18.5).toFixed(3)}deg)`,
+        `translateX(calc(var(--arc-r) * ${Math.sin(t).toFixed(5)}))`,
+        `translateZ(calc(var(--arc-r) * ${(1 - Math.cos(t)).toFixed(5)}))`,
+        `rotateY(${(-offset * ARC).toFixed(3)}deg)`,
       ].join(" ");
 
       const opacity =

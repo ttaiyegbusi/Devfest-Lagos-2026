@@ -154,7 +154,7 @@ export const TRACKS: Track[] = [
         ],
         [
           { label: "Cybersecurity", bg: "#f0ae1e", fg: "#ffffff" },
-          { label: "Product Design", bg: "#f0303f", fg: "#f4511e" },
+          { label: "Product Design", bg: "#f0303f", fg: "#ffffff" },
         ],
         [
           { label: "Design Engineering", bg: "#e2e6fb", fg: "#2563eb" },

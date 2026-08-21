@@ -30,6 +30,10 @@ interface Sim {
   bodies: Body[];
   drag: Constraint;
   M: typeof import("matter-js");
+  /** Box height the heap was estimated into, before any trim. */
+  height: number;
+  /** The heap is only trimmed to its real height once. */
+  trimmed: boolean;
 }
 
 export function PillPit({ rows }: { rows: Pill[][] }) {
@@ -161,7 +165,7 @@ export function PillPit({ rows }: { rows: Pill[][] }) {
       render: { visible: false },
     });
 
-    simRef.current = { engine, world, bodies, drag, M };
+    simRef.current = { engine, world, bodies, drag, M, height: H, trimmed: false };
 
     const local = (e: PointerEvent) => {
       const r = pit.getBoundingClientRect();
@@ -231,6 +235,25 @@ export function PillPit({ rows }: { rows: Pill[][] }) {
       while (acc >= STEP_MS) {
         M.Engine.update(sim.engine, STEP_MS);
         acc -= STEP_MS;
+      }
+
+      // The estimate above only ever gets the heap roughly right, and it errs
+      // in both directions: too tall leaves a void over the pills, too short
+      // piles them up over the copy. So once the heap has come to rest, fit the
+      // box to it. The correction is symmetric — a heap sitting low is trimmed
+      // up, one poking out of the top pushes the box open — and everything,
+      // floor and walls included, moves with it, so the heap keeps its footing.
+      if (!sim.trimmed && sim.bodies.every((b) => b.isSleeping)) {
+        sim.trimmed = true;
+        const top = sim.bodies.reduce(
+          (min, b) => Math.min(min, b.bounds.min.y),
+          Infinity,
+        );
+        const slack = Math.round(top - 8);
+        if (Math.abs(slack) > 8) {
+          sim.M.Composite.translate(sim.world, { x: 0, y: -slack }, true);
+          pit.style.height = `${sim.height - slack}px`;
+        }
       }
 
       for (let i = 0; i < sim.bodies.length; i++) {

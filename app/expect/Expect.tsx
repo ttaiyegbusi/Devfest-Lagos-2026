@@ -2,6 +2,7 @@ import { type CSSProperties } from "react";
 import { TRACKS, type Media, type Shot, type Track } from "./tracks";
 import { PillPit } from "./PillPit";
 import { onDisk } from "./assets";
+import { PaperFrame } from "./PaperFrame";
 import "./Expect.css";
 
 /** How fast the looping band travels, in px per second. */
@@ -78,7 +79,7 @@ function MediaBlock({ media }: { media: Media }) {
               it is used and its id cannot collide. Artwork that already has
               the bowed edge drawn into it needs neither. */}
           {media.framed ? null : <WarpDef />}
-          <figure
+          <PaperFrame
             className={["frame", media.framed && "frame--bare", cycling && "frame--cycling"]
               .filter(Boolean)
               .join(" ")}
@@ -91,7 +92,7 @@ function MediaBlock({ media }: { media: Media }) {
                 style={{ ["--i" as string]: i }}
               />
             ))}
-          </figure>
+          </PaperFrame>
         </>
       );
     }

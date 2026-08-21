@@ -201,7 +201,22 @@
   width: min(490px, 74%);
   aspect-ratio: 490 / 585;
   margin: 0 auto;
-  transform: rotate(-0.7deg);
+  /* The design's own tilt, then the lean the cursor gives it. Keeping them as
+     separate terms means artwork that arrives already squared up can drop the
+     first without giving up the second. */
+  transform:
+    rotate(var(--frame-tilt, -0.7deg))
+    rotateX(var(--rx, 0deg))
+    rotateY(var(--ry, 0deg))
+    translateZ(var(--lift, 0px));
+  transform-style: preserve-3d;
+  transition: transform 480ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Under the cursor the sheet tracks it directly — the transition is only there
+   for the journey back to rest, which should settle rather than snap. */
+.frame--held {
+  transition: none;
 }
 
 /* The sliver of colour along the top and left edges is the same shape sitting
@@ -267,9 +282,10 @@
 .frame--bare {
   /* The artwork's own ratio, not the design box's. These arrive with the bowed
      edge drawn into them, and cover-fitting a 492x567 print into a 490x585
-     box would crop that edge straight back off. */
+     box would crop that edge straight back off. They arrive squared up too, so
+     the design's tilt comes off — the cursor lean stays. */
   aspect-ratio: 492 / 567;
-  transform: none;
+  --frame-tilt: 0deg;
 }
 
 .frame--bare::before {
@@ -283,6 +299,9 @@
 .panel--photo .panel__media {
   display: grid;
   align-content: center;
+  /* Deep enough that the lean reads as a sheet turning in space rather than a
+     card being folded. */
+  perspective: 1100px;
 }
 
 /* --- 02: the topic cloud ------------------------------------------------- */
@@ -664,5 +683,10 @@
 
   .frame--cycling .frame__shot:first-child {
     opacity: 1;
+  }
+
+  .frame {
+    transform: rotate(var(--frame-tilt, -0.7deg));
+    transition: none;
   }
 }

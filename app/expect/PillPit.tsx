@@ -18,6 +18,11 @@ const DROP_INTERVAL = 0.09;
 /** Fixed physics step, ms. Fixed rather than frame-derived: a slow frame would
  *  otherwise let a pill tunnel straight through the floor. */
 const STEP_MS = 1000 / 60;
+/** How densely loose stadium shapes settle. Measured off the real heap rather
+ *  than derived: random rounded rectangles pack a little under 60%. */
+const PACK = 0.58;
+/** Most of the screen the heap may ever take. */
+const MAX_VH = 0.62;
 
 interface Sim {
   engine: Engine;
@@ -75,8 +80,29 @@ export function PillPit({ rows }: { rows: Pill[][] }) {
 
     const { Engine, Bodies, Composite, Constraint, Sleeping, Query } = M;
     const W = pit.clientWidth;
+    if (!W) return;
+
+    // The pills come to rest in a heap on the floor, so the box only ever needs
+    // to be as tall as that heap — any more is a void above it, which is what
+    // a fixed height gave us. Estimate the heap from the area the pills
+    // actually occupy at this width, plus one pill of headroom for the last
+    // arrivals to land in. They fall in from outside the box, so none of this
+    // has to leave room for the drop itself.
+    const sizes = pillRefs.current
+      .filter((el): el is HTMLDivElement => Boolean(el))
+      .map((el) => ({ w: el.offsetWidth, h: el.offsetHeight }));
+    if (sizes.length === 0) return;
+
+    const area = sizes.reduce((sum, d) => sum + d.w * d.h, 0);
+    const tallest = sizes.reduce((max, d) => Math.max(max, d.h), 0);
+    const heap = Math.min(
+      area / (W * PACK) + tallest,
+      window.innerHeight * MAX_VH,
+    );
+    pit.style.height = `${Math.round(heap)}px`;
+
     const H = pit.clientHeight;
-    if (!W || !H) return;
+    if (!H) return;
 
     const engine = Engine.create();
     engine.gravity.y = GRAVITY;

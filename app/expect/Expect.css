@@ -322,10 +322,20 @@
    the inset is a margin rather than padding — an absolutely positioned child is
    placed against the padding box, and padding here would put the walls and the
    pills in two different frames. */
+/* The heap is centred in the column rather than hung from the top: its box is
+   sized to the pills themselves (see PillPit), so anchoring it at the top just
+   moves the void from above the pills to below them. */
+.panel--pills .panel__media {
+  display: grid;
+  align-content: center;
+}
+
 .pit {
   position: relative;
-  height: min(686px, 74vh);
-  margin: 94px 0 0 46px;
+  /* Replaced with the measured heap height once the engine has the pills.
+     This is only what stands in before that, and under reduced motion. */
+  height: min(460px, 56vh);
+  margin-left: 46px;
   /* Vertical panning still belongs to the page; only a hit on a pill takes the
      pointer, and that is decided in JS. */
   touch-action: pan-y;
@@ -589,6 +599,10 @@
   .pills {
     margin: 0;
     padding: 0;
+  }
+
+  .pit {
+    margin-left: 0;
   }
 
   .shots--grid {

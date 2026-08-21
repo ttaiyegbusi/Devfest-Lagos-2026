@@ -1,5 +1,6 @@
 import { TRACKS, type Media, type Shot, type Track } from "./tracks";
 import { PillPit } from "./PillPit";
+import { onDisk } from "./assets";
 import "./Expect.css";
 
 /** How fast the looping band travels, in px per second. */
@@ -128,7 +129,9 @@ function MediaBlock({ media }: { media: Media }) {
    its place — same box either way, so the layout does not move when the real
    pictures land. */
 function Art({ shot, className }: { shot: Shot; className: string }) {
-  if (shot.image) {
+  // A path that has no file behind it yet falls back to the placeholder, so
+  // the section is never a grid of broken frames while the shots are landing.
+  if (shot.image && onDisk(shot.image)) {
     return (
       <img
         className={className}

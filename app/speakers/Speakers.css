@@ -97,10 +97,21 @@
 
 .speakers__stage {
   height: var(--card-h);
-  margin-top: 116px;
+  margin-top: 68px;
   perspective: var(--persp);
   perspective-origin: 50% 50%;
   outline: none;
+  cursor: grab;
+  /* Horizontal travel belongs to the wall, vertical still belongs to the page,
+     so a touch that starts on a card can still scroll past the section. */
+  touch-action: pan-y;
+  /* A drag across the cards should move them, not select their labels. */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.speakers__stage.is-grabbing {
+  cursor: grabbing;
 }
 
 .speakers__track {
@@ -120,16 +131,16 @@
   height: var(--card-h);
   margin-left: calc(var(--card-w) / -2);
   transform-style: preserve-3d;
-  transition:
-    transform 620ms cubic-bezier(0.22, 0.61, 0.36, 1),
-    opacity 400ms ease;
-  will-change: transform;
+  /* No transition: the wall is driven frame by frame in the component, so it
+     can follow a cursor continuously rather than only stepping between cards.
+     A transition here would lag every drag by its own duration. */
+  will-change: transform, opacity;
 }
 
-/* Beyond two steps out a card is past the frame edge; drop it rather than let
-   the perspective blow it up off-screen. */
+/* Marked on a card once it has faded out, at the point it is carried round to
+   the other side of the wall. Its opacity is set frame by frame in the
+   component; all this adds is that an invisible card cannot be clicked. */
 .speakers__slot[data-far] {
-  opacity: 0;
   pointer-events: none;
 }
 
@@ -233,7 +244,7 @@
   align-items: center;
   justify-content: center;
   gap: 46px;
-  margin-top: 154px;
+  margin-top: 76px;
 }
 
 .speakers__arrow {
@@ -300,7 +311,7 @@
   }
 
   .speakers__controls {
-    margin-top: 110px;
+    margin-top: 68px;
   }
 
   .card__org {
@@ -333,7 +344,7 @@
 
   .speakers__controls {
     gap: 28px;
-    margin-top: 80px;
+    margin-top: 56px;
   }
 
   .card__org {

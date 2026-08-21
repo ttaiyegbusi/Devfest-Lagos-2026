@@ -4,30 +4,242 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { SPEAKERS } from "./lineup";
 import "./Speakers.css";
 
-export function Speakers() {
-  const [active, setActive] = useState(Math.floor(SPEAKERS.length / 2));
-  const trackId = useId();
-  const stage = useRef<HTMLDivElement>(null);
+const COUNT = SPEAKERS.length;
 
-  const go = useCallback((next: number) => {
-    setActive(Math.min(SPEAKERS.length - 1, Math.max(0, next)));
+/** How fast the wall settles onto a card, per second. */
+const SETTLE = 9;
+/** Where a card starts to fade, and where it has gone entirely.
+ *
+ *  Two steps out is as far as the wall is calibrated to go: past that the
+ *  perspective is bringing a card so far forward that it projects half again as
+ *  wide as the centre one. So the fade runs out over the third step, and since
+ *  a seven-card ring never puts a card further than 3.5 steps away, every card
+ *  is invisible at the moment it is carried round to the other side. That is
+ *  what makes the row endless without a seam — and without ever showing a card
+ *  at a size the geometry was not solved for. */
+const FADE_FROM = 2;
+const FADE_TO = 2.75;
+/** Pointer travel, in px, past which a press counts as a drag and not a click. */
+const SLOP = 3;
+
+/** Distance from the wall's position to card `i`, taking the short way round.
+ *  This is the whole trick: the card furthest off to the left is also the one
+ *  about to arrive on the right, so there are no ends to run out of. */
+function wrapped(d: number) {
+  const x = ((d % COUNT) + COUNT) % COUNT;
+  return x > COUNT / 2 ? x - COUNT : x;
+}
+
+/** The position as an index into the lineup, for the label and the progress. */
+const asIndex = (v: number) => ((Math.round(v) % COUNT) + COUNT) % COUNT;
+
+export function Speakers() {
+  const trackId = useId();
+  const root = useRef<HTMLElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
+  const slots = useRef<(HTMLLIElement | null)[]>([]);
+
+  /* The wall's position is a float, not an index — that is what lets it be
+     dragged between cards rather than only snapped between them. It is left
+     unbounded and wrapped at the point of use, so it never needs a discontinuity
+     of its own. */
+  const pos = useRef(0);
+  const target = useRef(0);
+  const raf = useRef(0);
+  const last = useRef(0);
+  const grabbing = useRef(false);
+  const still = useRef(false);
+
+  const [active, setActive] = useState(0);
+
+  const paint = useCallback(() => {
+    for (let i = 0; i < COUNT; i++) {
+      const el = slots.current[i];
+      if (!el) continue;
+
+      const offset = wrapped(i - pos.current);
+      const n = Math.abs(offset);
+      const dir = Math.sign(offset);
+
+      // The calibrated wall — the constants and the reasoning are in
+      // Speakers.css. The only change is that the offset is now fractional.
+      el.style.transform = [
+        `translateX(calc(var(--step) * ${(dir * n ** 0.823).toFixed(4)}))`,
+        `translateZ(calc(var(--depth) * ${n.toFixed(4)}))`,
+        `rotateY(${(-offset * 18.5).toFixed(3)}deg)`,
+      ].join(" ");
+
+      const opacity =
+        n <= FADE_FROM
+          ? 1
+          : Math.max(0, 1 - (n - FADE_FROM) / (FADE_TO - FADE_FROM));
+      el.style.opacity = opacity.toFixed(3);
+
+      // A card that has faded out is about to be carried round; it should be
+      // out of the tab order and out of the way of the pointer while it is.
+      const gone = opacity <= 0.01;
+      el.toggleAttribute("data-far", gone);
+      const button = el.firstElementChild;
+      if (button instanceof HTMLElement) button.tabIndex = gone ? -1 : 0;
+    }
   }, []);
 
-  // Arrow keys drive the carousel while it has focus, which is the behaviour
-  // people expect once the buttons are reachable by keyboard anyway.
+  // A named function expression so the loop can re-request itself without
+  // reaching for the binding it is still being assigned to.
+  const tick = useCallback(
+    function frame(now: number) {
+      // Clamped so a backgrounded tab does not resolve the whole travel in one
+      // enormous step when it comes back.
+      const dt = Math.min((now - last.current) / 1000, 0.05);
+      last.current = now;
+
+      if (!grabbing.current) {
+        const gap = target.current - pos.current;
+        if (still.current || Math.abs(gap) < 0.0005) {
+          pos.current = target.current;
+        } else {
+          // Framerate-independent ease, so the settle takes the same time on a
+          // 60Hz panel and a 120Hz one.
+          pos.current += gap * (1 - Math.exp(-dt * SETTLE));
+        }
+      }
+
+      paint();
+
+      const done =
+        !grabbing.current && Math.abs(target.current - pos.current) < 0.0005;
+      raf.current = done ? 0 : requestAnimationFrame(frame);
+    },
+    [paint],
+  );
+
+  const kick = useCallback(() => {
+    if (raf.current) return;
+    last.current = performance.now();
+    raf.current = requestAnimationFrame(tick);
+  }, [tick]);
+
+  /** Step by whole cards. There is no clamping — that is the point. */
+  const go = useCallback(
+    (delta: number) => {
+      target.current = Math.round(target.current) + delta;
+      setActive(asIndex(target.current));
+      kick();
+    },
+    [kick],
+  );
+
+  /** Bring card `i` to the centre, going whichever way round is shorter. */
+  const goTo = useCallback(
+    (i: number) => {
+      const from = Math.round(target.current);
+      target.current = from + Math.round(wrapped(i - from));
+      setActive(asIndex(target.current));
+      kick();
+    },
+    [kick],
+  );
+
+  useEffect(() => {
+    still.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    paint();
+  }, [paint]);
+
   useEffect(() => {
     const el = stage.current;
-    if (!el) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") { e.preventDefault(); setActive((i) => Math.max(0, i - 1)); }
-      if (e.key === "ArrowRight") { e.preventDefault(); setActive((i) => Math.min(SPEAKERS.length - 1, i + 1)); }
+    const section = root.current;
+    if (!el || !section) return;
+
+    let startX = 0;
+    let startPos = 0;
+    let step = 353;
+    let dragged = false;
+
+    const onDown = (event: PointerEvent) => {
+      if (event.button !== 0) return;
+      // One --step of travel is one card, so the wall keeps pace with the
+      // cursor at every breakpoint.
+      step =
+        parseFloat(getComputedStyle(section).getPropertyValue("--step")) || 353;
+      startX = event.clientX;
+      startPos = pos.current;
+      dragged = false;
+      grabbing.current = true;
+      try {
+        el.setPointerCapture(event.pointerId);
+      } catch {
+        /* no capture available; the listeners still track the drag */
+      }
+      el.classList.add("is-grabbing");
+      kick();
     };
+
+    const onMove = (event: PointerEvent) => {
+      if (!grabbing.current) return;
+      const dx = event.clientX - startX;
+      if (Math.abs(dx) > SLOP) dragged = true;
+      pos.current = startPos - dx / step;
+      target.current = pos.current;
+      kick();
+    };
+
+    const onUp = (event: PointerEvent) => {
+      if (!grabbing.current) return;
+      grabbing.current = false;
+      try {
+        el.releasePointerCapture(event.pointerId);
+      } catch {
+        /* pointer already gone */
+      }
+      el.classList.remove("is-grabbing");
+      target.current = Math.round(pos.current);
+      setActive(asIndex(target.current));
+      kick();
+
+      // A drag that finishes over a card would otherwise also count as a click
+      // on it, and pull the wall somewhere the reader did not ask for.
+      if (dragged) {
+        el.addEventListener(
+          "click",
+          (click) => {
+            click.stopPropagation();
+            click.preventDefault();
+          },
+          { capture: true, once: true },
+        );
+      }
+    };
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        go(-1);
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        go(1);
+      }
+    };
+
+    el.addEventListener("pointerdown", onDown);
+    el.addEventListener("pointermove", onMove);
+    el.addEventListener("pointerup", onUp);
+    el.addEventListener("pointercancel", onUp);
     el.addEventListener("keydown", onKey);
-    return () => el.removeEventListener("keydown", onKey);
-  }, []);
+
+    return () => {
+      el.removeEventListener("pointerdown", onDown);
+      el.removeEventListener("pointermove", onMove);
+      el.removeEventListener("pointerup", onUp);
+      el.removeEventListener("pointercancel", onUp);
+      el.removeEventListener("keydown", onKey);
+      if (raf.current) cancelAnimationFrame(raf.current);
+      raf.current = 0;
+    };
+  }, [go, kick]);
 
   return (
-    <section className="speakers" aria-labelledby={`${trackId}-title`}>
+    <section className="speakers" aria-labelledby={`${trackId}-title`} ref={root}>
       <div className="speakers__intro">
         <h2 className="speakers__title" id={`${trackId}-title`}>
           Meet Our Speakers
@@ -46,73 +258,50 @@ export function Speakers() {
         aria-roledescription="carousel"
         aria-label="Speaker lineup"
       >
-        <ul
-          className="speakers__track"
-          id={trackId}
-          style={{ ["--active" as string]: active }}
-        >
-          {SPEAKERS.map((s, i) => {
-            const offset = i - active;
-            const n = Math.abs(offset);
-            const dir = Math.sign(offset);
-            return (
-              <li
-                key={s.org}
-                className="speakers__slot"
-                data-far={n > 2 || undefined}
-                style={{
-                  // Concave wall. Cards swing their *outer* edge towards the
-                  // viewer and come forward as they go out, so the row curves
-                  // toward you at the ends instead of receding.
-                  //
-                  // The distances come from CSS so they scale with the card at
-                  // each breakpoint; only the offset maths is done here, since
-                  // CSS can neither take an absolute value nor raise to a
-                  // power.
-                  transform: [
-                    `translateX(calc(var(--step) * ${(dir * n ** 0.823).toFixed(4)}))`,
-                    `translateZ(calc(var(--depth) * ${n}))`,
-                    `rotateY(${-offset * 18.5}deg)`,
-                  ].join(" "),
-                }}
-                data-current={i === active || undefined}
-                aria-current={i === active ? "true" : undefined}
+        <ul className="speakers__track" id={trackId}>
+          {SPEAKERS.map((s, i) => (
+            <li
+              key={s.org}
+              className="speakers__slot"
+              ref={(el) => {
+                slots.current[i] = el;
+              }}
+              data-current={i === active || undefined}
+              aria-current={i === active ? "true" : undefined}
+            >
+              <button
+                type="button"
+                className="card"
+                onClick={() => goTo(i)}
+                // Only the centred card is a destination; the rest are a way of
+                // getting to it.
+                aria-label={
+                  i === active
+                    ? `${s.speaker}, ${s.role} at ${s.org}`
+                    : `Show ${s.org}`
+                }
               >
-                <button
-                  type="button"
-                  className="card"
-                  onClick={() => go(i)}
-                  // Only the centred card is a destination; the rest are a way
-                  // of getting to it.
-                  aria-label={
-                    i === active
-                      ? `${s.speaker}, ${s.role} at ${s.org}`
-                      : `Show ${s.org}`
-                  }
-                  tabIndex={Math.abs(offset) > 2 ? -1 : 0}
-                >
-                  <span className="card__bar" aria-hidden="true">
-                    <span className="card__light" />
-                    <span className="card__menu" />
-                  </span>
-                  <span className="card__view">
-                    {s.image ? (
-                      <img className="card__art" src={s.image} alt="" />
-                    ) : (
-                      <span
-                        className="card__art card__art--placeholder"
-                        style={{
-                          ["--from" as string]: s.tint[0],
-                          ["--to" as string]: s.tint[1],
-                        }}
-                      />
-                    )}
-                    <span className="card__org">{s.org}</span>
-                  </span>
-                </button>
-              </li>
-            );
-          })}
+                <span className="card__bar" aria-hidden="true">
+                  <span className="card__light" />
+                  <span className="card__menu" />
+                </span>
+                <span className="card__view">
+                  {s.image ? (
+                    <img className="card__art" src={s.image} alt="" />
+                  ) : (
+                    <span
+                      className="card__art card__art--placeholder"
+                      style={{
+                        ["--from" as string]: s.tint[0],
+                        ["--to" as string]: s.tint[1],
+                      }}
+                    />
+                  )}
+                  <span className="card__org">{s.org}</span>
+                </span>
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
 
@@ -120,8 +309,7 @@ export function Speakers() {
         <button
           type="button"
           className="speakers__arrow"
-          onClick={() => go(active - 1)}
-          disabled={active === 0}
+          onClick={() => go(-1)}
           aria-controls={trackId}
         >
           <span className="visually-hidden">Previous speaker</span>
@@ -134,7 +322,7 @@ export function Speakers() {
           <span
             className="speakers__thumb"
             style={{
-              ["--count" as string]: SPEAKERS.length,
+              ["--count" as string]: COUNT,
               ["--index" as string]: active,
             }}
           />
@@ -143,8 +331,7 @@ export function Speakers() {
         <button
           type="button"
           className="speakers__arrow"
-          onClick={() => go(active + 1)}
-          disabled={active === SPEAKERS.length - 1}
+          onClick={() => go(1)}
           aria-controls={trackId}
         >
           <span className="visually-hidden">Next speaker</span>
@@ -156,7 +343,7 @@ export function Speakers() {
 
       <p className="visually-hidden" aria-live="polite">
         {SPEAKERS[active].speaker}, {SPEAKERS[active].role} at{" "}
-        {SPEAKERS[active].org}. {active + 1} of {SPEAKERS.length}.
+        {SPEAKERS[active].org}. {active + 1} of {COUNT}.
       </p>
     </section>
   );

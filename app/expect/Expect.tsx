@@ -2,6 +2,9 @@ import { TRACKS, type Media, type Shot, type Track } from "./tracks";
 import { PillPit } from "./PillPit";
 import "./Expect.css";
 
+/** How fast the looping band travels, in px per second. */
+const STRIP_SPEED = 40;
+
 /* The panels are handed to the stack in page.tsx as siblings of the hero
    rather than wrapped in a stack of their own here. 01 has to rise over the
    hero the same way 02 rises over 01, and it can only do that if the hero is
@@ -67,9 +70,10 @@ function MediaBlock({ media }: { media: Media }) {
       return (
         <>
           {/* Only one panel is a photo, so the one clip path is defined where
-              it is used and its id cannot collide. */}
-          <WarpDef />
-          <figure className="frame">
+              it is used and its id cannot collide. Artwork that already has
+              the bowed edge drawn into it needs neither. */}
+          {media.framed ? null : <WarpDef />}
+          <figure className={media.framed ? "frame frame--bare" : "frame"}>
             <Art shot={media.shot} className="frame__shot" />
           </figure>
         </>
@@ -87,14 +91,36 @@ function MediaBlock({ media }: { media: Media }) {
         </div>
       );
 
-    case "strip":
+    case "strip": {
+      // The band never ends: a second copy of the run sits directly after the
+      // first and the track travels exactly one run's width, so the copy lands
+      // where the original started and the seam never shows. Same trick the
+      // hero's cloud bands use. The copy is decorative — only the first run is
+      // read out.
+      //
+      // Duration is derived from the run's length rather than picked, so the
+      // band travels at one speed whatever it carries: adding photographs
+      // makes the lap longer, not faster. 240 is a shot plus its gap.
+      const seconds = Math.round((media.shots.length * 240) / STRIP_SPEED);
       return (
-        <div className="shots shots--strip">
-          {media.shots.map((s, i) => (
-            <Art key={i} shot={s} className="shots__shot" />
+        <div
+          className="shots shots--strip"
+          style={{ ["--strip-duration" as string]: `${seconds}s` }}
+        >
+          {[0, 1].map((copy) => (
+            <div
+              className="shots__run"
+              key={copy}
+              aria-hidden={copy === 1 || undefined}
+            >
+              {media.shots.map((s, i) => (
+                <Art key={i} shot={s} className="shots__shot" />
+              ))}
+            </div>
           ))}
         </div>
       );
+    }
   }
 }
 
@@ -103,7 +129,15 @@ function MediaBlock({ media }: { media: Media }) {
    pictures land. */
 function Art({ shot, className }: { shot: Shot; className: string }) {
   if (shot.image) {
-    return <img className={className} src={shot.image} alt={shot.alt ?? ""} />;
+    return (
+      <img
+        className={className}
+        src={shot.image}
+        alt={shot.alt ?? ""}
+        loading="lazy"
+        decoding="async"
+      />
+    );
   }
   return (
     <span

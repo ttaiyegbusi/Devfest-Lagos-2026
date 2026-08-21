@@ -225,6 +225,20 @@
   clip-path: url(#expect-warp);
 }
 
+/* Artwork that arrives already bowed, fringed and squared up carries its own
+   frame — applying the CSS one on top would draw both a second time. */
+.frame--bare {
+  transform: none;
+}
+
+.frame--bare::before {
+  display: none;
+}
+
+.frame--bare .frame__shot {
+  clip-path: none;
+}
+
 .panel--photo .panel__media {
   display: grid;
   align-content: center;
@@ -316,18 +330,37 @@
   height: 250px;
 }
 
-/* The band runs off both edges of the page, so it is pulled wider than the
-   panel and left to be clipped by it. */
+/* The band runs off both edges of the page and keeps going. It is as wide as
+   its two runs and left to be clipped by the panel. */
 .shots--strip {
   display: flex;
-  gap: 20px;
+  width: max-content;
   margin: 26px 0 0 calc((var(--pad) + 30px) * -1);
-  width: calc(100% + var(--pad) * 2 + 90px);
+  animation: expect-strip-drift var(--strip-duration, 48s) linear infinite;
+  will-change: transform;
+}
+
+/* Each run carries the gap that joins it to the next, so a run is exactly
+   n * (shot + gap) wide and half the track is exactly one run — which is what
+   makes translating by 50% seamless rather than a half-gap out. */
+.shots__run {
+  display: flex;
+  gap: 20px;
+  padding-right: 20px;
 }
 
 .shots--strip .shots__shot {
   flex: 0 0 220px;
   height: 248px;
+}
+
+@keyframes expect-strip-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 /* --- responsive ---------------------------------------------------------- */
@@ -523,15 +556,7 @@
   }
 
   .shots--strip {
-    margin: 0 calc(var(--gutter) * -1);
-    width: calc(100% + var(--gutter) * 2);
-    overflow-x: auto;
-    scrollbar-width: none;
-    padding-inline: var(--gutter);
-  }
-
-  .shots--strip::-webkit-scrollbar {
-    display: none;
+    margin-left: calc(var(--gutter) * -1);
   }
 }
 
@@ -567,5 +592,13 @@
 
   .shots--strip .shots__shot {
     flex-basis: 150px;
+  }
+}
+
+/* The band is the section's only loop, and like every other loop on the page
+   it comes off here — parked at its design position. */
+@media (prefers-reduced-motion: reduce) {
+  .shots--strip {
+    animation: none;
   }
 }

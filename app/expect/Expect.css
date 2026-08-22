@@ -314,6 +314,7 @@
 
 .pills__line {
   display: flex;
+  flex-wrap: wrap;
   gap: 18px;
   margin: 0;
   padding: 0;
@@ -366,6 +367,16 @@
   left: 0;
   cursor: grab;
   will-change: transform;
+}
+
+/* While the heap is falling every pill is on its own compositor layer, which is
+   what keeps the drop cheap — but a layer is a texture, and a rotation resamples
+   it, which is what softens the type. Reading happens after the heap lands, so
+   PillPit adds this the moment everything is asleep: the layer comes off, and
+   the label is painted at the angle it is drawn at instead of being sampled out
+   of a bitmap. The class comes off again on a grab. */
+.pit.is-settled .pit__pill {
+  will-change: auto;
 }
 
 .pit.is-grabbing .pit__pill {

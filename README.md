@@ -1,18 +1,26 @@
 # DevFest Lagos 2026
 
 Hero section for the DevFest Lagos 2026 site, built against the supplied
-`HERO.png` reference at **1440 × 1024**.
+`HERO.png` reference at **1440 × 1024**, plus the four "What to expect" panels,
+the speaker wall, the FAQ and the footer.
 
 ```bash
 npm install
 npm run dev
+npm run lint     # oxlint, currently clean
 ```
 
 Next.js 16 (App Router) · TypeScript · plain CSS · oxlint.
 
 ## Page order
 
-Hero → What to expect → Speakers → FAQs → Footer.
+Hero → What to expect (01–04) → Speakers → FAQs → Footer.
+
+The hero and the four panels are **one pinned stack**, not five ordinary
+sections. `app/stack/Stack.tsx` pins each layer while the next rises over it,
+hinged at its top-left corner. 01 has to climb over the hero exactly the way 02
+climbs over 01, which only works if the hero is a layer in the same stack — so
+`page.tsx` hands the hero and `expectPanels()` to `<Stack>` as siblings.
 
 ## Layout
 
@@ -21,14 +29,8 @@ app/
   layout.tsx            metadata + globals
   page.tsx              section order
   globals.css           @font-face, palette tokens, gutter scale, reset
-  expect/               "What to expect" — the fanned track cards
-    Expect.tsx  Expect.css  tracks.ts
-  speakers/             "Meet Our Speakers" — the curved screen wall
-    Speakers.tsx  Speakers.css  lineup.ts
-  faq/                  category rail + accordion
-    Faq.tsx  Faq.css  questions.ts
-  footer/               watermark + sign-up + link columns
-    SiteFooter.tsx  SiteFooter.css
+  stack/                the pinned stack every panel rides in
+    Stack.tsx  Stack.css
   hero/
     Hero.tsx            hero markup (server)
     Hero.css            all hero layout + motion
@@ -37,10 +39,26 @@ app/
     HeroScene.tsx       GENERATED — do not hand-edit
     DevFestLogo.tsx     official icon + wordmark lockup
     generate-scene.py   rebuilds HeroScene.tsx from the source SVG
+  expect/               "What to expect" — four full-bleed panels
+    panels.tsx          the list handed to the stack
+    Expect.tsx  Expect.css  tracks.ts
+    PillPit.tsx         panel 02's topic cloud (matter-js, client)
+    PaperFrame.tsx      panel 01's print, leaning away from the cursor
+    assets.ts           server-side "is the photograph actually there yet?"
+  speakers/             "Meet Our Speakers" — the curved wall of screens
+    Speakers.tsx  Speakers.css  lineup.ts
+  faq/                  category rail + accordion
+    Faq.tsx  Faq.css  questions.ts
+  footer/               watermark + sign-up + link columns
+    SiteFooter.tsx  SiteFooter.css
+scripts/
+  lanes.py              solves the traffic keyframes off the drawn road
+  carousel.py           solved the speaker wall's geometry
 public/
   bg-new.svg            source illustration (1440 × 1024)
   fonts/                Faculty Glyphic + Geist, self-hosted (both SIL OFL)
   design/HERO.png       the visual reference
+  expect/               panel photographs
 ```
 
 ## Calibration
@@ -86,7 +104,7 @@ widths in a real browser rather than from that screenshot.
 
 ## Motion
 
-Three loops, all disabled under `prefers-reduced-motion`.
+Three loops in the hero, all disabled under `prefers-reduced-motion`.
 
 **Clouds** drift right in three parallax bands (150s / 190s / 240s). Each band
 carries a duplicate of itself one artwork-width to the left, so translating by
@@ -107,22 +125,28 @@ it is, the more obliquely the lane crosses the view and the more ground the
 vehicle covers per unit of growth — aim it at the camera and you get inflation
 with no travel, aim it across the view and you get travel with no growth. These
 lanes sit well towards the second, so the vehicles clear the right-hand edge at
-about 1.2x instead of having to swell past 2.7x first. Sideways speed picking up
-towards the end is not scripted; it is what perspective does to anything passing
-you.
+about 1.2x instead of having to swell past 2.7x first.
+
+The keyframes themselves are generated, not typed: `scripts/lanes.py` reads the
+drawn road polygon and places each vehicle at a **fixed fraction across the
+road** at every depth, so the lane percentage never drifts. An earlier hand-set
+version wandered from 12% to 90% across the road over one loop, which is what
+read as levitating.
+
+```bash
+python3 scripts/lanes.py     # prints the tables and writes the keyframes
+```
 
 The keke needs one correction on top: it is drawn larger than its position on
-the road implies, so it is scaled against a deeper reference (35) than its own
-wheels suggest (26). Without that it swells to twice the danfo's height by the
-corner. Its translate carries a small vertical term to keep the wheels down
-while that plays out.
+the road implies, so it is scaled against a deeper reference than its own wheels
+suggest. Without that it swells to twice the danfo's height by the corner. Its
+translate carries a small vertical term to keep the wheels down while that plays
+out.
 
 The two run the same cycle half a period apart on their own lanes, so one is
 always well down the road while the other is being born at the bridge — no empty
 road, no restart beat, and they no longer move like they are welded together.
-Verified across the whole cycle: both stay on the tarmac at every frame (lane
-fractions 0.14–0.56 and 0.33–0.66 across the road), they never overlap, and the
-road is never empty. Tune with `--traffic-duration` (default 12s).
+Tune with `--traffic-duration` (default 12s).
 
 **The headline word** cycles Community → Event → Place → Experience → Network →
 Ecosystem. It rests on "Ecosystem", so the server render, the first paint and
@@ -131,30 +155,138 @@ and the box transitions between those widths, which is what lets the comma glide
 instead of jumping. The comma stays a comma — the design's tagline runs on into
 "Endless Opportunities."
 
+## What to expect
+
+Four full-bleed panels, one per track, each a layer in the pinned stack. They
+share a skeleton — hairline down the middle, a heading block whose first line is
+the track number, a rule, a narrow measure of copy — and differ in which side
+the copy sits on and what fills the other half. That is `side` and `media` in
+`tracks.ts`; below 900px each panel stacks, copy first.
+
+**01 · Panel Sessions** is one print in a `PaperFrame`, four shots cross-fading
+inside it. The frame leans away from the cursor, and its two angles are locked
+at 1.75:1 rather than driven independently — that fixed ratio is what makes it
+read as one sheet tilting on a diagonal hinge instead of a card being steered on
+two axes.
+
+**02 · Different talks** is the topic cloud, and the only panel with physics in
+it. See below.
+
+**03 · Workshops** is a two-by-two grid; **04 · After Party** is a band along
+the bottom that loops, so photographs can be added to or dropped from
+`tracks.ts` freely without the travel speed changing.
+
+Photographs are wired up before the files land: `assets.ts` checks the path on
+disk at render, so a shot that is not there yet falls back to a tinted block
+rather than a broken frame, and the real picture appears the moment the file is
+dropped into `public/expect/`.
+
+### The topic cloud
+
+Twenty-four pills, dropped into a heap by matter-js. They stay **real DOM
+elements** — selectable, searchable, crisp — and the engine only ever hands each
+one a position and an angle; drawing them into a canvas would cost all of that
+for nothing. Bodies are sized from what the DOM actually measured, so the
+physics outline matches the rendered pill at any font size, and matter-js is
+imported on demand when the panel scrolls into view so it stays out of the
+initial bundle.
+
+Six things in there are load-bearing and easy to undo by accident:
+
+* **The fixed 60fps step.** Frame-derived stepping lets a slow frame tunnel a
+  pill straight through the floor.
+* **The generation counter.** Strict Mode mounts twice; without it the second
+  mount starts a second world while the first is still awaiting its import, and
+  two engines write to the same pills.
+* **Hand-rolled pointer dragging** rather than matter's `MouseConstraint`, which
+  binds wheel and touchmove with `preventDefault` and would stop the page
+  scrolling past the panel. A pointer-down that misses every pill is left alone.
+* **The pit's inset is a margin, not padding** — an absolutely positioned child
+  is placed against the padding box, so padding would put the walls and the
+  pills in two different coordinate frames.
+* **`drag.angleB` is set on every grab.** `angleB` is the body angle that the
+  grab offset is measured against, and every solve rotates that offset by the
+  difference between the two. `Constraint.create` only fills it in when a body
+  is attached up front, and this constraint attaches on grab — so it starts
+  *undefined*, the first solve computes `body.angle - undefined`, and rotating
+  the offset by that NaN poisons the body's position permanently. The pill stops
+  moving and can never be picked up again. In a heap that reads as a pill that
+  has simply come to rest, which is why it survived unnoticed until the pit
+  started waiting for the heap to stop before going idle.
+* **The resize handler only fires on a change of _width_.** A phone browser
+  fires `resize` every time its address bar slides in or out, which is exactly
+  what scrolling back up does, and rebuilding there dropped the whole heap again
+  — several times per swipe. Nothing in the sim depends on viewport height, so a
+  height-only resize is the browser's chrome moving, not the layout changing.
+  (`Stack.css` handles the same hazard with `svh` instead of `vh`.)
+
+Whether the heap has finished is asked of the picture, not of the engine: each
+body is compared with where it was last frame, and half a second of no visible
+movement anywhere ends the drop. matter's own sleep flags are the obvious test
+and the wrong one — a single body knocked out of the simulation never sets its
+flag and holds the loop open for ever, which is exactly how the `angleB` bug
+above surfaced.
+
+Once the heap is still the loop **stops** and the pit takes an `is-settled`
+class. Both matter: a marketing page has no business holding a phone at 60fps to
+redraw a picture that is not changing, and the class drops `will-change:
+transform`, which takes each pill off its own compositor layer. On a layer the
+label is rasterised once and then resampled by the rotation, which softens it;
+painted in the page it is drawn at the angle it sits at, so it is sharp for the
+whole time anyone is actually reading it. A grab puts both back.
+
+The heap's box is sized to the heap: the height is estimated from the area the
+pills occupy at this width, then corrected once everything has come to rest —
+trimmed up if the heap sits low, opened if it pokes out of the top. At
+twenty-four pills it opens on every viewport, so panel 02 is a **tall panel** and
+reads in full before it pins. That is a supported case in the stack, not a bug,
+but it is why 02 scrolls further than the others.
+
+Colours are measured rather than judged by eye. Two rules hold, against the
+panel's own `#fcefcb`:
+
+| | |
+|---|---|
+| label against its own pill | **≥ 3:1**, so the text reads |
+| pill against the panel | **≥ 15 ΔE** in CIELab, so it reads as a pill at all |
+
+The second rule is the one that is easy to miss. "Motion Design" was a cream
+chip at ΔE **4.1** from a cream panel — invisible, however good its text
+contrast was (it measured 14.9:1). Nothing else in the set is under 19.
+
+Under `prefers-reduced-motion` the cloud is laid out statically in the rows
+`tracks.ts` sets by hand, and the pit is never built.
+
 ## The other sections
 
-**What to expect** deals four cards out in a fan: they overlap by a fixed pitch
-rather than sitting in a grid, and each carries its own tilt and vertical lift
-from `tracks.ts`. Hovering one lifts it clear of its neighbours so the copy that
-runs under the next card can be read. Below 900px the fan becomes a snap
-scroller — same cards, same tilts.
+**Speakers** is a concave wall of screens, and the cards lie on a genuine
+circle. A card `t` degrees around it sits at `(R sin t, R(1 − cos t))` and is
+turned by that same `t`, so its facing and its position come from one angle —
+which is what makes the row read as a single curved surface. Deriving x and z
+from separate curves (a power law for the offset, a linear depth) leaves every
+card facing slightly wrong for where it actually is, and the arc looks broken;
+that is what this did before.
 
-**Speakers** is a concave wall of screens. The geometry was measured off the
-reference rather than guessed: cards swing their *outer* edge towards the viewer
-and grow as they go out (1.00x at centre, 1.10x one step out, 1.28x two), which
-is why the row curves toward you at the ends instead of receding. Each card's
-transform is computed in the component from its offset — `translateX(297.6 *
-n^0.681)`, `translateZ(150 * n^1.3)`, `rotateY(-24deg * offset)` — because CSS
-cannot take an absolute value or a power. Cards more than two steps out are
-dropped rather than left for the perspective to blow up off-screen.
+`ARC` is **18.5°** between neighbours, solved by `scripts/carousel.py` against
+the reference: at that angle `cos(18.5°)` exactly cancels the size gain from
+coming forward, so a card one step out projects to the same *width* as the
+centre card and the gap between them survives. Radius follows from the angle and
+the horizontal step — `R = step / sin(18.5°)`, giving **1112px** against a
+**353px** step — and perspective is pinned at **1.429 R**. Every breakpoint
+holds both that ratio and `card-w / R` at 0.281, so the wall is one shape at
+every size and only its scale changes. The ring wraps, and a card is fully faded
+out by the time it is carried round, so there is no seam and no card is ever
+shown at a size the geometry was not solved for.
 
-**FAQ** filters by category and opens one answer at a time. The rail becomes a
+**FAQ** filters by category and opens one answer at a time. It reserves the
+longest category's height so switching filters never moves the section, and
+`--rows` is derived from the data rather than hardcoded. The rail becomes a
 scrollable chip row below 900px.
 
 **Footer** sizes its watermark off the viewport so it keeps the same
 relationship to the panel at every width, and the panel rides up over the bottom
 of the wordmark. The lockup ships in full Google colour, so the watermark
-flattens it to a single grey in CSS.
+flattens it to a single grey in CSS and fades it out through a mask.
 
 ## The illustration
 
@@ -162,7 +294,8 @@ flattens it to a single grey in CSS.
 `<path>` elements in paint order; `generate-scene.py` slices it by index into
 clouds (0–5), static scene (6–121), keke (122–157) and danfo (158–199) so those
 bands can be transformed independently while every overlap stays exactly as
-drawn. Replacing the artwork means re-deriving those ranges:
+drawn. Replacing the artwork means re-deriving those ranges — the script fails
+loudly on a different path count rather than silently mis-layering:
 
 ```bash
 python3 app/hero/generate-scene.py public/bg-new.svg

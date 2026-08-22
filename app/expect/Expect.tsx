@@ -1,5 +1,5 @@
 import { type CSSProperties } from "react";
-import { TRACKS, type Media, type Shot, type Track } from "./tracks";
+import { type Media, type Shot, type Track } from "./tracks";
 import { PillPit } from "./PillPit";
 import { onDisk } from "./assets";
 import { PaperFrame } from "./PaperFrame";
@@ -8,16 +8,7 @@ import "./Expect.css";
 /** How fast the looping band travels, in px per second. */
 const STRIP_SPEED = 40;
 
-/* The panels are handed to the stack in page.tsx as siblings of the hero
-   rather than wrapped in a stack of their own here. 01 has to rise over the
-   hero the same way 02 rises over 01, and it can only do that if the hero is
-   a pinned layer in the same stack — a stack starting at 01 leaves 01 with
-   nothing underneath to climb over. */
-export function expectPanels() {
-  return TRACKS.map((track) => <Panel key={track.n} track={track} />);
-}
-
-function Panel({ track }: { track: Track }) {
+export function ExpectPanel({ track }: { track: Track }) {
   const id = `expect-${track.n}`;
 
   return (

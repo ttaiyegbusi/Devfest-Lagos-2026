@@ -1,6 +1,6 @@
 import { Stack } from "./stack/Stack";
 import { Hero } from "./hero/Hero";
-import { expectPanels } from "./expect/Expect";
+import { expectPanels } from "./expect/panels";
 import { Speakers } from "./speakers/Speakers";
 import { Faq } from "./faq/Faq";
 import { SiteFooter } from "./footer/SiteFooter";

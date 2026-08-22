@@ -5,12 +5,18 @@
 // What changes is which side the copy sits on and what fills the other half —
 // hence `side` and `media`.
 //
-// COPY: the numbering, titles and topic pills are the design's. The prose is
-// not — the reference sheet repeats one paragraph across 02, 03 and 04, and
-// 01's list repeats a bullet and carries two typos, so it was never meant to
-// ship. What is here now is written to fit each panel, but it still describes
-// a programme that has not been confirmed: check it against the real schedule
-// before launch, and note it deliberately makes no claim about ticket tiers.
+// COPY: the numbering and titles are the design's. The prose is not — the
+// reference sheet repeats one paragraph across 02, 03 and 04, and 01's list
+// repeats a bullet and carries two typos, so it was never meant to ship. What
+// is here now is written to fit each panel, but it still describes a programme
+// that has not been confirmed: check it against the real schedule before
+// launch, and note it deliberately makes no claim about ticket tiers.
+//
+// TOPIC PILLS: sixteen came from the design; eight more — Web Development,
+// AR / VR, Open Source, Accessibility, Data Engineering, Developer Relations,
+// Technical Writing, Game Development — were added to fill the cloud out, in
+// the design's own colour language. They are a menu of subjects, not a
+// schedule: cut any track that will not actually run.
 //
 // PLACEHOLDER ART: drop files in public/expect/ and set `image` on a shot to
 // use a real photograph; without one the frame falls back to a tinted block so
@@ -42,7 +48,18 @@ export type Media =
       framed?: boolean;
     }
   /** The topic cloud. Panel 02. Rows are hand-set: the reference breaks
-      them where it wants the rag, not where the box happens to run out. */
+      them where it wants the rag, not where the box happens to run out. They
+      are also only what reduced motion sees — with motion on, the pills are
+      dropped into a heap and the rows never render.
+
+      Two colour rules hold, and both are measured rather than judged by eye
+      (the panel fill is #fcefcb):
+
+        · label against its own pill ≥ 3:1, so the text reads;
+        · pill against the panel ≥ 15 ΔE in CIELab, so the pill reads as a
+          pill at all. "Motion Design" used to sit at 4.1 — a cream chip on a
+          cream panel, invisible however good its text contrast was. Nothing
+          else in the set is under 19. */
   | { kind: "pills"; rows: Pill[][] }
   /** Two by two. Panel 03. */
   | { kind: "grid"; shots: Shot[] }
@@ -133,33 +150,47 @@ export const TRACKS: Track[] = [
       rows: [
         [
           { label: "Ui Design", bg: "#fbc9d4", fg: "#171717" },
-          { label: "Motion Design", bg: "#fce8c0", fg: "#171717" },
+          { label: "Motion Design", bg: "#f7c26b", fg: "#171717" },
+          { label: "Web Development", bg: "#4db6ac", fg: "#171717" },
         ],
         [
           { label: "SAAS", bg: "#cfe6fb", fg: "#171717" },
-          { label: "Compliance", bg: "#cfc2f7", fg: "#7c4dff" },
+          { label: "Compliance", bg: "#cfc2f7", fg: "#4c1d95" },
         ],
         [
           { label: "Product Management", bg: "#2563eb", fg: "#ffffff" },
-          { label: "Blockchain", bg: "#10b981", fg: "#ffffff" },
+          { label: "Blockchain", bg: "#10b981", fg: "#171717" },
         ],
-        [{ label: "Mobile Development", bg: "#8b5cf6", fg: "#ffffff" }],
+        [
+          { label: "Mobile Development", bg: "#8b5cf6", fg: "#ffffff" },
+          { label: "AR / VR", bg: "#3b1e9e", fg: "#ffffff" },
+        ],
         [
           { label: "Machine Learning", bg: "#e6e0fb", fg: "#7c4dff" },
           { label: "Data Analysis", bg: "#f4511e", fg: "#ffffff" },
+          { label: "Open Source", bg: "#0b7b74", fg: "#ffffff" },
         ],
         [
           { label: "AI", bg: "#6f6f6f", fg: "#ffffff" },
           { label: "Fintech", bg: "#111111", fg: "#ffffff" },
-          { label: "Cloud & DevOps", bg: "#d4f5e4", fg: "#17a05a" },
+          { label: "Cloud & DevOps", bg: "#d4f5e4", fg: "#0b6b3a" },
         ],
         [
-          { label: "Cybersecurity", bg: "#f0ae1e", fg: "#ffffff" },
+          { label: "Cybersecurity", bg: "#f0ae1e", fg: "#171717" },
           { label: "Product Design", bg: "#f0303f", fg: "#ffffff" },
+          { label: "Accessibility", bg: "#1a73e8", fg: "#ffffff" },
+        ],
+        [
+          { label: "Data Engineering", bg: "#0b6b3a", fg: "#ffffff" },
+          { label: "Developer Relations", bg: "#00838f", fg: "#ffffff" },
         ],
         [
           { label: "Design Engineering", bg: "#e2e6fb", fg: "#2563eb" },
           { label: "Engineering", bg: "#fbe2e6", fg: "#f0303f" },
+        ],
+        [
+          { label: "Technical Writing", bg: "#bcaaa4", fg: "#171717" },
+          { label: "Game Development", bg: "#a142f4", fg: "#ffffff" },
         ],
       ],
     },

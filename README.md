@@ -173,8 +173,19 @@ two axes.
 it. See below.
 
 **03 · Workshops** is a two-by-two grid; **04 · After Party** is a band along
-the bottom that loops, so photographs can be added to or dropped from
-`tracks.ts` freely without the travel speed changing.
+the bottom that loops. Two copies of the run sit end to end and the track
+travels exactly one run's width, so the seam never shows. It moves at 40px/s at
+every size: the component contributes `--shots`, the stylesheet contributes
+`--pitch` (how wide a shot is at this breakpoint), and the lap is the two
+multiplied — so photographs can be added to or dropped from `tracks.ts` freely
+without the band speeding up.
+
+Panel columns are `minmax(0, 1fr)` rather than a bare `1fr`, and that is
+load-bearing. `1fr` means `minmax(auto, 1fr)`, and the `auto` minimum is the
+widest thing in the column — which on 04 is a band deliberately far wider than
+the page. The column sized itself to the band and laid the heading, rule and
+copy out across several thousand pixels, clipped back to a phone's width by the
+panel's own `overflow: hidden`. It read as a band that had stopped scrolling.
 
 Photographs are wired up before the files land: `assets.ts` checks the path on
 disk at render, so a shot that is not there yet falls back to a tinted block

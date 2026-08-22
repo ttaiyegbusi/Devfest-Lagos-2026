@@ -274,6 +274,38 @@ photograph that has not landed yet falls back to a tinted block rather than a
 broken frame — and the real picture appears the moment the file is dropped into
 `public/expect/`.
 
+### Every panel column is `minmax(0, 1fr)`, and it has to be
+
+A bare `1fr` is `minmax(auto, 1fr)`, and that `auto` minimum is the widest thing
+in the column. On 04 that is a photo band built to be several thousand pixels
+wide — so the column sized itself to the band, and the heading, the rule and the
+copy were laid out across all of it and clipped back to a phone's width by the
+panel's `overflow: hidden`.
+
+What it looked like was the band having stopped: three photographs, no movement,
+everything else running off the right-hand edge. What had actually happened is
+that the whole panel had been stretched out underneath it. Desktop escaped only
+by accident — there 04's band spans *both* columns, and a spanning item's
+contribution is not applied to flexible tracks, so nothing inflated. Stacked,
+there is one column and no second one to absorb it.
+
+Both the desktop and the stacked rules now use `minmax(0, 1fr)`. Verified: 04's
+media column is 350px at 390 wide (it was 4062), desktop is unchanged at 676px
+for 01–03 and 1352 for 04, and no breakpoint scrolls the document sideways.
+
+### The band's lap is worked out in CSS
+
+The band travels at **40px/s** and must do so at every size: adding photographs
+lengthens the lap rather than speeding the band up. That needs the count and the
+shot pitch, and only one of them is known in each place — the component knows how
+many shots there are, the stylesheet knows how wide a shot is at this breakpoint.
+So the component sets `--shots` and the stylesheet holds `--pitch` (6s per shot
+at 240px of pitch, 4.25s at 170px below 768), and the lap is the two multiplied.
+
+Before this the pitch was hard-coded to the desktop figure in the component, so
+the phone — where shots are 150px, not 220px — ran its lap at **28px/s**. On top
+of the column bug that is the other half of why the band read as stopped.
+
 ### The pill pit
 
 The topic cloud is a matter-js drop, ported from `app/talks/TalksSection.tsx` in

@@ -149,7 +149,10 @@ road, no restart beat, and they no longer move like they are welded together.
 Tune with `--traffic-duration` (default 12s).
 
 **The headline word** cycles Community → Event → Place → Experience → Network →
-Ecosystem. It rests on "Ecosystem", so the server render, the first paint and
+Ecosystem. The word and its comma are wrapped together in `.hero__phrase`,
+because the rotator is an inline-block and that offers the line a break
+opportunity right before the comma — on a 320px phone the comma dropped onto a
+line of its own. Wrapped, the whole `<word>,` wraps as one unit instead. It rests on "Ecosystem", so the server render, the first paint and
 the reduced-motion state are all the reference line. Words are measured on mount
 and the box transitions between those widths, which is what lets the comma glide
 instead of jumping. The comma stays a comma — the design's tagline runs on into
@@ -206,6 +209,12 @@ Six things in there are load-bearing and easy to undo by accident:
 
 * **The fixed 60fps step.** Frame-derived stepping lets a slow frame tunnel a
   pill straight through the floor.
+* **`SPIN_RESISTANCE`.** A stadium of card falling through air does not tumble
+  the way a rigid bar in a vacuum does — it is damped by its own face, and
+  matter models no such thing. Multiplying each body's inertia by 4 takes the
+  share of pills landing past 90° from about one in eight to about one in fifty
+  (measured over 144 settles per width). A label nobody can read is the one
+  thing a panel whose whole job is naming topics cannot afford.
 * **The generation counter.** Strict Mode mounts twice; without it the second
   mount starts a second world while the first is still awaiting its import, and
   two engines write to the same pills.

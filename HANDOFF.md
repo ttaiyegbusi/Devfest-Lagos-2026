@@ -293,6 +293,19 @@ Both the desktop and the stacked rules now use `minmax(0, 1fr)`. Verified: 04's
 media column is 350px at 390 wide (it was 4062), desktop is unchanged at 676px
 for 01–03 and 1352 for 04, and no breakpoint scrolls the document sideways.
 
+### The headline's comma
+
+`.hero__phrase` wraps the rotating word and the comma after it. Without it the
+rotator — an inline-block — offers the line a break opportunity immediately
+before the comma, and at 320px the comma took it and sat alone on a line while
+the heading overflowed its box by 25px. Wrapped, `One` breaks away and the whole
+`<word>,` moves down together. Nothing overflows at 320 now, and the rag reads
+One / Ecosystem, / Endless / Opportunities.
+
+The threshold was about 355px: the widest word is "Community" at 218px, and
+`One ` + that + the comma needs ~317px against the 320px available at a 360px
+viewport. Three pixels of headroom, so it was always going to break somewhere.
+
 ### The band's lap is worked out in CSS
 
 The band travels at **40px/s** and must do so at every size: adding photographs
@@ -322,6 +335,16 @@ Six things in there are load-bearing and easy to undo by accident:
 
 * **The fixed 60fps step.** Frame-derived stepping lets a slow frame tunnel a
   pill straight through the floor.
+* **`SPIN_RESISTANCE`.** Every body's inertia is multiplied by 4 after it is
+  built. A stadium of card falling through air is damped by its own face and
+  does not tumble like a rigid bar in a vacuum; matter models no such thing, so
+  pills landed past 90° and their labels read upside down. Measured over 144
+  settles per width: about one in eight before, one in fifty after — and the
+  lighter fall had already halved it from the constants before that. It is not
+  zero, and it should not be: a heap where every card lands face-up looks
+  staged. If zero is ever wanted, a stadium has 180° rotational symmetry, so a
+  settled pill past 90° could be *rendered* at `angle + PI` with its physics
+  outline unchanged.
 * **The generation counter.** Strict Mode mounts twice; without it the second
   mount starts a second world while the first is still awaiting its import, and
   two engines write to the same pills.

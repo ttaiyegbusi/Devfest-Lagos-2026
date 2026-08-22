@@ -15,7 +15,15 @@ export function Hero() {
 
         <div className="hero__copy">
           <h1 className="hero__title">
-            One <RotatingWord />,
+            {/* The comma belongs to the word, not to the line. The rotator is an
+                inline-block, which offers the line a break opportunity right
+                before the comma — so on a narrow phone the comma dropped to a
+                line of its own. Wrapping the pair keeps them together and lets
+                the whole "<word>," wrap as one instead. */}
+            One{" "}
+            <span className="hero__phrase">
+              <RotatingWord />,
+            </span>
             <br />
             Endless Opportunities.
           </h1>

@@ -427,6 +427,13 @@
   color: var(--ink);
 }
 
+/* Keeps the swapping word and its comma on one line — see Hero.tsx. The comma
+   still glides, because it is carried along by the rotator's width transition
+   rather than being positioned itself. */
+.hero__phrase {
+  white-space: nowrap;
+}
+
 /* Rotating headline word. Only the coloured word swaps; "One" and the comma
    stay put, and the comma glides as the box resizes to the incoming word. */
 .hero__rotator {

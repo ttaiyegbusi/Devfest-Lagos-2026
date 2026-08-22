@@ -25,6 +25,13 @@ const PACK = 0.58;
 /** Frames of no visible movement before the heap counts as finished — half a
  *  second at the fixed step, which is longer than the pause at the top of a
  *  bounce and shorter than anyone will notice it thinking about it. */
+/** How much harder than its outline implies a pill is to spin. A stadium of card
+ *  falling through air does not tumble the way a rigid bar in a vacuum does — it
+ *  is damped by its own face, and matter models no such thing. Without this,
+ *  better than one pill in twelve lands past 90 degrees, and a label nobody can
+ *  read is the one thing a panel whose whole job is naming topics cannot afford.
+ *  It costs nothing at rest and is barely perceptible on a drag. */
+const SPIN_RESISTANCE = 4;
 const STILL_FRAMES = 30;
 /** Movement below this, in px per step, is not movement. */
 const STILL_EPS = 0.05;
@@ -189,6 +196,7 @@ export function PillPit({ rows }: { rows: Pill[][] }) {
         ),
       );
     });
+    for (const b of bodies) M.Body.setInertia(b, b.inertia * SPIN_RESISTANCE);
     Composite.add(world, bodies);
 
     // Our own pointer handling rather than matter's MouseConstraint: that binds

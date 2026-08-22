@@ -5,9 +5,6 @@ import { onDisk } from "./assets";
 import { PaperFrame } from "./PaperFrame";
 import "./Expect.css";
 
-/** How fast the looping band travels, in px per second. */
-const STRIP_SPEED = 40;
-
 export function ExpectPanel({ track }: { track: Track }) {
   const id = `expect-${track.n}`;
 
@@ -107,14 +104,14 @@ function MediaBlock({ media }: { media: Media }) {
       // hero's cloud bands use. The copy is decorative — only the first run is
       // read out.
       //
-      // Duration is derived from the run's length rather than picked, so the
-      // band travels at one speed whatever it carries: adding photographs
-      // makes the lap longer, not faster. 240 is a shot plus its gap.
-      const seconds = Math.round((media.shots.length * 240) / STRIP_SPEED);
+      // How long a lap takes is worked out in the stylesheet, from this count
+      // and the shot pitch at the current breakpoint — the pitch is the half
+      // that changes with the viewport, and only CSS knows it. Adding
+      // photographs lengthens the lap rather than speeding the band up.
       return (
         <div
           className="shots shots--strip"
-          style={{ ["--strip-duration" as string]: `${seconds}s` }}
+          style={{ ["--shots" as string]: media.shots.length }}
         >
           {[0, 1].map((copy) => (
             <div

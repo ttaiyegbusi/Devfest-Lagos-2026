@@ -10,7 +10,16 @@
     "react/only-export-components": [
       "warn",
       {
-        "allowConstantExport": true
+        "allowConstantExport": true,
+        "allowExportNames": [
+          "metadata",
+          "generateMetadata",
+          "viewport",
+          "generateViewport",
+          "dynamic",
+          "revalidate",
+          "generateStaticParams"
+        ]
       }
     ]
   },

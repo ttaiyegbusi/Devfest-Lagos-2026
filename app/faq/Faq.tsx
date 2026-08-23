@@ -41,14 +41,16 @@ export function Faq() {
 
   return (
     <section className="faq" id="faq" aria-labelledby={`${id}-title`}>
-      <div className="faq__intro">
-        <h2 className="faq__title" id={`${id}-title`}>
+      <div className="faq__intro" data-reveal>
+        <h2 className="faq__title" id={`${id}-title`} data-rise>
           Frequently asked questions
         </h2>
-        <p className="faq__lede">All your questions answered</p>
+        <p className="faq__lede" data-rise>
+          All your questions answered
+        </p>
       </div>
 
-      <div className="faq__body">
+      <div className="faq__body" data-reveal>
         {query ? (
           <p className="faq__search" role="status">
             {shown.length
@@ -67,7 +69,12 @@ export function Faq() {
           </p>
         ) : null}
 
-        <nav className="faq__groups" aria-label="Filter questions" hidden={!!query}>
+        <nav
+          className="faq__groups"
+          aria-label="Filter questions"
+          hidden={!!query}
+          data-rise
+        >
           {GROUPS.map((g) => (
             <button
               key={g}
@@ -89,7 +96,7 @@ export function Faq() {
           {shown.map((f) => {
             const isOpen = open === f.q;
             return (
-              <li key={f.q} className="faq__item">
+              <li key={f.q} className="faq__item" data-rise>
                 <h3 className="faq__q">
                   <button
                     type="button"

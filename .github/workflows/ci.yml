@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# A new push replaces the run already in flight for the same branch, rather
+# than queueing behind it.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: lint and build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Matches what the project is developed against. Next 16 needs 20.9+.
+          node-version: 22
+
+      # setup-node's own `cache: npm` keys off a lockfile, and this repo
+      # deliberately does not commit one — see the note at the bottom of
+      # .gitignore about sharp's linux-musl binaries breaking Linux installs.
+      # So cache npm's download directory keyed on package.json instead:
+      # dependencies still resolve fresh every run, they just are not
+      # re-downloaded. If a lockfile is ever committed, swap both of these for
+      # `cache: npm` on setup-node and `npm ci` below.
+      - name: Cache npm downloads
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ runner.os }}-${{ hashFiles('package.json') }}
+          restore-keys: npm-${{ runner.os }}-
+
+      - name: Install
+        run: npm install --no-audit --no-fund
+
+      # `npm run lint` carries --deny-warnings (see package.json). Plain oxlint
+      # exits 0 even with warnings outstanding, which would leave this job
+      # unable to ever fail — the repo is at zero warnings and this is what
+      # keeps it there.
+      - name: Lint
+        run: npm run lint
+
+      # `next build` typechecks as part of the build, so this covers tsc too.
+      - name: Build
+        run: npm run build
+
+      # The speaker wall's geometry is derived, not hand-written. This exits
+      # non-zero if the committed --step / --arc-r / --persp / ARC stop
+      # satisfying the rules they were solved from.
+      - name: Check the speaker wall geometry
+        run: python3 scripts/carousel.py

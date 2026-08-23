@@ -19,6 +19,22 @@ npm run build
 npm run lint     # oxlint — clean, keep it that way
 ```
 
+`.github/workflows/ci.yml` runs the lint, the build and
+`scripts/carousel.py` on every push and pull request. Two things about it
+are deliberate:
+
+* **`npm run lint` carries `--deny-warnings`.** Plain oxlint exits 0 even
+  with warnings outstanding, so without it the lint job could never go red
+  and the zero-warning state would rot silently. Verified by reintroducing
+  a warning: plain oxlint exits 0, `--deny-warnings` exits 1. The flag is in
+  the npm script rather than only in the workflow so a local run and a CI
+  run cannot disagree.
+* **`npm install`, not `npm ci`, and the npm cache is keyed by hand.** No
+  lockfile is committed — see the note at the bottom of `.gitignore` — so
+  `npm ci` has nothing to work from and `setup-node`'s own `cache: npm`
+  has nothing to hash. If a lockfile is ever committed on Linux, swap both
+  for `cache: npm` and `npm ci`.
+
 **Page order:** Hero → What to expect (01–04) → Speakers → FAQs → Footer.
 
 The hero and the four panels are **one pinned stack**, not five ordinary

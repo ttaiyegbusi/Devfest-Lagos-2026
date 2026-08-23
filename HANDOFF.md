@@ -547,6 +547,13 @@ resolve against its own smaller size and quietly halve every offset.
 
 Rendered "Devfest" measures 609px against the comp's 610.
 
+The mark also keeps `margin-bottom: 0.2 x --mark` of clear air above the panel.
+Without it the panel begins at the wordmark's own box bottom, which sits only a
+few pixels under the letters — nine at 1440, two or three on a phone — and the
+lockup reads as cut off even where it technically is not. It was reported that
+way. With the gap the panel clears the wordmark by 11px at 320 rising to 34px at
+1440, and the icon by more, at every width.
+
 No tracking on the wordmark: the size was solved from the face's natural widths,
 and any letter-spacing puts it off the comp again. No fade mask either — the
 comp has it flat, and the panel simply starts below the letters rather than

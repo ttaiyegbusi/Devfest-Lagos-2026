@@ -149,14 +149,16 @@ road, no restart beat, and they no longer move like they are welded together.
 Tune with `--traffic-duration` (default 12s).
 
 **The headline word** cycles Community → Event → Place → Experience → Network →
-Ecosystem. The word and its comma are wrapped together in `.hero__phrase`,
-because the rotator is an inline-block and that offers the line a break
-opportunity right before the comma — on a 320px phone the comma dropped onto a
-line of its own. Wrapped, the whole `<word>,` wraps as one unit instead. It rests on "Ecosystem", so the server render, the first paint and
+Ecosystem. It rests on "Ecosystem", so the server render, the first paint and
 the reduced-motion state are all the reference line. Words are measured on mount
 and the box transitions between those widths, which is what lets the comma glide
 instead of jumping. The comma stays a comma — the design's tagline runs on into
 "Endless Opportunities."
+
+The word and its comma are wrapped together in `.hero__phrase`, because the
+rotator is an inline-block and that offers the line a break opportunity right
+before the comma — on a 320px phone the comma dropped onto a line of its own.
+Wrapped, the whole `<word>,` wraps as one unit instead.
 
 ## What to expect
 

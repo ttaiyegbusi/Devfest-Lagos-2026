@@ -568,6 +568,8 @@
 
   .hero-nav__toggle {
     display: block;
+    width: 44px;
+    height: 44px;
   }
 
   .hero-nav__menu {
@@ -588,11 +590,28 @@
     display: flex;
   }
 
+  /* Stretch rather than flex-start: an inline-block link is only as wide as its
+     own label, so "FAQ" was a target barely 30px across in a menu 280px wide.
+     Full-width rows mean the whole line is tappable. */
   .hero-nav__links {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 18px;
+    align-items: stretch;
+    gap: 4px;
+    width: 100%;
     font-size: 16px;
+  }
+
+  /* 44px rows. The links were 24px tall — WCAG 2.5.8 AA's floor exactly, with
+     nothing spare — and the padding does the separating now, so the gap above
+     comes down to keep the menu from growing more than it has to. */
+  .hero-nav__links a {
+    display: block;
+    padding-block: 14px;
+  }
+
+  .hero-nav__ticket {
+    width: 100%;
+    height: 48px;
   }
 }
 

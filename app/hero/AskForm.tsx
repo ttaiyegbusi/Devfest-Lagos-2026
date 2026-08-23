@@ -23,6 +23,7 @@ export function AskForm() {
     <form
       className="hero__ask"
       role="search"
+      data-rise
       onSubmit={(event) => {
         event.preventDefault();
         const q = input.current?.value.trim() ?? "";

@@ -67,7 +67,12 @@ export function SignupForm() {
 
   return (
     <>
-      <form className="foot__form" onSubmit={onSubmit} noValidate={false}>
+      <form
+        className="foot__form"
+        onSubmit={onSubmit}
+        noValidate={false}
+        data-rise
+      >
         <label className="visually-hidden" htmlFor={`${id}-email`}>
           Email address
         </label>

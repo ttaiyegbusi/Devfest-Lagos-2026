@@ -14,8 +14,8 @@ export function Hero() {
       <div className="hero__shell">
         <HeroNav />
 
-        <div className="hero__copy">
-          <h1 className="hero__title">
+        <div className="hero__copy" data-reveal>
+          <h1 className="hero__title" data-rise>
             {/* The comma belongs to the word, not to the line. The rotator is an
                 inline-block, which offers the line a break opportunity right
                 before the comma — so on a narrow phone the comma dropped to a
@@ -29,7 +29,7 @@ export function Hero() {
             Endless Opportunities.
           </h1>
 
-          <p className="hero__lede">
+          <p className="hero__lede" data-rise>
             Join the largest annual tech conference in Africa, hosted by{" "}
             <br className="hero__break" />
             Google Developer Group Lagos (GDG Lagos).

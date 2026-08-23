@@ -252,18 +252,24 @@ export function Speakers() {
       aria-labelledby={`${trackId}-title`}
       ref={root}
     >
-      <div className="speakers__intro">
-        <h2 className="speakers__title" id={`${trackId}-title`}>
+      <div className="speakers__intro" data-reveal>
+        <h2 className="speakers__title" id={`${trackId}-title`} data-rise>
           Meet Our Speakers
         </h2>
-        <p className="speakers__lede">
+        <p className="speakers__lede" data-rise>
           We&rsquo;ve raised the bar this year with our impressive lineup of
           speakers, each prepared to share valuable insights.
         </p>
       </div>
 
+      {/* Fade only, and on the stage itself: this element carries the
+          perspective the whole wall is built in, so it can neither travel
+          under a rise nor be wrapped in something that would come between it
+          and the track. */}
       <div
         className="speakers__stage"
+        data-reveal
+        data-rise="still"
         ref={stage}
         tabIndex={-1}
         role="group"
@@ -317,7 +323,7 @@ export function Speakers() {
         </ul>
       </div>
 
-      <div className="speakers__controls">
+      <div className="speakers__controls" data-reveal data-rise>
         <button
           type="button"
           className="speakers__arrow"

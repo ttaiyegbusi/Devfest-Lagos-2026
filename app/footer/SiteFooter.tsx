@@ -1,37 +1,50 @@
 import { DevFestIcon } from "../hero/DevFestIcon";
 import "./SiteFooter.css";
 
-const COLUMNS = [
+/* `href` is optional, and most of these do not have one yet. They all used to
+   point at anchors — #schedule, #team, #x, #app — none of which exist anywhere
+   in the markup, so every link in this footer was dead. An entry without a
+   destination renders as plain text rather than as a link that does nothing.
+
+   TO WIRE UP:
+     · Schedule, Join Community, Team — need sections or pages.
+     · The five socials — need the real profile URLs. Deliberately not guessed:
+       sending people to the wrong account is worse than not linking yet.
+     · Download App, Play Game, DP Generator, Buy Tickets — need destinations. */
+const COLUMNS: {
+  heading: string;
+  links: { label: string; href?: string }[];
+}[] = [
   {
     heading: "Devfest",
     links: [
-      ["Schedule", "#schedule"],
-      ["Speakers", "#speakers"],
-      ["FAQs", "#faq"],
-      ["Join Community", "#community"],
-      ["Team", "#team"],
+      { label: "Schedule" },
+      { label: "Speakers", href: "#speakers" },
+      { label: "FAQs", href: "#faq" },
+      { label: "Join Community" },
+      { label: "Team" },
     ],
   },
   {
     heading: "Contact Us",
     links: [
-      ["X", "#x"],
-      ["Linkedin", "#linkedin"],
-      ["Instagram", "#instagram"],
-      ["Facebook", "#facebook"],
-      ["Youtube", "#youtube"],
+      { label: "X" },
+      { label: "Linkedin" },
+      { label: "Instagram" },
+      { label: "Facebook" },
+      { label: "Youtube" },
     ],
   },
   {
     heading: "Product",
     links: [
-      ["Download Devfest App", "#app"],
-      ["Play Game", "#game"],
-      ["DP Generator", "#dp"],
-      ["Buy Tickets", "#tickets"],
+      { label: "Download Devfest App" },
+      { label: "Play Game" },
+      { label: "DP Generator" },
+      { label: "Buy Tickets" },
     ],
   },
-] as const;
+];
 
 export function SiteFooter() {
   return (
@@ -84,9 +97,13 @@ export function SiteFooter() {
             <nav key={col.heading} className="foot__col" aria-label={col.heading}>
               <h3 className="foot__colhead">{col.heading}</h3>
               <ul>
-                {col.links.map(([label, href]) => (
-                  <li key={label}>
-                    <a href={href}>{label}</a>
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    {link.href ? (
+                      <a href={link.href}>{link.label}</a>
+                    ) : (
+                      <span className="foot__pending">{link.label}</span>
+                    )}
                   </li>
                 ))}
               </ul>

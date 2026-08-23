@@ -12,7 +12,16 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {/* First thing in the tab order: the hero carries a nav, an illustration
+            and a search control before the page proper begins. */}
+        <a className="skip" href="#main">
+          Skip to content
+        </a>
+        <main id="main" tabIndex={-1}>
+          {children}
+        </main>
+      </body>
     </html>
   );
 }

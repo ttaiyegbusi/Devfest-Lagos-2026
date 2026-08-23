@@ -172,7 +172,11 @@
   margin-top: 8px;
 }
 
-.foot__col a {
+/* A destination-less entry is set as plain text, not as a link that goes
+   nowhere — so it shares the type but not the hover or the pointer. */
+.foot__col a,
+.foot__pending {
+  display: inline-block;
   color: #a8a8a8;
   font-size: 14.5px;
   line-height: 22px;

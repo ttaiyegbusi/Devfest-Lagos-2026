@@ -5,12 +5,19 @@ import { onDisk } from "./assets";
 import { PaperFrame } from "./PaperFrame";
 import "./Expect.css";
 
-export function ExpectPanel({ track }: { track: Track }) {
+export function ExpectPanel({
+  track,
+  anchor,
+}: {
+  track: Track;
+  anchor?: string;
+}) {
   const id = `expect-${track.n}`;
 
   return (
     <section
       className={`panel panel--${track.side} panel--${track.media.kind}`}
+      id={anchor}
       aria-labelledby={id}
       style={{
         ["--bg" as string]: track.bg,

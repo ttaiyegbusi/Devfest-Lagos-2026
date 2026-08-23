@@ -12,5 +12,13 @@ import { ExpectPanel } from "./Expect";
    both a component and something else opts out of fast refresh for everything
    in it, which is what the lint rule is pointing at. */
 export function expectPanels() {
-  return TRACKS.map((track) => <ExpectPanel key={track.n} track={track} />);
+  return TRACKS.map((track, i) => (
+    <ExpectPanel
+      key={track.n}
+      track={track}
+      /* "About" in the nav means what the day actually is, which is what these
+         four panels are. The first one carries the anchor. */
+      anchor={i === 0 ? "about" : undefined}
+    />
+  ));
 }

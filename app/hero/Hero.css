@@ -347,7 +347,8 @@
   line-height: 1;
 }
 
-.hero-nav__links a {
+.hero-nav__links a,
+.hero-nav__pending {
   display: inline-block;
   padding-block: 4px;
   transition: opacity 150ms ease;
@@ -362,10 +363,15 @@
   place-items: center;
   width: 99px;
   height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
   background: #fff;
   color: var(--ink);
+  font-family: inherit;
   font-size: 14px;
   line-height: 1;
+  cursor: pointer;
   transition: opacity 150ms ease;
 }
 

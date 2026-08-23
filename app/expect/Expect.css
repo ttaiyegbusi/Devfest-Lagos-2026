@@ -21,7 +21,15 @@
 
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* minmax(0, ...) rather than a bare 1fr, in both directions. A plain `1fr` is
+     `minmax(auto, 1fr)`, and that `auto` minimum is the widest thing in the
+     column — which on 04 is a photo band deliberately far wider than the page.
+     The column then sizes itself to the band and drags the heading, the rule
+     and the copy out with it, all of them laid out across several thousand
+     pixels and clipped back to a phone's worth by `overflow: hidden` below.
+     It looks like the band has stopped scrolling; in fact everything has been
+     stretched out beneath it. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   min-height: var(--stage, 900px);
   padding: 64px var(--pad) 0;
   background: var(--bg);
@@ -414,10 +422,20 @@
 /* The band runs off both edges of the page and keeps going. It is as wide as
    its two runs and left to be clipped by the panel. */
 .shots--strip {
+  /* Seconds of travel per photograph: one shot plus its gap, over the 40px/s
+     the band is meant to move at. The count comes from the component as
+     --shots, the pitch is per breakpoint, and the lap is the two multiplied —
+     so adding photographs makes the lap longer rather than the band faster,
+     and a narrower shot does not quietly slow the whole thing down. Hard-coding
+     the desktop pitch had the phone running at 28px/s, which on top of the
+     column bug is why the band read as stopped. */
+  --pitch: 6s; /* 220px shot + 20px gap */
+  --lap: calc(var(--shots, 12) * var(--pitch));
+
   display: flex;
   width: max-content;
   margin: 26px 0 0 calc((var(--pad) + 30px) * -1);
-  animation: expect-strip-drift var(--strip-duration, 48s) linear infinite;
+  animation: expect-strip-drift var(--lap) linear infinite;
   will-change: transform;
 }
 
@@ -583,7 +601,9 @@
   .panel--left,
   .panel--right,
   .panel--strip {
-    grid-template-columns: 1fr;
+    /* See the note on .panel: `1fr` here lets 04's band inflate the one column
+       it is in, and stacked there is no second column to absorb it. */
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
       "head"
       "rule"
@@ -673,6 +693,10 @@
   .shots--grid .shots__shot,
   .shots--strip .shots__shot {
     height: 170px;
+  }
+
+  .shots--strip {
+    --pitch: 4.25s; /* 150px shot + 20px gap */
   }
 
   .shots--strip .shots__shot {

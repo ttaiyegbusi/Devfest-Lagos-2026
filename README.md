@@ -155,6 +155,11 @@ and the box transitions between those widths, which is what lets the comma glide
 instead of jumping. The comma stays a comma — the design's tagline runs on into
 "Endless Opportunities."
 
+The word and its comma are wrapped together in `.hero__phrase`, because the
+rotator is an inline-block and that offers the line a break opportunity right
+before the comma — on a 320px phone the comma dropped onto a line of its own.
+Wrapped, the whole `<word>,` wraps as one unit instead.
+
 ## What to expect
 
 Four full-bleed panels, one per track, each a layer in the pinned stack. They
@@ -173,8 +178,19 @@ two axes.
 it. See below.
 
 **03 · Workshops** is a two-by-two grid; **04 · After Party** is a band along
-the bottom that loops, so photographs can be added to or dropped from
-`tracks.ts` freely without the travel speed changing.
+the bottom that loops. Two copies of the run sit end to end and the track
+travels exactly one run's width, so the seam never shows. It moves at 40px/s at
+every size: the component contributes `--shots`, the stylesheet contributes
+`--pitch` (how wide a shot is at this breakpoint), and the lap is the two
+multiplied — so photographs can be added to or dropped from `tracks.ts` freely
+without the band speeding up.
+
+Panel columns are `minmax(0, 1fr)` rather than a bare `1fr`, and that is
+load-bearing. `1fr` means `minmax(auto, 1fr)`, and the `auto` minimum is the
+widest thing in the column — which on 04 is a band deliberately far wider than
+the page. The column sized itself to the band and laid the heading, rule and
+copy out across several thousand pixels, clipped back to a phone's width by the
+panel's own `overflow: hidden`. It read as a band that had stopped scrolling.
 
 Photographs are wired up before the files land: `assets.ts` checks the path on
 disk at render, so a shot that is not there yet falls back to a tinted block
@@ -195,6 +211,12 @@ Six things in there are load-bearing and easy to undo by accident:
 
 * **The fixed 60fps step.** Frame-derived stepping lets a slow frame tunnel a
   pill straight through the floor.
+* **`SPIN_RESISTANCE`.** A stadium of card falling through air does not tumble
+  the way a rigid bar in a vacuum does — it is damped by its own face, and
+  matter models no such thing. Multiplying each body's inertia by 4 takes the
+  share of pills landing past 90° from about one in eight to about one in fifty
+  (measured over 144 settles per width). A label nobody can read is the one
+  thing a panel whose whole job is naming topics cannot afford.
 * **The generation counter.** Strict Mode mounts twice; without it the second
   mount starts a second world while the first is still awaiting its import, and
   two engines write to the same pills.

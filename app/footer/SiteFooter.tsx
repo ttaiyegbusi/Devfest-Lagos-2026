@@ -1,4 +1,4 @@
-import { DevFestLogo } from "../hero/DevFestLogo";
+import { DevFestIcon } from "../hero/DevFestIcon";
 import "./SiteFooter.css";
 
 const COLUMNS = [
@@ -37,9 +37,19 @@ export function SiteFooter() {
   return (
     <footer className="foot">
       {/* Oversized watermark behind the panel. Decorative, so it is hidden from
-          assistive tech — the same words are already in the nav and the panel. */}
+          assistive tech — the same words are already in the nav and the panel.
+
+          The wordmark is set as type rather than taken from the official lockup
+          SVG. The lockup runs "DevFest Lagos" along one line in its own
+          lettering; the design sets it in the display face and lifts "Lagos"
+          above the tail of "Devfest", which is not an arrangement the supplied
+          asset can be bent into. */}
       <div className="foot__mark" aria-hidden="true">
-        <DevFestLogo className="foot__glyph" />
+        <DevFestIcon className="foot__icon" />
+        <span className="foot__word">
+          Devfest
+          <span className="foot__city">Lagos</span>
+        </span>
       </div>
 
       <div className="foot__panel">

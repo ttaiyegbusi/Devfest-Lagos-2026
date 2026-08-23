@@ -246,7 +246,12 @@ export function Speakers() {
   }, [go, kick]);
 
   return (
-    <section className="speakers" aria-labelledby={`${trackId}-title`} ref={root}>
+    <section
+      className="speakers"
+      id="speakers"
+      aria-labelledby={`${trackId}-title`}
+      ref={root}
+    >
       <div className="speakers__intro">
         <h2 className="speakers__title" id={`${trackId}-title`}>
           Meet Our Speakers

@@ -22,9 +22,6 @@ const STEP_MS = 1000 / 60;
 /** How densely loose stadium shapes settle. Measured off the real heap rather
  *  than derived: random rounded rectangles pack a little under 60%. */
 const PACK = 0.58;
-/** Frames of no visible movement before the heap counts as finished — half a
- *  second at the fixed step, which is longer than the pause at the top of a
- *  bounce and shorter than anyone will notice it thinking about it. */
 /** How much harder than its outline implies a pill is to spin. A stadium of card
  *  falling through air does not tumble the way a rigid bar in a vacuum does — it
  *  is damped by its own face, and matter models no such thing. Without this,
@@ -32,6 +29,9 @@ const PACK = 0.58;
  *  read is the one thing a panel whose whole job is naming topics cannot afford.
  *  It costs nothing at rest and is barely perceptible on a drag. */
 const SPIN_RESISTANCE = 4;
+/** Frames of no visible movement before the heap counts as finished — half a
+ *  second at the fixed step, which is longer than the pause at the top of a
+ *  bounce and shorter than anyone will notice it thinking about it. */
 const STILL_FRAMES = 30;
 /** Movement below this, in px per step, is not movement. */
 const STILL_EPS = 0.05;

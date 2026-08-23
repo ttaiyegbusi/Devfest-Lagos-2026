@@ -91,6 +91,15 @@ what remains is antialiasing on the bridge cables.
 | Ask control | 70, 533 · 347 × 60 · icon at 92, placeholder at 121 |
 | Palette | bg `#FFF5D4` · ink `#171717` · accent `#F9AB00` |
 
+Those are the desktop numbers and they are the reference's. The disclosure menu
+below 900px is not in the reference, so it is sized for thumbs rather than
+measured: its links were 24px tall and only as wide as their own labels — "FAQ"
+was a target 26px across in a menu 280px wide — which is WCAG 2.5.8 AA's floor
+exactly, with nothing spare. They are now full-width 44px rows, with a 44px
+toggle and a full-width 48px Buy Ticket. Verified pixel-identical on desktop:
+nav band, headline, lede and ask control all diff to zero against the previous
+render at 1440 x 1024.
+
 ---
 
 ## 4. The illustration

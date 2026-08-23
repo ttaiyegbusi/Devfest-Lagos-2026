@@ -283,6 +283,29 @@ photograph that has not landed yet falls back to a tinted block rather than a
 broken frame — and the real picture appears the moment the file is dropped into
 `public/expect/`.
 
+### The photographs are WebP, and that is the whole optimisation
+
+They arrived as PNG — photographs, in a lossless format built for flat colour —
+and weighed **3.4MB** for twenty shots. Twelve of them carried an alpha channel
+that was fully opaque, so it was pure overhead. At WebP q82 the same twenty come
+to **319KB: 91% off, 3.1MB saved.**
+
+Quality was checked rather than assumed: 31–36 dB PSNR across the set, and
+indistinguishable side by side at display size. The four panel-01 shots measured
+21 dB at first, which is only because they *do* carry real transparency — the
+bowed print edge is drawn into the artwork — and comparing RGB in fully
+transparent pixels is meaningless. Composited over the panel fill they measure
+31–34 dB like everything else. WebP keeps that alpha; do not flatten those four.
+
+Nothing needed resizing. The shots are already authored at the size they are
+displayed — 220 x 249 for the strip, the grid and the after-party band, 492 x 567
+for panel 01 — so there is no oversized-image win here and no need for `srcset`.
+The flip side: **at 2x device pixel ratio they are upscaled and will read soft.**
+Fixing that needs higher-resolution originals, not code.
+
+Re-run the conversion the same way if new shots land: WebP q82, `method=6`,
+alpha kept only where a shot actually uses it.
+
 ### Every panel column is `minmax(0, 1fr)`, and it has to be
 
 A bare `1fr` is `minmax(auto, 1fr)`, and that `auto` minimum is the widest thing

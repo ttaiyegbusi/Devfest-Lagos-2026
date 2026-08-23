@@ -197,6 +197,14 @@ disk at render, so a shot that is not there yet falls back to a tinted block
 rather than a broken frame, and the real picture appears the moment the file is
 dropped into `public/expect/`.
 
+They are **WebP**, at q82. They arrived as PNG — photographs in a lossless
+format — weighing 3.4MB for twenty shots; the same twenty are now 319KB, 91%
+off. Measured at 31–36 dB PSNR and indistinguishable at display size. Four of
+them carry real transparency (panel 01's bowed print edge is drawn into the
+artwork) and WebP keeps it, so don't flatten those. Nothing needed resizing —
+the shots are authored at the size they are displayed, which also means they
+will read soft on a 2× display until higher-resolution originals exist.
+
 ### The topic cloud
 
 Twenty-four pills, dropped into a heap by matter-js. They stay **real DOM

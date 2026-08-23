@@ -113,22 +113,22 @@ export const TRACKS: Track[] = [
       // the reference uses, so it is what the page rests on.
       shots: [
         {
-          image: "/expect/panel-sessions-1.png",
+          image: "/expect/panel-sessions-1.webp",
           alt: "A four-person panel seated on stage at DevFest Lagos, with the audience watching from the floor.",
           tint: ["#34a853", "#0e2a1c"],
         },
         {
-          image: "/expect/panel-sessions-2.png",
+          image: "/expect/panel-sessions-2.webp",
           alt: "Three panellists on stage in front of the sponsor banner, with the audience in the foreground.",
           tint: ["#4285f4", "#0d1f3f"],
         },
         {
-          image: "/expect/panel-sessions-3.png",
+          image: "/expect/panel-sessions-3.webp",
           alt: "A wide view of Panel Session 2 on the DevFest stage, seen from the back of a full auditorium.",
           tint: ["#8b5cf6", "#231449"],
         },
         {
-          image: "/expect/panel-sessions-4.png",
+          image: "/expect/panel-sessions-4.webp",
           alt: "Two speakers on stage for Panel Session 1, one of them holding a microphone.",
           tint: ["#f4511e", "#3a1210"],
         },
@@ -211,22 +211,22 @@ export const TRACKS: Track[] = [
       // the two floor shots beneath.
       shots: [
         {
-          image: "/expect/workshops-4.jpg",
+          image: "/expect/workshops-4.webp",
           alt: "A speaker with one arm raised, smiling, in front of the DevFest stage graphics.",
           tint: ["#34a853", "#0e2a1c"],
         },
         {
-          image: "/expect/workshops-3.jpg",
+          image: "/expect/workshops-3.webp",
           alt: "A speaker at a glass lectern with a laptop, wearing a headset microphone.",
           tint: ["#ea4335", "#3a1210"],
         },
         {
-          image: "/expect/workshops-2.jpg",
+          image: "/expect/workshops-2.webp",
           alt: "A speaker in a blue kaftan addressing the room.",
           tint: ["#4285f4", "#0d1f3f"],
         },
         {
-          image: "/expect/workshops-1.jpg",
+          image: "/expect/workshops-1.webp",
           alt: "A speaker in a denim jacket and patterned headwrap, arms open, presenting to the room.",
           tint: ["#8b5cf6", "#231449"],
         },
@@ -250,62 +250,62 @@ export const TRACKS: Track[] = [
       // travel speed stays the same.
       shots: [
         {
-          image: "/expect/after-party-1.png",
+          image: "/expect/after-party-1.webp",
           alt: "Two guests dancing under the red lights of the after party.",
           tint: ["#f0303f", "#3a0d12"],
         },
         {
-          image: "/expect/after-party-2.png",
+          image: "/expect/after-party-2.webp",
           alt: "Two guests outside the venue, posing for the camera.",
           tint: ["#ea4335", "#3a1210"],
         },
         {
-          image: "/expect/after-party-3.png",
+          image: "/expect/after-party-3.webp",
           alt: "The host on the microphone in front of the DevFest After Party screen.",
           tint: ["#f4511e", "#3a1210"],
         },
         {
-          image: "/expect/after-party-4.png",
+          image: "/expect/after-party-4.webp",
           alt: "A guest in a DevFest tee on the floor under purple light.",
           tint: ["#8b5cf6", "#231449"],
         },
         {
-          image: "/expect/after-party-5.png",
+          image: "/expect/after-party-5.webp",
           alt: "A guest in a varsity jacket grinning, phone in hand.",
           tint: ["#7c4dff", "#1b0d3f"],
         },
         {
-          image: "/expect/after-party-6.png",
+          image: "/expect/after-party-6.webp",
           alt: "A guest laughing under the green lights of the after party.",
           tint: ["#10b981", "#0e2a1c"],
         },
         {
-          image: "/expect/after-party-7.png",
+          image: "/expect/after-party-7.webp",
           alt: "A guest in a yellow top and sunglasses, phone in hand.",
           tint: ["#f9ab00", "#3a2e05"],
         },
         {
-          image: "/expect/after-party-8.png",
+          image: "/expect/after-party-8.webp",
           alt: "The crowd filming the stage with their phones up, under blue light.",
           tint: ["#2563eb", "#0b1f4d"],
         },
         {
-          image: "/expect/after-party-9.png",
+          image: "/expect/after-party-9.webp",
           alt: "A guest in white cheering with both arms raised.",
           tint: ["#f0303f", "#3a0d12"],
         },
         {
-          image: "/expect/after-party-10.png",
+          image: "/expect/after-party-10.webp",
           alt: "A guest in a pale kaftan applauding in the crowd.",
           tint: ["#8b5cf6", "#231449"],
         },
         {
-          image: "/expect/after-party-11.png",
+          image: "/expect/after-party-11.webp",
           alt: "Two guests in DevFest lanyards under the green stage lights.",
           tint: ["#34a853", "#0e2a1c"],
         },
         {
-          image: "/expect/after-party-12.png",
+          image: "/expect/after-party-12.webp",
           alt: "A guest in a striped shirt smiling, phone in hand.",
           tint: ["#a1887f", "#2b1c17"],
         },

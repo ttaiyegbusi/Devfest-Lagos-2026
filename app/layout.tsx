@@ -1,10 +1,42 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
+const title = "DevFest Lagos — One Ecosystem, Endless Opportunities.";
+const description =
+  "Join the largest annual tech conference in Africa, hosted by Google Developer Group Lagos (GDG Lagos).";
+
+/* Share cards need absolute URLs, and only the deployment knows what the host
+   is. Set NEXT_PUBLIC_SITE_URL at build time; without it the tags still render,
+   they just point at localhost, which is fine in development and wrong in
+   production. */
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
+/* The icon, the apple touch icon and the share image are picked up by filename
+   from this directory — app/icon.svg, app/apple-icon.png, app/opengraph-image.png
+   (with its alt text alongside) — so none of them are listed here. */
 export const metadata: Metadata = {
-  title: "DevFest Lagos — One Ecosystem, Endless Opportunities.",
-  description:
-    "Join the largest annual tech conference in Africa, hosted by Google Developer Group Lagos (GDG Lagos).",
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  applicationName: "DevFest Lagos",
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "DevFest Lagos",
+    title,
+    description,
+    locale: "en_NG",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
+};
+
+export const viewport: Viewport = {
+  /* Tints the browser chrome on Android to the hero's own background. */
+  themeColor: "#fff5d4",
 };
 
 export default function RootLayout({

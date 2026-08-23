@@ -343,6 +343,23 @@ Fixing that needs higher-resolution originals, not code.
 Re-run the conversion the same way if new shots land: WebP q82, `method=6`,
 alpha kept only where a shot actually uses it.
 
+### Under reduced motion the band is scrolled, not frozen
+
+The clouds and the traffic are decoration: parked, they still show everything
+they had. The band is not — it is twelve photographs, and about three fit on a
+phone. Freezing it left nine of them unreachable behind an edge that looked like
+it should move and did not, which is what it was reported as: "the scroll is
+static and it does not move." Reduce Motion is common on phones, so this was a
+live dead end rather than a theoretical one.
+
+So under `prefers-reduced-motion` the band is handed over instead of stopped:
+the duplicate run is hidden (scrolling by hand through the same twelve twice is
+just confusing), the track's bleed becomes padding so the first shot is not
+hidden at scroll zero, and `.panel--strip .panel__media` becomes a snap
+scroller. Verified at 390px: 2 photographs visible at rest, **12 of 12 reachable
+by scrolling**, 1732px of travel, no page overflow. The animated path is
+untouched — still 40.0px/s at every breakpoint, two runs, seamless.
+
 ### Every panel column is `minmax(0, 1fr)`, and it has to be
 
 A bare `1fr` is `minmax(auto, 1fr)`, and that `auto` minimum is the widest thing

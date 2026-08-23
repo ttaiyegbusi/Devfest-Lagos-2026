@@ -248,12 +248,33 @@ Only the trigonometry is done in the component, because CSS can take neither a
 sine nor a cosine; the radius lives in the stylesheet as `--arc-r` so the arc
 scales with the card at each breakpoint.
 
-**`scripts/carousel.py` is stale.** It still solves the superseded model and
-prints `--persp` / `--depth` / `--step` / `exponent`, of which only the step and
-the 18.5° rotation survived into the code — there is no `--depth` and no exponent
-any more. It is kept because it is where the 18.5° came from, and because its
-four input measurements are the record of what was actually read off the
-reference. Do not paste its output into the CSS.
+**`scripts/carousel.py` solves this model and checks it.** It used to solve the
+superseded one — printing a `--depth` and an exponent that describe nothing that
+exists — which made it a trap rather than a tool. It now derives the angle, the
+step, the radius and both held ratios from the same four reference
+measurements, then reads `Speakers.css` and `Speakers.tsx` and checks what is
+committed against the two rules the wall states:
+
+    radius == step / sin(ARC)
+    the near edge two steps out reaches exactly 1.25x
+
+Both hold at all three breakpoints — radius within 0.5px, near-edge scale 1.250
+on the nose — and the script exits non-zero if they stop holding. Verified that
+it actually catches drift rather than always passing: perturbing `--arc-r`,
+`--persp`, `--step` or `ARC` each fails it.
+
+```bash
+python3 scripts/carousel.py     # prints the tables, exits 1 on drift
+```
+
+It also reports how faithful the circle is to the reference, which is worth
+knowing before trusting it too far. The circle is pinned by the step and the
+angle, so it is free to disagree about depth, and it does: the card one step out
+sits at depth 65.8 where the reference measured 40.3, and the projected centre
+offset two steps out lands 11.9% wider than the reference's. That was accepted
+knowingly — a card that faces exactly where it sits is worth more than one that
+hits the reference's own offsets — but it is a departure, not a match, and the
+script says so every run.
 
 Two wrong turns worth remembering: I first read `perspective: 480px` off the
 reference site's DOM and used it — it belonged to a *different* component (a
@@ -595,9 +616,8 @@ shipped, and both this file and the README describe it. The fan is gone; do not
 go looking for it. (The hazard itself stands: agree who owns which folders before
 running two sessions again.)
 
-**`scripts/carousel.py` solves a model the code no longer uses.** Kept for the
-18.5° and for the record of what was measured off the reference — see §6. Its
-`--depth` and exponent outputs have nowhere to go.
+**`scripts/carousel.py` is current again** — it solves the circle model and
+fails if the committed geometry drifts from it. See §6.
 
 **Panel 02 is a tall panel.** At twenty-four pills the heap outgrows `MAX_VH` on
 every viewport tested (930px in a 1024-high window, 801px in an 800). The trim

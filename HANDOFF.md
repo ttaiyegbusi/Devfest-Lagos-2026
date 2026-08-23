@@ -441,11 +441,46 @@ the section. `--rows` is derived from the data, not hardcoded, so it stays
 correct if questions are added. Verified: 1 question or 7, the list is **exactly
 399px** and the section **679px**.
 
-**Footer** sizes its watermark off the viewport so it keeps the same relationship
-to the panel at every width, and the panel rides up over the bottom of the
-wordmark. Two details: the official lockup ships in full Google colour, so the
-watermark flattens it to one grey in CSS; and it fades top-to-bottom via a mask
-so it dissolves into the section rather than stopping dead at the panel edge.
+**Footer.** The watermark is the mark plus a wordmark **set as type**, not the
+supplied lockup. The lockup runs "DevFest Lagos" along one line in its own
+lettering; the comp sets it in Faculty Glyphic and lifts "Lagos" above the tail
+of "Devfest", which is not an arrangement a single-line asset can be bent into.
+It was built from the lockup at first, and that was wrong on both counts — wrong
+face, and "Lagos" inline instead of raised.
+
+Everything is a ratio of `--mark`, the size of "Devfest", so a breakpoint only
+says how big the lockup is. The ratios were solved against the comp at 1440
+using the face's own metrics rather than nudged by eye — canvas `measureText` at
+100px gives "Devfest" 362.5 wide, cap ascent 80, line box 104 up / 26 down:
+
+| | |
+|---|---:|
+| `--mark` at 1440 | 168px — "Devfest" 610px wide in the comp |
+| icon width | 1.795 × `--mark` |
+| gap, icon to wordmark | 0.267 × |
+| "Lagos" size | 0.352 × |
+| "Lagos" right offset | 0.178 × |
+| "Lagos" bottom offset | 0.871 × |
+
+That last one is the only non-obvious number: "Lagos" sits with its baseline on
+"Devfest"'s cap line, which is the cap ascent (0.80em) plus the difference
+between where the two line boxes' bottoms fall. All six are written as `calc()`
+off `--mark` rather than in `em`, because an `em` inside `.foot__city` would
+resolve against its own smaller size and quietly halve every offset.
+
+Rendered "Devfest" measures 609px against the comp's 610.
+
+No tracking on the wordmark: the size was solved from the face's natural widths,
+and any letter-spacing puts it off the comp again. No fade mask either — the
+comp has it flat, and the panel simply starts below the letters rather than
+riding up over them. The lockup ships in full Google colour, so the watermark
+still flattens it to one grey in CSS.
+
+The mark's four paths live in `app/hero/DevFestIcon.tsx` and nowhere else:
+`DevFestIcon` draws them cropped for the watermark, and `DevFestLogo` draws the
+same `<MarkPaths />` inside the full lockup's viewBox, so a change to the mark
+has one place to land instead of two that can drift. Verified: the nav lockup is
+pixel-identical after that extraction.
 
 ---
 

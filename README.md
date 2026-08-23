@@ -305,10 +305,19 @@ longest category's height so switching filters never moves the section, and
 `--rows` is derived from the data rather than hardcoded. The rail becomes a
 scrollable chip row below 900px.
 
-**Footer** sizes its watermark off the viewport so it keeps the same
-relationship to the panel at every width, and the panel rides up over the bottom
-of the wordmark. The lockup ships in full Google colour, so the watermark
-flattens it to a single grey in CSS and fades it out through a mask.
+**Footer** carries an oversized watermark: the icon mark, "Devfest" set large in
+Faculty Glyphic, and "Lagos" raised above its tail. The wordmark is **type, not
+the supplied lockup** — that asset runs "DevFest Lagos" along a single line in
+its own lettering, which is neither the face nor the arrangement the design
+asks for. Every measurement is a ratio of `--mark`, the size of "Devfest", so a
+breakpoint only says how big the lockup is; the ratios were solved against the
+comp at 1440 from the face's own metrics rather than nudged by eye, and the
+rendered wordmark measures 609px against the comp's 610. The lockup ships in
+full Google colour, so the watermark flattens it to a single grey in CSS.
+
+The mark's path data lives in `app/hero/DevFestIcon.tsx` only — `DevFestIcon`
+crops it for the watermark and `DevFestLogo` draws the same `<MarkPaths />`
+inside the full lockup, so a logo change lands in one place.
 
 ## The illustration
 

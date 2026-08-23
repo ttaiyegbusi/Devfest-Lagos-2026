@@ -58,7 +58,7 @@ app/
     SiteFooter.tsx  SiteFooter.css
 scripts/
   lanes.py              solves the traffic keyframes off the drawn road
-  carousel.py           solved the speaker wall's geometry
+  carousel.py           solves the speaker wall, and checks what is committed
 public/
   bg-new.svg            source illustration (1440 × 1024)
   fonts/                Faculty Glyphic + Geist, self-hosted (both SIL OFL)
@@ -335,7 +335,8 @@ card facing slightly wrong for where it actually is, and the arc looks broken;
 that is what this did before.
 
 `ARC` is **18.5°** between neighbours, solved by `scripts/carousel.py` against
-the reference: at that angle `cos(18.5°)` exactly cancels the size gain from
+the reference — run it after touching any of these numbers and it will tell you
+whether they still hold together: at that angle `cos(18.5°)` exactly cancels the size gain from
 coming forward, so a card one step out projects to the same *width* as the
 centre card and the gap between them survives. Radius follows from the angle and
 the horizontal step — `R = step / sin(18.5°)`, giving **1112px** against a

@@ -77,6 +77,31 @@
 
 /* --rows comes from the component: the longest category's question count. A row
    is 56px of trigger plus its 1px rule. */
+/* Shown in place of the category rail while a search from the hero is applied;
+   the categories cannot narrow a search result any further. */
+.faq__search {
+  grid-area: auto;
+  margin: 0 0 18px;
+  color: #b0b0b0;
+  font-size: 14.5px;
+  line-height: 22px;
+}
+
+.faq__clear {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.faq__clear:hover {
+  color: #fff;
+}
+
 .faq__list {
   min-height: calc(var(--rows, 7) * 57px);
   margin: 0;

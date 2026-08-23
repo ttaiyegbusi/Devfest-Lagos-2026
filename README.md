@@ -8,7 +8,20 @@ the speaker wall, the FAQ and the footer.
 npm install
 npm run dev
 npm run lint     # oxlint, currently clean
+npm run build
 ```
+
+CI runs the last two on every push and pull request
+(`.github/workflows/ci.yml`), plus `scripts/carousel.py`. `npm run lint`
+carries `--deny-warnings`: plain oxlint exits 0 even with warnings
+outstanding, which would leave the job unable to fail. The repo is at zero
+warnings and the flag is what keeps it there — so a local run and a CI run
+agree on what "lint passes" means.
+
+Environment: `NEXT_PUBLIC_SITE_URL` for absolute share-card URLs,
+`SUBSCRIBE_ENDPOINT` (and optionally `SUBSCRIBE_TOKEN`) to make the footer
+sign-up live. Everything works without them; the share tags point at localhost
+and the sign-up says it is not connected.
 
 Next.js 16 (App Router) · TypeScript · plain CSS · oxlint.
 
@@ -53,7 +66,7 @@ app/
     SiteFooter.tsx  SiteFooter.css
 scripts/
   lanes.py              solves the traffic keyframes off the drawn road
-  carousel.py           solved the speaker wall's geometry
+  carousel.py           solves the speaker wall, and checks what is committed
 public/
   bg-new.svg            source illustration (1440 × 1024)
   fonts/                Faculty Glyphic + Geist, self-hosted (both SIL OFL)
@@ -80,6 +93,38 @@ The heading face is Faculty Glyphic (the diamond tittles on the `i` are the
 giveaway) and the UI face is Geist — identified by fitting per-word ink widths
 and inter-word gaps from the reference against every font on the design
 machine; Geist matched to under a pixel, Product Sans and Inter did not.
+
+## The two forms
+
+Both used to be `action="#"`, which meant submitting navigated to `#`, reloaded
+the page and threw the input away.
+
+**Footer sign-up** posts to `app/api/subscribe/route.ts`, which validates the
+address and forwards it. With no provider configured it answers **503 and the
+footer says so** — it never reports success for an address it did not store,
+because a form that says "you're subscribed" and drops the address is worse than
+one that admits it is not live. To go live, set `SUBSCRIBE_ENDPOINT` (and
+`SUBSCRIBE_TOKEN` if the provider needs an Authorization header); nothing else
+has to change.
+
+**Hero "Ask me anything…"** is `role="search"`, and the only body of answers on
+the site is the FAQ — so submitting carries the question there as `?q=`, which
+the FAQ filters on. Reading it from the URL keeps the result linkable and
+survives a reload. That is an interpretation, not a spec: if "ask" is meant to
+reach an assistant, `app/hero/AskForm.tsx` is the one place that changes, and
+the FAQ can keep reading `q` for people arriving with a search in the URL.
+
+## Share cards and icons
+
+The tab icon, the iOS home-screen icon and the social share image are all
+picked up by filename from `app/` — `icon.svg`, `apple-icon.png`,
+`opengraph-image.png` with its `.alt.txt` alongside — so none of them are listed
+in `metadata`. The icon is the official mark on the brand ink; the share card is
+rendered from the real fonts, palette and illustration at 1200 × 630.
+
+**Set `NEXT_PUBLIC_SITE_URL` at build time.** Share cards need absolute URLs and
+only the deployment knows the host. Without it the tags still render, pointing
+at `localhost` — fine locally, wrong in production.
 
 ## Placeholder content
 
@@ -197,6 +242,14 @@ disk at render, so a shot that is not there yet falls back to a tinted block
 rather than a broken frame, and the real picture appears the moment the file is
 dropped into `public/expect/`.
 
+They are **WebP**, at q82. They arrived as PNG — photographs in a lossless
+format — weighing 3.4MB for twenty shots; the same twenty are now 319KB, 91%
+off. Measured at 31–36 dB PSNR and indistinguishable at display size. Four of
+them carry real transparency (panel 01's bowed print edge is drawn into the
+artwork) and WebP keeps it, so don't flatten those. Nothing needed resizing —
+the shots are authored at the size they are displayed, which also means they
+will read soft on a 2× display until higher-resolution originals exist.
+
 ### The topic cloud
 
 Twenty-four pills, dropped into a heap by matter-js. They stay **real DOM
@@ -290,7 +343,8 @@ card facing slightly wrong for where it actually is, and the arc looks broken;
 that is what this did before.
 
 `ARC` is **18.5°** between neighbours, solved by `scripts/carousel.py` against
-the reference: at that angle `cos(18.5°)` exactly cancels the size gain from
+the reference — run it after touching any of these numbers and it will tell you
+whether they still hold together: at that angle `cos(18.5°)` exactly cancels the size gain from
 coming forward, so a card one step out projects to the same *width* as the
 centre card and the gap between them survives. Radius follows from the angle and
 the horizontal step — `R = step / sin(18.5°)`, giving **1112px** against a
@@ -305,10 +359,19 @@ longest category's height so switching filters never moves the section, and
 `--rows` is derived from the data rather than hardcoded. The rail becomes a
 scrollable chip row below 900px.
 
-**Footer** sizes its watermark off the viewport so it keeps the same
-relationship to the panel at every width, and the panel rides up over the bottom
-of the wordmark. The lockup ships in full Google colour, so the watermark
-flattens it to a single grey in CSS and fades it out through a mask.
+**Footer** carries an oversized watermark: the icon mark, "Devfest" set large in
+Faculty Glyphic, and "Lagos" raised above its tail. The wordmark is **type, not
+the supplied lockup** — that asset runs "DevFest Lagos" along a single line in
+its own lettering, which is neither the face nor the arrangement the design
+asks for. Every measurement is a ratio of `--mark`, the size of "Devfest", so a
+breakpoint only says how big the lockup is; the ratios were solved against the
+comp at 1440 from the face's own metrics rather than nudged by eye, and the
+rendered wordmark measures 609px against the comp's 610. The lockup ships in
+full Google colour, so the watermark flattens it to a single grey in CSS.
+
+The mark's path data lives in `app/hero/DevFestIcon.tsx` only — `DevFestIcon`
+crops it for the watermark and `DevFestLogo` draws the same `<MarkPaths />`
+inside the full lockup, so a logo change lands in one place.
 
 ## The illustration
 

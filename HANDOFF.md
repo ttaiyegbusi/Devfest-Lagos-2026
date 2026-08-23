@@ -19,6 +19,22 @@ npm run build
 npm run lint     # oxlint — clean, keep it that way
 ```
 
+`.github/workflows/ci.yml` runs the lint, the build and
+`scripts/carousel.py` on every push and pull request. Two things about it
+are deliberate:
+
+* **`npm run lint` carries `--deny-warnings`.** Plain oxlint exits 0 even
+  with warnings outstanding, so without it the lint job could never go red
+  and the zero-warning state would rot silently. Verified by reintroducing
+  a warning: plain oxlint exits 0, `--deny-warnings` exits 1. The flag is in
+  the npm script rather than only in the workflow so a local run and a CI
+  run cannot disagree.
+* **`npm install`, not `npm ci`, and the npm cache is keyed by hand.** No
+  lockfile is committed — see the note at the bottom of `.gitignore` — so
+  `npm ci` has nothing to work from and `setup-node`'s own `cache: npm`
+  has nothing to hash. If a lockfile is ever committed on Linux, swap both
+  for `cache: npm` and `npm ci`.
+
 **Page order:** Hero → What to expect (01–04) → Speakers → FAQs → Footer.
 
 The hero and the four panels are **one pinned stack**, not five ordinary
@@ -248,12 +264,33 @@ Only the trigonometry is done in the component, because CSS can take neither a
 sine nor a cosine; the radius lives in the stylesheet as `--arc-r` so the arc
 scales with the card at each breakpoint.
 
-**`scripts/carousel.py` is stale.** It still solves the superseded model and
-prints `--persp` / `--depth` / `--step` / `exponent`, of which only the step and
-the 18.5° rotation survived into the code — there is no `--depth` and no exponent
-any more. It is kept because it is where the 18.5° came from, and because its
-four input measurements are the record of what was actually read off the
-reference. Do not paste its output into the CSS.
+**`scripts/carousel.py` solves this model and checks it.** It used to solve the
+superseded one — printing a `--depth` and an exponent that describe nothing that
+exists — which made it a trap rather than a tool. It now derives the angle, the
+step, the radius and both held ratios from the same four reference
+measurements, then reads `Speakers.css` and `Speakers.tsx` and checks what is
+committed against the two rules the wall states:
+
+    radius == step / sin(ARC)
+    the near edge two steps out reaches exactly 1.25x
+
+Both hold at all three breakpoints — radius within 0.5px, near-edge scale 1.250
+on the nose — and the script exits non-zero if they stop holding. Verified that
+it actually catches drift rather than always passing: perturbing `--arc-r`,
+`--persp`, `--step` or `ARC` each fails it.
+
+```bash
+python3 scripts/carousel.py     # prints the tables, exits 1 on drift
+```
+
+It also reports how faithful the circle is to the reference, which is worth
+knowing before trusting it too far. The circle is pinned by the step and the
+angle, so it is free to disagree about depth, and it does: the card one step out
+sits at depth 65.8 where the reference measured 40.3, and the projected centre
+offset two steps out lands 11.9% wider than the reference's. That was accepted
+knowingly — a card that faces exactly where it sits is worth more than one that
+hits the reference's own offsets — but it is a departure, not a match, and the
+script says so every run.
 
 Two wrong turns worth remembering: I first read `perspective: 480px` off the
 reference site's DOM and used it — it belonged to a *different* component (a
@@ -282,6 +319,46 @@ be added or dropped in `tracks.ts` without the travel speed changing.
 photograph that has not landed yet falls back to a tinted block rather than a
 broken frame — and the real picture appears the moment the file is dropped into
 `public/expect/`.
+
+### The photographs are WebP, and that is the whole optimisation
+
+They arrived as PNG — photographs, in a lossless format built for flat colour —
+and weighed **3.4MB** for twenty shots. Twelve of them carried an alpha channel
+that was fully opaque, so it was pure overhead. At WebP q82 the same twenty come
+to **319KB: 91% off, 3.1MB saved.**
+
+Quality was checked rather than assumed: 31–36 dB PSNR across the set, and
+indistinguishable side by side at display size. The four panel-01 shots measured
+21 dB at first, which is only because they *do* carry real transparency — the
+bowed print edge is drawn into the artwork — and comparing RGB in fully
+transparent pixels is meaningless. Composited over the panel fill they measure
+31–34 dB like everything else. WebP keeps that alpha; do not flatten those four.
+
+Nothing needed resizing. The shots are already authored at the size they are
+displayed — 220 x 249 for the strip, the grid and the after-party band, 492 x 567
+for panel 01 — so there is no oversized-image win here and no need for `srcset`.
+The flip side: **at 2x device pixel ratio they are upscaled and will read soft.**
+Fixing that needs higher-resolution originals, not code.
+
+Re-run the conversion the same way if new shots land: WebP q82, `method=6`,
+alpha kept only where a shot actually uses it.
+
+### Under reduced motion the band is scrolled, not frozen
+
+The clouds and the traffic are decoration: parked, they still show everything
+they had. The band is not — it is twelve photographs, and about three fit on a
+phone. Freezing it left nine of them unreachable behind an edge that looked like
+it should move and did not, which is what it was reported as: "the scroll is
+static and it does not move." Reduce Motion is common on phones, so this was a
+live dead end rather than a theoretical one.
+
+So under `prefers-reduced-motion` the band is handed over instead of stopped:
+the duplicate run is hidden (scrolling by hand through the same twelve twice is
+just confusing), the track's bleed becomes padding so the first shot is not
+hidden at scroll zero, and `.panel--strip .panel__media` becomes a snap
+scroller. Verified at 390px: 2 photographs visible at rest, **12 of 12 reachable
+by scrolling**, 1732px of travel, no page overflow. The animated path is
+untouched — still 40.0px/s at every breakpoint, two runs, seamless.
 
 ### Every panel column is `minmax(0, 1fr)`, and it has to be
 
@@ -430,7 +507,7 @@ in the set is under 19 ΔE. WCAG alone would have passed it.
 
 The cloud is now **twenty-four** pills; eight were added beyond the design's
 sixteen and `tracks.ts` names them. That heap is taller than `MAX_VH` was ever
-meant to allow — see §11.
+meant to allow — see §12.
 
 ---
 
@@ -441,15 +518,100 @@ the section. `--rows` is derived from the data, not hardcoded, so it stays
 correct if questions are added. Verified: 1 question or 7, the list is **exactly
 399px** and the section **679px**.
 
-**Footer** sizes its watermark off the viewport so it keeps the same relationship
-to the panel at every width, and the panel rides up over the bottom of the
-wordmark. Two details: the official lockup ships in full Google colour, so the
-watermark flattens it to one grey in CSS; and it fades top-to-bottom via a mask
-so it dissolves into the section rather than stopping dead at the panel edge.
+**Footer.** The watermark is the mark plus a wordmark **set as type**, not the
+supplied lockup. The lockup runs "DevFest Lagos" along one line in its own
+lettering; the comp sets it in Faculty Glyphic and lifts "Lagos" above the tail
+of "Devfest", which is not an arrangement a single-line asset can be bent into.
+It was built from the lockup at first, and that was wrong on both counts — wrong
+face, and "Lagos" inline instead of raised.
+
+Everything is a ratio of `--mark`, the size of "Devfest", so a breakpoint only
+says how big the lockup is. The ratios were solved against the comp at 1440
+using the face's own metrics rather than nudged by eye — canvas `measureText` at
+100px gives "Devfest" 362.5 wide, cap ascent 80, line box 104 up / 26 down:
+
+| | |
+|---|---:|
+| `--mark` at 1440 | 168px — "Devfest" 610px wide in the comp |
+| icon width | 1.795 × `--mark` |
+| gap, icon to wordmark | 0.267 × |
+| "Lagos" size | 0.352 × |
+| "Lagos" right offset | 0.178 × |
+| "Lagos" bottom offset | 0.871 × |
+
+That last one is the only non-obvious number: "Lagos" sits with its baseline on
+"Devfest"'s cap line, which is the cap ascent (0.80em) plus the difference
+between where the two line boxes' bottoms fall. All six are written as `calc()`
+off `--mark` rather than in `em`, because an `em` inside `.foot__city` would
+resolve against its own smaller size and quietly halve every offset.
+
+Rendered "Devfest" measures 609px against the comp's 610.
+
+The mark also keeps `margin-bottom: 0.2 x --mark` of clear air above the panel.
+Without it the panel begins at the wordmark's own box bottom, which sits only a
+few pixels under the letters — nine at 1440, two or three on a phone — and the
+lockup reads as cut off even where it technically is not. It was reported that
+way. With the gap the panel clears the wordmark by 11px at 320 rising to 34px at
+1440, and the icon by more, at every width.
+
+No tracking on the wordmark: the size was solved from the face's natural widths,
+and any letter-spacing puts it off the comp again. No fade mask either — the
+comp has it flat, and the panel simply starts below the letters rather than
+riding up over them. The lockup ships in full Google colour, so the watermark
+still flattens it to one grey in CSS.
+
+The mark's four paths live in `app/hero/DevFestIcon.tsx` and nowhere else:
+`DevFestIcon` draws them cropped for the watermark, and `DevFestLogo` draws the
+same `<MarkPaths />` inside the full lockup's viewBox, so a change to the mark
+has one place to land instead of two that can drift. Verified: the nav lockup is
+pixel-identical after that extraction.
 
 ---
 
-## 9. Verifying a change
+## 9. The two forms
+
+Both were `action="#"`. Submitting navigated to `#`, reloaded the page, threw
+the input away and scrolled to the top — which is roughly the worst thing a form
+can do while still looking like it works.
+
+**The sign-up box** now posts to `app/api/subscribe/route.ts`. The rule that
+shaped it: *never report success for an address you did not store.* With no
+`SUBSCRIBE_ENDPOINT` configured the route answers 503 and the footer prints
+"Sign-up is not connected yet — nothing was saved." A form that thanks people
+and drops the address is worse than one that admits it is not live, because
+they believe it, do not sign up again, and nobody finds out until the list turns
+out to be empty.
+
+Set `SUBSCRIBE_ENDPOINT`, plus `SUBSCRIBE_TOKEN` if the provider wants an
+Authorization header, and it is live; the only thing that might need editing is
+the body shape it forwards. Verified against a stub provider: the address
+arrives as `{"email":"…"}` with `Bearer …`, the route answers 200, and the
+footer prints the success line and clears the field. Verified without it: 503
+and an honest message. Bad JSON gets 400, so does anything that is not an
+address.
+
+**The hero's "Ask me anything…"** is `role="search"`, so the fix was to make it
+search something, and the FAQ is the only body of answers here. Submitting
+pushes `/?q=<question>#faq`; the FAQ reads `q` with `useSearchParams`, matches
+every word of the query against each question and answer, hides the category
+rail (categories cannot narrow a search further) and offers a way back. Reading
+it from the URL rather than shared state means no wiring between two sections,
+and the result is linkable and survives a reload. `useSearchParams` on a
+statically prerendered page needs a Suspense boundary, which is why `page.tsx`
+has one around the FAQ.
+
+That is an interpretation and should be recorded as one: "ask me anything"
+might be meant to reach an assistant. If so, `AskForm.tsx` is the only file that
+changes — leave the FAQ reading `q`, since a search in the URL is worth
+supporting either way.
+
+The matching is deliberately naive: every word must appear somewhere in the
+question or the answer. With seven questions there is nothing to index, nothing
+to rank and no stemming to get wrong.
+
+---
+
+## 10. Verifying a change
 
 Render at exactly 1440 × 1024 and diff against `public/design/HERO.png`.
 `--force-prefers-reduced-motion` parks every animation at its design position:
@@ -464,7 +626,7 @@ those in a real browser instead.
 
 ---
 
-## 10. Placeholder content
+## 11. Placeholder content
 
 Three files carry copy standing in until the real thing exists. Each says so at
 the top.
@@ -477,12 +639,15 @@ the top.
 
 ---
 
-## 11. Open items
+## 12. Open items
 
-**`.next` is committed.** 118 of the 184 tracked files are Turbopack build
-output. `.gitignore` now covers it, so nothing new is staged, but those files are
-already in history. Non-destructive fix: `git rm -r --cached .next` and commit.
-Actually purging them needs a history rewrite — nobody has done this.
+**`.next` is no longer tracked.** It was 118 of 184 files; `git rm --cached`
+took it and `tsconfig.tsbuildinfo` out of the index, leaving both on disk, and
+the count is now 70. The blobs remain in history — purging those still needs a
+rewrite nobody has signed up for — but nothing new accumulates and a build no
+longer dirties two dozen generated files. `next-env.d.ts` is left tracked on
+purpose: `.gitignore` lists it, but it is a type shim `tsconfig` includes and a
+fresh clone typechecks more happily with it.
 
 **The stacked panels won, and the docs now say so.** Two sessions were editing
 this repo at once; the second rewrote `app/expect/` from the fanned card layout
@@ -491,9 +656,8 @@ shipped, and both this file and the README describe it. The fan is gone; do not
 go looking for it. (The hazard itself stands: agree who owns which folders before
 running two sessions again.)
 
-**`scripts/carousel.py` solves a model the code no longer uses.** Kept for the
-18.5° and for the record of what was measured off the reference — see §6. Its
-`--depth` and exponent outputs have nowhere to go.
+**`scripts/carousel.py` is current again** — it solves the circle model and
+fails if the committed geometry drifts from it. See §6.
 
 **Panel 02 is a tall panel.** At twenty-four pills the heap outgrows `MAX_VH` on
 every viewport tested (930px in a 1024-high window, 801px in an 800). The trim

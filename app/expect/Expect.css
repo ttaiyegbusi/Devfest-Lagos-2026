@@ -704,11 +704,42 @@
   }
 }
 
-/* The band is the section's only loop, and like every other loop on the page
-   it comes off here — parked at its design position. */
+/* The band is the section's only loop, but parking it the way the other loops
+   are parked was wrong. The clouds and the traffic are decoration: frozen, they
+   still show you everything they had. This band is *content* — twelve
+   photographs — and only about three fit on a phone, so stopping it left nine
+   of them unreachable behind an edge that looked like it should move and did
+   not. Reduce Motion is common on phones, so this was a real dead end, not a
+   theoretical one.
+
+   So the band is handed over rather than frozen: one run, scrolled by hand.
+   Same photographs, same order, no movement anybody did not ask for. */
 @media (prefers-reduced-motion: reduce) {
+  .panel--strip .panel__media {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x proximity;
+    /* The bleed is still the design's; it just becomes somewhere to scroll
+       into rather than somewhere content hides. */
+    scroll-padding-inline: var(--gutter);
+  }
+
   .shots--strip {
     animation: none;
+    /* Undo the bleed on the track itself — in a scroller a negative margin
+       just hides the first photograph at scroll position zero. */
+    margin-inline: 0;
+    padding-inline: var(--gutter);
+  }
+
+  /* The second run only exists so the loop has no seam. Scrolling by hand
+     through the same twelve photographs twice is just confusing. */
+  .shots--strip .shots__run + .shots__run {
+    display: none;
+  }
+
+  .shots--strip .shots__shot {
+    scroll-snap-align: center;
   }
 
   .frame--cycling .frame__shot {

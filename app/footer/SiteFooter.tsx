@@ -58,7 +58,7 @@ export function SiteFooter() {
           lettering; the design sets it in the display face and lifts "Lagos"
           above the tail of "Devfest", which is not an arrangement the supplied
           asset can be bent into. */}
-      <div className="foot__mark" aria-hidden="true">
+      <div className="foot__mark" aria-hidden="true" data-reveal data-rise="still">
         <DevFestIcon className="foot__icon" />
         <span className="foot__word">
           Devfest
@@ -67,16 +67,25 @@ export function SiteFooter() {
       </div>
 
       <div className="foot__panel">
-        <div className="foot__grid">
+        <div className="foot__grid" data-reveal>
           <div className="foot__signup">
-            <h2 className="foot__heading">Don&rsquo;t Miss out on Information</h2>
-            <p className="foot__sub">Enter your email for news and updates</p>
+            <h2 className="foot__heading" data-rise>
+              Don&rsquo;t Miss out on Information
+            </h2>
+            <p className="foot__sub" data-rise>
+              Enter your email for news and updates
+            </p>
 
             <SignupForm />
           </div>
 
           {COLUMNS.map((col) => (
-            <nav key={col.heading} className="foot__col" aria-label={col.heading}>
+            <nav
+              key={col.heading}
+              className="foot__col"
+              aria-label={col.heading}
+              data-rise
+            >
               <h3 className="foot__colhead">{col.heading}</h3>
               <ul>
                 {col.links.map((link) => (
@@ -93,7 +102,7 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <p className="foot__legal">
+        <p className="foot__legal" data-reveal data-rise>
           &copy; 2026 Devfest Lagos. All Rights Reserved.
         </p>
       </div>

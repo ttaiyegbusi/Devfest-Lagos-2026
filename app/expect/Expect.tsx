@@ -26,13 +26,16 @@ export function ExpectPanel({
         ["--line" as string]: track.line,
       }}
     >
-      <div className="panel__head">
+      {/* `late` rather than the default: the slab is still swinging into
+          place when a panel first crosses the near line, and starting the
+          text there reads as two separate things moving at once. */}
+      <div className="panel__head" data-reveal="late">
         {/* The number is the first line of the heading block, on the same
             leading as the title, which is how the reference sets it. */}
-        <p className="panel__n" aria-hidden="true">
+        <p className="panel__n" aria-hidden="true" data-rise>
           {track.n}
         </p>
-        <h2 className="panel__title" id={id}>
+        <h2 className="panel__title" id={id} data-rise>
           {track.title.split("\n").map((line) => (
             <span key={line}>{line}</span>
           ))}
@@ -41,21 +44,34 @@ export function ExpectPanel({
 
       <hr className="panel__rule" />
 
-      <div className="panel__body">
-        {track.body ? <p className="panel__prose">{track.body}</p> : null}
+      <div className="panel__body" data-reveal="late">
+        {track.body ? (
+          <p className="panel__prose" data-rise>
+            {track.body}
+          </p>
+        ) : null}
 
         {track.points ? (
           <ul className="panel__points">
             {track.points.map((point) => (
-              <li key={point}>{point}</li>
+              <li key={point} data-rise>
+                {point}
+              </li>
             ))}
           </ul>
         ) : null}
 
-        {track.close ? <p className="panel__close">{track.close}</p> : null}
+        {track.close ? (
+          <p className="panel__close" data-rise>
+            {track.close}
+          </p>
+        ) : null}
       </div>
 
-      <div className="panel__media">
+      {/* The media blocks all carry motion of their own — a marquee, a
+          physics pit, a cross-fade — so they take the fade without the
+          travel. */}
+      <div className="panel__media" data-reveal="late" data-rise="still">
         <MediaBlock media={track.media} />
       </div>
     </section>

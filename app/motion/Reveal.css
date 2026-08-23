@@ -1,0 +1,43 @@
+/* ---------------------------------------------------------------------------
+   The reveal itself. Reveal.tsx carries the reasoning; the short version is
+   that `data-rise` marks a thing that arrives, the `data-shown` on its group
+   releases it, and `--rise-i` is its place in the queue.
+
+   Every rule here is behind `[data-motion]`, stamped on <html> before first
+   paint only when scripting is on and the reader has not asked for less
+   motion. Without that stamp this file does nothing at all.
+   --------------------------------------------------------------------------- */
+
+[data-motion] [data-rise] {
+  opacity: 0;
+  /* `translate`, not `transform`: several of these sit on elements that are
+     already carrying a transform of their own — the photo band's marquee, the
+     speaker wall's perspective — and the two properties compose instead of
+     one overwriting the other. */
+  translate: 0 var(--rise, 22px);
+  /* The fade finishes first and the movement settles under it, so nothing is
+     seen to stop. Both are ease-out curves with no acceleration at the head:
+     the element is already moving when it appears, which is what reads as
+     arriving rather than starting. */
+  transition:
+    opacity 720ms cubic-bezier(0.22, 1, 0.36, 1),
+    translate 940ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* A group is usually a container with several members. Where the thing that
+   arrives IS the group — a single block with no queue inside it — it carries
+   both attributes rather than gaining a wrapper element, which on a grid or a
+   perspective parent would change the layout it sits in. */
+[data-motion] [data-reveal][data-shown][data-rise],
+[data-motion] [data-reveal][data-shown] [data-rise] {
+  opacity: 1;
+  translate: none;
+  transition-delay: calc(var(--rise-i, 0) * 90ms);
+}
+
+/* A few things want the fade without the travel: anything wide enough that
+   22px of vertical movement reads as the layout settling rather than as one
+   element arriving. */
+[data-motion] [data-rise="still"] {
+  --rise: 0px;
+}

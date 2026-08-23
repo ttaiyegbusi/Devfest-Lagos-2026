@@ -453,7 +453,7 @@ in the set is under 19 ΔE. WCAG alone would have passed it.
 
 The cloud is now **twenty-four** pills; eight were added beyond the design's
 sixteen and `tracks.ts` names them. That heap is taller than `MAX_VH` was ever
-meant to allow — see §11.
+meant to allow — see §12.
 
 ---
 
@@ -507,7 +507,50 @@ pixel-identical after that extraction.
 
 ---
 
-## 9. Verifying a change
+## 9. The two forms
+
+Both were `action="#"`. Submitting navigated to `#`, reloaded the page, threw
+the input away and scrolled to the top — which is roughly the worst thing a form
+can do while still looking like it works.
+
+**The sign-up box** now posts to `app/api/subscribe/route.ts`. The rule that
+shaped it: *never report success for an address you did not store.* With no
+`SUBSCRIBE_ENDPOINT` configured the route answers 503 and the footer prints
+"Sign-up is not connected yet — nothing was saved." A form that thanks people
+and drops the address is worse than one that admits it is not live, because
+they believe it, do not sign up again, and nobody finds out until the list turns
+out to be empty.
+
+Set `SUBSCRIBE_ENDPOINT`, plus `SUBSCRIBE_TOKEN` if the provider wants an
+Authorization header, and it is live; the only thing that might need editing is
+the body shape it forwards. Verified against a stub provider: the address
+arrives as `{"email":"…"}` with `Bearer …`, the route answers 200, and the
+footer prints the success line and clears the field. Verified without it: 503
+and an honest message. Bad JSON gets 400, so does anything that is not an
+address.
+
+**The hero's "Ask me anything…"** is `role="search"`, so the fix was to make it
+search something, and the FAQ is the only body of answers here. Submitting
+pushes `/?q=<question>#faq`; the FAQ reads `q` with `useSearchParams`, matches
+every word of the query against each question and answer, hides the category
+rail (categories cannot narrow a search further) and offers a way back. Reading
+it from the URL rather than shared state means no wiring between two sections,
+and the result is linkable and survives a reload. `useSearchParams` on a
+statically prerendered page needs a Suspense boundary, which is why `page.tsx`
+has one around the FAQ.
+
+That is an interpretation and should be recorded as one: "ask me anything"
+might be meant to reach an assistant. If so, `AskForm.tsx` is the only file that
+changes — leave the FAQ reading `q`, since a search in the URL is worth
+supporting either way.
+
+The matching is deliberately naive: every word must appear somewhere in the
+question or the answer. With seven questions there is nothing to index, nothing
+to rank and no stemming to get wrong.
+
+---
+
+## 10. Verifying a change
 
 Render at exactly 1440 × 1024 and diff against `public/design/HERO.png`.
 `--force-prefers-reduced-motion` parks every animation at its design position:
@@ -522,7 +565,7 @@ those in a real browser instead.
 
 ---
 
-## 10. Placeholder content
+## 11. Placeholder content
 
 Three files carry copy standing in until the real thing exists. Each says so at
 the top.
@@ -535,12 +578,15 @@ the top.
 
 ---
 
-## 11. Open items
+## 12. Open items
 
-**`.next` is committed.** 118 of the 184 tracked files are Turbopack build
-output. `.gitignore` now covers it, so nothing new is staged, but those files are
-already in history. Non-destructive fix: `git rm -r --cached .next` and commit.
-Actually purging them needs a history rewrite — nobody has done this.
+**`.next` is no longer tracked.** It was 118 of 184 files; `git rm --cached`
+took it and `tsconfig.tsbuildinfo` out of the index, leaving both on disk, and
+the count is now 70. The blobs remain in history — purging those still needs a
+rewrite nobody has signed up for — but nothing new accumulates and a build no
+longer dirties two dozen generated files. `next-env.d.ts` is left tracked on
+purpose: `.gitignore` lists it, but it is a type shim `tsconfig` includes and a
+fresh clone typechecks more happily with it.
 
 **The stacked panels won, and the docs now say so.** Two sessions were editing
 this repo at once; the second rewrote `app/expect/` from the fanned card layout

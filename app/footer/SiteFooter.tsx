@@ -1,4 +1,5 @@
 import { DevFestIcon } from "../hero/DevFestIcon";
+import { SignupForm } from "./SignupForm";
 import "./SiteFooter.css";
 
 /* `href` is optional, and most of these do not have one yet. They all used to
@@ -71,26 +72,7 @@ export function SiteFooter() {
             <h2 className="foot__heading">Don&rsquo;t Miss out on Information</h2>
             <p className="foot__sub">Enter your email for news and updates</p>
 
-            <form className="foot__form" action="#" method="post">
-              <label className="visually-hidden" htmlFor="foot-email">
-                Email address
-              </label>
-              <input
-                id="foot-email"
-                className="foot__input"
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                autoComplete="email"
-                required
-              />
-              <button type="submit" className="foot__submit">
-                <span className="visually-hidden">Subscribe</span>
-                <svg width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden="true">
-                  <path d="M13 1l6 6-6 6M19 7H1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-            </form>
+            <SignupForm />
           </div>
 
           {COLUMNS.map((col) => (

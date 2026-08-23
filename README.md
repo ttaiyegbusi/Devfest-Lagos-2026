@@ -10,6 +10,11 @@ npm run dev
 npm run lint     # oxlint, currently clean
 ```
 
+Environment: `NEXT_PUBLIC_SITE_URL` for absolute share-card URLs,
+`SUBSCRIBE_ENDPOINT` (and optionally `SUBSCRIBE_TOKEN`) to make the footer
+sign-up live. Everything works without them; the share tags point at localhost
+and the sign-up says it is not connected.
+
 Next.js 16 (App Router) · TypeScript · plain CSS · oxlint.
 
 ## Page order
@@ -80,6 +85,26 @@ The heading face is Faculty Glyphic (the diamond tittles on the `i` are the
 giveaway) and the UI face is Geist — identified by fitting per-word ink widths
 and inter-word gaps from the reference against every font on the design
 machine; Geist matched to under a pixel, Product Sans and Inter did not.
+
+## The two forms
+
+Both used to be `action="#"`, which meant submitting navigated to `#`, reloaded
+the page and threw the input away.
+
+**Footer sign-up** posts to `app/api/subscribe/route.ts`, which validates the
+address and forwards it. With no provider configured it answers **503 and the
+footer says so** — it never reports success for an address it did not store,
+because a form that says "you're subscribed" and drops the address is worse than
+one that admits it is not live. To go live, set `SUBSCRIBE_ENDPOINT` (and
+`SUBSCRIBE_TOKEN` if the provider needs an Authorization header); nothing else
+has to change.
+
+**Hero "Ask me anything…"** is `role="search"`, and the only body of answers on
+the site is the FAQ — so submitting carries the question there as `?q=`, which
+the FAQ filters on. Reading it from the URL keeps the result linkable and
+survives a reload. That is an interpretation, not a spec: if "ask" is meant to
+reach an assistant, `app/hero/AskForm.tsx` is the one place that changes, and
+the FAQ can keep reading `q` for people arriving with a search in the URL.
 
 ## Share cards and icons
 

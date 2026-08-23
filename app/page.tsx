@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Stack } from "./stack/Stack";
 import { Hero } from "./hero/Hero";
 import { expectPanels } from "./expect/panels";
@@ -15,7 +16,11 @@ export default function Page() {
         {expectPanels()}
       </Stack>
       <Speakers />
-      <Faq />
+      {/* The FAQ reads ?q= from the URL, which a statically prerendered page
+          has to reach through a Suspense boundary. */}
+      <Suspense>
+        <Faq />
+      </Suspense>
       <SiteFooter />
     </>
   );

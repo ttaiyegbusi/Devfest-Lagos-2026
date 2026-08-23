@@ -136,6 +136,33 @@
   outline-offset: 2px;
 }
 
+/* Reserved so the panel does not jump when a message appears. One line at this
+   measure is enough for every message the form can produce. */
+.foot__status {
+  min-height: 22px;
+  margin: 10px 0 0;
+  color: #a8a8a8;
+  font-size: 13.5px;
+  line-height: 22px;
+}
+
+.foot__status[data-tone="good"] {
+  color: #7ee2a8;
+}
+
+.foot__status[data-tone="bad"] {
+  color: #ff9d8a;
+}
+
+.foot__input:disabled {
+  opacity: 0.6;
+}
+
+.foot__submit:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
 .foot__submit {
   display: grid;
   place-items: center;

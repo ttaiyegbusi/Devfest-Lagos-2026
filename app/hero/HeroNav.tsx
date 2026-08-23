@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { DevFestLogo } from "./DevFestLogo";
 
 /* `href` is deliberately optional. These used to point at anchors — #about,
@@ -25,9 +25,66 @@ export function HeroNav() {
   // The desktop reference has no menu state at all. The toggle only exists
   // below the breakpoint where the four links stop fitting inside the bar.
   const [open, setOpen] = useState(false);
+  const nav = useRef<HTMLElement>(null);
+
+  /* Below the breakpoint the open menu is a sheet over the whole viewport, so
+     the page beneath it has to stop behaving as though it were still there:
+     it must not scroll, Escape must dismiss it, and Tab must not walk off into
+     content the sheet is covering. Above the breakpoint none of that applies —
+     the menu is back to being a row inside the bar — so crossing the
+     breakpoint closes it and releases the lock with it. */
+  useEffect(() => {
+    if (!open) return;
+
+    const root = document.documentElement;
+    const overflow = root.style.overflow;
+    const padding = root.style.paddingRight;
+    // Taking the scrollbar away shifts the layout under the sheet; hold the
+    // width it occupied so nothing moves as the menu opens.
+    const scrollbar = window.innerWidth - root.clientWidth;
+    root.style.overflow = "hidden";
+    if (scrollbar > 0) root.style.paddingRight = `${scrollbar}px`;
+
+    const wide = window.matchMedia("(min-width: 900px)");
+    const onWide = (event: MediaQueryListEvent) => {
+      if (event.matches) setOpen(false);
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+      if (event.key !== "Tab") return;
+
+      const focusable = nav.current?.querySelectorAll<HTMLElement>(
+        "a[href], button",
+      );
+      if (!focusable?.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    wide.addEventListener("change", onWide);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      root.style.overflow = overflow;
+      root.style.paddingRight = padding;
+      wide.removeEventListener("change", onWide);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
 
   return (
-    <nav className="hero-nav" aria-label="Primary">
+    <nav className="hero-nav" aria-label="Primary" ref={nav}>
       <a className="hero-nav__brand" href="/">
         <DevFestLogo className="hero-nav__logo" />
       </a>
@@ -42,7 +99,14 @@ export function HeroNav() {
         <span className="visually-hidden">
           {open ? "Close menu" : "Open menu"}
         </span>
-        <span className="hero-nav__toggle-bars" aria-hidden="true" />
+        {/* Three bars rather than one span with two pseudo-elements: the open
+            state moves each of them separately, so each needs to be a real box
+            the stylesheet can address. */}
+        <span className="hero-nav__toggle-bars" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </span>
       </button>
 
       <div
@@ -51,8 +115,11 @@ export function HeroNav() {
         data-open={open || undefined}
       >
         <ul className="hero-nav__links">
-          {LINKS.map((link) => (
-            <li key={link.label}>
+          {LINKS.map((link, index) => (
+            /* `--i` is the row's place in the queue. The stagger is spelt out
+               in CSS in terms of it, so a fifth link needs nothing here but a
+               fifth entry in LINKS. */
+            <li key={link.label} style={{ "--i": index } as CSSProperties}>
               {link.href ? (
                 <a href={link.href} onClick={() => setOpen(false)}>
                   {link.label}
@@ -67,7 +134,11 @@ export function HeroNav() {
         {/* No ticketing destination yet. Rendered as a button rather than a
             link so it is not a link to nowhere; point it at the real ticket
             page (or handler) when there is one. */}
-        <button type="button" className="hero-nav__ticket">
+        <button
+          type="button"
+          className="hero-nav__ticket"
+          style={{ "--i": LINKS.length } as CSSProperties}
+        >
           Buy Ticket
         </button>
       </div>

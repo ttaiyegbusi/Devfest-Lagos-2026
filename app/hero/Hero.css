@@ -390,28 +390,72 @@
   cursor: pointer;
 }
 
-.hero-nav__toggle-bars,
-.hero-nav__toggle-bars::before,
-.hero-nav__toggle-bars::after {
+/* The bars are placed inside a 20x12 box rather than nudged off each other
+   with `position: relative`, so each one rotates about its own centre. That is
+   what lets the hamburger *become* the cross by moving, instead of being
+   swapped for a different icon: the same three lines are on screen throughout.
+
+   `translate` and `rotate` are set as their own properties, not packed into
+   one `transform`, because the two halves of the move have to be timed
+   separately — the bars meet in the middle first and only then cross, and on
+   the way back they uncross before they part again. A single `transform`
+   can only carry one delay for both. */
+.hero-nav__toggle-bars {
+  position: relative;
   display: block;
   width: 20px;
-  height: 1.5px;
+  height: 12px;
   margin-inline: auto;
+}
+
+.hero-nav__toggle-bars span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
   background: currentColor;
+  /* Closing: uncross (rotate, no delay), then part (translate, delayed). */
+  transition:
+    translate 240ms cubic-bezier(0.4, 0, 0.2, 1) 200ms,
+    rotate 240ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    opacity 150ms ease 150ms,
+    scale 150ms ease 150ms;
 }
 
-.hero-nav__toggle-bars::before,
-.hero-nav__toggle-bars::after {
-  content: "";
-  position: relative;
+.hero-nav__toggle-bars span:nth-child(1) {
+  top: 0;
 }
 
-.hero-nav__toggle-bars::before {
-  top: -6px;
+.hero-nav__toggle-bars span:nth-child(2) {
+  top: 5.25px;
 }
 
-.hero-nav__toggle-bars::after {
-  top: 4.5px;
+.hero-nav__toggle-bars span:nth-child(3) {
+  top: 10.5px;
+}
+
+/* Driven off `aria-expanded` rather than a class of its own, so the icon
+   cannot end up saying one thing while the button announces another. */
+.hero-nav__toggle[aria-expanded="true"] .hero-nav__toggle-bars span {
+  /* Opening: meet (translate, no delay), then cross (rotate, delayed). */
+  transition-delay: 0ms, 200ms, 0ms, 0ms;
+}
+
+.hero-nav__toggle[aria-expanded="true"] .hero-nav__toggle-bars span:nth-child(1) {
+  translate: 0 5.25px;
+  rotate: 45deg;
+}
+
+/* The middle bar has nowhere to go, so it leaves: it collapses towards its own
+   centre as the other two arrive, and is gone before they cross. */
+.hero-nav__toggle[aria-expanded="true"] .hero-nav__toggle-bars span:nth-child(2) {
+  opacity: 0;
+  scale: 0.3 1;
+}
+
+.hero-nav__toggle[aria-expanded="true"] .hero-nav__toggle-bars span:nth-child(3) {
+  translate: 0 -5.25px;
+  rotate: -45deg;
 }
 
 /* --- copy ---------------------------------------------------------------- */
@@ -572,52 +616,148 @@
     position: relative;
   }
 
+  /* The logo and the toggle ride above the sheet, so the bar does not vanish
+     when the menu opens — it becomes the top of it. Both are ink on ink, so
+     the seam between bar and sheet never shows. */
+  .hero-nav__brand,
+  .hero-nav__toggle {
+    position: relative;
+    z-index: 5;
+  }
+
   .hero-nav__toggle {
     display: block;
     width: 44px;
     height: 44px;
   }
 
+  /* A sheet over the whole viewport rather than a panel hanging off the bar,
+     with the links gathered into the bottom-left corner: within reach of a
+     thumb, and reading up off the floor of the screen instead of floating in
+     the middle of it.
+
+     It stays in the layout when closed — hidden, not removed — because an
+     element that is `display: none` on one frame and `display: flex` on the
+     next cannot animate in either direction. `visibility` is what keeps the
+     closed menu off the tab order and out of a screen reader; it is held back
+     until the closing animation has finished playing. */
   .hero-nav__menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    left: 0;
-    z-index: 3;
-    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 4;
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
-    padding: 24px 20px;
+    justify-content: flex-end;
+    gap: 26px;
+    /* Left edge lines up under the logo: the shell's gutter plus the bar's own
+       inner padding. The safe-area inset keeps the last row clear of the home
+       indicator on a notched phone. */
+    padding: 0 calc(var(--gutter) + 20px)
+      calc(56px + env(safe-area-inset-bottom, 0px));
     background: var(--ink);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 240ms ease 120ms,
+      visibility 0s linear 400ms;
   }
 
   .hero-nav__menu[data-open] {
-    display: flex;
+    opacity: 1;
+    visibility: visible;
+    transition:
+      opacity 200ms ease,
+      visibility 0s;
   }
 
-  /* Stretch rather than flex-start: an inline-block link is only as wide as its
-     own label, so "FAQ" was a target barely 30px across in a menu 280px wide.
-     Full-width rows mean the whole line is tappable. */
+  /* Stretch rather than flex-start: an inline-block link is only as wide as
+     its own label, so "FAQs" was a target barely 40px across. Full-width rows
+     mean the whole line is tappable. */
   .hero-nav__links {
     flex-direction: column;
     align-items: stretch;
-    gap: 4px;
+    gap: 0;
     width: 100%;
-    font-size: 16px;
+    font-size: clamp(30px, 8.5vw, 40px);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
   }
 
-  /* 44px rows. The links were 24px tall — WCAG 2.5.8 AA's floor exactly, with
-     nothing spare — and the padding does the separating now, so the gap above
-     comes down to keep the menu from growing more than it has to. */
-  .hero-nav__links a {
+  /* Each row is a window the label starts below and rises into. Clipping the
+     row rather than only fading the label is what makes it read as type
+     arriving, not type appearing — and the padding that gives every row its
+     44px target is inside the clip, so nothing is cropped. */
+  .hero-nav__links li {
+    overflow: hidden;
+  }
+
+  .hero-nav__links a,
+  .hero-nav__pending {
     display: block;
-    padding-block: 14px;
+    padding-block: 7px;
+    translate: 0 110%;
+    opacity: 0;
+    /* Closing: straight back down, together, quickly. Waiting out a reverse
+       stagger to dismiss something is the part that feels slow. */
+    transition:
+      translate 220ms ease-in,
+      opacity 160ms ease;
+  }
+
+  /* Set as text, not as a link to nowhere — so it is stated quietly. */
+  .hero-nav__pending {
+    color: #8c8c8c;
   }
 
   .hero-nav__ticket {
-    width: 100%;
-    height: 48px;
+    width: auto;
+    height: 52px;
+    padding-inline: 32px;
+    margin-top: 6px;
+    font-size: 15px;
+    /* Nothing clips this one, so it lifts a little way instead of a whole
+       row's height — a nudge, not an entrance. */
+    translate: 0 16px;
+    opacity: 0;
+    transition:
+      translate 220ms ease-in,
+      opacity 160ms ease;
+  }
+
+  /* The stagger. `--i` is each row's place in the queue, set on the element
+     itself, so a fifth link needs a fifth entry in LINKS and nothing here.
+     The easing is a long expo settle: fast off the mark, then a slow arrival —
+     which is what stops four rows in sequence reading as a machine dealing
+     cards. */
+  .hero-nav__menu[data-open] .hero-nav__links a,
+  .hero-nav__menu[data-open] .hero-nav__pending,
+  .hero-nav__menu[data-open] .hero-nav__ticket {
+    translate: none;
+    opacity: 1;
+    transition:
+      translate 640ms cubic-bezier(0.16, 1, 0.3, 1)
+        calc(90ms + var(--i, 0) * 70ms),
+      opacity 420ms ease calc(90ms + var(--i, 0) * 70ms);
+  }
+}
+
+/* Movement is the whole point of the menu above, so there is nothing to
+   preserve here: the sheet and its rows simply arrive. The selectors match the
+   ones they override so that order decides, and the durations stay non-zero so
+   `visibility` still changes on a transition rather than being skipped. */
+@media (prefers-reduced-motion: reduce) and (max-width: 899px) {
+  .hero-nav__menu,
+  .hero-nav__links a,
+  .hero-nav__pending,
+  .hero-nav__ticket,
+  .hero-nav__toggle-bars span,
+  .hero-nav__toggle[aria-expanded="true"] .hero-nav__toggle-bars span,
+  .hero-nav__menu[data-open] .hero-nav__links a,
+  .hero-nav__menu[data-open] .hero-nav__pending,
+  .hero-nav__menu[data-open] .hero-nav__ticket {
+    transition-duration: 1ms;
+    transition-delay: 0s;
   }
 }
 

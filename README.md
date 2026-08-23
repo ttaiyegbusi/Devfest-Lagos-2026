@@ -81,6 +81,18 @@ giveaway) and the UI face is Geist — identified by fitting per-word ink widths
 and inter-word gaps from the reference against every font on the design
 machine; Geist matched to under a pixel, Product Sans and Inter did not.
 
+## Share cards and icons
+
+The tab icon, the iOS home-screen icon and the social share image are all
+picked up by filename from `app/` — `icon.svg`, `apple-icon.png`,
+`opengraph-image.png` with its `.alt.txt` alongside — so none of them are listed
+in `metadata`. The icon is the official mark on the brand ink; the share card is
+rendered from the real fonts, palette and illustration at 1200 × 630.
+
+**Set `NEXT_PUBLIC_SITE_URL` at build time.** Share cards need absolute URLs and
+only the deployment knows the host. Without it the tags still render, pointing
+at `localhost` — fine locally, wrong in production.
+
 ## Placeholder content
 
 Three files carry copy that is standing in until the real thing exists, and all

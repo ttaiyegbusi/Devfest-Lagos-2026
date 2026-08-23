@@ -8,7 +8,15 @@ the speaker wall, the FAQ and the footer.
 npm install
 npm run dev
 npm run lint     # oxlint, currently clean
+npm run build
 ```
+
+CI runs the last two on every push and pull request
+(`.github/workflows/ci.yml`), plus `scripts/carousel.py`. `npm run lint`
+carries `--deny-warnings`: plain oxlint exits 0 even with warnings
+outstanding, which would leave the job unable to fail. The repo is at zero
+warnings and the flag is what keeps it there — so a local run and a CI run
+agree on what "lint passes" means.
 
 Environment: `NEXT_PUBLIC_SITE_URL` for absolute share-card URLs,
 `SUBSCRIBE_ENDPOINT` (and optionally `SUBSCRIBE_TOKEN`) to make the footer

@@ -28,6 +28,12 @@
   justify-content: center;
   gap: calc(var(--mark) * 0.267);
   padding-top: calc(var(--mark) * 0.42);
+  /* Clear air between the lockup and the panel. Without it the panel starts at
+     the wordmark's own box bottom, which sits only a few pixels under the
+     letters — nine at 1440 and two or three on a phone — so the mark reads as
+     cut off even where it technically is not. The whole lockup should be
+     unambiguously clear of the panel at every width. */
+  margin-bottom: calc(var(--mark) * 0.2);
   color: #4a4a4a;
   pointer-events: none;
   user-select: none;

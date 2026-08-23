@@ -20,7 +20,7 @@ export function Faq() {
   );
 
   return (
-    <section className="faq" aria-labelledby={`${id}-title`}>
+    <section className="faq" id="faq" aria-labelledby={`${id}-title`}>
       <div className="faq__intro">
         <h2 className="faq__title" id={`${id}-title`}>
           Frequently asked questions

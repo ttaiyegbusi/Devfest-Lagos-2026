@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Reveal } from "./motion/Reveal";
 import "./globals.css";
 
 const title = "DevFest Lagos — One Ecosystem, Endless Opportunities.";
@@ -44,6 +45,25 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Stamps <html data-motion> before the first paint, which is what the
+            reveal stylesheet keys its hidden state on. It has to run here, not
+            in an effect: hiding the page after it has already been painted is
+            a visible collapse, and the point of the reveal is that the reader
+            never sees the laid-out state it starts from.
+
+            Two ways it declines to stamp, and both leave the page complete
+            rather than degraded: no scripting at all, so nothing ever hides;
+            and prefers-reduced-motion, which is why the stylesheet carries no
+            reduced-motion rule of its own — there is nothing to undo. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)' +
+              'document.documentElement.dataset.motion="on"}catch(e){}',
+          }}
+        />
+      </head>
       <body>
         {/* First thing in the tab order: the hero carries a nav, an illustration
             and a search control before the page proper begins. */}
@@ -53,6 +73,7 @@ export default function RootLayout({
         <main id="main" tabIndex={-1}>
           {children}
         </main>
+        <Reveal />
       </body>
     </html>
   );

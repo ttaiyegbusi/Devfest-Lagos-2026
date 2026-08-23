@@ -3,19 +3,22 @@
 import { useState } from "react";
 import { DevFestLogo } from "./DevFestLogo";
 
-/* `href` is deliberately optional. Every one of these used to point at an
-   anchor — #about, #pricing, #community-board — and not one of those ids
-   existed anywhere in the markup, so the whole nav was dead: clicking did
-   nothing at all. A link that goes nowhere is worse than plain text, so an
-   entry without a destination renders as text until it has one.
+/* `href` is deliberately optional. These used to point at anchors — #about,
+   #pricing, #community-board — and not one of those ids existed anywhere in the
+   markup, so the whole nav was dead: clicking did nothing at all. A link that
+   goes nowhere is worse than plain text, so an entry without a destination
+   renders as text until it has one.
 
-   TO WIRE UP: "Community Board" and "Pricing" need a section or a page. Give
-   the section an id and put it here. */
+   Speaker and FAQs reach real sections on this page. Schedule and Team do not
+   exist yet.
+
+   TO WIRE UP: give the schedule and the team a section with an id (or a page)
+   and add the href here — nothing else has to change. */
 const LINKS: { label: string; href?: string }[] = [
-  { label: "About", href: "#about" },
-  { label: "Community Board" },
-  { label: "Pricing" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Speaker", href: "#speakers" },
+  { label: "Schedule" },
+  { label: "Team" },
+  { label: "FAQs", href: "#faq" },
 ];
 
 export function HeroNav() {

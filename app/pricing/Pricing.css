@@ -1,19 +1,21 @@
 /* ---------------------------------------------------------------------------
-   Ticket tiers, hung from lanyards.
+   The two tickets, hung from lanyards.
 
-   TWO LAYOUTS, and the first one is the real section. By default the badges are
-   a plain grid: every price and every perk laid out and readable with no
-   JavaScript, which is what a reader with scripting off or `prefers-reduced-
-   motion` gets. `.rack.is-live` is added only once matter has loaded and the
-   section is on screen; it takes the badges out of the grid and hands their
-   position to the physics. Nothing below the fold of that switch carries any
-   information the grid did not already show.
+   TWO LAYOUTS, and the first is the real section. By default the cards are a
+   plain grid: every price and perk laid out and readable with no JavaScript,
+   which is what a reader with scripting off or `prefers-reduced-motion` gets.
+   `.rack.is-live` is added only once matter has loaded and the section is on
+   screen; it takes the cards out of the grid and hands their position to the
+   physics. Nothing on the other side of that switch carries any information
+   the grid did not already show.
    --------------------------------------------------------------------------- */
 
 .tickets {
-  --panel: #fffdf5;
-  --edge: rgba(23, 23, 23, 0.12);
   --dim: #6b665c;
+  /* No mono is shipped with the site, and the design sets the small print and
+     the perks in one. A system stack costs no bytes and every platform has a
+     good one. */
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 
   padding: 96px 0 104px;
   background: var(--cream);
@@ -35,7 +37,7 @@
 }
 
 .tickets__lede {
-  max-width: 52ch;
+  max-width: 54ch;
   margin: 14px auto 0;
   font-size: 17px;
   line-height: 1.55;
@@ -47,17 +49,18 @@
 .rack {
   position: relative;
   width: min(var(--shell), 100% - var(--gutter) * 2);
-  /* Room above for the cords to hang from. */
-  margin: calc(86px + 64px) auto 0;
+  /* Clear air above for the cords to hang from. */
+  margin: calc(86px + 62px) auto 0;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(2, minmax(0, 470px));
+  justify-content: center;
+  gap: 34px;
   align-items: start;
 }
 
-/* Live, the badges are placed by the engine, so the grid steps aside. Its
+/* Live, the cards are placed by the engine, so the grid steps aside. The rack's
    height is written by the component from what the grid measured, plus room to
-   pull into. */
+   be pulled into. */
 .rack.is-live {
   display: block;
 }
@@ -70,8 +73,8 @@
   will-change: transform;
 }
 
-/* Once it has come to rest the compositor layer is a cost with no benefit, and
-   dropping it lets the type paint at its angle rather than be resampled. */
+/* At rest the compositor layer is a cost with no benefit, and dropping it lets
+   the type paint at its angle rather than be resampled out of a texture. */
 .rack.is-settled .badge {
   will-change: auto;
 }
@@ -81,54 +84,44 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  /* The cords run above the rack's own box, up to the hooks. */
+  /* The cords run above the rack's own box, up to their hooks. */
   overflow: visible;
   pointer-events: none;
 }
 
 .rack__cord {
   fill: none;
-  stroke-width: 9;
+  stroke-width: 10;
   stroke-linejoin: round;
   stroke-linecap: round;
 }
 
-/* --- a badge ------------------------------------------------------------- */
+/* --- a ticket ------------------------------------------------------------ */
 
 .badge {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  padding: 0 26px 28px;
-  background: var(--panel);
-  border: 1px solid var(--edge);
-  border-radius: 10px;
-  box-shadow: 0 18px 40px -26px rgba(23, 23, 23, 0.55);
-  /* Vertical panning belongs to the page. Only the grip below takes a finger. */
+  padding: 0 26px 26px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  /* Vertical panning belongs to the page. Only the grip takes a finger. */
   touch-action: pan-y;
 }
 
-.badge[data-featured] {
-  border-color: var(--cord);
-  box-shadow:
-    0 0 0 1px var(--cord),
-    0 22px 48px -24px rgba(23, 23, 23, 0.6);
-}
-
-/* The static cord: a short ribbon above each badge so the grid still reads as
-   something hung, before any physics exists. The live rack draws real ones and
-   hides this. */
+/* The static cord: a ribbon above each card so the grid still reads as
+   something hung before any physics exists. The live rack draws real ones. */
 .badge::before {
   content: "";
   position: absolute;
   left: 50%;
   bottom: 100%;
-  width: 9px;
+  width: 10px;
   height: 86px;
-  margin-left: -4.5px;
-  border-radius: 5px;
-  background: var(--cord);
+  margin-left: -5px;
+  background: var(--accent);
 }
 
 .rack.is-live .badge::before {
@@ -138,7 +131,7 @@
 .badge__grip {
   display: grid;
   place-items: center;
-  height: 40px;
+  height: 34px;
   margin-inline: -26px;
   /* The one part a finger may pull from, so it must not also pan the page. */
   touch-action: none;
@@ -150,93 +143,130 @@
 }
 
 .badge__punch {
-  width: 54px;
-  height: 9px;
-  border-radius: 5px;
-  background: rgba(23, 23, 23, 0.16);
+  width: 58px;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(23, 23, 23, 0.22);
 }
 
-.badge__head {
-  padding-top: 6px;
+.badge__label {
+  display: inline-block;
+  margin: 4px 0 0;
+  padding: 5px 13px;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  line-height: 1;
+  align-self: flex-start;
+}
+
+.badge__line {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 12px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.22);
 }
 
 .badge__name {
   margin: 0;
-  font-family: var(--font-display);
-  font-size: 27px;
-  font-weight: 400;
-  line-height: 1.1;
-  color: var(--ink);
-}
-
-.badge__note {
-  margin: 5px 0 0;
-  font-size: 13px;
-  line-height: 1.45;
-  color: var(--dim);
+  font-size: 29px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
 }
 
 .badge__price {
-  margin: 20px 0 0;
+  margin: 0;
+  text-align: right;
   font-size: 34px;
-  line-height: 1.05;
+  font-weight: 500;
+  line-height: 1;
   letter-spacing: -0.02em;
-  color: var(--ink);
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
-.badge__qualifier {
+.badge__per {
   display: block;
-  margin-top: 6px;
-  font-size: 12.5px;
-  letter-spacing: 0;
-  line-height: 1.4;
+  margin-top: 7px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 400;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
   color: var(--dim);
+}
+
+.badge__blurb {
+  margin: 20px 0 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #3a382f;
 }
 
 .badge__includes {
   margin: 22px 0 0;
-  padding: 20px 0 0;
-  border-top: 1px solid var(--edge);
+  padding: 0;
   list-style: none;
   display: grid;
-  gap: 9px;
-  font-size: 14px;
-  line-height: 1.45;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 13.5px;
+  line-height: 1.4;
 }
 
 .badge__includes li {
-  padding-left: 20px;
-  background-image: linear-gradient(var(--cord), var(--cord));
-  background-repeat: no-repeat;
-  background-size: 7px 7px;
-  background-position: 0 0.45em;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  align-items: start;
 }
 
-.tickets__foot {
-  width: min(var(--shell), 100% - var(--gutter) * 2);
-  margin: 56px auto 0;
-  text-align: center;
-  font-size: 14px;
-  color: var(--dim);
+.badge__tick {
+  color: #2f7d32;
+  font-family: var(--font-sans);
 }
 
-.tickets__foot a {
-  color: var(--ink);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.badge__cta {
+  display: grid;
+  place-items: center;
+  height: 56px;
+  margin-top: 26px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  /* The design's hard offset shadow — a printed block, not a soft card. */
+  box-shadow: 7px 7px 0 rgba(23, 23, 23, 0.22);
+  transition: translate 140ms ease, box-shadow 140ms ease;
+}
+
+.badge__cta:hover {
+  translate: 2px 2px;
+  box-shadow: 5px 5px 0 rgba(23, 23, 23, 0.22);
 }
 
 /* --- narrower ------------------------------------------------------------ */
 
 @media (max-width: 1023px) {
-  .rack {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 22px;
-  }
-
   .tickets__title {
     font-size: 36px;
+  }
+
+  .badge__name {
+    font-size: 25px;
+  }
+
+  .badge__price {
+    font-size: 29px;
   }
 }
 
@@ -247,9 +277,9 @@
 
   .rack {
     grid-template-columns: minmax(0, 1fr);
-    /* Each badge hangs from its own cord, so every one needs the clearance —
-       hence the row gap rather than the single lead-in the wide grid uses. */
-    row-gap: calc(86px + 30px);
+    /* Each card hangs from its own cord, so every one needs the clearance —
+       hence a row gap rather than the single lead-in the wide grid uses. */
+    row-gap: calc(86px + 34px);
     margin-top: calc(86px + 40px);
   }
 
@@ -259,5 +289,27 @@
 
   .tickets__lede {
     font-size: 16px;
+  }
+
+  .badge {
+    padding-inline: 20px;
+  }
+
+  .badge__grip {
+    margin-inline: -20px;
+  }
+
+  /* The price drops under the name rather than being squeezed beside it. */
+  .badge__line {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .badge__price {
+    text-align: left;
+  }
+
+  .badge__per {
+    margin-top: 5px;
   }
 }

@@ -1,28 +1,29 @@
+import { TICKETS } from "../links";
 import { naira, TIERS } from "./tiers";
 import { Lanyards } from "./Lanyards";
 import "./Pricing.css";
 
-/* The ticket tiers, hung from lanyards like the badges you collect at the door.
+/* The tickets, hung from lanyards like the badges you collect at the door.
  *
- * THE MARKUP IS THE STATIC SECTION. Everything here lays out and reads with no
- * JavaScript at all: three badges in a grid, every price and perk visible. The
- * physics is an enhancement layered over this by Lanyards, which takes the same
- * badges over and hangs them — so a reader with scripting off, or one who has
+ * THE MARKUP IS THE SECTION. Everything here lays out and reads with no
+ * JavaScript at all: both tickets in a grid, every price and perk visible. The
+ * physics is an enhancement layered over it by Lanyards, which takes the same
+ * cards over and hangs them — so a reader with scripting off, or one who has
  * asked for less motion, loses the swing and nothing else.
  *
- * The badges are rendered here rather than inside the client component so the
- * prices are in the HTML the server sends. A price that only appears after
- * hydration is a price search engines never see and a slow phone shows late. */
+ * Rendered on the server rather than inside the client component so the prices
+ * are in the HTML that is sent. A price that only appears after hydration is a
+ * price search engines never see and a slow phone shows late. */
 export function Pricing() {
   return (
     <section className="tickets" id="pricing" aria-labelledby="tickets-title">
       <div className="tickets__intro" data-reveal>
         <h2 className="tickets__title" id="tickets-title" data-rise>
-          Pick your badge
+          Pick your ticket
         </h2>
         <p className="tickets__lede" data-rise>
-          Every ticket covers the whole day — the talks, the showcase floor and
-          the after party. The tiers differ in what they add on top.
+          Two ways in. Both cover every talk, the sponsor booths and the
+          networking floor — the difference is how many days you get.
         </p>
       </div>
 
@@ -31,40 +32,48 @@ export function Pricing() {
           <article
             className="badge"
             key={tier.name}
-            data-featured={tier.featured || undefined}
-            style={{ ["--cord" as string]: tier.cord, ["--ink" as string]: tier.ink }}
+            style={{
+              ["--paper" as string]: tier.paper,
+              ["--accent" as string]: tier.accent,
+            }}
           >
-            {/* The only part of a badge a finger may pull from — see the
-                pointer handling in Lanyards. */}
+            {/* The only part of a card a finger may pull from — see the pointer
+                handling in Lanyards. */}
             <div className="badge__grip" aria-hidden="true">
               <span className="badge__punch" />
             </div>
 
             <header className="badge__head">
-              <h3 className="badge__name">{tier.name}</h3>
-              <p className="badge__note">{tier.note}</p>
+              <p className="badge__label">{tier.label}</p>
+              <div className="badge__line">
+                <h3 className="badge__name">{tier.name}</h3>
+                <p className="badge__price">
+                  {naira(tier.price)}
+                  <span className="badge__per">{tier.per}</span>
+                </p>
+              </div>
             </header>
 
-            <p className="badge__price">
-              {naira(tier.price)}
-              {tier.qualifier ? (
-                <span className="badge__qualifier">{tier.qualifier}</span>
-              ) : null}
-            </p>
+            <p className="badge__blurb">{tier.blurb}</p>
 
             <ul className="badge__includes">
               {tier.includes.map((line) => (
-                <li key={line}>{line}</li>
+                <li key={line}>
+                  <span className="badge__tick" aria-hidden="true">
+                    ✓
+                  </span>
+                  {line}
+                </li>
               ))}
             </ul>
+
+            <a className="badge__cta" href={TICKETS}>
+              Secure ticket
+              <span className="visually-hidden"> — {tier.name}</span>
+            </a>
           </article>
         ))}
       </Lanyards>
-
-      <p className="tickets__foot">
-        Prices are in naira and include VAT. Buying for a team?{" "}
-        <a href="#faq">The FAQ covers group tickets.</a>
-      </p>
     </section>
   );
 }

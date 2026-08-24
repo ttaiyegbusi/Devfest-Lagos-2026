@@ -1,0 +1,263 @@
+/* ---------------------------------------------------------------------------
+   Ticket tiers, hung from lanyards.
+
+   TWO LAYOUTS, and the first one is the real section. By default the badges are
+   a plain grid: every price and every perk laid out and readable with no
+   JavaScript, which is what a reader with scripting off or `prefers-reduced-
+   motion` gets. `.rack.is-live` is added only once matter has loaded and the
+   section is on screen; it takes the badges out of the grid and hands their
+   position to the physics. Nothing below the fold of that switch carries any
+   information the grid did not already show.
+   --------------------------------------------------------------------------- */
+
+.tickets {
+  --panel: #fffdf5;
+  --edge: rgba(23, 23, 23, 0.12);
+  --dim: #6b665c;
+
+  padding: 96px 0 104px;
+  background: var(--cream);
+  color: var(--ink);
+}
+
+.tickets__intro {
+  width: min(var(--shell), 100% - var(--gutter) * 2);
+  margin-inline: auto;
+  text-align: center;
+}
+
+.tickets__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 1.12;
+}
+
+.tickets__lede {
+  max-width: 52ch;
+  margin: 14px auto 0;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--dim);
+}
+
+/* --- the rack ------------------------------------------------------------ */
+
+.rack {
+  position: relative;
+  width: min(var(--shell), 100% - var(--gutter) * 2);
+  /* Room above for the cords to hang from. */
+  margin: calc(86px + 64px) auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  align-items: start;
+}
+
+/* Live, the badges are placed by the engine, so the grid steps aside. Its
+   height is written by the component from what the grid measured, plus room to
+   pull into. */
+.rack.is-live {
+  display: block;
+}
+
+.rack.is-live .badge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  will-change: transform;
+}
+
+/* Once it has come to rest the compositor layer is a cost with no benefit, and
+   dropping it lets the type paint at its angle rather than be resampled. */
+.rack.is-settled .badge {
+  will-change: auto;
+}
+
+.rack__cords {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* The cords run above the rack's own box, up to the hooks. */
+  overflow: visible;
+  pointer-events: none;
+}
+
+.rack__cord {
+  fill: none;
+  stroke-width: 9;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* --- a badge ------------------------------------------------------------- */
+
+.badge {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 26px 28px;
+  background: var(--panel);
+  border: 1px solid var(--edge);
+  border-radius: 10px;
+  box-shadow: 0 18px 40px -26px rgba(23, 23, 23, 0.55);
+  /* Vertical panning belongs to the page. Only the grip below takes a finger. */
+  touch-action: pan-y;
+}
+
+.badge[data-featured] {
+  border-color: var(--cord);
+  box-shadow:
+    0 0 0 1px var(--cord),
+    0 22px 48px -24px rgba(23, 23, 23, 0.6);
+}
+
+/* The static cord: a short ribbon above each badge so the grid still reads as
+   something hung, before any physics exists. The live rack draws real ones and
+   hides this. */
+.badge::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  width: 9px;
+  height: 86px;
+  margin-left: -4.5px;
+  border-radius: 5px;
+  background: var(--cord);
+}
+
+.rack.is-live .badge::before {
+  display: none;
+}
+
+.badge__grip {
+  display: grid;
+  place-items: center;
+  height: 40px;
+  margin-inline: -26px;
+  /* The one part a finger may pull from, so it must not also pan the page. */
+  touch-action: none;
+  cursor: grab;
+}
+
+.rack.is-pulling .badge__grip {
+  cursor: grabbing;
+}
+
+.badge__punch {
+  width: 54px;
+  height: 9px;
+  border-radius: 5px;
+  background: rgba(23, 23, 23, 0.16);
+}
+
+.badge__head {
+  padding-top: 6px;
+}
+
+.badge__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 27px;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.badge__note {
+  margin: 5px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--dim);
+}
+
+.badge__price {
+  margin: 20px 0 0;
+  font-size: 34px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.badge__qualifier {
+  display: block;
+  margin-top: 6px;
+  font-size: 12.5px;
+  letter-spacing: 0;
+  line-height: 1.4;
+  color: var(--dim);
+}
+
+.badge__includes {
+  margin: 22px 0 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--edge);
+  list-style: none;
+  display: grid;
+  gap: 9px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.badge__includes li {
+  padding-left: 20px;
+  background-image: linear-gradient(var(--cord), var(--cord));
+  background-repeat: no-repeat;
+  background-size: 7px 7px;
+  background-position: 0 0.45em;
+}
+
+.tickets__foot {
+  width: min(var(--shell), 100% - var(--gutter) * 2);
+  margin: 56px auto 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--dim);
+}
+
+.tickets__foot a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --- narrower ------------------------------------------------------------ */
+
+@media (max-width: 1023px) {
+  .rack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .tickets__title {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 767px) {
+  .tickets {
+    padding: 76px 0 84px;
+  }
+
+  .rack {
+    grid-template-columns: minmax(0, 1fr);
+    /* Each badge hangs from its own cord, so every one needs the clearance —
+       hence the row gap rather than the single lead-in the wide grid uses. */
+    row-gap: calc(86px + 30px);
+    margin-top: calc(86px + 40px);
+  }
+
+  .tickets__title {
+    font-size: 31px;
+  }
+
+  .tickets__lede {
+    font-size: 16px;
+  }
+}

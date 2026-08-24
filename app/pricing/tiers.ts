@@ -1,77 +1,65 @@
-/* PLACEHOLDER PRICING — replace every price and perk before launch.
+/* The two tickets.
  *
- * The tiers are shaped to agree with what the FAQ already promises. Its answer
- * to "What does a ticket grant me access to?" is "entry to the venue for the
- * full day, all keynote and panel sessions, the product showcase floor, and the
- * after party" — so that is the floor every tier here clears, and the tiers
- * differ above it rather than below. If the real tiers withhold any of that
- * from the cheapest ticket, app/faq/questions.ts has to change with them or the
- * site contradicts itself.
+ * Content is real as of the design hand-off; only the destination is shared
+ * with the rest of the site (app/links.ts).
  *
- * `includes` is written so each line reads on its own. Nobody compares three
- * columns cell by cell on a phone; they read the one they think is theirs. */
+ * THESE TICKETS MAKE DEVFEST A TWO-DAY EVENT. "Access to one day" and "access
+ * to both days" are the whole difference between them, and nothing else on the
+ * site knows that yet: the FAQ still answers that a ticket grants "entry to the
+ * venue for the full day", and panel 01 still says "all day". Those need to be
+ * brought in line or the site contradicts its own pricing — flagged rather than
+ * quietly rewritten, because that copy is not mine to invent. */
 export type Tier = {
-  /** Printed large on the badge. */
+  /** The small pill above the name — what the ticket covers, in a few words. */
+  label: string;
   name: string;
-  /** What the badge is for, in a few words. */
-  note: string;
-  /** Naira, as an integer — formatted at the point of use. */
+  /** Naira, as an integer. Formatted at the point of use. */
   price: number;
-  /** Shown instead of a price where a tier is not simply bought. */
-  qualifier?: string;
+  /** What the price is per, set beside it. */
+  per: string;
+  /** Who the ticket is for. */
+  blurb: string;
   includes: string[];
-  /** The lanyard ribbon and the badge's accent, from the DevFest palette. */
-  cord: string;
-  ink: string;
-  /** Marks the tier the design pushes. Exactly one should carry it. */
-  featured?: boolean;
+  /** Card ground and the accent its pill and cord take. */
+  paper: string;
+  accent: string;
 };
 
 export const TIERS: Tier[] = [
   {
-    name: "Student",
-    note: "Bring your school ID to the gate",
-    price: 5000,
-    qualifier: "with a valid student ID",
+    label: "Single day",
+    name: "Standard Ticket",
+    price: 8000,
+    per: "per day",
+    blurb:
+      "Open to everyone — whether you're just starting out or deep in the industry.",
     includes: [
-      "The full day, all sessions",
-      "Product showcase floor",
-      "The after party",
+      "Access to all talks and sessions",
+      "Access to one day",
+      "Access to sponsor booths",
+      "Entry to the networking area",
     ],
-    cord: "#4285F4",
-    ink: "#1B3A73",
+    paper: "#d7f0c4",
+    accent: "#2f7d32",
   },
   {
-    name: "Community",
-    note: "The everyone ticket",
-    price: 12000,
+    label: "Two days full pass",
+    name: "Full Experience",
+    price: 16000,
+    per: "both days",
+    blurb:
+      "For those who want more access and a more focused, premium experience across both days.",
     includes: [
-      "The full day, all sessions",
-      "Product showcase floor",
-      "The after party",
-      "Lunch on the day",
-      "DevFest Lagos T-shirt",
+      "Access to all talks and sessions",
+      "Access to both days",
+      "Access to sponsor booths",
+      "Entry to the networking area",
     ],
-    cord: "#34A853",
-    ink: "#123D1F",
-    featured: true,
-  },
-  {
-    name: "Executive",
-    note: "For teams and partners",
-    price: 60000,
-    includes: [
-      "Everything in Community",
-      "Reserved seating at keynotes",
-      "Speaker lounge access",
-      "Swag box, posted ahead",
-    ],
-    cord: "#F9AB00",
-    ink: "#5C3E00",
+    paper: "#c8e7f5",
+    accent: "#1a56b8",
   },
 ];
 
-/** Naira, no decimals — these are whole-thousand prices and ".00" on a badge
+/** Naira, no decimals — these are whole-thousand prices, and ".00" on a ticket
  *  reads like a receipt rather than a price. */
-export const naira = (amount: number) =>
-  `₦${amount.toLocaleString("en-NG")}`;
+export const naira = (amount: number) => `₦${amount.toLocaleString("en-NG")}`;

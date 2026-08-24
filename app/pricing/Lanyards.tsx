@@ -196,10 +196,11 @@ export function Lanyards({ children }: { children: ReactNode }) {
       const line = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
       line.setAttribute("class", "rack__cord");
       // The same custom property the static ribbon uses, so the cord does not
-      // change colour the moment the physics takes over.
+      // change colour the moment the physics takes over. Read from the card
+      // rather than named here, so a tier's colour lives only in tiers.ts.
       line.setAttribute(
         "stroke",
-        getComputedStyle(slot.el).getPropertyValue("--accent").trim() || "#171717",
+        getComputedStyle(slot.el).getPropertyValue("--cord").trim() || "#171717",
       );
       cords.append(line);
     }

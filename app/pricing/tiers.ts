@@ -10,25 +10,28 @@
  * brought in line or the site contradicts its own pricing — flagged rather than
  * quietly rewritten, because that copy is not mine to invent. */
 export type Tier = {
-  /** The small pill above the name — what the ticket covers, in a few words. */
-  label: string;
   name: string;
+  /** What the ticket covers, in a few words, set under the name. */
+  note: string;
   /** Naira, as an integer. Formatted at the point of use. */
   price: number;
-  /** What the price is per, set beside it. */
+  /** What the price is per, set under it. */
   per: string;
   /** Who the ticket is for. */
   blurb: string;
   includes: string[];
-  /** Card ground and the accent its pill and cord take. */
-  paper: string;
-  accent: string;
+  /** The lanyard ribbon and the bullets — the bright half of the pair. */
+  cord: string;
+  /** The name and the price — the same hue taken dark enough to read as text. */
+  ink: string;
+  /** Marks the ticket the section pushes. Exactly one should carry it. */
+  featured?: boolean;
 };
 
 export const TIERS: Tier[] = [
   {
-    label: "Single day",
     name: "Standard Ticket",
+    note: "Single day",
     price: 8000,
     per: "per day",
     blurb:
@@ -39,12 +42,12 @@ export const TIERS: Tier[] = [
       "Access to sponsor booths",
       "Entry to the networking area",
     ],
-    paper: "#d7f0c4",
-    accent: "#2f7d32",
+    cord: "#34A853",
+    ink: "#123D1F",
   },
   {
-    label: "Two days full pass",
     name: "Full Experience",
+    note: "Two days full pass",
     price: 16000,
     per: "both days",
     blurb:
@@ -55,8 +58,9 @@ export const TIERS: Tier[] = [
       "Access to sponsor booths",
       "Entry to the networking area",
     ],
-    paper: "#c8e7f5",
-    accent: "#1a56b8",
+    cord: "#4285F4",
+    ink: "#1B3A73",
+    featured: true,
   },
 ];
 

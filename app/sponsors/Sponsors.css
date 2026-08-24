@@ -1,128 +1,147 @@
 /* ---------------------------------------------------------------------------
-   Sponsors. Three tiers, and the tier decides the size — which is the whole
-   information the section carries beyond the names themselves, so it is the one
-   thing the layout encodes.
+   Sponsors — one band, travelling, that never ends.
+
+   Two identical runs sit side by side and the track moves exactly one run's
+   width before repeating, so the copy arrives where the original started and
+   there is no seam to see. Same trick as the after-party photographs.
    --------------------------------------------------------------------------- */
 
 .sponsors {
   --dim: #8f8a80;
-  --rule: rgba(255, 255, 255, 0.12);
+  /* Seconds each name takes to cross. The lap is derived from it and the count,
+     so adding a sponsor makes the lap longer rather than the band faster. */
+  --pace: 3.4s;
 
   padding: 90px 0 96px;
   background: #1b1616;
   color: #fff;
 }
 
-.sponsors__intro,
-.sponsors__tier {
+.sponsors__intro {
   width: min(var(--shell), 100% - var(--gutter) * 2);
   margin-inline: auto;
+  text-align: center;
 }
 
 .sponsors__title {
-  margin: 0 0 48px;
+  margin: 0 0 54px;
   font-family: var(--font-display);
   font-size: 40px;
   font-weight: 400;
   line-height: 1.12;
-  text-align: center;
 }
 
-.sponsors__tier + .sponsors__tier {
-  margin-top: 46px;
-  padding-top: 42px;
-  border-top: 1px solid var(--rule);
+/* Full bleed: the band runs off both edges of the screen, which is what says it
+   carries on rather than stopping just out of sight. The mask softens both ends
+   so names arrive and leave instead of being cut. */
+.sponsors__band {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
 }
 
-.sponsors__heading {
-  margin: 0 0 22px;
-  font-size: 11.5px;
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  text-align: center;
-  color: var(--dim);
-}
-
-.sponsors__row {
+.sponsors__track {
   display: flex;
-  flex-wrap: wrap;
+  width: max-content;
+  animation: sponsors-travel calc(var(--marks) * var(--pace)) linear infinite;
+  will-change: transform;
+}
+
+.sponsors__band:hover .sponsors__track {
+  animation-play-state: paused;
+}
+
+/* Exactly one run. The track holds two, so half of it is one run's width
+   whatever the names turn out to measure — no length has to be guessed. */
+@keyframes sponsors-travel {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.sponsors__run {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 26px 54px;
+  gap: 76px;
+  /* Half the gap either side, so the join between the two runs is spaced the
+     same as every other gap and the repeat cannot be spotted. */
   margin: 0;
-  padding: 0;
+  padding: 0 38px;
   list-style: none;
 }
 
-.sponsors__link {
-  display: block;
-  transition: opacity 160ms ease;
+.sponsors__item {
+  flex: none;
 }
 
-.sponsors__link:hover {
-  opacity: 0.72;
-}
-
-/* A name set as type until its file arrives. The display face keeps it looking
-   like a credit rather than a gap where a logo should be. */
 .sponsors__wordmark {
   display: block;
   font-family: var(--font-display);
+  font-size: 38px;
   line-height: 1.1;
+  white-space: nowrap;
   color: #efe9e2;
 }
 
 .sponsors__logo {
   display: block;
   width: auto;
+  height: 40px;
   object-fit: contain;
-}
-
-/* The tier IS the size. */
-[data-scale="lead"] .sponsors__wordmark {
-  font-size: 42px;
-}
-[data-scale="lead"] .sponsors__logo {
-  height: 46px;
-}
-
-[data-scale="major"] .sponsors__wordmark {
-  font-size: 29px;
-}
-[data-scale="major"] .sponsors__logo {
-  height: 34px;
-}
-
-[data-scale="supporting"] .sponsors__wordmark {
-  font-size: 20px;
-  color: #cfc7bd;
-}
-[data-scale="supporting"] .sponsors__logo {
-  height: 24px;
 }
 
 @media (max-width: 767px) {
   .sponsors {
     padding: 72px 0 78px;
+    --pace: 2.8s;
   }
 
   .sponsors__title {
     font-size: 30px;
-    margin-bottom: 38px;
+    margin-bottom: 40px;
   }
 
-  .sponsors__row {
-    gap: 20px 32px;
+  .sponsors__run {
+    gap: 48px;
+    padding-inline: 24px;
   }
 
-  [data-scale="lead"] .sponsors__wordmark {
-    font-size: 30px;
+  .sponsors__wordmark {
+    font-size: 28px;
   }
-  [data-scale="major"] .sponsors__wordmark {
-    font-size: 22px;
+
+  .sponsors__logo {
+    height: 30px;
   }
-  [data-scale="supporting"] .sponsors__wordmark {
-    font-size: 17px;
+}
+
+/* Handed over rather than frozen. `animation: none` would stop the band with
+   most of the names off screen and no way to reach them — the same mistake the
+   after-party photographs made. This makes it a scroller instead, so every
+   sponsor is still reachable, and the duplicate run is dropped so the list is
+   not read twice. */
+@media (prefers-reduced-motion: reduce) {
+  .sponsors__band {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: var(--gutter);
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .sponsors__track {
+    animation: none;
+    width: auto;
+  }
+
+  .sponsors__run + .sponsors__run {
+    display: none;
+  }
+
+  .sponsors__item {
+    scroll-snap-align: center;
   }
 }

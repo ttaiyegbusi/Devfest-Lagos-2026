@@ -96,9 +96,20 @@
   height: 100%;
 }
 
-/* Cloud drift. Each parallax band carries a duplicate of itself one artwork
-   width to the left, so translating the band by exactly one artwork width
-   lands the copy where the original started and the loop has no seam. */
+/* Cloud drift. Each band carries several copies of itself at whole multiples of
+   the artwork width, so translating it by exactly one width lands a copy where
+   the last one started and the loop has no seam.
+
+   How many copies is not a guess — app/hero/generate-scene.py derives it from
+   the shapes' own horizontal extent and emits them. Two used to be assumed,
+   which is only enough while every cloud sits inside the frame; two of these do
+   not, so at the wrap a cloud with no partner on its far side blinked out of
+   existence. See the note beside copy_offsets() there.
+
+   The opacity is one level up, on .hero-scene__sky, and the reason is in the
+   generator too: these bands travel at different speeds and slide over each
+   other, and two half-transparent whites stacked make a third, brighter tone
+   that is nowhere in the artwork. */
 .hero-scene__clouds {
   animation-name: hero-cloud-drift;
   animation-timing-function: linear;

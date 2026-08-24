@@ -30,7 +30,18 @@
 
 .speakers {
   --card-w: 312px;
-  --card-h: 294px;
+  /* Screen plus caption strip. The card grows by --cap rather than the screen
+     shrinking into it, so the artwork keeps the proportion the wall was solved
+     against — and --card-h is then set so that card-h / card-w lands on 1.13 at
+     every breakpoint, because the wall is meant to be one shape at every size
+     and only change scale. Sizing --cap first instead left that ratio spread
+     across 1.12 to 1.15, which is a differently-shaped card on a phone.
+
+     Neither rule scripts/carousel.py enforces reads --card-h: the radius comes
+     from the step and the angle, the near-edge scale from the width. The ratio
+     it reports is the one that matters here. */
+  --card-h: 353px;
+  --cap: 59px;
   --step: 353px;
   --arc-r: 1112px;
   --persp: 1589px;
@@ -211,7 +222,7 @@
 .card__view {
   position: relative;
   display: block;
-  height: calc(100% - 40px);
+  height: calc(100% - 40px - var(--cap));
   overflow: hidden;
   border-radius: 3px;
   background: #000;
@@ -242,6 +253,44 @@
   letter-spacing: -0.6px;
   text-align: center;
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+}
+
+/* The caption sits inside .card, so it dims with the card: an off-centre
+   screen and its label are one unlit unit rather than a dark screen with a lit
+   name under it.
+
+   One line each, and it is a flex column of a fixed height so a long name
+   cannot push the role out of the card. At these sizes a name has room for
+   roughly 35 characters before the ellipsis is reached, which real names very
+   rarely need — but truncating beats spilling over the edge. */
+.card__caption {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  height: var(--cap);
+  padding-top: 2px;
+}
+
+.card__name,
+.card__role {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.card__name {
+  font-size: 15px;
+  line-height: 1.3;
+  letter-spacing: -0.2px;
+  color: #fff;
+}
+
+.card__role {
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--ink-dim);
 }
 
 /* --- controls ------------------------------------------------------------ */
@@ -306,7 +355,8 @@
 @media (max-width: 1023px) {
   .speakers {
     --card-w: 262px;
-    --card-h: 248px;
+    --card-h: 296px;
+    --cap: 48px;
     --step: 296px;
     --arc-r: 933px;
     --persp: 1333px;
@@ -324,16 +374,37 @@
   .card__org {
     font-size: 26px;
   }
+
+  .card__name {
+    font-size: 14px;
+  }
+
+  .card__role {
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 767px) {
   .speakers {
     --card-w: 208px;
-    --card-h: 196px;
+    --card-h: 235px;
+    --cap: 39px;
     --step: 235px;
     --arc-r: 741px;
     --persp: 1059px;
     padding-block: 64px 72px;
+  }
+
+  .card__name {
+    font-size: 13px;
+  }
+
+  .card__role {
+    font-size: 11px;
+  }
+
+  .card__caption {
+    gap: 2px;
   }
 
   .speakers__title {

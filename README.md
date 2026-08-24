@@ -18,10 +18,10 @@ outstanding, which would leave the job unable to fail. The repo is at zero
 warnings and the flag is what keeps it there — so a local run and a CI run
 agree on what "lint passes" means.
 
-Environment: `NEXT_PUBLIC_SITE_URL` for absolute share-card URLs,
-`SUBSCRIBE_ENDPOINT` (and optionally `SUBSCRIBE_TOKEN`) to make the footer
-sign-up live. Everything works without them; the share tags point at localhost
-and the sign-up says it is not connected.
+Environment: see `.env.example`. Nothing has to be set — on Vercel the share
+tags find the host themselves, and the sign-up is deliberately not connected
+(it says so rather than pretending). Set `NEXT_PUBLIC_SITE_URL` once there is a
+custom domain, and `SUBSCRIBE_ENDPOINT` when there is a list to post to.
 
 Next.js 16 (App Router) · TypeScript · plain CSS · oxlint.
 
@@ -122,9 +122,18 @@ picked up by filename from `app/` — `icon.svg`, `apple-icon.png`,
 in `metadata`. The icon is the official mark on the brand ink; the share card is
 rendered from the real fonts, palette and illustration at 1200 × 630.
 
-**Set `NEXT_PUBLIC_SITE_URL` at build time.** Share cards need absolute URLs and
-only the deployment knows the host. Without it the tags still render, pointing
-at `localhost` — fine locally, wrong in production.
+**The absolute URL resolves itself.** Share cards need absolute URLs, and only
+the deployment knows the host, so `app/layout.tsx` asks three sources in turn:
+`NEXT_PUBLIC_SITE_URL`, then Vercel's own `VERCEL_PROJECT_PRODUCTION_URL` (or
+`VERCEL_URL` on a deployment with no production domain yet), then `localhost`.
+Neither Vercel variable needs the `NEXT_PUBLIC_` prefix — `metadata` is only
+ever evaluated on the server.
+
+So a Vercel deployment gets the right card with nothing configured, and a card
+shared out of a preview still points at the live site rather than at that
+preview. Set `NEXT_PUBLIC_SITE_URL` when a custom domain exists: a real domain
+is worth more in a shared link than a generated one. Verified by building under
+each case and reading the emitted `og:image`.
 
 ## Placeholder content
 

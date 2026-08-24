@@ -7,10 +7,30 @@ const description =
   "Join the largest annual tech conference in Africa, hosted by Google Developer Group Lagos (GDG Lagos).";
 
 /* Share cards need absolute URLs, and only the deployment knows what the host
-   is. Set NEXT_PUBLIC_SITE_URL at build time; without it the tags still render,
-   they just point at localhost, which is fine in development and wrong in
-   production. */
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+   is. Three sources, most specific first:
+
+   NEXT_PUBLIC_SITE_URL is the override, and the only one to set once there is
+   a custom domain — a real domain is worth more in a shared link than a
+   generated one, and nothing else here can know it.
+
+   Failing that, Vercel says so itself. VERCEL_PROJECT_PRODUCTION_URL is the
+   project's production host and is set on every deployment, previews included
+   — which is what we want, because a card shared out of a preview should still
+   point at the live site. VERCEL_URL, the per-deployment host, stands in on
+   the rare deployment that has no production domain yet. Neither carries a
+   scheme. Neither needs the NEXT_PUBLIC_ prefix either: `metadata` is only
+   ever evaluated on the server, so these are read at build time and never
+   reach the browser.
+
+   Only then localhost, which is right in development and wrong anywhere else:
+   a link posted to Slack or WhatsApp with a localhost image renders no
+   preview at all. */
+const vercelHost =
+  process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (vercelHost ? `https://${vercelHost}` : "http://localhost:3000");
 
 /* The icon, the apple touch icon and the share image are picked up by filename
    from this directory — app/icon.svg, app/apple-icon.png, app/opengraph-image.png

@@ -582,9 +582,16 @@ and drops the address is worse than one that admits it is not live, because
 they believe it, do not sign up again, and nobody finds out until the list turns
 out to be empty.
 
-Set `SUBSCRIBE_ENDPOINT`, plus `SUBSCRIBE_TOKEN` if the provider wants an
-Authorization header, and it is live; the only thing that might need editing is
-the body shape it forwards. Verified against a stub provider: the address
+It is unconnected **by decision, not by omission** — asked directly, the answer
+was to leave it that way until there is a list to post to. Treat the 503 as the
+intended state, not a bug to fix.
+
+To connect it: set `SUBSCRIBE_ENDPOINT`, plus `SUBSCRIBE_TOKEN` if the provider
+wants an Authorization header. The route sends `{"email":"…"}` as JSON, which
+suits a Buttondown-shaped API as-is; Mailchimp wants `status` and `merge_fields`
+alongside it, and a Google Form wants form-encoded `entry.NNN` fields rather
+than JSON — in either of those the body shape it forwards is the one thing to
+edit. Verified against a stub provider: the address
 arrives as `{"email":"…"}` with `Bearer …`, the route answers 200, and the
 footer prints the success line and clears the field. Verified without it: 503
 and an honest message. Bad JSON gets 400, so does anything that is not an

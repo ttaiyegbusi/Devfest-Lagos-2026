@@ -25,6 +25,17 @@ dist-ssr
 next-env.d.ts
 *.tsbuildinfo
 
+# `next dev` writes these on every run — rules files for AI agents, generated
+# from next.config rather than authored. Regenerated on demand, so they are not
+# the repository's to carry. `agentRules: false` in next.config turns them off
+# entirely if they are ever unwanted locally too.
+AGENTS.md
+CLAUDE.md
+
+# Bytecode from app/hero/generate-scene.py.
+__pycache__/
+*.pyc
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

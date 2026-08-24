@@ -18,7 +18,7 @@ export const PANEL_NAME = "Ask DevFest";
  *  knows the schedule or who is speaking. */
 export const GREETING = {
   heading: "Ask about DevFest.",
-  note: "Answers come from the event FAQ — tickets, access, and what the day covers.",
+  note: "Answers come from the event FAQ — tickets, access, and what the two days cover.",
 };
 
 export const STARTERS = [

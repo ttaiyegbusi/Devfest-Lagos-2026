@@ -572,6 +572,7 @@
    fill-box origins because these are SVG children: without them a scale or a
    rotate would pivot about the canvas corner instead of the sun's centre. */
 .hero-theme__bite,
+.hero-theme__core,
 .hero-theme__rays {
   transform-box: fill-box;
   transform-origin: center;
@@ -587,6 +588,15 @@
    rather than a sun with a chip out of it. */
 :root[data-hero-theme="dark"] .hero-theme__bite {
   translate: -7.9px 3.9px;
+}
+
+/* The sun is a 17px mark once its rays are counted; the crescent left behind
+   is 8px of disc and about 2px of it is actually lit. Left alone the moon
+   reads as a fainter, smaller icon than the sun rather than its equal, so it
+   grows into the space the rays gave up. The mask travels with the element,
+   so the crescent scales with the disc and its shape is unchanged. */
+:root[data-hero-theme="dark"] .hero-theme__core {
+  scale: 1.55;
 }
 
 :root[data-hero-theme="dark"] .hero-theme__rays {

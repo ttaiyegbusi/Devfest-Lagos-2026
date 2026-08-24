@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "oxlint --deny-warnings"
+    "lint": "oxlint --deny-warnings",
+    "check:starters": "node scripts/starters.mjs"
   },
   "dependencies": {
     "matter-js": "^0.20.0",

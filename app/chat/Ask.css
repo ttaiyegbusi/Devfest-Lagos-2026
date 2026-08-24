@@ -1,0 +1,304 @@
+/* ---------------------------------------------------------------------------
+   The hero's ask panel. AskPanel.tsx carries the reasoning; the short version
+   is that it is a column against the right edge on a wide screen and a sheet
+   over the whole screen below 900, and that it is portalled to <body> so
+   `position: fixed` means the viewport and not the hero's own slab.
+   --------------------------------------------------------------------------- */
+
+.ask {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  /* Shut, it takes no clicks and no tab stops, but it stays in the layout so
+     it can be animated out. `visibility` is what actually removes it from the
+     tab order and from a screen reader. */
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s linear 360ms;
+}
+
+.ask[data-open] {
+  visibility: visible;
+  transition: visibility 0s;
+}
+
+/* Only ever seen on the phone, where the panel covers the page. Beside the
+   page there is nothing to dim, so it stays transparent and untouchable. */
+.ask__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 12, 12, 0.44);
+  opacity: 0;
+  transition: opacity 320ms ease;
+}
+
+.ask__panel {
+  position: absolute;
+  inset: 0 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: min(420px, 100vw);
+  background: #faf7ef;
+  color: var(--ink);
+  pointer-events: auto;
+  box-shadow: -1px 0 0 rgba(23, 23, 23, 0.1), -28px 0 60px -30px rgba(23, 23, 23, 0.45);
+  /* Slides in from the edge it is attached to. Expo-out, the same curve the
+     nav sheet arrives on, so the two surfaces of this site move alike. */
+  translate: 100% 0;
+  transition: translate 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ask[data-open] .ask__panel {
+  translate: none;
+}
+
+/* --- header -------------------------------------------------------------- */
+
+.ask__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 14px 14px 20px;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.1);
+}
+
+.ask__name {
+  margin: 0;
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6d6a62;
+}
+
+.ask__tools {
+  display: flex;
+  gap: 2px;
+}
+
+.ask__tool {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: #55524b;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease;
+}
+
+.ask__tool:hover:not(:disabled) {
+  background: rgba(23, 23, 23, 0.06);
+  color: var(--ink);
+}
+
+.ask__tool:disabled {
+  opacity: 0.32;
+  cursor: default;
+}
+
+/* --- the column ---------------------------------------------------------- */
+
+/* Everything sits at the BOTTOM of this column and grows upward, so the
+   greeting starts just above the field and the newest answer is always the one
+   next to it. `justify-content: flex-end` on a scroller keeps that true whether
+   there is one line in it or thirty. */
+.ask__log {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 26px;
+  overflow-y: auto;
+  padding: 24px 20px 8px;
+  overscroll-behavior: contain;
+}
+
+.ask__greeting {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ask__heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.ask__note {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #6d6a62;
+  max-width: 34ch;
+}
+
+.ask__starters {
+  width: 100%;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ask__starter {
+  display: block;
+  width: 100%;
+  padding: 9px 0;
+  border: 0;
+  background: transparent;
+  color: #46433d;
+  font: inherit;
+  font-size: 13.5px;
+  line-height: 1.45;
+  text-align: left;
+  cursor: pointer;
+  transition: color 140ms ease;
+}
+
+.ask__starter span {
+  margin-right: 6px;
+  color: #a09b90;
+}
+
+.ask__starter:hover {
+  color: var(--ink);
+}
+
+/* --- questions and answers ----------------------------------------------- */
+
+.ask__turn {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ask__question {
+  align-self: flex-end;
+  max-width: 88%;
+  margin: 0;
+  padding: 9px 14px;
+  border-radius: 14px 14px 3px 14px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.ask__answer {
+  padding-left: 12px;
+  border-left: 2px solid var(--amber);
+}
+
+.ask__answer + .ask__answer {
+  margin-top: 14px;
+}
+
+.ask__answer-q {
+  margin: 0 0 5px;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #8a857a;
+}
+
+.ask__answer-a {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.ask__none {
+  margin: 0;
+  padding-left: 12px;
+  border-left: 2px solid #d8d3c6;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #6d6a62;
+}
+
+/* --- the field ----------------------------------------------------------- */
+
+.ask__form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 20px calc(20px + env(safe-area-inset-bottom, 0px));
+  padding: 0 6px 0 14px;
+  border: 1px solid rgba(23, 23, 23, 0.16);
+  border-radius: 6px;
+  background: #fff;
+  transition: border-color 140ms ease;
+}
+
+.ask__form:focus-within {
+  border-color: rgba(23, 23, 23, 0.42);
+}
+
+.ask__input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.ask__input::placeholder {
+  color: #a09b90;
+  opacity: 1;
+}
+
+.ask__send {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #6d6a62;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease;
+}
+
+.ask__send:hover {
+  background: rgba(23, 23, 23, 0.06);
+  color: var(--ink);
+}
+
+/* --- the phone ----------------------------------------------------------- */
+
+/* The whole screen, and modal with it: the page behind stops scrolling and Tab
+   cannot leave, so the panel has to be closed before the page can be used
+   again. Above this width it is a column beside a page that still works. */
+@media (max-width: 899px) {
+  .ask__panel {
+    width: 100vw;
+    box-shadow: none;
+  }
+
+  .ask[data-open] .ask__scrim {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ask,
+  .ask__panel,
+  .ask__scrim,
+  .ask[data-open] .ask__panel {
+    transition-duration: 1ms;
+    transition-delay: 0s;
+  }
+}

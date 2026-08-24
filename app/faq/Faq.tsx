@@ -3,18 +3,11 @@
 import { useId, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FAQS, GROUPS } from "./questions";
+/* The same matcher the hero's ask panel uses. Two copies would drift the first
+   time either was tuned, and "the FAQ found it but the panel did not" is a bug
+   nobody would think to look for. */
+import { matches } from "./search";
 import "./Faq.css";
-
-/** Every word of the query has to appear somewhere in the entry. Naive, and
- *  right for seven questions: no index, no ranking, no stemming to get wrong. */
-function matches(haystack: string, query: string) {
-  const hay = haystack.toLowerCase();
-  return query
-    .toLowerCase()
-    .split(/\s+/)
-    .filter(Boolean)
-    .every((word) => hay.includes(word));
-}
 
 export function Faq() {
   const [group, setGroup] = useState<string>("All");

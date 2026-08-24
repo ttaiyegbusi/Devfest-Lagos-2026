@@ -12,6 +12,13 @@ dist
 dist-ssr
 *.local
 
+# Environment. `*.local` above already covers .env.local, but not .env or
+# .env.production — and SUBSCRIBE_TOKEN is a credential. The example file is
+# the one that is meant to be committed: it carries names, never values.
+.env
+.env.*
+!.env.example
+
 # Next.js
 .next
 /out

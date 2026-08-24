@@ -360,6 +360,14 @@
 
 .pit {
   position: relative;
+  /* The pills fall in from well above the box, and on a stacked layout what is
+     directly above the box is the panel's own copy — so an unclipped pit rains
+     labels across the prose for the length of the drop. The box is the box:
+     a pill is drawn once it is inside it and not before. This is a floor under
+     the problem rather than the fix for it — the drop itself is what was made
+     short, in PillPit.tsx — but it is what makes the spill impossible rather
+     than merely brief. */
+  overflow: hidden;
   /* Replaced with the measured heap height once the engine has the pills.
      This is only what stands in before that, and under reduced motion. */
   height: min(460px, 56vh);

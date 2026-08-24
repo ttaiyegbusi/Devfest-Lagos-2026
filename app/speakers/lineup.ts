@@ -1,13 +1,19 @@
 // PLACEHOLDER LINEUP — swap for the confirmed speakers before launch.
 //
-// Each card shows the speaker's organisation over its artwork, the way the
-// reference does. Drop a file in public/speakers/ and set `image` to use a real
-// photo or key art; without one the card falls back to a tinted placeholder so
-// the section is never blank while the lineup is being finalised.
+// Each card shows the organisation over its artwork, the way the reference
+// does, with the speaker and their role set underneath it. Drop a file in
+// public/speakers/ and set `image` to use a real photo or key art; without one
+// the card falls back to a tinted placeholder so the section is never blank
+// while the lineup is being finalised.
+//
+// Name and role are each set on one line and ellipsised past it. There is room
+// for roughly 35 characters on a wide screen and 22 on a phone, so a long name
+// will be cut there rather than on a desktop — worth checking a real lineup at
+// 390px before launch.
 export type Speaker = {
-  /** Shown across the card. */
+  /** Set large across the card's artwork. */
   org: string;
-  /** Carried for the announcement text and for when cards gain captions. */
+  /** The caption under the artwork, and the card's accessible name. */
   speaker: string;
   role: string;
   /** e.g. "/speakers/ada.webp". */

@@ -8,10 +8,73 @@
    --------------------------------------------------------------------------- */
 
 .hero {
+  /* Every colour in this section is named here and nowhere else, so the dark
+     hero is one block of overrides rather than a second copy of the file.
+     Two things are worth spelling out about the dark set.
+
+     The solid blocks invert rather than darken. In daylight the nav bar, the
+     buy block and the ask square are ink on cream, and the ticket chip is the
+     inverse of the bar it sits in. At night a near-black bar on a night sky is
+     a bar you cannot find, so the roles simply swap: the blocks take the
+     cream, their labels take the ink, and the chip stays the inverse of its
+     bar. The design's language — solid blocks, no borders — is untouched.
+
+     And the type does not go pure white. #f7f3e4 is the cream itself, which
+     keeps the hero warm at night instead of turning it clinical, and lands at
+     14.8:1 on the sky. */
+  --hero-sky: var(--cream);
+  --hero-type: var(--ink);
+  --hero-block: var(--ink);
+  --hero-on-block: #fff;
+  --hero-chip: #fff;
+  --hero-on-chip: var(--ink);
+  --hero-quiet: #8c8c8c;
+  --hero-accent: var(--amber);
+
   position: relative;
   min-height: 100svh;
   overflow: hidden;
-  background: var(--cream);
+  background: var(--hero-sky);
+  transition: background-color 420ms ease;
+}
+
+:root[data-hero-theme="dark"] .hero {
+  --hero-sky: #0e1526;
+  --hero-type: #f7f3e4;
+  --hero-block: #f7f3e4;
+  --hero-on-block: #10151f;
+  --hero-chip: #10151f;
+  --hero-on-chip: #f7f3e4;
+  /* On cream, not on ink: #8c8c8c is a whisper on a light block. */
+  --hero-quiet: #6b675c;
+  --hero-accent: #ffc02e;
+}
+
+/* The wash over the artwork. Above the scene, below the copy, and inert — the
+   nav and the headline are never dimmed by it. A three-stop gradient rather
+   than a flat fill so the sky is deepest overhead and lifts towards the
+   horizon; a flat one reads as a filter switched on, not as evening.
+
+   It fades on opacity because a gradient cannot be interpolated to
+   `transparent` — there is no such thing as half a background-image — so the
+   night is always painted here and simply not shown. */
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 10, 22, 0.88) 0%,
+    rgba(9, 14, 30, 0.7) 42%,
+    rgba(12, 18, 38, 0.78) 100%
+  );
+  opacity: 0;
+  transition: opacity 420ms ease;
+}
+
+:root[data-hero-theme="dark"] .hero__veil {
+  opacity: 1;
 }
 
 /* --- artwork ------------------------------------------------------------- */
@@ -313,12 +376,20 @@
 .hero-nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* Was space-between, which worked while the bar held exactly two things.
+     The light switch is a third, and space-between would have parked it in the
+     dead centre of the bar; pushing it right with an auto margin instead keeps
+     the brand and the menu exactly where they were. */
+  justify-content: flex-start;
+  gap: 14px;
   height: 70px;
   margin-top: 30px;
   padding-inline: 20px;
-  background: var(--ink);
-  color: #fff;
+  background: var(--hero-block);
+  color: var(--hero-on-block);
+  transition:
+    background-color 420ms ease,
+    color 420ms ease;
 }
 
 .hero-nav__brand {
@@ -366,13 +437,16 @@
   padding: 0;
   border: 0;
   border-radius: 0;
-  background: #fff;
-  color: var(--ink);
+  background: var(--hero-chip);
+  color: var(--hero-on-chip);
   font-family: inherit;
   font-size: 14px;
   line-height: 1;
   cursor: pointer;
-  transition: opacity 150ms ease;
+  transition:
+    opacity 150ms ease,
+    background-color 420ms ease,
+    color 420ms ease;
 }
 
 .hero-nav__ticket:hover {
@@ -458,6 +532,79 @@
   rotate: -45deg;
 }
 
+/* --- the light switch ---------------------------------------------------- */
+
+.hero-theme {
+  /* Pushed to the right-hand end of the bar; everything after it follows. */
+  margin-left: auto;
+  /* A flex item shrinks by default, and on a 320px screen this one was being
+     squeezed to 35px — under the 44px a finger needs. It is a fixed control;
+     it does not give. */
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  /* Whatever the bar is currently using for its labels — so the icon inverts
+     with the bar rather than needing a colour of its own. */
+  color: inherit;
+  cursor: pointer;
+  transition: opacity 150ms ease;
+}
+
+.hero-theme:hover {
+  opacity: 0.7;
+}
+
+.hero-theme__icon {
+  display: block;
+  overflow: visible;
+}
+
+/* The eclipse. The bite starts parked off the right of the canvas, where it
+   masks nothing, and slides onto the sun; the rays fold into it as it arrives.
+   Both halves are timed on the same curve — fast away, long settle — so the
+   sun does not snap out before the moon has finished arriving.
+
+   fill-box origins because these are SVG children: without them a scale or a
+   rotate would pivot about the canvas corner instead of the sun's centre. */
+.hero-theme__bite,
+.hero-theme__rays {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    translate 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    rotate 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    scale 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 260ms ease;
+}
+
+/* Lands 4.6 units from the sun's centre: far enough that a crescent 2.6 units
+   thick survives the 7-unit bite, close enough that it still reads as a moon
+   rather than a sun with a chip out of it. */
+:root[data-hero-theme="dark"] .hero-theme__bite {
+  translate: -7.9px 3.9px;
+}
+
+:root[data-hero-theme="dark"] .hero-theme__rays {
+  scale: 0.35;
+  rotate: -40deg;
+  opacity: 0;
+}
+
+/* The eclipse is the whole point of the icon, so under reduced motion it does
+   not play — it arrives. Non-zero, because a 0s transition on `translate`
+   would still be fine here but the rays' opacity reads better with a beat. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-theme__bite,
+  .hero-theme__rays {
+    transition-duration: 1ms;
+  }
+}
+
 /* --- copy ---------------------------------------------------------------- */
 
 /* 150px of clear air between the nav and the headline line box. The band is
@@ -474,7 +621,8 @@
   font-weight: 400;
   line-height: 80px;
   letter-spacing: -2.85px;
-  color: var(--ink);
+  color: var(--hero-type);
+  transition: color 420ms ease;
 }
 
 /* Keeps the swapping word and its comma on one line — see Hero.tsx. The comma
@@ -490,7 +638,8 @@
   position: relative;
   display: inline-block;
   white-space: nowrap;
-  color: var(--amber);
+  color: var(--hero-accent);
+  transition: color 420ms ease;
 }
 
 .hero__rotator-strut {
@@ -533,7 +682,8 @@
   font-size: 24px;
   font-weight: 400;
   line-height: 30px;
-  color: var(--ink);
+  color: var(--hero-type);
+  transition: color 420ms ease;
 }
 
 /* The pair of actions. The buy block keeps the width and height the search
@@ -551,11 +701,14 @@
   place-items: center;
   width: 347px;
   height: 60px;
-  background: var(--ink);
-  color: #fff;
+  background: var(--hero-block);
+  color: var(--hero-on-block);
   font-size: 16px;
   line-height: 1;
-  transition: opacity 150ms ease;
+  transition:
+    opacity 150ms ease,
+    background-color 420ms ease,
+    color 420ms ease;
 }
 
 .hero__buy:hover {
@@ -569,10 +722,13 @@
   height: 60px;
   padding: 0;
   border: 0;
-  background: var(--ink);
-  color: #fff;
+  background: var(--hero-block);
+  color: var(--hero-on-block);
   cursor: pointer;
-  transition: opacity 150ms ease;
+  transition:
+    opacity 150ms ease,
+    background-color 420ms ease,
+    color 420ms ease;
 }
 
 .hero__ask-open:hover {
@@ -622,15 +778,34 @@
      when the menu opens — it becomes the top of it. Both are ink on ink, so
      the seam between bar and sheet never shows. */
   .hero-nav__brand,
+  .hero-theme,
   .hero-nav__toggle {
     position: relative;
     z-index: 5;
   }
 
-  .hero-nav__toggle {
-    display: block;
+  .hero-theme {
     width: 44px;
     height: 44px;
+  }
+
+  .hero-nav__toggle {
+    display: block;
+    flex: none;
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Two 44px controls, the wordmark and the bar's own padding do not all fit
+     across a 320px screen — the hamburger was the one that gave, squeezing to
+     25px. Nothing here shrinks a target; the bar gives back its spacing
+     instead. Above 374px there is room for the roomier version, so this is the
+     only place it tightens. */
+  @media (max-width: 374px) {
+    .hero-nav {
+      gap: 6px;
+      padding-inline: 12px;
+    }
   }
 
   /* A sheet over the whole viewport rather than a panel hanging off the bar,
@@ -657,12 +832,13 @@
        indicator on a notched phone. */
     padding: 0 calc(var(--gutter) + 20px)
       calc(56px + env(safe-area-inset-bottom, 0px));
-    background: var(--ink);
+    background: var(--hero-block);
     opacity: 0;
     visibility: hidden;
     transition:
       opacity 240ms ease 120ms,
-      visibility 0s linear 400ms;
+      visibility 0s linear 400ms,
+      background-color 420ms ease;
   }
 
   .hero-nav__menu[data-open] {
@@ -670,7 +846,8 @@
     visibility: visible;
     transition:
       opacity 200ms ease,
-      visibility 0s;
+      visibility 0s,
+      background-color 420ms ease;
   }
 
   /* Stretch rather than flex-start: an inline-block link is only as wide as
@@ -709,7 +886,7 @@
 
   /* Set as text, not as a link to nowhere — so it is stated quietly. */
   .hero-nav__pending {
-    color: #8c8c8c;
+    color: var(--hero-quiet);
   }
 
   .hero-nav__ticket {

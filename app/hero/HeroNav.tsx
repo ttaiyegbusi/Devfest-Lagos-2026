@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { DevFestLogo } from "./DevFestLogo";
+import { HeroTheme } from "./HeroTheme";
 import { TICKETS } from "../links";
 
 /* `href` is deliberately optional. These used to point at anchors — #about,
@@ -89,6 +90,14 @@ export function HeroNav() {
       <a className="hero-nav__brand" href="/">
         <DevFestLogo className="hero-nav__logo" />
       </a>
+
+      {/* Outside the menu on purpose. Below 900px the menu becomes a sheet
+          over the whole viewport, so anything inside it is unreachable until
+          the hamburger has been pressed — and the light switch has to be in
+          the bar at every width, next to the hamburger rather than behind it.
+          It rides above the sheet with the logo, so the hero can be switched
+          with the menu open. */}
+      <HeroTheme />
 
       <button
         type="button"

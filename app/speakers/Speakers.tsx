@@ -291,12 +291,15 @@ export function Speakers() {
                 type="button"
                 className="card"
                 onClick={() => goTo(i)}
-                // Only the centred card is a destination; the rest are a way of
-                // getting to it.
+                /* Only the centred card is a destination; the rest are a way
+                   of getting to it — hence the "Show". Both forms name the
+                   speaker and the role now that both are printed on the card:
+                   a label that leaves out visible words is one a voice-control
+                   user cannot say (WCAG 2.5.3, Label in Name). */
                 aria-label={
                   i === active
                     ? `${s.speaker}, ${s.role} at ${s.org}`
-                    : `Show ${s.org}`
+                    : `Show ${s.speaker}, ${s.role} at ${s.org}`
                 }
               >
                 <span className="card__bar" aria-hidden="true">
@@ -316,6 +319,12 @@ export function Speakers() {
                     />
                   )}
                   <span className="card__org">{s.org}</span>
+                </span>
+                {/* Under the screen rather than over it: the organisation is
+                    the artwork, the person is the caption. */}
+                <span className="card__caption">
+                  <span className="card__name">{s.speaker}</span>
+                  <span className="card__role">{s.role}</span>
                 </span>
               </button>
             </li>

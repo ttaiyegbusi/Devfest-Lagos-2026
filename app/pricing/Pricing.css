@@ -12,11 +12,6 @@
 
 .tickets {
   --dim: #6b665c;
-  /* No mono is shipped with the site, and the design sets the small print and
-     the perks in one. A system stack costs no bytes and every platform has a
-     good one. */
-  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
-
   padding: 96px 0 104px;
   background: var(--cream);
   color: var(--ink);
@@ -98,17 +93,28 @@
 
 /* --- a ticket ------------------------------------------------------------ */
 
+/* An off-white card on the cream, not a coloured one. The hue belongs to the
+   cord, the name, the price and the bullets — the paper stays neutral so two
+   tickets sitting side by side read as the same object in two colourways
+   rather than as two different things. */
 .badge {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  padding: 0 26px 26px;
-  background: var(--paper);
-  border: 2px solid var(--ink);
-  color: var(--ink);
+  padding: 0 28px 28px;
+  background: #fffdf5;
+  border: 1px solid rgba(23, 23, 23, 0.1);
+  border-radius: 12px;
+  color: #171717;
+  box-shadow: 0 18px 42px -26px rgba(23, 23, 23, 0.5);
   /* Vertical panning belongs to the page. Only the grip takes a finger. */
   touch-action: pan-y;
+}
+
+.badge[data-featured] {
+  border: 2px solid var(--cord);
+  box-shadow: 0 22px 50px -24px rgba(23, 23, 23, 0.55);
 }
 
 /* The static cord: a ribbon above each card so the grid still reads as
@@ -121,7 +127,8 @@
   width: 10px;
   height: 86px;
   margin-left: -5px;
-  background: var(--accent);
+  border-radius: 5px 5px 0 0;
+  background: var(--cord);
 }
 
 .rack.is-live .badge::before {
@@ -131,8 +138,8 @@
 .badge__grip {
   display: grid;
   place-items: center;
-  height: 34px;
-  margin-inline: -26px;
+  height: 38px;
+  margin-inline: -28px;
   /* The one part a finger may pull from, so it must not also pan the page. */
   touch-action: none;
   cursor: grab;
@@ -146,112 +153,89 @@
   width: 58px;
   height: 8px;
   border-radius: 4px;
-  background: rgba(23, 23, 23, 0.22);
+  background: rgba(23, 23, 23, 0.15);
 }
 
-.badge__label {
-  display: inline-block;
-  margin: 4px 0 0;
-  padding: 5px 13px;
-  border: 1.5px solid currentColor;
-  border-radius: 999px;
-  color: var(--accent);
-  font-family: var(--mono);
-  font-size: 11.5px;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  line-height: 1;
-  align-self: flex-start;
-}
-
-.badge__line {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 18px;
-  margin-top: 12px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(23, 23, 23, 0.22);
+.badge__head {
+  padding-top: 6px;
 }
 
 .badge__name {
   margin: 0;
-  font-size: 29px;
-  font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: -0.015em;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.08;
+  color: var(--ink);
+}
+
+.badge__note {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--dim);
 }
 
 .badge__price {
-  margin: 0;
-  text-align: right;
-  font-size: 34px;
-  font-weight: 500;
+  margin: 22px 0 0;
+  font-size: 40px;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
+  color: var(--ink);
   font-variant-numeric: tabular-nums;
-  white-space: nowrap;
 }
 
 .badge__per {
   display: block;
-  margin-top: 7px;
-  font-family: var(--mono);
-  font-size: 11.5px;
-  font-weight: 400;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  margin-top: 9px;
+  font-size: 13px;
+  letter-spacing: 0;
+  line-height: 1.4;
   color: var(--dim);
 }
 
-.badge__blurb {
-  margin: 20px 0 0;
-  font-size: 15px;
-  line-height: 1.55;
-  color: #3a382f;
-}
-
 .badge__includes {
-  margin: 22px 0 0;
-  padding: 0;
+  margin: 24px 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid rgba(23, 23, 23, 0.12);
   list-style: none;
   display: grid;
-  gap: 12px;
-  font-family: var(--mono);
-  font-size: 13.5px;
-  line-height: 1.4;
+  gap: 11px;
+  font-size: 15px;
+  line-height: 1.45;
 }
 
+/* Square bullets in the cord's colour, drawn as a background so they sit on
+   the first line's baseline however far the text wraps. */
 .badge__includes li {
-  display: grid;
-  grid-template-columns: 18px minmax(0, 1fr);
-  align-items: start;
+  padding-left: 22px;
+  background-image: linear-gradient(var(--cord), var(--cord));
+  background-repeat: no-repeat;
+  background-size: 9px 9px;
+  background-position: 0 0.42em;
 }
 
-.badge__tick {
-  color: #2f7d32;
-  font-family: var(--font-sans);
+.badge__blurb {
+  margin: 22px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--dim);
 }
 
 .badge__cta {
   display: grid;
   place-items: center;
-  height: 56px;
-  margin-top: 26px;
+  height: 52px;
+  margin-top: 24px;
+  border-radius: 8px;
   background: var(--ink);
   color: #fff;
   font-size: 15px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  /* The design's hard offset shadow — a printed block, not a soft card. */
-  box-shadow: 7px 7px 0 rgba(23, 23, 23, 0.22);
-  transition: translate 140ms ease, box-shadow 140ms ease;
+  transition: opacity 150ms ease;
 }
 
 .badge__cta:hover {
-  translate: 2px 2px;
-  box-shadow: 5px 5px 0 rgba(23, 23, 23, 0.22);
+  opacity: 0.88;
 }
 
 /* --- narrower ------------------------------------------------------------ */
@@ -261,13 +245,7 @@
     font-size: 36px;
   }
 
-  .badge__name {
-    font-size: 25px;
-  }
 
-  .badge__price {
-    font-size: 29px;
-  }
 }
 
 @media (max-width: 767px) {
@@ -292,24 +270,19 @@
   }
 
   .badge {
-    padding-inline: 20px;
+    padding-inline: 22px;
   }
 
   .badge__grip {
-    margin-inline: -20px;
+    margin-inline: -22px;
   }
 
-  /* The price drops under the name rather than being squeezed beside it. */
-  .badge__line {
-    flex-direction: column;
-    gap: 10px;
+  .badge__name {
+    font-size: 27px;
   }
 
   .badge__price {
-    text-align: left;
+    font-size: 34px;
   }
 
-  .badge__per {
-    margin-top: 5px;
-  }
 }

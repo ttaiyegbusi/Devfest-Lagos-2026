@@ -32,10 +32,8 @@ export function Pricing() {
           <article
             className="badge"
             key={tier.name}
-            style={{
-              ["--paper" as string]: tier.paper,
-              ["--accent" as string]: tier.accent,
-            }}
+            data-featured={tier.featured || undefined}
+            style={{ ["--cord" as string]: tier.cord, ["--ink" as string]: tier.ink }}
           >
             {/* The only part of a card a finger may pull from — see the pointer
                 handling in Lanyards. */}
@@ -44,28 +42,22 @@ export function Pricing() {
             </div>
 
             <header className="badge__head">
-              <p className="badge__label">{tier.label}</p>
-              <div className="badge__line">
-                <h3 className="badge__name">{tier.name}</h3>
-                <p className="badge__price">
-                  {naira(tier.price)}
-                  <span className="badge__per">{tier.per}</span>
-                </p>
-              </div>
+              <h3 className="badge__name">{tier.name}</h3>
+              <p className="badge__note">{tier.note}</p>
             </header>
 
-            <p className="badge__blurb">{tier.blurb}</p>
+            <p className="badge__price">
+              {naira(tier.price)}
+              <span className="badge__per">{tier.per}</span>
+            </p>
 
             <ul className="badge__includes">
               {tier.includes.map((line) => (
-                <li key={line}>
-                  <span className="badge__tick" aria-hidden="true">
-                    ✓
-                  </span>
-                  {line}
-                </li>
+                <li key={line}>{line}</li>
               ))}
             </ul>
+
+            <p className="badge__blurb">{tier.blurb}</p>
 
             <a className="badge__cta" href={TICKETS}>
               Secure ticket

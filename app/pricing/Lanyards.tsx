@@ -112,6 +112,7 @@ export function Lanyards({ children }: { children: ReactNode }) {
       rack.style.height = "";
       for (const el of rack.querySelectorAll<HTMLElement>(".badge")) {
         el.style.transform = "";
+        el.style.width = "";
         el.style.left = "";
         el.style.top = "";
       }
@@ -146,7 +147,13 @@ export function Lanyards({ children }: { children: ReactNode }) {
       };
     });
 
-    // Room for the badge to be pulled down without the section clipping it.
+    /* Pin each card to the width the grid gave it BEFORE taking it out of the
+       grid. Absolutely positioned, a card with no width shrinks to its content,
+       the prose rewraps and the box changes height — under a body that was
+       built from the old one. The cord then hangs to a hook that has moved. */
+    for (const slot of slots) slot.el.style.width = `${slot.w}px`;
+
+    // Room for a card to be pulled down without the section clipping it.
     rack.style.height = `${Math.round(rackBox.height + CORD_LENGTH)}px`;
     rack.classList.add("is-live");
 
@@ -188,6 +195,9 @@ export function Lanyards({ children }: { children: ReactNode }) {
       // The cord itself, drawn once and repositioned every frame.
       const line = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
       line.setAttribute("class", "rack__cord");
+      // The same custom property the static ribbon uses, so the cord does not
+      // change colour the moment the physics takes over. Read from the card
+      // rather than named here, so a tier's colour lives only in tiers.ts.
       line.setAttribute(
         "stroke",
         getComputedStyle(slot.el).getPropertyValue("--cord").trim() || "#171717",

@@ -277,6 +277,23 @@
   color: var(--ink);
 }
 
+
+/* ---------------------------------------------------------------------------
+   iOS Safari ZOOMS THE WHOLE PAGE when a field smaller than 16px takes focus,
+   and there is no way to decline it short of `maximum-scale=1`, which takes
+   pinch-zoom away from everyone and fails WCAG 1.4.4. So the field is 16px on
+   a touch device and keeps its designed size where there is a mouse.
+
+   This is what made the ask panel "too big" on a phone: opening it focused the
+   field, the field was 14px, Safari zoomed in, and the reader had to pinch back
+   out to see the page again.
+   --------------------------------------------------------------------------- */
+@media (hover: none) and (pointer: coarse) {
+  .ask__input {
+    font-size: 16px;
+  }
+}
+
 /* --- the phone ----------------------------------------------------------- */
 
 /* The whole screen, and modal with it: the page behind stops scrolling and Tab

@@ -49,6 +49,6 @@ export const FAQS: Faq[] = [
   {
     group: "Upgrading Tickets",
     q: "What does a ticket grant me access to?",
-    a: "All talks and sessions, the sponsor booths and the networking area. The difference between the two tickets is how many days: Standard covers one day of the two, and Full Experience covers both.",
+    a: "All talks and sessions, the sponsor booths, the networking area and the after party. The difference between the two tickets is how many days: Standard covers one day of the two, and Full Experience covers both.",
   },
 ];

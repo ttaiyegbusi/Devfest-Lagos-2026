@@ -3,12 +3,16 @@
  * Content is real as of the design hand-off; only the destination is shared
  * with the rest of the site (app/links.ts).
  *
- * THESE TICKETS MAKE DEVFEST A TWO-DAY EVENT. "Access to one day" and "access
- * to both days" are the whole difference between them, and nothing else on the
- * site knows that yet: the FAQ still answers that a ticket grants "entry to the
- * venue for the full day", and panel 01 still says "all day". Those need to be
- * brought in line or the site contradicts its own pricing — flagged rather than
- * quietly rewritten, because that copy is not mine to invent. */
+ * THESE TICKETS MAKE DEVFEST A TWO-DAY EVENT. "Access to one day" against
+ * "access to both days" is the whole difference between them, and the FAQ was
+ * still answering that a ticket grants "entry to the venue for the full day"
+ * until it was brought in line.
+ *
+ * WHAT THIS LIST PROMISES IS ALSO PROMISED IN app/faq/questions.ts, under "What
+ * does a ticket grant me access to?". They are one promise said twice. Change
+ * this list and that answer changes with it, or the site contradicts its own
+ * pricing — which is exactly what happened when these tickets first landed, and
+ * again when the after party was on the FAQ but on neither ticket. */
 export type Tier = {
   name: string;
   /** What the ticket covers, in a few words, set under the name. */
@@ -41,6 +45,7 @@ export const TIERS: Tier[] = [
       "Access to one day",
       "Access to sponsor booths",
       "Entry to the networking area",
+      "Entry to the after party",
     ],
     cord: "#34A853",
     ink: "#123D1F",
@@ -57,6 +62,7 @@ export const TIERS: Tier[] = [
       "Access to both days",
       "Access to sponsor booths",
       "Entry to the networking area",
+      "Entry to the after party",
     ],
     cord: "#4285F4",
     ink: "#1B3A73",

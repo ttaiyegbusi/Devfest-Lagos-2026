@@ -97,12 +97,29 @@ export function AskPanel({
     };
   }, [open, phone, onClose]);
 
-  // Opening puts the caret where the reader is going to type; closing hands
-  // focus back to the control they opened it from, rather than dropping it at
-  // the top of the document.
+  const opened = useRef(false);
+
+  /* Closing hands focus back to the control it was opened from, rather than
+     dropping it at the top of the document — but only after a real close.
+     Without the guard this runs on the very first render, where `open` is
+     already false, and steals focus to the hero's ask button the moment the
+     page hydrates.
+
+     Opening is not symmetric. With a mouse the caret goes where the reader is
+     about to type. On a phone the panel is the whole screen and the keyboard
+     would cover the suggestions the empty state exists to offer, so focus goes
+     to the panel itself: the dialog is still announced and Escape still works,
+     and the keyboard waits until the field is actually tapped. The width is
+     read here rather than taken from state so this depends on `open` alone and
+     cannot refocus on a resize. */
   useEffect(() => {
-    if (open) input.current?.focus();
-    else returnTo.current?.focus();
+    if (!open) {
+      if (opened.current) returnTo.current?.focus();
+      return;
+    }
+    opened.current = true;
+    if (window.matchMedia("(max-width: 899px)").matches) panel.current?.focus();
+    else input.current?.focus();
     // `returnTo` is a ref and never changes identity.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
@@ -131,6 +148,9 @@ export function AskPanel({
       <div
         className="ask__panel"
         ref={panel}
+        /* Focusable so the phone can be given the dialog itself rather than
+           its text field — see the focus effect above. */
+        tabIndex={-1}
         role="dialog"
         aria-modal={phone || undefined}
         aria-label={PANEL_NAME}

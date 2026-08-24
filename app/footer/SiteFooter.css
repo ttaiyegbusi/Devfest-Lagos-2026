@@ -268,3 +268,11 @@
     transition: none;
   }
 }
+
+/* Same reason as the ask panel's field — see app/chat/Ask.css. Below 16px, a
+   tap on this input zooms the whole page on iOS. */
+@media (hover: none) and (pointer: coarse) {
+  .foot__input {
+    font-size: 16px;
+  }
+}

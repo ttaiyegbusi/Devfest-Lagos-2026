@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { DevFestLogo } from "./DevFestLogo";
+import { TICKETS } from "../links";
 
 /* `href` is deliberately optional. These used to point at anchors — #about,
    #pricing, #community-board — and not one of those ids existed anywhere in the
@@ -131,16 +132,16 @@ export function HeroNav() {
           ))}
         </ul>
 
-        {/* No ticketing destination yet. Rendered as a button rather than a
-            link so it is not a link to nowhere; point it at the real ticket
-            page (or handler) when there is one. */}
-        <button
-          type="button"
+        {/* Ticketing lives on its own host, so this leaves the site. It was a
+            button while there was nowhere to send anyone; now that there is,
+            it is a link, and behaves like one. */}
+        <a
           className="hero-nav__ticket"
+          href={TICKETS}
           style={{ "--i": LINKS.length } as CSSProperties}
         >
           Buy Ticket
-        </button>
+        </a>
       </div>
     </nav>
   );

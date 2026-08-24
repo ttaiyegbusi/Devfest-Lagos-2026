@@ -536,51 +536,53 @@
   color: var(--ink);
 }
 
-.hero__ask {
+/* The pair of actions. The buy block keeps the width and height the search
+   field held, so the hero's vertical rhythm against the reference is unchanged;
+   the ask control is a square of the same height beside it. */
+.hero__cta {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.hero__buy {
+  display: grid;
+  place-items: center;
   width: 347px;
   height: 60px;
-  margin-top: 40px;
-  padding-inline: 22px;
   background: var(--ink);
   color: #fff;
-}
-
-.hero__ask-icon {
-  flex: none;
-}
-
-.hero__ask-input {
-  flex: 1;
-  min-width: 0;
-  border: 0;
-  background: transparent;
-  color: #fff;
-  font: inherit;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1;
-  outline: none;
-  -webkit-appearance: none;
-  appearance: none;
+  transition: opacity 150ms ease;
 }
 
-.hero__ask-input::placeholder {
-  color: var(--placeholder);
-  opacity: 1;
+.hero__buy:hover {
+  opacity: 0.86;
 }
 
-.hero__ask:focus-within {
-  outline: 2px solid var(--amber);
-  outline-offset: 2px;
+.hero__ask-open {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border: 0;
+  background: var(--ink);
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 150ms ease;
 }
 
-.hero__ask-input::-webkit-search-decoration,
-.hero__ask-input::-webkit-search-cancel-button {
-  -webkit-appearance: none;
-  appearance: none;
+.hero__ask-open:hover {
+  opacity: 0.86;
 }
+
+
+
+
+
 
 /* --- responsive ---------------------------------------------------------- */
 
@@ -781,9 +783,16 @@
     display: none;
   }
 
-  .hero__ask {
-    width: 100%;
-    max-width: 347px;
+  .hero__cta {
     margin-top: 32px;
+  }
+
+  /* The pair shares the row and the buy block takes what is left, so the two
+     stay side by side rather than the square wrapping under it. */
+  .hero__buy {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    max-width: 279px;
   }
 }

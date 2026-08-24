@@ -56,7 +56,9 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  /* Tints the browser chrome on Android to the hero's own background. */
+  /* Tints the browser chrome on Android to the hero's own background — so the
+     light switch in app/hero/HeroTheme.tsx rewrites this at runtime, and keeps
+     its own copy of the value. Change one, change the other. */
   themeColor: "#fff5d4",
 };
 
@@ -75,12 +77,21 @@ export default function RootLayout({
             Two ways it declines to stamp, and both leave the page complete
             rather than degraded: no scripting at all, so nothing ever hides;
             and prefers-reduced-motion, which is why the stylesheet carries no
-            reduced-motion rule of its own — there is nothing to undo. */}
+            reduced-motion rule of its own — there is nothing to undo.
+
+            The second stamp is the hero's remembered light switch, and it is
+            here for the same reason: a reader who left the hero dark should
+            not be shown a frame of cream before React has loaded. Two separate
+            try blocks, because a browser that refuses site data would
+            otherwise take the reveals down with the theme. The key is the one
+            in app/hero/HeroTheme.tsx. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
               'try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)' +
-              'document.documentElement.dataset.motion="on"}catch(e){}',
+              'document.documentElement.dataset.motion="on"}catch(e){}' +
+              'try{if(localStorage.getItem("devfest:hero-theme")==="dark")' +
+              'document.documentElement.dataset.heroTheme="dark"}catch(e){}',
           }}
         />
       </head>

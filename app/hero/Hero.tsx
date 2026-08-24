@@ -11,6 +11,14 @@ export function Hero() {
         <HeroScene />
       </div>
 
+      {/* Night falls over the artwork, not instead of it. The illustration is
+          drawn in daylight and cannot be recoloured piece by piece — it is one
+          exported scene — so dark mode washes it instead: a deep blue laid
+          over the whole frame, above the scene and below the copy, fading in
+          rather than switching on. Transparent in light mode, and always
+          present so there is an opacity to animate. */}
+      <div className="hero__veil" aria-hidden="true" />
+
       <div className="hero__shell">
         <HeroNav />
 

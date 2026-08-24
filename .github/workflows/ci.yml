@@ -57,3 +57,9 @@ jobs:
       # satisfying the rules they were solved from.
       - name: Check the speaker wall geometry
         run: python3 scripts/carousel.py
+
+      # A suggested question that returns nothing is the worst possible first
+      # click: the reader asked what the page put in front of them and got
+      # nothing back. Cheap to check, easy to break by editing the FAQ.
+      - name: Check every suggested question is answerable
+        run: npm run check:starters

@@ -1,6 +1,7 @@
 import { DevFestIcon } from "../hero/DevFestIcon";
 import { SignupForm } from "./SignupForm";
 import "./SiteFooter.css";
+import { TICKETS } from "../links";
 
 /* `href` is optional, and most of these do not have one yet. They all used to
    point at anchors — #schedule, #team, #x, #app — none of which exist anywhere
@@ -11,7 +12,7 @@ import "./SiteFooter.css";
      · Schedule, Join Community, Team — need sections or pages.
      · The five socials — need the real profile URLs. Deliberately not guessed:
        sending people to the wrong account is worse than not linking yet.
-     · Download App, Play Game, DP Generator, Buy Tickets — need destinations. */
+     · Download App, Play Game, DP Generator — need destinations. */
 const COLUMNS: {
   heading: string;
   links: { label: string; href?: string }[];
@@ -42,7 +43,7 @@ const COLUMNS: {
       { label: "Download Devfest App" },
       { label: "Play Game" },
       { label: "DP Generator" },
-      { label: "Buy Tickets" },
+      { label: "Buy Tickets", href: TICKETS },
     ],
   },
 ];

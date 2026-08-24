@@ -1,6 +1,6 @@
 import { HeroNav } from "./HeroNav";
 import { RotatingWord } from "./RotatingWord";
-import { AskForm } from "./AskForm";
+import { HeroCta } from "./HeroCta";
 import { HeroScene } from "./HeroScene";
 import "./Hero.css";
 
@@ -35,7 +35,7 @@ export function Hero() {
             Google Developer Group Lagos (GDG Lagos).
           </p>
 
-          <AskForm />
+          <HeroCta />
         </div>
       </div>
     </section>

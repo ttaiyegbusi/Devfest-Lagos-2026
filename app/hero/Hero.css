@@ -7,7 +7,8 @@
      ask rect        70,533  347 x 60
    --------------------------------------------------------------------------- */
 
-.hero {
+.hero,
+.site-chrome {
   /* Every colour in this section is named here and nowhere else, so the dark
      hero is one block of overrides rather than a second copy of the file.
      Two things are worth spelling out about the dark set.
@@ -21,7 +22,11 @@
 
      And the type does not go pure white. #f7f3e4 is the cream itself, which
      keeps the hero warm at night instead of turning it clinical, and lands at
-     14.8:1 on the sky. */
+     14.8:1 on the sky.
+
+     .site-chrome is here so the nav can stand on a page with no hero behind
+     it — /speakers wears the same bar. It takes the daylight set only: the
+     light switch belongs to the hero, and a page with no sky has no night. */
   --hero-sky: var(--cream);
   --hero-type: var(--ink);
   --hero-block: var(--ink);
@@ -44,12 +49,39 @@
   --cloud-mid-base: #f9efd2;
   --cloud-near-top: #ffffff;
   --cloud-near-base: #f3e6c6;
+}
 
+.hero {
   position: relative;
   min-height: 100svh;
   overflow: hidden;
   background: var(--hero-sky);
   transition: background-color 420ms ease;
+}
+
+/* Nothing but the bar and the air under it, for a page that opens with the nav
+   rather than with the sky. */
+.site-chrome {
+  background: var(--cream);
+  padding-bottom: 34px;
+}
+
+/* The light switch turns the hero to night. On a page with no hero it would be
+   a control that changes nothing, which this site holds to be worse than no
+   control at all — so there is none. */
+.site-chrome .hero-theme {
+  display: none;
+}
+
+/* The link to the page you are already on. Not underlined and not coloured:
+   the current page is a fact about where you are, not a thing to press. */
+.hero-nav__links a[aria-current="page"] {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.hero-nav__links a[aria-current="page"]:hover {
+  opacity: 0.55;
 }
 
 :root[data-hero-theme="dark"] .hero {

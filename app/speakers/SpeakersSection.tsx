@@ -1,15 +1,18 @@
+import Link from "next/link";
 import { getLineup } from "./lineup";
 import { SpeakerDays } from "./SpeakerDays";
 import "./Speakers.css";
 
-/* The section itself is rendered on the server, which is what lets the lineup
- * come from a spreadsheet: the fetch happens here, the reader gets finished
- * markup, and search engines and share cards see the real names. Only the day
- * tabs and the wall below them are interactive, and they take the data as
- * props. */
+/* The lineup on the landing page: the wall of cards, day by day.
+ *
+ * A ring is a good way to offer a taste of who is coming and a bad way to find
+ * someone among fifty, so it does the first job and hands the second to
+ * /speakers. The link below it is not decoration — without it that page is
+ * reachable only from the nav, and people do not look there. */
 
 export async function SpeakersSection() {
   const { days } = await getLineup();
+  const total = days.reduce((sum, day) => sum + day.speakers.length, 0);
 
   return (
     <section className="speakers" id="speakers" aria-labelledby="speakers-title">
@@ -24,6 +27,13 @@ export async function SpeakersSection() {
       </div>
 
       <SpeakerDays days={days} />
+
+      <div className="speakers__more" data-reveal data-rise>
+        {/* The count is in the label because it is the reason to follow it. */}
+        <Link className="speakers__all" href="/speakers">
+          See all {total} speakers
+        </Link>
+      </div>
     </section>
   );
 }

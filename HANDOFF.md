@@ -19,9 +19,9 @@ npm run build
 npm run lint     # oxlint — clean, keep it that way
 ```
 
-`.github/workflows/ci.yml` runs the lint, the build and
-`scripts/starters.mjs` on every push and pull request. Two things about it
-are deliberate:
+`.github/workflows/ci.yml` runs the lint, the build, `scripts/carousel.py`
+and `scripts/starters.mjs` on every push and pull request. Two things about
+it are deliberate:
 
 * **`npm run lint` carries `--deny-warnings`.** Plain oxlint exits 0 even
   with warnings outstanding, so without it the lint job could never go red
@@ -53,7 +53,7 @@ app/
   speakers/   Speakers.tsx  Speakers.css  lineup.ts
   faq/        Faq.tsx  Faq.css  questions.ts
   footer/     SiteFooter.tsx  SiteFooter.css
-scripts/      lanes.py  starters.mjs
+scripts/      lanes.py  carousel.py  starters.mjs
 public/       bg-new.svg  fonts/  design/HERO.png  expect/
 ```
 
@@ -212,31 +212,59 @@ Pace knob: `--traffic-duration` (default 12s).
 
 ---
 
-## 6. Speakers
+## 6. Speakers, in two places
 
-**This section used to be a carousel and no longer is.** It was a concave wall
-of cards lying on a real circle, dragged one at a time, calibrated against the
-reference and policed in CI by `scripts/carousel.py` — an 18.5° arc, a 1112px
-radius, perspective pinned at 1.429 R. All of that is deleted. Do not go looking
-for it, and do not restore it without reading the next paragraph.
+**The landing page has the carousel. `/speakers` has the grid.** Both read the
+same lineup. This was briefly one thing — the carousel was replaced outright by
+the grid and then put back — so if you are reading git history and it looks
+like the arc was deleted, it was, for two commits.
 
-**Why it went.** The geometry was sound and the control was wrong for the
-content. A ring works when there are seven cards; a real conference lineup is
-fifty, and finding a name in a ring of fifty means dragging past forty others.
-Nobody does that. It is a grid now: everyone visible at once, on the scroll the
-reader was already doing. Six columns at 1440, two on a phone, `auto-fill`
-between, so any length of lineup fills the rows it needs and the last row is
-simply short. `scripts/carousel.py` and its CI step went with it.
+### The landing wall
+
+A **concave** wall — cards swing their *outer* edge toward the viewer and grow
+as they go out, so the row curves toward you at the ends rather than receding.
+It was built convex first; measuring the reference showed the opposite.
+
+The cards lie on a real circle. A card `t` degrees around it sits at
+`(R sin t, R(1 − cos t))` and is turned by **that same t**, so its facing and
+its position come from one angle. Deriving x and z from separate curves leaves
+every card facing slightly wrong for where it actually is, and the arc looks
+broken.
+
+`ARC` is 18.5° between neighbours; `R = step / sin(ARC)` gives 1112px against a
+353px step; perspective is pinned at 1.429 R. Every breakpoint holds that ratio
+and `card-w / R` at 0.281, so the wall is one shape at every size and only its
+scale changes.
+
+**`scripts/carousel.py` solves this model and checks what is committed against
+it.** It runs in CI and exits non-zero on drift — verified by perturbing
+`--arc-r`, `--persp`, `--step` and `ARC` in turn, each of which fails it.
+
+```bash
+python3 scripts/carousel.py     # prints the tables, exits 1 on drift
+```
+
+The ring needs at least five cards: a card is only carried round to the other
+side while it is invisible, and it only becomes invisible 2.5 steps out. A day
+with fewer gets a plain row of the same cards instead — see `RING_MINIMUM`.
+
+### Why there is a page as well
+
+A ring is the wrong tool for finding a name among fifty: it means dragging past
+forty others. So the full lineup is a grid at `/speakers`, and the wall on the
+landing page is a taste with a link out under it. Without that link the page
+would be reachable only from the nav, and people do not look there.
+
+The page wears the site's own nav bar. `.site-chrome` in `Hero.css` carries the
+hero's daylight token set so the bar has its colours off-hero, and the light
+switch is hidden there — it turns the hero to night, and a page with no hero
+has none.
 
 **A speaker with no photograph gets their initials** on a tinted ground, mixed
-back towards the panel colour so a grid of them sits quietly. Half a lineup
-usually has no picture until the week of the event, and a wall of empty
-rectangles says nothing; two letters at least name the person. The tint is
-derived from the organisation's name — the same name always draws the same
-colour — so a spreadsheet does not have to carry hex codes.
-
-**Nothing on a card is a link or a button.** There is nowhere for one to go yet.
-A card that looks pressable and does nothing is worse than one that does not.
+back towards the panel colour so a grid of them sits quietly. The tint is
+derived from the organisation's name, so a spreadsheet does not carry hex
+codes. **Nothing on a card is a link or a button** — there is nowhere for one
+to go yet.
 
 ### Where the lineup comes from
 
@@ -248,25 +276,24 @@ the two it got is decided by looking at the body rather than the URL, because a
 published sheet answers with CSV whatever its link looks like. The feed is
 re-read every five minutes.
 
-The fetch is on the server (`app/speakers/SpeakersSection.tsx` is async), so the
-reader gets finished markup and a share card sees the real names. Only the day
-tabs are interactive.
+The fetch is on the server, so the reader gets finished markup and a share card
+sees the real names. Only the day tabs are interactive.
 
 **Everything downstream of the fetch treats its input as untrusted**, because a
 spreadsheet is edited by people in a hurry. Cells are trimmed, quoted fields
 with commas survive, and a row that cannot name a person is dropped rather than
-rendered as a blank card. Tested against a CSV carrying all of that.
-
-**A feed that cannot be read serves the committed lineup and logs why.**
-Verified by pointing `SPEAKERS_URL` at a dead port: the page still answers 200
-with the full lineup. A speaker list is not worth a broken page.
+rendered as a blank card. **A feed that cannot be read serves the committed
+lineup and logs why** — verified by pointing `SPEAKERS_URL` at a dead port: the
+page still answers 200 with the full lineup.
 
 ### Days
 
 The lineup is grouped by day and the days are a real tab set: arrow keys move
 between them and wrap, only the selected tab is in the tab order, and the panel
-is labelled by the tab that opened it. A single day renders no tabs at all,
-because one tab is not a choice.
+is labelled by the tab that opened it. A single day renders no tabs at all. The
+same tabs sit above the wall on one page and the grid on the other — `variant`
+on `SpeakerDays` picks which, as a plain string, because a client component
+cannot be handed a component by the server.
 
 ## 7. What to expect — the panels
 

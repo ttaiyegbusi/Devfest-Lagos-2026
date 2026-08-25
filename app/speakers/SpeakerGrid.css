@@ -1,0 +1,124 @@
+/* ---------------------------------------------------------------------------
+   The full lineup, as a grid — app/speakers/page.tsx.
+
+   The landing page keeps the carousel: it is a taste of the lineup, and a ring
+   of cards is a fine way to offer a taste. This is the other job. Someone here
+   is looking for a name among fifty, and for that they need to see fifty.
+
+   It shares the section shell, the heading and the day tabs with Speakers.css;
+   only the grid itself is here.
+   --------------------------------------------------------------------------- */
+
+/* --- the grid ------------------------------------------------------------ */
+
+/* Six across at the reference width, two on a phone, and whatever fits in
+   between — auto-fill rather than a fixed count, so a lineup of any length
+   fills the rows it needs and the last row is simply short. */
+.speakers__count {
+  margin: 30px 0 0;
+  text-align: center;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.speakers__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: 34px 24px;
+  width: min(1200px, 100% - 48px);
+  margin: 40px auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.speaker__photo {
+  position: relative;
+  display: block;
+  /* Square, so a row of faces lines up whatever shape the files arrive in. */
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--panel);
+  transition: transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.speaker:hover .speaker__photo {
+  transform: translateY(-4px);
+}
+
+.speaker__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Initials rather than an empty tint. Half a lineup usually has no photograph
+   until the week of the event, and a grid of blank rectangles says nothing —
+   two letters at least name the person. */
+.speaker__initials {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  /* Mixed back towards the panel. At full strength a grid of these is a
+     colour chart competing with the section, and they are a placeholder —
+     they should sit quietly until the photographs arrive and replace them. */
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--from) 58%, var(--panel)),
+    color-mix(in srgb, var(--to) 58%, var(--panel))
+  );
+  font-family: var(--font-display);
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Names wrap rather than ellipsis. A cut-off role is a small loss; a cut-off
+   name is the one thing on the card that had to survive. */
+.speaker__name {
+  margin: 13px 0 0;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+.speaker__role {
+  margin: 2px 0 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--ink-dim);
+}
+
+.speaker__org {
+  margin: 1px 0 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: #cbc4c0;
+}
+
+/* --- responsive ---------------------------------------------------------- */
+
+@media (max-width: 767px) {
+  .speakers__grid {
+    grid-template-columns: repeat(auto-fill, minmax(136px, 1fr));
+    gap: 26px 16px;
+    margin-top: 30px;
+  }
+
+  .speaker__initials {
+    font-size: 26px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .speaker__photo {
+    transition: none;
+  }
+}

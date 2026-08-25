@@ -12,7 +12,8 @@ npm run build
 ```
 
 CI runs the last two on every push and pull request
-(`.github/workflows/ci.yml`), plus `scripts/starters.mjs`. `npm run lint`
+(`.github/workflows/ci.yml`), plus `scripts/carousel.py` and
+`scripts/starters.mjs`. `npm run lint`
 carries `--deny-warnings`: plain oxlint exits 0 even with warnings
 outstanding, which would leave the job unable to fail. The repo is at zero
 warnings and the flag is what keeps it there — so a local run and a CI run
@@ -66,6 +67,7 @@ app/
     SiteFooter.tsx  SiteFooter.css
 scripts/
   lanes.py              solves the traffic keyframes off the drawn road
+  carousel.py           solves the speaker wall, and checks what is committed
   starters.mjs          checks every suggested question is answerable
 public/
   bg-new.svg            source illustration (1440 × 1024)
@@ -343,22 +345,41 @@ Under `prefers-reduced-motion` the cloud is laid out statically in the rows
 
 ## The other sections
 
-**Speakers** is a grid, split into a tab per day. It was a concave wall of
-cards on a circle, dragged one at a time, and that was the right shape for a
-seven-card placeholder lineup and the wrong one for a real conference: at fifty
-speakers, finding a name meant dragging past forty others. The grid shows
-everyone at once on the scroll the reader was already doing. Six across at 1440,
-two on a phone, `auto-fill` in between, so a lineup of any length fills the rows
-it needs. A speaker with no photograph yet gets their initials on a tinted
-ground rather than an empty rectangle — half a lineup usually has no picture
-until the week of the event.
+**Speakers** is in two places, because a lineup is read for two reasons. On
+the landing page it is the wall of cards: a concave arc you drag through, with
+a tab per day and a link out to the full list. The cards lie on a genuine
+circle — a card `t` degrees around it sits at `(R sin t, R(1 − cos t))` and is
+turned by that same `t`, so its facing and its position come from one angle,
+which is what makes the row read as a single curved surface. `ARC` is **18.5°**
+between neighbours, solved by `scripts/carousel.py`, which runs in CI and fails
+if the committed geometry drifts from the model. At that angle `cos(18.5°)`
+cancels the size gain from coming forward, so a card one step out projects to
+the same *width* as the centre card. Radius follows — `R = step / sin(18.5°)`,
+**1112px** against a **353px** step — and perspective is pinned at **1.429 R**.
 
-The lineup itself comes from `app/speakers/speakers.json`, or from `SPEAKERS_URL`
-if that is set: either a JSON feed of the same shape or a Google Sheet published
-as CSV, re-read every five minutes. It is fetched on the server, so the markup
-the reader gets already has the names in it. If the feed cannot be read the
-committed file is served and the reason is logged — see `app/speakers/lineup.ts`
-and the note in `.env.example`.
+That is a good way to offer a taste of who is coming and a bad way to find a
+name among fifty, so `/speakers` (`app/speakers/page.tsx`) carries the same
+lineup as a grid: six columns at 1440, two on a phone, `auto-fill` between, so
+any length fills the rows it needs. A speaker with no photograph yet gets their
+initials on a tinted ground rather than an empty rectangle. The page wears the
+site's own nav bar — `.site-chrome` in `Hero.css` lends it the hero's daylight
+tokens — minus the light switch, which would change nothing on a page with no
+hero.
+
+Both read the same `getLineup()`: `app/speakers/speakers.json`, or `SPEAKERS_URL`
+pointing at a JSON feed or a Google Sheet published as CSV, re-read every five
+minutes. It is fetched on the server, so the markup already has the names in
+it. If the feed cannot be read the committed file is served and the reason is
+logged — see `app/speakers/lineup.ts` and the note in `.env.example`.
+
+**Schedule** is the same lineup idea applied to time, and it is two views: a
+list, for "when is the thing I came for", and a gallery, for "what is on
+today". The structural device is a hairline grid, ink on cream. The format tag
+encodes the shape of the day — a talk is a solid ink block, a keynote is amber,
+and the things that are not sessions at all are outlines. Data comes from
+`app/schedule/schedule.json` or `SCHEDULE_URL` on the same terms as the lineup,
+except that the sheet is one row per *speaker* and rows sharing a day, a time
+and a title fold into one session.
 
 **FAQ** filters by category and opens one answer at a time. It reserves the
 longest category's height so switching filters never moves the section, and

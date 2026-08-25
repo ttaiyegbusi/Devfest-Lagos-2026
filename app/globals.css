@@ -70,7 +70,7 @@ body {
 
 /* One visible focus ring for anything that does not define its own. The nav
    links, the footer links, the ticket control and the submit button all had
-   none — only the FAQ, the speaker cards and the carousel arrows did — so a
+   none — only the FAQ and the speaker cards did — so a
    keyboard user lost their place the moment they left those. Amber reads on
    both the cream hero and the dark sections, and matches the rings the
    components already set for themselves. */

@@ -10,7 +10,7 @@
  *   REST     It has to stop. A marketing page holding a phone at 60fps to
  *            redraw a picture that is not moving is a battery bug.
  *
- * NOT RUN IN CI, unlike carousel.py and starters.mjs: this one needs a browser.
+ * NOT RUN IN CI, unlike starters.mjs: this one needs a browser.
  * Install it first — `npm i -D playwright && npx playwright install chromium` —
  * then serve a build and point this at it:
  *

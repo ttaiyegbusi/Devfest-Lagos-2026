@@ -12,7 +12,7 @@ npm run build
 ```
 
 CI runs the last two on every push and pull request
-(`.github/workflows/ci.yml`), plus `scripts/carousel.py`. `npm run lint`
+(`.github/workflows/ci.yml`), plus `scripts/starters.mjs`. `npm run lint`
 carries `--deny-warnings`: plain oxlint exits 0 even with warnings
 outstanding, which would leave the job unable to fail. The repo is at zero
 warnings and the flag is what keeps it there — so a local run and a CI run
@@ -66,7 +66,7 @@ app/
     SiteFooter.tsx  SiteFooter.css
 scripts/
   lanes.py              solves the traffic keyframes off the drawn road
-  carousel.py           solves the speaker wall, and checks what is committed
+  starters.mjs          checks every suggested question is answerable
 public/
   bg-new.svg            source illustration (1440 × 1024)
   fonts/                Faculty Glyphic + Geist, self-hosted (both SIL OFL)
@@ -343,25 +343,22 @@ Under `prefers-reduced-motion` the cloud is laid out statically in the rows
 
 ## The other sections
 
-**Speakers** is a concave wall of screens, and the cards lie on a genuine
-circle. A card `t` degrees around it sits at `(R sin t, R(1 − cos t))` and is
-turned by that same `t`, so its facing and its position come from one angle —
-which is what makes the row read as a single curved surface. Deriving x and z
-from separate curves (a power law for the offset, a linear depth) leaves every
-card facing slightly wrong for where it actually is, and the arc looks broken;
-that is what this did before.
+**Speakers** is a grid, split into a tab per day. It was a concave wall of
+cards on a circle, dragged one at a time, and that was the right shape for a
+seven-card placeholder lineup and the wrong one for a real conference: at fifty
+speakers, finding a name meant dragging past forty others. The grid shows
+everyone at once on the scroll the reader was already doing. Six across at 1440,
+two on a phone, `auto-fill` in between, so a lineup of any length fills the rows
+it needs. A speaker with no photograph yet gets their initials on a tinted
+ground rather than an empty rectangle — half a lineup usually has no picture
+until the week of the event.
 
-`ARC` is **18.5°** between neighbours, solved by `scripts/carousel.py` against
-the reference — run it after touching any of these numbers and it will tell you
-whether they still hold together: at that angle `cos(18.5°)` exactly cancels the size gain from
-coming forward, so a card one step out projects to the same *width* as the
-centre card and the gap between them survives. Radius follows from the angle and
-the horizontal step — `R = step / sin(18.5°)`, giving **1112px** against a
-**353px** step — and perspective is pinned at **1.429 R**. Every breakpoint
-holds both that ratio and `card-w / R` at 0.281, so the wall is one shape at
-every size and only its scale changes. The ring wraps, and a card is fully faded
-out by the time it is carried round, so there is no seam and no card is ever
-shown at a size the geometry was not solved for.
+The lineup itself comes from `app/speakers/speakers.json`, or from `SPEAKERS_URL`
+if that is set: either a JSON feed of the same shape or a Google Sheet published
+as CSV, re-read every five minutes. It is fetched on the server, so the markup
+the reader gets already has the names in it. If the feed cannot be read the
+committed file is served and the reason is logged — see `app/speakers/lineup.ts`
+and the note in `.env.example`.
 
 **FAQ** filters by category and opens one answer at a time. It reserves the
 longest category's height so switching filters never moves the section, and

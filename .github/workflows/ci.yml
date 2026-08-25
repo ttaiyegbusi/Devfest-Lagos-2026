@@ -55,8 +55,6 @@ jobs:
       # The speaker wall's geometry is derived, not hand-written. This exits
       # non-zero if the committed --step / --arc-r / --persp / ARC stop
       # satisfying the rules they were solved from.
-      - name: Check the speaker wall geometry
-        run: python3 scripts/carousel.py
 
       # A suggested question that returns nothing is the worst possible first
       # click: the reader asked what the page put in front of them and got

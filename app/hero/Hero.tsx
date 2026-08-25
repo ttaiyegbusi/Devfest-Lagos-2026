@@ -19,6 +19,11 @@ export function Hero() {
           present so there is an opacity to animate. */}
       <div className="hero__veil" aria-hidden="true" />
 
+      {/* Rain, and only at night. It sits above the veil and below the copy, so
+          the weather is in the scene rather than over the reader. Decorative:
+          it says nothing the text does not. */}
+      <div className="hero__rain" aria-hidden="true" />
+
       <div className="hero__shell">
         <HeroNav />
 

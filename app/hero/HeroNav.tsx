@@ -11,14 +11,14 @@ import { TICKETS } from "../links";
    goes nowhere is worse than plain text, so an entry without a destination
    renders as text until it has one.
 
-   Speaker and FAQs reach real sections on this page. Schedule and Team do not
+   Speaker, Schedule and FAQs reach real sections on this page. Team does not
    exist yet.
 
    TO WIRE UP: give the schedule and the team a section with an id (or a page)
    and add the href here — nothing else has to change. */
 const LINKS: { label: string; href?: string }[] = [
   { label: "Speaker", href: "#speakers" },
-  { label: "Schedule" },
+  { label: "Schedule", href: "#schedule" },
   { label: "Team" },
   { label: "FAQs", href: "#faq" },
 ];

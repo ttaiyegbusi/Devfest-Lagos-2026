@@ -76,11 +76,10 @@
   --cloud-near-top: #45536f;
   --cloud-near-base: #2c3750;
 
-  /* Rain only falls at night, so this is the only place it is set. Cool and
-     faint: drops carry the sky's own light, and anything stronger turns the
-     hero into a screen door. */
-  --hero-rain-near: rgba(196, 216, 248, 0.34);
-  --hero-rain-far: rgba(186, 205, 238, 0.2);
+  /* Rain only falls at night, so this is the only place it is set. Cool, and
+     the per-drop opacity in Rain.tsx takes it down much further still: drops
+     carry the sky's own light and nothing of their own. */
+  --hero-rain: rgb(200, 219, 250);
 }
 
 /* The wash over the artwork. Above the scene, below the copy, and inert — the
@@ -112,112 +111,75 @@
 
 /* --- rain ---------------------------------------------------------------- */
 
-/* Rain, shown only once the hero is dark. Same z-index as the veil and after
-   it in the markup, so it lands above the wash and still below the copy: the
-   reader is looking at weather, not standing in it.
+/* Drizzle, shown only once the hero is dark. Same z-index as the veil and
+   after it in the markup, so it lands above the wash and still below the copy:
+   the reader is looking at weather, not standing in it.
 
-   How it is built. One gradient draws the drops as fine parallel lines; a mask
-   repeating across them cuts those lines into streaks. Both are angled rather
-   than the sheet being rotated, and that is the whole trick — a rotated sheet
-   has to be oversized to keep the frame's corners covered, and this one is
-   exactly the size of the hero.
+   The drops are elements, not a texture — see app/hero/Rain.tsx for why. All
+   this file decides is what one drop looks like and how far it falls; the
+   variation between them is set per drop over there.
 
-   Falling is a translate along the drops' own axis, one full mask period per
-   cycle. The odd-looking angle is why that loop is clean. At a round 14 degrees
-   the step is (-31.4485, 126.1409) and every drop lands on a different
-   sub-pixel each cycle, so the hairlines re-rasterise and roughly 5% of the
-   frame flickers at the wrap — the pattern is in the right place, but it is
-   not drawn the same way. Tilting a thirty-fifth of a degree to atan(1/4)
-   makes the step exactly (-32, 128): whole pixels, identical rasterisation,
-   nothing to see. The mask period is 32 * sqrt(17) for the same reason. The lines run parallel to that axis so movement along it
-   leaves them untouched, and the mask repeats along it with exactly that
-   period, so one cycle lands the pattern back on itself and the fall has no
-   seam.
-
-   It is one sheet and no larger than the hero because the layer costs real
-   frames. Two sheets inset -22% -18% — 1.96 screens of translucent, masked
-   layer each, very nearly four together — ran at 27fps against 60 for the
-   same page without them. Measured piece by piece, the mask was almost free
-   and the area was everything: one sheet took it to 39.6, and taking the
-   rotation out to get the box down to a single screen is the rest. */
+   The box leans rather than the drops, and it is oversized just enough that
+   the lean does not pull the outermost drops off the edges. It costs nothing
+   to oversize here: the container paints nothing at all, and the drops
+   themselves are a pixel wide. */
 .hero__rain {
   position: absolute;
-  inset: 0;
+  inset: -8% -6%;
   z-index: 1;
   pointer-events: none;
+  rotate: 5deg;
   opacity: 0;
   visibility: hidden;
   transition:
-    opacity 520ms ease,
-    visibility 0s linear 520ms;
+    opacity 640ms ease,
+    visibility 0s linear 640ms;
 }
 
-.hero__rain::before {
-  content: "";
+.hero__drop {
   position: absolute;
-  inset: 0;
-  /* The axis is across the fall, so the bands it draws run along it. Heavy
-     drops widely spaced with finer ones between them; the offset keeps the two
-     sets from lining up into a single ruled grid.
-
-     Each drop is a soft ridge rather than a hard band — single-position stops,
-     so the colour ramps up to the middle of the drop and back down. Real rain
-     has no crisp edge, and a soft one also stops the hairlines re-rasterising
-     into a faint shimmer every time the loop comes round. */
-  background-image:
-    repeating-linear-gradient(
-      104.0362deg,
-      transparent 0,
-      var(--hero-rain-near) 0.9px,
-      transparent 2.4px,
-      transparent 74px
-    ),
-    repeating-linear-gradient(
-      104.0362deg,
-      transparent 0,
-      var(--hero-rain-far) 0.6px,
-      transparent 1.7px,
-      transparent 47px
-    );
-  background-position:
-    0 0,
-    23px 0;
-  /* 194deg is along the fall, so this cuts the lines into streaks rather than
-     slicing them lengthways. */
-  mask-image: repeating-linear-gradient(
-    194.0362deg,
-    transparent 0 30.45px,
-    #000 44.66px 79.16px,
-    transparent 93.37px 131.94px
+  top: -40px;
+  width: 1px;
+  /* Soft at both ends: a drop seen at speed has no edge, and a hard-ended
+     sliver reads as a tally mark. */
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--hero-rain) 50%,
+    transparent
   );
   /* Paused rather than absent while the hero is light: an animation that never
-     runs costs nothing, and starting it on the switch would drop the first
-     frames of the fall in at once. */
-  animation: hero-rain 0.8s linear infinite paused;
-  will-change: transform;
+     runs costs nothing, and every drop already carries a negative delay, so
+     starting it drops the reader into rain that is already falling. */
+  animation-name: hero-drop;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+}
+
+/* Further than any hero is tall, so the fall clears the bottom edge at every
+   size rather than stopping short of it on a long mobile hero. What runs past
+   is clipped by the hero's own overflow. */
+@keyframes hero-drop {
+  to {
+    translate: 0 1700px;
+  }
 }
 
 :root[data-hero-theme="dark"] .hero__rain {
   opacity: 1;
   visibility: visible;
   transition:
-    opacity 700ms ease,
+    opacity 900ms ease,
     visibility 0s;
 }
 
-:root[data-hero-theme="dark"] .hero__rain::before {
+:root[data-hero-theme="dark"] .hero__drop {
   animation-play-state: running;
 }
 
-/* One mask period along the fall, which is what makes the loop invisible. */
-@keyframes hero-rain {
-  to {
-    translate: -32px 128px;
-  }
-}
-
 /* Rain is nothing but motion, so under reduced motion there is none. Freezing
-   it would leave a still hatch of lines across the sky, which is a worse
+   it would leave a scatter of still ticks across the sky, which is a worse
    picture than a clear night — and the night is complete without it. */
 @media (prefers-reduced-motion: reduce) {
   .hero__rain {

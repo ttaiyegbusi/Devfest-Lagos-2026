@@ -1,0 +1,81 @@
+{
+  "_comment": [
+    "PLACEHOLDER SCHEDULE. None of this is confirmed and the speakers named",
+    "here are invented. Replace this file, or point SCHEDULE_URL at a",
+    "published sheet, before the site is public.",
+    "",
+    "One entry per session. `speakers` may be empty — a break or a lunch is",
+    "still a row on the schedule, and the layouts expect to meet one.",
+    "",
+    "`until`, `track`, `format` and `summary` are all optional. A session with",
+    "none of them is a time and a title, and still renders."
+  ],
+  "days": [
+    {
+      "label": "Day one",
+      "date": "Friday",
+      "sessions": [
+        { "time": "08:30", "until": "09:30", "title": "Doors open and registration", "track": "Foyer", "format": "Open" },
+        { "time": "09:30", "until": "10:15", "title": "Opening keynote: One ecosystem", "track": "Main Stage", "format": "Keynote",
+          "summary": "Where the Lagos developer community stands going into 2026, and what the next twelve months ask of it.",
+          "speakers": [{ "name": "Adaeze Okonkwo", "role": "Developer Relations", "org": "Google" }] },
+        { "time": "10:30", "until": "11:10", "title": "Shipping agents that survive contact with users", "track": "Main Stage", "format": "Talk",
+          "summary": "What breaks first when an agent leaves the demo, and the guardrails that hold.",
+          "speakers": [{ "name": "Tunde Bakare", "role": "Staff Engineer", "org": "Paystack" }] },
+        { "time": "10:30", "until": "11:10", "title": "Payments infrastructure for the rest of Africa", "track": "Track B", "format": "Talk",
+          "summary": "Settlement, reconciliation and the failure modes nobody warns you about.",
+          "speakers": [{ "name": "Chiamaka Eze", "role": "Head of Platform", "org": "Moniepoint" }] },
+        { "time": "11:20", "until": "12:00", "title": "Panel: Hiring engineers in a market that moved", "track": "Main Stage", "format": "Panel",
+          "summary": "Four people who do the hiring, on what has actually changed about the bar.",
+          "speakers": [
+            { "name": "Ngozi Adeyemi", "role": "Engineering Manager", "org": "Andela" },
+            { "name": "Ibrahim Sanni", "role": "Principal Engineer", "org": "Flutterwave" },
+            { "name": "Femi Ogunlana", "role": "Cloud Advocate", "org": "Microsoft" }
+          ] },
+        { "time": "12:00", "until": "13:00", "title": "Lunch", "track": "Courtyard", "format": "Break" },
+        { "time": "13:00", "until": "13:40", "title": "Android at scale: what a 40MB APK costs you", "track": "Track B", "format": "Talk",
+          "summary": "Startup time, install conversion, and the numbers that changed when we cut it.",
+          "speakers": [{ "name": "Zainab Yusuf", "role": "Community Lead", "org": "GDG Lagos" }] },
+        { "time": "13:50", "until": "14:30", "title": "Lightning talks", "track": "Main Stage", "format": "Lightning",
+          "summary": "Six speakers, seven minutes each, no slides past the third.",
+          "speakers": [
+            { "name": "Emeka Nwosu", "role": "Machine Learning Lead", "org": "Google" },
+            { "name": "Aisha Bello", "role": "Product Design Lead", "org": "Figma" }
+          ] },
+        { "time": "14:40", "until": "16:00", "title": "Workshop: Building your first agent", "track": "Lab", "format": "Workshop",
+          "summary": "Bring a laptop. You will leave with something that runs.",
+          "speakers": [{ "name": "Segun Adebayo", "role": "Open Source Maintainer", "org": "GitHub" }] },
+        { "time": "16:00", "until": "17:00", "title": "Sponsor booths and networking", "track": "Foyer", "format": "Open" }
+      ]
+    },
+    {
+      "label": "Day two",
+      "date": "Saturday",
+      "sessions": [
+        { "time": "09:00", "until": "09:30", "title": "Doors open", "track": "Foyer", "format": "Open" },
+        { "time": "09:30", "until": "10:10", "title": "Design systems that outlive their designers", "track": "Main Stage", "format": "Talk",
+          "summary": "Documentation is not the answer. Constraints are.",
+          "speakers": [{ "name": "Aisha Bello", "role": "Product Design Lead", "org": "Figma" }] },
+        { "time": "10:20", "until": "11:00", "title": "Reading the room: observability for small teams", "track": "Track B", "format": "Talk",
+          "summary": "The four signals worth paging on, and everything you can safely ignore.",
+          "speakers": [{ "name": "Halima Musa", "role": "Director of Engineering", "org": "Spotify" }] },
+        { "time": "11:10", "until": "11:50", "title": "Securing an API you did not write", "track": "Main Stage", "format": "Talk",
+          "summary": "Inherited systems, unknown callers, and where to put the first control.",
+          "speakers": [{ "name": "Obinna Chukwu", "role": "Security Engineer", "org": "Stripe" }] },
+        { "time": "12:00", "until": "13:00", "title": "Lunch", "track": "Courtyard", "format": "Break" },
+        { "time": "13:00", "until": "14:20", "title": "Workshop: Data pipelines without a data team", "track": "Lab", "format": "Workshop",
+          "summary": "What you can get away with before you need a warehouse.",
+          "speakers": [{ "name": "Folake Adesina", "role": "Data Platform Lead", "org": "Amazon" }] },
+        { "time": "14:30", "until": "15:10", "title": "Open source as a career, honestly", "track": "Main Stage", "format": "Talk",
+          "summary": "The parts that pay, the parts that do not, and how to tell them apart early.",
+          "speakers": [{ "name": "Segun Adebayo", "role": "Open Source Maintainer", "org": "GitHub" }] },
+        { "time": "15:20", "until": "16:00", "title": "Closing keynote: Endless opportunities", "track": "Main Stage", "format": "Keynote",
+          "summary": "What to do on Monday with everything you heard.",
+          "speakers": [{ "name": "Emeka Nwosu", "role": "Machine Learning Lead", "org": "Google" }] },
+        { "time": "16:00", "until": "16:30", "title": "Closing and prize draw", "track": "Main Stage", "format": "Open" },
+        { "time": "19:00", "title": "After party", "track": "Rooftop", "format": "Social",
+          "summary": "Included with every ticket. Both days, both tiers." }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "_comment": [
+    "PLACEHOLDER LINEUP. These are not real speakers and none of these people",
+    "have agreed to anything — the names are made up. Replace this file, or",
+    "point SPEAKERS_URL at a published sheet, before the site is public.",
+    "",
+    "Editing here: change the file, commit, and the next deploy picks it up.",
+    "Editing in a spreadsheet instead: see the note at the top of lineup.ts.",
+    "",
+    "Every field except image is required. Leave image out and the card falls",
+    "back to a tinted placeholder, so a half-filled lineup still renders."
+  ],
+  "days": [
+    {
+      "label": "Day one",
+      "date": "Friday",
+      "speakers": [
+        { "name": "Adaeze Okonkwo", "role": "Developer Relations", "org": "Google" },
+        { "name": "Tunde Bakare", "role": "Staff Engineer", "org": "Paystack" },
+        { "name": "Chiamaka Eze", "role": "Head of Platform", "org": "Moniepoint" },
+        { "name": "Ibrahim Sanni", "role": "Principal Engineer", "org": "Flutterwave" },
+        { "name": "Ngozi Adeyemi", "role": "Engineering Manager", "org": "Andela" },
+        { "name": "Femi Ogunlana", "role": "Cloud Advocate", "org": "Microsoft" },
+        { "name": "Zainab Yusuf", "role": "Community Lead", "org": "GDG Lagos" }
+      ]
+    },
+    {
+      "label": "Day two",
+      "date": "Saturday",
+      "speakers": [
+        { "name": "Emeka Nwosu", "role": "Machine Learning Lead", "org": "Google" },
+        { "name": "Aisha Bello", "role": "Product Design Lead", "org": "Figma" },
+        { "name": "Segun Adebayo", "role": "Open Source Maintainer", "org": "GitHub" },
+        { "name": "Halima Musa", "role": "Director of Engineering", "org": "Spotify" },
+        { "name": "Obinna Chukwu", "role": "Security Engineer", "org": "Stripe" },
+        { "name": "Folake Adesina", "role": "Data Platform Lead", "org": "Amazon" }
+      ]
+    }
+  ]
+}

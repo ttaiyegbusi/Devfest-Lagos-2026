@@ -111,6 +111,94 @@
   color: var(--ink-dim);
 }
 
+/* --- days ---------------------------------------------------------------- */
+
+/* The two days, as a tab set. Quiet by design: this sits between the heading
+   and the wall, and if it competes with either the section has two headings.
+   The selected day is the only one in full white, and the only one with a rule
+   under it. */
+.speakers__days {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 34px;
+}
+
+.speakers__day {
+  display: grid;
+  gap: 2px;
+  padding: 10px 20px 12px;
+  border: 0;
+  /* A transparent border that becomes the underline, so selecting a day does
+     not move the row by two pixels. */
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--ink-dim);
+  font-family: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+.speakers__day:hover {
+  color: #fff;
+}
+
+.speakers__day[aria-selected="true"] {
+  color: #fff;
+  border-bottom-color: var(--accent);
+}
+
+.speakers__day-label {
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+}
+
+.speakers__day-date {
+  font-size: 12px;
+  line-height: 15px;
+  color: var(--ink-dim);
+}
+
+.speakers__day[aria-selected="true"] .speakers__day-date {
+  color: #cbc4c0;
+}
+
+/* --- a short lineup ------------------------------------------------------ */
+
+/* Fewer cards than the ring can carry round without showing its seam, so they
+   are simply laid out. Same card, no perspective, no controls — see the note
+   beside RING_MINIMUM in Speakers.tsx. */
+.speakers__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 28px;
+  width: min(1200px, 100% - 48px);
+  margin: 64px auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The card takes its size from whatever holds it — in the ring that is the
+   absolutely positioned slot, so a row item has to state the same box or the
+   card collapses to its padding and the artwork disappears entirely. */
+.speakers__row li {
+  width: var(--card-w);
+  height: var(--card-h);
+}
+
+/* Every card in a row is lit. The dimming exists to say "this one is not the
+   one you are looking at", and in a row they all are. */
+.speakers__row .card {
+  filter: none;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.85);
+  cursor: default;
+}
+
 /* --- carousel ------------------------------------------------------------ */
 
 .speakers__stage {
@@ -385,6 +473,33 @@
 }
 
 @media (max-width: 767px) {
+  /* Two days fit side by side on any phone; a longer run scrolls rather than
+     wrapping into a second row that reads as two separate controls. */
+  .speakers__days {
+    margin-top: 26px;
+    gap: 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    justify-content: flex-start;
+    padding-inline: 24px;
+    scroll-snap-type: x proximity;
+  }
+
+  .speakers__days::-webkit-scrollbar {
+    display: none;
+  }
+
+  .speakers__day {
+    flex: none;
+    padding-inline: 14px;
+    scroll-snap-align: center;
+  }
+
+  .speakers__row {
+    gap: 20px;
+    margin-top: 44px;
+  }
+
   .speakers {
     --card-w: 208px;
     --card-h: 235px;

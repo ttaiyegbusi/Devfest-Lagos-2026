@@ -1,10 +1,15 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import { SPEAKERS } from "./lineup";
+import type { Speaker } from "./lineup";
 import "./Speakers.css";
 
-const COUNT = SPEAKERS.length;
+/* The ring needs enough cards to hide its own seam. A card is carried round to
+   the other side while it is invisible, and it only becomes invisible at
+   FADE_TO steps out — so below 2 * FADE_TO cards there is no distance at which
+   a card can make the crossing unseen, and the same face would show twice at
+   once. A short lineup gets a plain row instead: the same cards, no ring. */
+const RING_MINIMUM = 5;
 
 /** How fast the wall settles onto a card, per second. */
 const SETTLE = 9;
@@ -27,15 +32,17 @@ const ARC = 18.5;
 /** Distance from the wall's position to card `i`, taking the short way round.
  *  This is the whole trick: the card furthest off to the left is also the one
  *  about to arrive on the right, so there are no ends to run out of. */
-function wrapped(d: number) {
-  const x = ((d % COUNT) + COUNT) % COUNT;
-  return x > COUNT / 2 ? x - COUNT : x;
+function wrapped(d: number, count: number) {
+  const x = ((d % count) + count) % count;
+  return x > count / 2 ? x - count : x;
 }
 
 /** The position as an index into the lineup, for the label and the progress. */
-const asIndex = (v: number) => ((Math.round(v) % COUNT) + COUNT) % COUNT;
+const asIndex = (v: number, count: number) =>
+  ((Math.round(v) % count) + count) % count;
 
-export function Speakers() {
+export function Speakers({ speakers }: { speakers: Speaker[] }) {
+  const COUNT = speakers.length;
   const trackId = useId();
   const root = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
@@ -59,7 +66,7 @@ export function Speakers() {
       const el = slots.current[i];
       if (!el) continue;
 
-      const offset = wrapped(i - pos.current);
+      const offset = wrapped(i - pos.current, COUNT);
       const n = Math.abs(offset);
 
       // Cards sit on a circle of radius --arc-r, one ARC of turn apart. A card
@@ -89,7 +96,7 @@ export function Speakers() {
       const button = el.firstElementChild;
       if (button instanceof HTMLElement) button.tabIndex = gone ? -1 : 0;
     }
-  }, []);
+  }, [COUNT]);
 
   // A named function expression so the loop can re-request itself without
   // reaching for the binding it is still being assigned to.
@@ -130,21 +137,21 @@ export function Speakers() {
   const go = useCallback(
     (delta: number) => {
       target.current = Math.round(target.current) + delta;
-      setActive(asIndex(target.current));
+      setActive(asIndex(target.current, COUNT));
       kick();
     },
-    [kick],
+    [COUNT, kick],
   );
 
   /** Bring card `i` to the centre, going whichever way round is shorter. */
   const goTo = useCallback(
     (i: number) => {
       const from = Math.round(target.current);
-      target.current = from + Math.round(wrapped(i - from));
-      setActive(asIndex(target.current));
+      target.current = from + Math.round(wrapped(i - from, COUNT));
+      setActive(asIndex(target.current, COUNT));
       kick();
     },
-    [kick],
+    [COUNT, kick],
   );
 
   useEffect(() => {
@@ -200,7 +207,7 @@ export function Speakers() {
       }
       el.classList.remove("is-grabbing");
       target.current = Math.round(pos.current);
-      setActive(asIndex(target.current));
+      setActive(asIndex(target.current, COUNT));
       kick();
 
       // A drag that finishes over a card would otherwise also count as a click
@@ -243,25 +250,72 @@ export function Speakers() {
       if (raf.current) cancelAnimationFrame(raf.current);
       raf.current = 0;
     };
-  }, [go, kick]);
+  }, [COUNT, go, kick]);
+
+  /* One card, drawn the same whether it is riding the ring or sitting in a
+     plain row. The organisation is the artwork and the person is the caption
+     under it — see Speakers.css. */
+  const card = (s: Speaker, i: number, onRing: boolean) => (
+    <button
+      type="button"
+      className="card"
+      onClick={onRing ? () => goTo(i) : undefined}
+      /* Only the centred card is a destination; the rest are a way of getting
+         to it — hence the "Show". Both forms name the speaker and the role now
+         that both are printed on the card: a label that leaves out visible
+         words is one a voice-control user cannot say (WCAG 2.5.3, Label in
+         Name). A card in a row is not a control at all, so it says nothing
+         extra. */
+      aria-label={
+        !onRing || i === active
+          ? `${s.name}, ${s.role} at ${s.org}`
+          : `Show ${s.name}, ${s.role} at ${s.org}`
+      }
+      {...(onRing ? {} : { "aria-disabled": true, tabIndex: -1 })}
+    >
+      <span className="card__bar" aria-hidden="true">
+        <span className="card__light" />
+        <span className="card__menu" />
+      </span>
+      <span className="card__view">
+        {s.image ? (
+          <img className="card__art" src={s.image} alt="" loading="lazy" />
+        ) : (
+          <span
+            className="card__art card__art--placeholder"
+            style={{
+              ["--from" as string]: s.tint[0],
+              ["--to" as string]: s.tint[1],
+            }}
+          />
+        )}
+        <span className="card__org">{s.org}</span>
+      </span>
+      {/* Under the screen rather than over it: the organisation is the
+          artwork, the person is the caption. */}
+      <span className="card__caption">
+        <span className="card__name">{s.name}</span>
+        <span className="card__role">{s.role}</span>
+      </span>
+    </button>
+  );
+
+  /* Too few to carry round without showing the seam. The cards are all there
+     is to show, so show them all at once and drop the machinery. */
+  if (COUNT < RING_MINIMUM) {
+    return (
+      <ul className="speakers__row" data-reveal>
+        {speakers.map((s, i) => (
+          <li key={`${s.name}-${s.org}`} data-rise style={{ ["--rise-i" as string]: i }}>
+            {card(s, i, false)}
+          </li>
+        ))}
+      </ul>
+    );
+  }
 
   return (
-    <section
-      className="speakers"
-      id="speakers"
-      aria-labelledby={`${trackId}-title`}
-      ref={root}
-    >
-      <div className="speakers__intro" data-reveal>
-        <h2 className="speakers__title" id={`${trackId}-title`} data-rise>
-          Meet Our Speakers
-        </h2>
-        <p className="speakers__lede" data-rise>
-          We&rsquo;ve raised the bar this year with our impressive lineup of
-          speakers, each prepared to share valuable insights.
-        </p>
-      </div>
-
+    <>
       {/* Fade only, and on the stage itself: this element carries the
           perspective the whole wall is built in, so it can neither travel
           under a rise nor be wrapped in something that would come between it
@@ -277,9 +331,9 @@ export function Speakers() {
         aria-label="Speaker lineup"
       >
         <ul className="speakers__track" id={trackId}>
-          {SPEAKERS.map((s, i) => (
+          {speakers.map((s, i) => (
             <li
-              key={s.org}
+              key={`${s.name}-${s.org}`}
               className="speakers__slot"
               ref={(el) => {
                 slots.current[i] = el;
@@ -287,46 +341,7 @@ export function Speakers() {
               data-current={i === active || undefined}
               aria-current={i === active ? "true" : undefined}
             >
-              <button
-                type="button"
-                className="card"
-                onClick={() => goTo(i)}
-                /* Only the centred card is a destination; the rest are a way
-                   of getting to it — hence the "Show". Both forms name the
-                   speaker and the role now that both are printed on the card:
-                   a label that leaves out visible words is one a voice-control
-                   user cannot say (WCAG 2.5.3, Label in Name). */
-                aria-label={
-                  i === active
-                    ? `${s.speaker}, ${s.role} at ${s.org}`
-                    : `Show ${s.speaker}, ${s.role} at ${s.org}`
-                }
-              >
-                <span className="card__bar" aria-hidden="true">
-                  <span className="card__light" />
-                  <span className="card__menu" />
-                </span>
-                <span className="card__view">
-                  {s.image ? (
-                    <img className="card__art" src={s.image} alt="" />
-                  ) : (
-                    <span
-                      className="card__art card__art--placeholder"
-                      style={{
-                        ["--from" as string]: s.tint[0],
-                        ["--to" as string]: s.tint[1],
-                      }}
-                    />
-                  )}
-                  <span className="card__org">{s.org}</span>
-                </span>
-                {/* Under the screen rather than over it: the organisation is
-                    the artwork, the person is the caption. */}
-                <span className="card__caption">
-                  <span className="card__name">{s.speaker}</span>
-                  <span className="card__role">{s.role}</span>
-                </span>
-              </button>
+              {card(s, i, true)}
             </li>
           ))}
         </ul>
@@ -369,9 +384,9 @@ export function Speakers() {
       </div>
 
       <p className="visually-hidden" aria-live="polite">
-        {SPEAKERS[active].speaker}, {SPEAKERS[active].role} at{" "}
-        {SPEAKERS[active].org}. {active + 1} of {COUNT}.
+        {speakers[active].name}, {speakers[active].role} at{" "}
+        {speakers[active].org}. {active + 1} of {COUNT}.
       </p>
-    </section>
+    </>
   );
 }

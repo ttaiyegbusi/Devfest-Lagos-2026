@@ -2,6 +2,7 @@ import { HeroNav } from "./HeroNav";
 import { RotatingWord } from "./RotatingWord";
 import { HeroCta } from "./HeroCta";
 import { HeroScene } from "./HeroScene";
+import { Rain } from "./Rain";
 import "./Hero.css";
 
 export function Hero() {
@@ -22,7 +23,7 @@ export function Hero() {
       {/* Rain, and only at night. It sits above the veil and below the copy, so
           the weather is in the scene rather than over the reader. Decorative:
           it says nothing the text does not. */}
-      <div className="hero__rain" aria-hidden="true" />
+      <Rain />
 
       <div className="hero__shell">
         <HeroNav />

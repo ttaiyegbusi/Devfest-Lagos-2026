@@ -20,7 +20,7 @@ npm run lint     # oxlint — clean, keep it that way
 ```
 
 `.github/workflows/ci.yml` runs the lint, the build and
-`scripts/carousel.py` on every push and pull request. Two things about it
+`scripts/starters.mjs` on every push and pull request. Two things about it
 are deliberate:
 
 * **`npm run lint` carries `--deny-warnings`.** Plain oxlint exits 0 even
@@ -53,7 +53,7 @@ app/
   speakers/   Speakers.tsx  Speakers.css  lineup.ts
   faq/        Faq.tsx  Faq.css  questions.ts
   footer/     SiteFooter.tsx  SiteFooter.css
-scripts/      lanes.py  carousel.py
+scripts/      lanes.py  starters.mjs
 public/       bg-new.svg  fonts/  design/HERO.png  expect/
 ```
 
@@ -212,92 +212,61 @@ Pace knob: `--traffic-duration` (default 12s).
 
 ---
 
-## 6. Speakers carousel
+## 6. Speakers
 
-A **concave** wall — cards swing their *outer* edge toward the viewer and grow as
-they go out, so the row curves toward you at the ends rather than receding. I
-built it convex first; measuring the reference showed the opposite.
+**This section used to be a carousel and no longer is.** It was a concave wall
+of cards lying on a real circle, dragged one at a time, calibrated against the
+reference and policed in CI by `scripts/carousel.py` — an 18.5° arc, a 1112px
+radius, perspective pinned at 1.429 R. All of that is deleted. Do not go looking
+for it, and do not restore it without reading the next paragraph.
 
-### The placement is a circle, and that matters
+**Why it went.** The geometry was sound and the control was wrong for the
+content. A ring works when there are seven cards; a real conference lineup is
+fifty, and finding a name in a ring of fifty means dragging past forty others.
+Nobody does that. It is a grid now: everyone visible at once, on the scroll the
+reader was already doing. Six columns at 1440, two on a phone, `auto-fill`
+between, so any length of lineup fills the rows it needs and the last row is
+simply short. `scripts/carousel.py` and its CI step went with it.
 
-The cards lie on a real circle. A card `t` degrees around it sits at
-`(R sin t, R(1 − cos t))` and is turned by **that same t**, so its facing and its
-position come from one angle. That is the whole definition of lying on an arc,
-and it is what makes the row read as a single curved surface.
+**A speaker with no photograph gets their initials** on a tinted ground, mixed
+back towards the panel colour so a grid of them sits quietly. Half a lineup
+usually has no picture until the week of the event, and a wall of empty
+rectangles says nothing; two letters at least name the person. The tint is
+derived from the organisation's name — the same name always draws the same
+colour — so a spreadsheet does not have to carry hex codes.
 
-This is the second model. The first derived `x` and `z` from *separate* curves —
-a power law for the horizontal offset, a linear depth per step — which leaves
-every card facing slightly wrong for where it actually is. Each card looks fine
-alone and the row looks broken. If you are tempted to reintroduce an exponent,
-this is what it costs.
+**Nothing on a card is a link or a button.** There is nowhere for one to go yet.
+A card that looks pressable and does nothing is worse than one that does not.
 
-`ARC` is **18.5°** between neighbours, kept from the original reference solve.
-Radius follows from that angle and the horizontal step, and perspective is pinned
-at a fixed multiple of the radius:
+### Where the lineup comes from
 
-| | 1440+ | ≤1023 | ≤767 |
-|---|---:|---:|---:|
-| `--card-w` | 312px | 262px | 208px |
-| `--step` | 353px | 296px | 235px |
-| `--arc-r` = step / sin 18.5° | 1112px | 933px | 741px |
-| `--persp` = 1.429 R | 1589px | 1333px | 1059px |
+`app/speakers/speakers.json` by default: edit, commit, deploy. Set
+`SPEAKERS_URL` and it reads a feed instead — either JSON of the same shape, or
+a Google Sheet published to the web as CSV with a header row naming `day`,
+`name`, `role`, `org`, `image` in any order and any capitalisation. Which of
+the two it got is decided by looking at the body rather than the URL, because a
+published sheet answers with CSV whatever its link looks like. The feed is
+re-read every five minutes.
 
-Every breakpoint holds both `persp / R` at 1.429 and `card-w / R` at 0.281, so
-the wall is **one shape** at every size and only its scale changes. Check those
-two ratios after touching any of these numbers; nothing else is a free choice.
+The fetch is on the server (`app/speakers/SpeakersSection.tsx` is async), so the
+reader gets finished markup and a share card sees the real names. Only the day
+tabs are interactive.
 
-The number to hold is not the scale at a card's centre but at its **near edge**:
-a card two steps out is turned 37°, which pulls that edge `(card-w / 2) sin 37°`
-further forward than its middle, and the near edge is what sets how tall the card
-stands. At 1.429 R it reaches exactly **1.25×** there — enough to read as an arc
-coming towards you, little enough that it still sits inside the section.
+**Everything downstream of the fetch treats its input as untrusted**, because a
+spreadsheet is edited by people in a hurry. Cells are trimmed, quoted fields
+with commas survive, and a row that cannot name a person is dropped rather than
+rendered as a blank card. Tested against a CSV carrying all of that.
 
-Projected widths come out at **312 / 307 / 290px** going out from the centre: near
-enough constant one step out, which is what the reference shows, because
-`cos(18.5°)` very nearly cancels the size gain from coming forward. Cards more
-than two steps out are dropped rather than left for the perspective to blow up —
-and since the ring wraps and a card has faded out entirely by the time it is
-carried round, the row is endless with no seam and never shows a card at a size
-the geometry was not solved for.
+**A feed that cannot be read serves the committed lineup and logs why.**
+Verified by pointing `SPEAKERS_URL` at a dead port: the page still answers 200
+with the full lineup. A speaker list is not worth a broken page.
 
-Only the trigonometry is done in the component, because CSS can take neither a
-sine nor a cosine; the radius lives in the stylesheet as `--arc-r` so the arc
-scales with the card at each breakpoint.
+### Days
 
-**`scripts/carousel.py` solves this model and checks it.** It used to solve the
-superseded one — printing a `--depth` and an exponent that describe nothing that
-exists — which made it a trap rather than a tool. It now derives the angle, the
-step, the radius and both held ratios from the same four reference
-measurements, then reads `Speakers.css` and `Speakers.tsx` and checks what is
-committed against the two rules the wall states:
-
-    radius == step / sin(ARC)
-    the near edge two steps out reaches exactly 1.25x
-
-Both hold at all three breakpoints — radius within 0.5px, near-edge scale 1.250
-on the nose — and the script exits non-zero if they stop holding. Verified that
-it actually catches drift rather than always passing: perturbing `--arc-r`,
-`--persp`, `--step` or `ARC` each fails it.
-
-```bash
-python3 scripts/carousel.py     # prints the tables, exits 1 on drift
-```
-
-It also reports how faithful the circle is to the reference, which is worth
-knowing before trusting it too far. The circle is pinned by the step and the
-angle, so it is free to disagree about depth, and it does: the card one step out
-sits at depth 65.8 where the reference measured 40.3, and the projected centre
-offset two steps out lands 11.9% wider than the reference's. That was accepted
-knowingly — a card that faces exactly where it sits is worth more than one that
-hits the reference's own offsets — but it is a departure, not a match, and the
-script says so every run.
-
-Two wrong turns worth remembering: I first read `perspective: 480px` off the
-reference site's DOM and used it — it belonged to a *different* component (a
-stacked mobile deck), not the wall. And 29° of rotation made the cards balloon to
-1.4× and collide. The edge-height solve fixed both.
-
----
+The lineup is grouped by day and the days are a real tab set: arrow keys move
+between them and wrap, only the selected tab is in the tab order, and the panel
+is labelled by the tab that opened it. A single day renders no tabs at all,
+because one tab is not a choice.
 
 ## 7. What to expect — the panels
 
@@ -662,9 +631,6 @@ into stacked full-bleed panels and added `app/stack/`. That is the layout that
 shipped, and both this file and the README describe it. The fan is gone; do not
 go looking for it. (The hazard itself stands: agree who owns which folders before
 running two sessions again.)
-
-**`scripts/carousel.py` is current again** — it solves the circle model and
-fails if the committed geometry drifts from it. See §6.
 
 **Panel 02 is a tall panel.** At twenty-four pills the heap outgrows `MAX_VH` on
 every viewport tested (930px in a 1024-high window, 801px in an 800). The trim

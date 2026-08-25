@@ -1,50 +1,14 @@
 /* ---------------------------------------------------------------------------
-   Meet Our Speakers — a concave wall of screens.
+   Meet Our Speakers.
 
-   The cards lie on a circle. A card `t` degrees around it sits at
-   (R sin t, R(1 - cos t)) and is turned by exactly that same t, so its facing
-   and its position come from one angle — which is what makes the row read as a
-   single curved surface rather than a set of separately placed cards. The
-   placement is computed in the component because CSS can take neither a sine
-   nor a cosine, but the radius lives here as --arc-r so the arc scales with the
-   card at each breakpoint.
-
-   ARC is 18.5deg between neighbours, kept from the original solve against the
-   reference: at that angle a card one step out is turned just enough that
-   cos(18.5deg) cancels the gain from coming forward, so it projects to the same
-   *width* as the centre card and the gap between them survives. Raise it and
-   the cards go trapezoidal; drop it and they grow into each other.
-
-   Radius follows from that angle and the horizontal step: R = step / sin(18.5),
-   giving 1112px against a 353px step.
-
-   Perspective is then pinned at 1.429 R. The number to hold is not the scale at
-   a card's centre but at its *near edge*: a card turned 37deg has that edge
-   pulled (card-w / 2) sin(37deg) further forward than its middle, and it is the
-   near edge that sets how tall the card stands. At 1.429 R the card two steps
-   out reaches 1.25x there — enough to read as an arc coming towards you, little
-   enough that it still sits inside the section. Every breakpoint keeps both that
-   ratio and card-w / R at 0.281, so the wall is one shape at every size and only
-   its scale changes.
+   This was a concave wall of cards on a circle, dragged one at a time. It read
+   well at seven and not at all at fifty: finding a name meant dragging past
+   forty others. It is a grid now — everyone at once, on the scroll the reader
+   was already doing — and the arc, the perspective and the geometry check that
+   policed them are gone with it.
    --------------------------------------------------------------------------- */
 
 .speakers {
-  --card-w: 312px;
-  /* Screen plus caption strip. The card grows by --cap rather than the screen
-     shrinking into it, so the artwork keeps the proportion the wall was solved
-     against — and --card-h is then set so that card-h / card-w lands on 1.13 at
-     every breakpoint, because the wall is meant to be one shape at every size
-     and only change scale. Sizing --cap first instead left that ratio spread
-     across 1.12 to 1.15, which is a differently-shaped card on a phone.
-
-     Neither rule scripts/carousel.py enforces reads --card-h: the radius comes
-     from the step and the angle, the near-edge scale from the width. The ratio
-     it reports is the one that matters here. */
-  --card-h: 353px;
-  --cap: 59px;
-  --step: 353px;
-  --arc-r: 1112px;
-  --persp: 1589px;
   --accent: #ea4335;
   --panel: #0d0d0d;
   --ink-dim: #9b9490;
@@ -109,9 +73,7 @@
   font-size: 16px;
   line-height: 22px;
   color: var(--ink-dim);
-}
-
-/* --- days ---------------------------------------------------------------- */
+}/* --- days ---------------------------------------------------------------- */
 
 /* The two days, as a tab set. Quiet by design: this sits between the heading
    and the wall, and if it competes with either the section has two headings.
@@ -167,312 +129,113 @@
   color: #cbc4c0;
 }
 
-/* --- a short lineup ------------------------------------------------------ */
 
-/* Fewer cards than the ring can carry round without showing its seam, so they
-   are simply laid out. Same card, no perspective, no controls — see the note
-   beside RING_MINIMUM in Speakers.tsx. */
-.speakers__row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 28px;
+/* --- the grid ------------------------------------------------------------ */
+
+/* Six across at the reference width, two on a phone, and whatever fits in
+   between — auto-fill rather than a fixed count, so a lineup of any length
+   fills the rows it needs and the last row is simply short. */
+.speakers__count {
+  margin: 30px 0 0;
+  text-align: center;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.speakers__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: 34px 24px;
   width: min(1200px, 100% - 48px);
-  margin: 64px auto 0;
+  margin: 40px auto 0;
   padding: 0;
   list-style: none;
 }
 
-/* The card takes its size from whatever holds it — in the ring that is the
-   absolutely positioned slot, so a row item has to state the same box or the
-   card collapses to its padding and the artwork disappears entirely. */
-.speakers__row li {
-  width: var(--card-w);
-  height: var(--card-h);
-}
-
-/* Every card in a row is lit. The dimming exists to say "this one is not the
-   one you are looking at", and in a row they all are. */
-.speakers__row .card {
-  filter: none;
-  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.85);
-  cursor: default;
-}
-
-/* --- carousel ------------------------------------------------------------ */
-
-.speakers__stage {
-  height: var(--card-h);
-  margin-top: 68px;
-  perspective: var(--persp);
-  perspective-origin: 50% 50%;
-  outline: none;
-  cursor: grab;
-  /* Horizontal travel belongs to the wall, vertical still belongs to the page,
-     so a touch that starts on a card can still scroll past the section. */
-  touch-action: pan-y;
-  /* A drag across the cards should move them, not select their labels. */
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.speakers__stage.is-grabbing {
-  cursor: grabbing;
-}
-
-.speakers__track {
-  position: relative;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  transform-style: preserve-3d;
-}
-
-.speakers__slot {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: var(--card-w);
-  height: var(--card-h);
-  margin-left: calc(var(--card-w) / -2);
-  transform-style: preserve-3d;
-  /* No transition: the wall is driven frame by frame in the component, so it
-     can follow a cursor continuously rather than only stepping between cards.
-     A transition here would lag every drag by its own duration. */
-  will-change: transform, opacity;
-}
-
-/* Marked on a card once it has faded out, at the point it is carried round to
-   the other side of the wall. Its opacity is set frame by frame in the
-   component; all this adds is that an invisible card cannot be clicked. */
-.speakers__slot[data-far] {
-  pointer-events: none;
-}
-
-/* --- card ---------------------------------------------------------------- */
-
-.card {
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding: 0 12px 10px;
-  border: 0;
-  border-radius: 4px;
-  background: var(--panel);
-  color: inherit;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-  /* The off-centre cards read as unlit screens on the same wall. */
-  filter: brightness(0.62);
-  transition:
-    filter 620ms cubic-bezier(0.22, 0.61, 0.36, 1),
-    box-shadow 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-.speakers__slot[data-current] .card {
-  filter: none;
-  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.85);
-  cursor: default;
-}
-
-.card:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-
-.card__bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 40px;
-  margin-inline: -4px;
-  padding-inline: 12px;
-}
-
-.card__light {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 2.5px rgba(234, 67, 53, 0.28);
-}
-
-/* The three-dot affordance in the opposite corner. */
-.card__menu {
-  width: 14px;
-  height: 2px;
-  background-image: radial-gradient(circle, #6a6a6a 1px, transparent 1px);
-  background-size: 5px 2px;
-}
-
-.card__view {
+.speaker__photo {
   position: relative;
   display: block;
-  height: calc(100% - 40px - var(--cap));
+  /* Square, so a row of faces lines up whatever shape the files arrive in. */
+  aspect-ratio: 1;
   overflow: hidden;
-  border-radius: 3px;
-  background: #000;
+  border-radius: 6px;
+  background: var(--panel);
+  transition: transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.card__art {
+.speaker:hover .speaker__photo {
+  transform: translateY(-4px);
+}
+
+.speaker__photo img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.card__art--placeholder {
-  background:
-    radial-gradient(120% 90% at 20% 15%, var(--from) 0%, transparent 60%),
-    linear-gradient(150deg, var(--from) 0%, var(--to) 55%, #0b0b0b 100%);
-}
-
-.card__org {
-  position: absolute;
-  inset: 0;
+/* Initials rather than an empty tint. Half a lineup usually has no photograph
+   until the week of the event, and a grid of blank rectangles says nothing —
+   two letters at least name the person. */
+.speaker__initials {
   display: grid;
   place-items: center;
-  padding-inline: 12px;
-  color: #fff;
+  width: 100%;
+  height: 100%;
+  /* Mixed back towards the panel. At full strength a grid of these is a
+     colour chart competing with the section, and they are a placeholder —
+     they should sit quietly until the photographs arrive and replace them. */
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--from) 58%, var(--panel)),
+    color-mix(in srgb, var(--to) 58%, var(--panel))
+  );
+  font-family: var(--font-display);
   font-size: 34px;
-  line-height: 1.1;
-  letter-spacing: -0.6px;
-  text-align: center;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.92);
 }
 
-/* The caption sits inside .card, so it dims with the card: an off-centre
-   screen and its label are one unlit unit rather than a dark screen with a lit
-   name under it.
-
-   One line each, and it is a flex column of a fixed height so a long name
-   cannot push the role out of the card. At these sizes a name has room for
-   roughly 35 characters before the ellipsis is reached, which real names very
-   rarely need — but truncating beats spilling over the edge. */
-.card__caption {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 3px;
-  height: var(--cap);
-  padding-top: 2px;
-}
-
-.card__name,
-.card__role {
-  display: block;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.card__name {
+/* Names wrap rather than ellipsis. A cut-off role is a small loss; a cut-off
+   name is the one thing on the card that had to survive. */
+.speaker__name {
+  margin: 13px 0 0;
   font-size: 15px;
-  line-height: 1.3;
-  letter-spacing: -0.2px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
   color: #fff;
 }
 
-.card__role {
+.speaker__role {
+  margin: 2px 0 0;
   font-size: 13px;
-  line-height: 1.3;
+  line-height: 18px;
   color: var(--ink-dim);
 }
 
-/* --- controls ------------------------------------------------------------ */
-
-.speakers__controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 46px;
-  margin-top: 76px;
-}
-
-.speakers__arrow {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: #fff;
-  cursor: pointer;
-  transition: opacity 150ms ease;
-}
-
-.speakers__arrow:hover:not(:disabled) {
-  opacity: 0.65;
-}
-
-.speakers__arrow:disabled {
-  opacity: 0.28;
-  cursor: default;
-}
-
-.speakers__arrow:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-.speakers__progress {
-  position: relative;
-  display: block;
-  width: 152px;
-  height: 2px;
-  background: #4a4442;
-}
-
-.speakers__thumb {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: calc(100% / var(--count));
-  background: var(--accent);
-  transform: translateX(calc(var(--index) * 100%));
-  transition: transform 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
+.speaker__org {
+  margin: 1px 0 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: #cbc4c0;
 }
 
 /* --- responsive ---------------------------------------------------------- */
 
-@media (max-width: 1023px) {
-  .speakers {
-    --card-w: 262px;
-    --card-h: 296px;
-    --cap: 48px;
-    --step: 296px;
-    --arc-r: 933px;
-    --persp: 1333px;
-    padding-block: 76px 84px;
-  }
-
-  .speakers__stage {
-    margin-top: 84px;
-  }
-
-  .speakers__controls {
-    margin-top: 68px;
-  }
-
-  .card__org {
-    font-size: 26px;
-  }
-
-  .card__name {
-    font-size: 14px;
-  }
-
-  .card__role {
-    font-size: 12px;
-  }
-}
-
 @media (max-width: 767px) {
+  .speakers {
+    padding: 64px 0 72px;
+  }
+
+  .speakers__title {
+    font-size: 32px;
+    line-height: 36px;
+  }
+
   /* Two days fit side by side on any phone; a longer run scrolls rather than
      wrapping into a second row that reads as two separate controls. */
   .speakers__days {
@@ -495,60 +258,19 @@
     scroll-snap-align: center;
   }
 
-  .speakers__row {
-    gap: 20px;
-    margin-top: 44px;
+  .speakers__grid {
+    grid-template-columns: repeat(auto-fill, minmax(136px, 1fr));
+    gap: 26px 16px;
+    margin-top: 30px;
   }
 
-  .speakers {
-    --card-w: 208px;
-    --card-h: 235px;
-    --cap: 39px;
-    --step: 235px;
-    --arc-r: 741px;
-    --persp: 1059px;
-    padding-block: 64px 72px;
-  }
-
-  .card__name {
-    font-size: 13px;
-  }
-
-  .card__role {
-    font-size: 11px;
-  }
-
-  .card__caption {
-    gap: 2px;
-  }
-
-  .speakers__title {
-    font-size: 32px;
-  }
-
-  .speakers__lede {
-    font-size: 15px;
-    line-height: 21px;
-  }
-
-  .speakers__stage {
-    margin-top: 60px;
-  }
-
-  .speakers__controls {
-    gap: 28px;
-    margin-top: 56px;
-  }
-
-  .card__org {
-    font-size: 22px;
+  .speaker__initials {
+    font-size: 26px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .speakers__track,
-  .speakers__thumb,
-  .card {
+  .speaker__photo {
     transition: none;
   }
 }

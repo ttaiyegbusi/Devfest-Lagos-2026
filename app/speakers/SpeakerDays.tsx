@@ -56,7 +56,7 @@ export function SpeakerDays({ days }: { days: Day[] }) {
               aria-selected={i === active}
               aria-controls={`speakers-panel-${i}`}
               /* Roving: the tab set is one stop, and the arrows move within
-                 it. Tabbing through five days to reach the carousel is not a
+                 it. Tabbing through five days to reach the lineup is not a
                  tab set, it is an obstacle. */
               tabIndex={i === active ? 0 : -1}
               ref={(el) => {

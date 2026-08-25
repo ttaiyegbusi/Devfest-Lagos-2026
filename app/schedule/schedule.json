@@ -12,7 +12,7 @@
   ],
   "days": [
     {
-      "label": "Day one",
+      "label": "Day One",
       "date": "Friday",
       "sessions": [
         { "time": "08:30", "until": "09:30", "title": "Doors open and registration", "track": "Foyer", "format": "Open" },
@@ -49,7 +49,7 @@
       ]
     },
     {
-      "label": "Day two",
+      "label": "Day Two",
       "date": "Saturday",
       "sessions": [
         { "time": "09:00", "until": "09:30", "title": "Doors open", "track": "Foyer", "format": "Open" },

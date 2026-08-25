@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import type { Day } from "./lineup";
 import { SpeakerGrid } from "./SpeakerGrid";
 import { Speakers } from "./Speakers";
+import "../shell/DayTabs.css";
 
 /* The lineup is split by day, so the day is a choice the reader makes and the
  * speakers are what that choice shows. That is a tab set, and it is built as
@@ -58,14 +59,14 @@ export function SpeakerDays({
   return (
     <>
       {days.length > 1 && (
-        <div className="speakers__days" role="tablist" aria-label="Choose a day">
+        <div className="daytabs" role="tablist" aria-label="Choose a day">
           {days.map((entry, i) => (
             <button
               key={entry.label}
               type="button"
               role="tab"
               id={`speakers-tab-${i}`}
-              className="speakers__day"
+              className="daytab"
               aria-selected={i === active}
               aria-controls={`speakers-panel-${i}`}
               /* Roving: the tab set is one stop, and the arrows move within
@@ -78,9 +79,9 @@ export function SpeakerDays({
               onClick={() => setActive(i)}
               onKeyDown={onKeyDown}
             >
-              <span className="speakers__day-label">{entry.label}</span>
+              {entry.label}
               {entry.date && (
-                <span className="speakers__day-date">{entry.date}</span>
+                <span className="daytab__date"> ({entry.date})</span>
               )}
             </button>
           ))}

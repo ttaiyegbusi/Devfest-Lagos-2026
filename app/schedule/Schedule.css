@@ -12,39 +12,15 @@
    and dark; a third dark section here would have run four of them together.
    --------------------------------------------------------------------------- */
 
+/* The section is a container now, not a ground: /schedule wears .leaf from
+   app/shell/Page.css, which paints the cream and holds the heading. What is
+   left here is what the schedule itself is made of. The tokens are repeated
+   rather than inherited so this stylesheet still stands on its own if the
+   schedule is ever dropped into a section that is not a leaf. */
 .schedule {
-  /* A warm grey, biased towards the cream it sits on. A neutral grey here
-     reads as a different palette showing through. */
   --quiet: #6f6754;
   --rule: rgba(23, 23, 23, 0.13);
   --rule-strong: rgba(23, 23, 23, 0.26);
-
-  padding: 96px 0 104px;
-  background: var(--cream);
-  color: var(--ink);
-}
-
-.schedule__intro {
-  width: min(var(--shell), 100% - var(--gutter) * 2);
-  margin-inline: auto;
-}
-
-.schedule__title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 44px;
-  font-weight: 400;
-  line-height: 48px;
-  letter-spacing: -1px;
-  text-wrap: balance;
-}
-
-.schedule__lede {
-  margin: 12px 0 0;
-  max-width: 52ch;
-  font-size: 17px;
-  line-height: 25px;
-  color: var(--quiet);
 }
 
 /* --- the bar: which day, and which shape ---------------------------------- */
@@ -61,52 +37,11 @@
   border-bottom: 1px solid var(--rule-strong);
 }
 
-.schedule__days {
-  display: flex;
-  gap: 6px;
-}
-
-.schedule__day {
-  display: grid;
-  gap: 2px;
-  padding: 8px 18px 10px;
-  border: 0;
-  /* Transparent until selected, so choosing a day does not move the row. */
-  border-bottom: 2px solid transparent;
-  background: transparent;
-  color: var(--quiet);
-  font-family: inherit;
-  text-align: left;
-  cursor: pointer;
-  transition:
-    color 200ms ease,
-    border-color 200ms ease;
-}
-
-.schedule__day:first-child {
-  padding-left: 0;
-}
-
-.schedule__day:hover {
-  color: var(--ink);
-}
-
-.schedule__day[aria-selected="true"] {
-  color: var(--ink);
-  border-bottom-color: var(--amber);
-}
-
-.schedule__day-label {
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 21px;
-  letter-spacing: -0.01em;
-}
-
-.schedule__day-date {
-  font-size: 12px;
-  line-height: 15px;
-  color: var(--quiet);
+/* Colours for the shared tab set (app/shell/Page.css) on the cream. */
+.schedule .daytabs {
+  --tab-ink: var(--ink);
+  --tab-quiet: var(--quiet);
+  --tab-accent: var(--amber);
 }
 
 .schedule__views {
@@ -397,14 +332,7 @@
 }
 
 @media (max-width: 767px) {
-  .schedule {
-    padding: 64px 0 72px;
-  }
 
-  .schedule__title {
-    font-size: 34px;
-    line-height: 38px;
-  }
 
   .schedule__bar {
     align-items: stretch;
@@ -447,7 +375,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .schedule__day,
   .schedule__view {
     transition: none;
   }

@@ -35,6 +35,16 @@ const SPIN_RESISTANCE = 4;
 const STILL_FRAMES = 30;
 /** Movement below this, in px per step, is not movement. */
 const STILL_EPS = 0.05;
+/** Cream left above the highest pill once the heap has landed. It used to be 8,
+ *  which is not air — it is a pill touching the edge of a box whose edge is a
+ *  hard clip, and it read as a row that had been cut off. */
+const TOP_AIR = 28;
+/** The body outline is a chamfer of h/2 - 1, one pixel squarer than the stadium
+ *  the pill actually paints, so the painted end reaches a couple of pixels past
+ *  the outline resting against a wall. Without it the bottom row is shaved by
+ *  the floor and the odd pill by a side. Measured at 1.1 to 1.9px; 3 covers it
+ *  at every size in play and costs the heap nothing. */
+const EDGE_PAD = 3;
 /** Ceiling on the *estimate* below — not on the finished heap. The trim is
  *  allowed to reopen the box past this, because a heap with its top row cut off
  *  is worse than a panel that runs longer than the screen, and the stack is
@@ -156,12 +166,13 @@ export function PillPit({ rows }: { rows: Pill[][] }) {
     engine.enableSleeping = true;
     const world = engine.world;
 
-    // Walls sit outside the visible box so their edges never show.
+    // Walls sit outside the visible box so their edges never show, and their
+    // inner faces stand EDGE_PAD in from it so the painted pill clears the clip.
     const T = 240;
     Composite.add(world, [
       Bodies.rectangle(W / 2, H + T / 2, W + T * 2, T, { isStatic: true }),
-      Bodies.rectangle(-T / 2, H / 2, T, H * 4, { isStatic: true }),
-      Bodies.rectangle(W + T / 2, H / 2, T, H * 4, { isStatic: true }),
+      Bodies.rectangle(EDGE_PAD - T / 2, H / 2, T, H * 4, { isStatic: true }),
+      Bodies.rectangle(W - EDGE_PAD + T / 2, H / 2, T, H * 4, { isStatic: true }),
     ]);
 
     // One body per pill, sized from what the DOM actually measured, so the
@@ -264,6 +275,10 @@ export function PillPit({ rows }: { rows: Pill[][] }) {
     const settle = (sim: Sim) => {
       for (let i = 0; i < sim.bodies.length; i++) place(sim, i, true);
       pit.classList.add("is-settled");
+      // Lets the veil over the top edge fade off — see .pit::after. Removed
+      // here rather than on `is-settled` so that picking a pill up later, which
+      // clears `is-settled`, does not draw it back over a landed heap.
+      pit.classList.remove("is-dropping");
       cancelAnimationFrame(rafRef.current);
       rafRef.current = 0;
     };
@@ -319,11 +334,16 @@ export function PillPit({ rows }: { rows: Pill[][] }) {
           (min, b) => Math.min(min, b.bounds.min.y),
           Infinity,
         );
-        const slack = Math.round(top - 8);
-        if (Math.abs(slack) > 8) {
+        const slack = Math.round(top - TOP_AIR);
+        // No deadband worth the name: this runs once, on a heap that has
+        // stopped, so there is no jitter to damp — and the old one let the top
+        // row sit eight pixels from the clip, which is what it looked like.
+        if (Math.abs(slack) > 1) {
           sim.M.Composite.translate(sim.world, { x: 0, y: -slack }, true);
-          pit.style.height = `${sim.height - slack}px`;
         }
+        // The floor is at `height` in world space and the world has just moved
+        // by -slack, so this is the floor plus the pad under it.
+        pit.style.height = `${sim.height - slack + EDGE_PAD}px`;
       }
 
       if (asleep && sim.trimmed) {
@@ -405,6 +425,7 @@ export function PillPit({ rows }: { rows: Pill[][] }) {
     pit.addEventListener("pointerup", onUp);
     pit.addEventListener("pointercancel", onUp);
 
+    pit.classList.add("is-dropping");
     rafRef.current = requestAnimationFrame(frame);
 
     cleanupRef.current = () => {
@@ -412,7 +433,7 @@ export function PillPit({ rows }: { rows: Pill[][] }) {
       pit.removeEventListener("pointermove", onMove);
       pit.removeEventListener("pointerup", onUp);
       pit.removeEventListener("pointercancel", onUp);
-      pit.classList.remove("is-settled", "is-grabbing");
+      pit.classList.remove("is-settled", "is-grabbing", "is-dropping");
     };
   }, [pills.length]);
 

@@ -23,59 +23,11 @@
   --rule-strong: rgba(23, 23, 23, 0.26);
 }
 
-/* --- the bar: which day, and which shape ---------------------------------- */
-
-.schedule__bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 20px;
-  width: min(var(--shell), 100% - var(--gutter) * 2);
-  margin: 40px auto 0;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--rule-strong);
-}
-
-/* Colours for the shared tab set (app/shell/Page.css) on the cream. */
+/* Colours for the shared tab set (app/shell/DayTabs.css) on the cream. */
 .schedule .daytabs {
   --tab-ink: var(--ink);
   --tab-quiet: var(--quiet);
   --tab-accent: var(--amber);
-}
-
-.schedule__views {
-  display: flex;
-  gap: 2px;
-  padding: 2px;
-  background: rgba(23, 23, 23, 0.06);
-}
-
-.schedule__view {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 8px 14px;
-  border: 0;
-  background: transparent;
-  color: var(--quiet);
-  font-family: inherit;
-  font-size: 13px;
-  line-height: 17px;
-  cursor: pointer;
-  transition:
-    background 180ms ease,
-    color 180ms ease;
-}
-
-.schedule__view:hover {
-  color: var(--ink);
-}
-
-/* The site's language is solid blocks, so the chosen view is a solid block. */
-.schedule__view[aria-pressed="true"] {
-  background: var(--ink);
-  color: #fff;
 }
 
 /* --- shared parts --------------------------------------------------------- */
@@ -332,17 +284,6 @@
 }
 
 @media (max-width: 767px) {
-
-
-  .schedule__bar {
-    align-items: stretch;
-    gap: 14px;
-  }
-
-  .schedule__views {
-    align-self: flex-start;
-  }
-
   /* Below this the two columns cost more than they give: the time gets a line
      of its own above the session, which is how a phone reads a schedule. */
   .agenda__head {
@@ -371,11 +312,5 @@
 
   .ecard {
     padding: 22px 20px 26px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .schedule__view {
-    transition: none;
   }
 }

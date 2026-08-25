@@ -1,8 +1,10 @@
 {
   "_comment": [
     "PLACEHOLDER LINEUP. These are not real speakers and none of these people",
-    "have agreed to anything — the names are made up. Replace this file, or",
-    "point SPEAKERS_URL at a published sheet, before the site is public.",
+    "have agreed to anything — the names are made up, and the organisations",
+    "beside them are real companies that have not said any of this. Replace",
+    "this file, or point SPEAKERS_URL at a published sheet, before the site is",
+    "public.",
     "",
     "Editing here: change the file, commit, and the next deploy picks it up.",
     "Editing in a spreadsheet instead: see the note at the top of lineup.ts.",
@@ -21,7 +23,14 @@
         { "name": "Ibrahim Sanni", "role": "Principal Engineer", "org": "Flutterwave" },
         { "name": "Ngozi Adeyemi", "role": "Engineering Manager", "org": "Andela" },
         { "name": "Femi Ogunlana", "role": "Cloud Advocate", "org": "Microsoft" },
-        { "name": "Zainab Yusuf", "role": "Community Lead", "org": "GDG Lagos" }
+        { "name": "Zainab Yusuf", "role": "Community Lead", "org": "GDG Lagos" },
+        { "name": "Kelechi Umeh", "role": "Android Lead", "org": "Bolt" },
+        { "name": "Amara Nnadi", "role": "Site Reliability Engineer", "org": "Cloudflare" },
+        { "name": "Yusuf Lawal", "role": "Head of Data", "org": "Kuda" },
+        { "name": "Bisi Afolabi", "role": "Design Systems Lead", "org": "Interswitch" },
+        { "name": "Daniel Okoro", "role": "Developer Advocate", "org": "Vercel" },
+        { "name": "Hauwa Ibrahim", "role": "Product Manager", "org": "Piggyvest" },
+        { "name": "Chinedu Obi", "role": "Backend Lead", "org": "Cowrywise" }
       ]
     },
     {
@@ -33,7 +42,15 @@
         { "name": "Segun Adebayo", "role": "Open Source Maintainer", "org": "GitHub" },
         { "name": "Halima Musa", "role": "Director of Engineering", "org": "Spotify" },
         { "name": "Obinna Chukwu", "role": "Security Engineer", "org": "Stripe" },
-        { "name": "Folake Adesina", "role": "Data Platform Lead", "org": "Amazon" }
+        { "name": "Folake Adesina", "role": "Data Platform Lead", "org": "Amazon" },
+        { "name": "Ifeoma Nwachukwu", "role": "Research Scientist", "org": "DeepMind" },
+        { "name": "Musa Danjuma", "role": "Infrastructure Lead", "org": "Flutterwave" },
+        { "name": "Temiloluwa Ajayi", "role": "iOS Engineer", "org": "Spotify" },
+        { "name": "Grace Etim", "role": "Head of Developer Experience", "org": "Paystack" },
+        { "name": "Abubakar Sadiq", "role": "Staff Data Engineer", "org": "Moniepoint" },
+        { "name": "Oluwaseun Bamidele", "role": "Frontend Architect", "org": "Shopify" },
+        { "name": "Nneka Igwe", "role": "Technical Program Manager", "org": "Microsoft" },
+        { "name": "Rotimi Alabi", "role": "Founding Engineer", "org": "Mono" }
       ]
     }
   ]

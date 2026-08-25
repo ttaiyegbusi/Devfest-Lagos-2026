@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Suspense } from "react";
 import { HeroNav } from "../hero/HeroNav";
+import { Faq } from "../faq/Faq";
+import { Sponsors } from "../sponsors/Sponsors";
 import { SiteFooter } from "../footer/SiteFooter";
 import { getLineup } from "./lineup";
-import { SpeakerDays } from "./SpeakerDays";
+import { SpeakerViews } from "./SpeakerViews";
 import "../hero/Hero.css";
 import "../shell/Page.css";
 import "./SpeakerGrid.css";
@@ -15,8 +17,11 @@ import "./SpeakerGrid.css";
  * is on the cream: the same ground as /schedule, because the two pages are the
  * same kind of thing and should not look like they came from different sites.
  *
- * It wears the site's own nav bar, so leaving is the same gesture here as it
- * is anywhere else. */
+ * Below the lineup the page carries the landing page's own tail, in the same
+ * order: the questions, then who paid for it, then the footer. Someone who
+ * arrived here from a shared link has seen none of that, and a page that ends
+ * at the last speaker leaves them with nowhere to go and nothing else to read.
+ */
 
 export const metadata: Metadata = {
   title: "Speakers — DevFest Lagos",
@@ -38,9 +43,6 @@ export default async function SpeakersPage() {
 
       <section className="leaf" aria-labelledby="lineup-title">
         <div className="leaf__intro">
-          <p className="leaf__back">
-            <Link href="/">&larr; DevFest Lagos 2026</Link>
-          </p>
           <h1 className="leaf__title" id="lineup-title">
             The full lineup
           </h1>
@@ -50,9 +52,15 @@ export default async function SpeakersPage() {
           </p>
         </div>
 
-        <SpeakerDays days={days} variant="grid" />
+        <SpeakerViews days={days} />
       </section>
 
+      {/* The FAQ reads ?q= from the URL, which a statically prerendered page
+          has to reach through a Suspense boundary. */}
+      <Suspense>
+        <Faq />
+      </Suspense>
+      <Sponsors />
       <SiteFooter />
     </>
   );

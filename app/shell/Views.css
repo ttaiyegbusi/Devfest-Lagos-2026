@@ -1,0 +1,46 @@
+/* ---------------------------------------------------------------------------
+   The view toggle — app/shell/ViewToggle.tsx.
+
+   Two ways to look at the same thing, side by side. The site's language is
+   solid blocks and no borders, so the chosen view is a solid block and the
+   other one is nothing at all.
+   --------------------------------------------------------------------------- */
+
+.viewtoggle {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  background: rgba(23, 23, 23, 0.06);
+}
+
+.viewtoggle__btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border: 0;
+  background: transparent;
+  color: var(--quiet);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 17px;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.viewtoggle__btn:hover {
+  color: var(--ink);
+}
+
+.viewtoggle__btn[aria-pressed="true"] {
+  background: var(--ink);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viewtoggle__btn {
+    transition: none;
+  }
+}

@@ -12,21 +12,6 @@
    are all set against this ground rather than converted from the other one.
    --------------------------------------------------------------------------- */
 
-.leaf .daytabs {
-  justify-content: center;
-  margin-top: 34px;
-}
-
-.speakers__count {
-  margin: 30px 0 0;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--quiet);
-}
-
 /* Six across at the reference width, two on a phone, and whatever fits in
    between — auto-fill rather than a fixed count, so a lineup of any length
    fills the rows it needs and the last row is simply short. */
@@ -35,7 +20,7 @@
   grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
   gap: 34px 24px;
   width: min(var(--shell), 100% - var(--gutter) * 2);
-  margin: 40px auto 0;
+  margin: 36px auto 0;
   padding: 0;
   list-style: none;
 }
@@ -111,6 +96,100 @@
   color: rgba(23, 23, 23, 0.78);
 }
 
+/* --- the gallery ---------------------------------------------------------- */
+
+/* Four to a row at the reference width rather than six, and each card drawn
+   the way the wall on the landing page draws one: the organisation set large
+   over its artwork, the person as the caption underneath. The artwork stays
+   dark here even though the page is cream — a white wordmark needs a dark
+   ground, and the tinted gradients were built for one.
+
+   Nothing is truncated in this view. Cards this wide have room to just print a
+   long role, where the grid would have had to clip it to keep its tiles even. */
+.lineup {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+  gap: 40px 28px;
+  width: min(var(--shell), 100% - var(--gutter) * 2);
+  margin: 36px auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pcard {
+  display: flex;
+  flex-direction: column;
+}
+
+.pcard__view {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #000;
+  transition: transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.pcard:hover .pcard__view {
+  transform: translateY(-4px);
+}
+
+.pcard__art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pcard__art--placeholder {
+  background:
+    radial-gradient(120% 90% at 20% 15%, var(--from) 0%, transparent 60%),
+    linear-gradient(150deg, var(--from) 0%, var(--to) 55%, #0b0b0b 100%);
+}
+
+.pcard__org {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding-inline: 16px;
+  color: #fff;
+  font-size: 30px;
+  line-height: 1.1;
+  letter-spacing: -0.6px;
+  text-align: center;
+  text-wrap: balance;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+}
+
+.pcard__caption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 14px;
+}
+
+.pcard__name {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 23px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.pcard__role {
+  font-size: 14px;
+  line-height: 19px;
+  color: var(--quiet);
+}
+
+.pcard__at {
+  font-size: 14px;
+  line-height: 19px;
+  color: rgba(23, 23, 23, 0.78);
+}
+
 @media (max-width: 767px) {
   .speakers__grid {
     grid-template-columns: repeat(auto-fill, minmax(136px, 1fr));
@@ -121,10 +200,24 @@
   .speaker__initials {
     font-size: 26px;
   }
+
+  /* Two to a row at 272px would overflow a phone, so the gallery drops to one
+     card across — which is the view someone chose in order to look properly,
+     so a full-width card is what they asked for. */
+  .lineup {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-top: 30px;
+  }
+
+  .pcard__org {
+    font-size: 26px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .speaker__photo {
+  .speaker__photo,
+  .pcard__view {
     transition: none;
   }
 }

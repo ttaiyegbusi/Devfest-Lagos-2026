@@ -34,23 +34,6 @@
   margin-inline: auto;
 }
 
-/* Quiet, above the heading: the way back is not what the page is for. */
-.leaf__back {
-  margin: 0 0 16px;
-  font-size: 14px;
-  line-height: 18px;
-}
-
-.leaf__back a {
-  color: var(--quiet);
-  text-decoration: none;
-  transition: color 150ms ease;
-}
-
-.leaf__back a:hover {
-  color: var(--ink);
-}
-
 .leaf__title {
   margin: 0;
   font-family: var(--font-display);
@@ -69,19 +52,59 @@
   color: var(--quiet);
 }
 
+/* --- the bar over the content --------------------------------------------
+
+   Which day on the left, which shape on the right, and one rule under both.
+
+   The selected day's underline and this rule are deliberately one line rather
+   than two: the bar carries no bottom padding, so a tab's border-bottom ends
+   exactly where the bar's border-bottom begins and the amber reads as the rule
+   thickening under the day you are looking at. Adding padding here puts the
+   two lines a few pixels apart, which reads as a mistake — give the controls
+   their own vertical padding instead. */
+.leaf__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  width: min(var(--shell), 100% - var(--gutter) * 2);
+  margin: 40px auto 0;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
 @media (max-width: 767px) {
   .leaf {
     padding: 52px 0 72px;
   }
 
+  /* Too narrow for one row, so the bar becomes two — and the rule goes with
+     the tabs rather than staying at the foot of the bar, which would have left
+     it fifty pixels below the underline it is meant to continue. The toggle
+     then sits under that line, which is where a phone expects a second row of
+     controls anyway. */
+  .leaf__bar {
+    flex-direction: column;
+    /* nowrap matters: a wrapping column container is multi-line, and `stretch`
+       in a multi-line container stretches an item to its line rather than to
+       the container — which let the tab strip take its own 313px content width
+       and push the page sideways. One line, and it stretches to the bar. */
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 14px;
+    border-bottom: 0;
+  }
+
+  .leaf__bar .daytabs {
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  .leaf__bar .viewtoggle {
+    align-self: flex-start;
+  }
+
   .leaf__title {
     font-size: 34px;
     line-height: 38px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .leaf__back a {
-    transition: none;
   }
 }

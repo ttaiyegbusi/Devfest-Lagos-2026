@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { HeroNav } from "../hero/HeroNav";
 import { SiteFooter } from "../footer/SiteFooter";
 import { getAgenda } from "./agenda";
@@ -34,9 +33,6 @@ export default async function SchedulePage() {
 
       <section className="leaf" aria-labelledby="schedule-title">
         <div className="leaf__intro">
-          <p className="leaf__back">
-            <Link href="/">&larr; DevFest Lagos 2026</Link>
-          </p>
           <h1 className="leaf__title" id="schedule-title">
             Two days, start to finish
           </h1>

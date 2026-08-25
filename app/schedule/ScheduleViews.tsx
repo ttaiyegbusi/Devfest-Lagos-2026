@@ -1,8 +1,11 @@
 "use client";
 
-import { useRef, useState, useSyncExternalStore } from "react";
+import { useState } from "react";
 import type { Day, Presenter, Session } from "./agenda";
-import "../shell/DayTabs.css";
+import { DayTabs } from "../shell/DayTabs";
+import { panelProps } from "../shell/tabs";
+import { GalleryIcon, ListIcon, ViewToggle } from "../shell/ViewToggle";
+import { useRememberedView } from "../shell/views";
 
 /* The schedule, two ways.
  *
@@ -14,49 +17,8 @@ import "../shell/DayTabs.css";
  * as a card, the summary visible without hunting.
  *
  * Neither is a fallback for the other, so the choice is the reader's and it is
- * remembered.
+ * remembered — see app/shell/ViewToggle.tsx.
  */
-
-type View = "list" | "gallery";
-
-/* The chosen view is kept in localStorage, and localStorage is subscribed to
-   rather than copied into state: a `storage` event carries a change made in
-   another tab, and writes made here tell their own subscribers, since the
-   browser does not raise that event for the tab that caused it.
-
-   The server snapshot is "list" because the server cannot know what this
-   reader chose. React hydrates against that and re-renders with the real
-   value, so a remembered gallery arrives a beat after the list rather than
-   never. */
-const VIEW_KEY = "devfest:schedule-view";
-
-const listeners = new Set<() => void>();
-
-function subscribe(onChange: () => void) {
-  listeners.add(onChange);
-  window.addEventListener("storage", onChange);
-  return () => {
-    listeners.delete(onChange);
-    window.removeEventListener("storage", onChange);
-  };
-}
-
-function readView(): View {
-  try {
-    return localStorage.getItem(VIEW_KEY) === "gallery" ? "gallery" : "list";
-  } catch {
-    return "list";
-  }
-}
-
-function writeView(next: View) {
-  try {
-    localStorage.setItem(VIEW_KEY, next);
-  } catch {
-    /* not remembered, still switched */
-  }
-  for (const listener of listeners) listener();
-}
 
 /** Up to two initials, standing in for a photograph the schedule does not carry. */
 function initials(name: string) {
@@ -114,99 +76,31 @@ function Tag({ format }: { format?: string }) {
 
 export function ScheduleViews({ days }: { days: Day[] }) {
   const [active, setActive] = useState(0);
-  const view = useSyncExternalStore(subscribe, readView, () => "list" as View);
-  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
-
-  const select = (index: number) => {
-    const next = (index + days.length) % days.length;
-    setActive(next);
-    tabs.current[next]?.focus();
-  };
-
-  const onKeyDown = (event: React.KeyboardEvent) => {
-    const step =
-      event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
-    if (step) {
-      event.preventDefault();
-      select(active + step);
-      return;
-    }
-    if (event.key === "Home") {
-      event.preventDefault();
-      select(0);
-    }
-    if (event.key === "End") {
-      event.preventDefault();
-      select(days.length - 1);
-    }
-  };
+  const [view, setView] = useRememberedView("devfest:schedule-view", "list", "gallery");
 
   const day = days[active];
 
   return (
     <>
-      <div className="schedule__bar">
-        {days.length > 1 && (
-          <div className="daytabs" role="tablist" aria-label="Choose a day">
-            {days.map((entry, i) => (
-              <button
-                key={entry.label}
-                type="button"
-                role="tab"
-                id={`schedule-tab-${i}`}
-                className="daytab"
-                aria-selected={i === active}
-                aria-controls={`schedule-panel-${i}`}
-                tabIndex={i === active ? 0 : -1}
-                ref={(el) => {
-                  tabs.current[i] = el;
-                }}
-                onClick={() => setActive(i)}
-                onKeyDown={onKeyDown}
-              >
-                {entry.label}
-                {entry.date && (
-                  <span className="daytab__date"> ({entry.date})</span>
-                )}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Two buttons rather than a single toggle: "switch to gallery" and
-            "switch to list" are two different things to ask for, and a lone
-            button would have to be read to know which one it is offering. */}
-        <div className="schedule__views" role="group" aria-label="How to show the schedule">
-          <button
-            type="button"
-            className="schedule__view"
-            aria-pressed={view === "list"}
-            onClick={() => writeView("list")}
-          >
-            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none">
-              <path d="M1 3h12M1 7h12M1 11h12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-            </svg>
-            List
-          </button>
-          <button
-            type="button"
-            className="schedule__view"
-            aria-pressed={view === "gallery"}
-            onClick={() => writeView("gallery")}
-          >
-            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none">
-              <path d="M1.5 1.5h4v4h-4zM8.5 1.5h4v4h-4zM1.5 8.5h4v4h-4zM8.5 8.5h4v4h-4z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
-            </svg>
-            Gallery
-          </button>
-        </div>
+      <div className="leaf__bar">
+        <DayTabs
+          days={days}
+          active={active}
+          onSelect={setActive}
+          idPrefix="schedule"
+        />
+        <ViewToggle
+          label="How to show the schedule"
+          view={view}
+          onChange={setView}
+          options={[
+            { value: "list", label: "List", icon: ListIcon },
+            { value: "gallery", label: "Gallery", icon: GalleryIcon },
+          ]}
+        />
       </div>
 
-      <div
-        role={days.length > 1 ? "tabpanel" : undefined}
-        id={`schedule-panel-${active}`}
-        aria-labelledby={days.length > 1 ? `schedule-tab-${active}` : undefined}
-      >
+      <div {...panelProps("schedule", active, days.length)}>
         {view === "list" ? (
           <div className="agenda" data-reveal data-rise="still">
             {/* Column labels, and only that — every row states its own content

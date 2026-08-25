@@ -377,6 +377,47 @@
   touch-action: pan-y;
 }
 
+/* The clip above has to be there — see the note on it — but on its own it is a
+   guillotine: a pill crossing the top edge was sliced in half by a horizontal
+   line the reader cannot see, which made the drop look like it was arriving
+   out of a hole in the page rather than out of the page.
+
+   So the top of the box is veiled in the panel's own ground while the heap is
+   falling. A pill entering rises out of the colour it is already sitting on,
+   the way something dropped onto a table comes into the light, and no edge is
+   ever visible because the veil *is* the background.
+
+   It is keyed to the drop rather than to `is-settled`, because picking a pill
+   up afterwards wakes the loop and would otherwise draw the veil back over a
+   heap the reader is holding. Once the heap has landed, the veil is gone for
+   good and the pills read as plainly as any other type on the page. */
+.pit::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 1;
+  height: 124px;
+  pointer-events: none;
+  opacity: 0;
+  /* Opaque for the first third so a pill is properly hidden as it crosses the
+     edge, then away — a straight two-stop ramp gave up too much too early and
+     the top of a pill showed before the rest of it had arrived. */
+  background: linear-gradient(
+    to bottom,
+    var(--bg) 0%,
+    var(--bg) 32%,
+    color-mix(in srgb, var(--bg) 55%, transparent) 62%,
+    transparent 100%
+  );
+  transition: opacity 560ms ease;
+}
+
+.pit.is-dropping::after {
+  opacity: 1;
+  /* Straight on at the start; only the way out is animated. */
+  transition: none;
+}
+
 .pit__pill {
   position: absolute;
   top: 0;

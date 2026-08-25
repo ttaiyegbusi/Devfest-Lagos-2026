@@ -2,6 +2,7 @@ import { HeroNav } from "./HeroNav";
 import { RotatingWord } from "./RotatingWord";
 import { HeroCta } from "./HeroCta";
 import { HeroScene } from "./HeroScene";
+import { Rain } from "./Rain";
 import "./Hero.css";
 
 export function Hero() {
@@ -18,6 +19,11 @@ export function Hero() {
           rather than switching on. Transparent in light mode, and always
           present so there is an opacity to animate. */}
       <div className="hero__veil" aria-hidden="true" />
+
+      {/* Rain, and only at night. It sits above the veil and below the copy, so
+          the weather is in the scene rather than over the reader. Decorative:
+          it says nothing the text does not. */}
+      <Rain />
 
       <div className="hero__shell">
         <HeroNav />

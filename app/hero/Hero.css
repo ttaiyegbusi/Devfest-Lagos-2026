@@ -31,6 +31,20 @@
   --hero-quiet: #8c8c8c;
   --hero-accent: var(--amber);
 
+  /* The sky. Each parallax band is lit along the top and darker underneath —
+     see the note beside CLOUD_RAMPS in app/hero/generate-scene.py for why the
+     values live out here rather than in the artwork. Two things they have to
+     do: stay warm, because a blue-grey underside on a cream sky reads as a
+     smudge rather than as shadow; and lose contrast with distance, which is
+     what makes the far band nearly flat and the near band the only one with a
+     real shaded side. */
+  --cloud-far-top: #fffdf3;
+  --cloud-far-base: #fcf4dd;
+  --cloud-mid-top: #fffefa;
+  --cloud-mid-base: #f9efd2;
+  --cloud-near-top: #ffffff;
+  --cloud-near-base: #f3e6c6;
+
   position: relative;
   min-height: 100svh;
   overflow: hidden;
@@ -48,6 +62,24 @@
   /* On cream, not on ink: #8c8c8c is a whisper on a light block. */
   --hero-quiet: #6b675c;
   --hero-accent: #ffc02e;
+
+  /* Night is not the daylight sky with the veil over it. The cloud fills are
+     opaque, so the veil pulls them and the sky towards itself at the same
+     rate, and the gap between the two survives it: clouds tuned for cream came
+     out heavier at night than they were by day — grey slabs on a dark sky.
+     These are pitched against the night sky instead, close enough that what
+     is left after the veil is weather rather than furniture. */
+  --cloud-far-top: #232c42;
+  --cloud-far-base: #1a2234;
+  --cloud-mid-top: #33405c;
+  --cloud-mid-base: #232d44;
+  --cloud-near-top: #45536f;
+  --cloud-near-base: #2c3750;
+
+  /* Rain only falls at night, so this is the only place it is set. Cool, and
+     the per-drop opacity in Rain.tsx takes it down much further still: drops
+     carry the sky's own light and nothing of their own. */
+  --hero-rain: rgb(200, 219, 250);
 }
 
 /* The wash over the artwork. Above the scene, below the copy, and inert — the
@@ -75,6 +107,84 @@
 
 :root[data-hero-theme="dark"] .hero__veil {
   opacity: 1;
+}
+
+/* --- rain ---------------------------------------------------------------- */
+
+/* Drizzle, shown only once the hero is dark. Same z-index as the veil and
+   after it in the markup, so it lands above the wash and still below the copy:
+   the reader is looking at weather, not standing in it.
+
+   The drops are elements, not a texture — see app/hero/Rain.tsx for why. All
+   this file decides is what one drop looks like and how far it falls; the
+   variation between them is set per drop over there.
+
+   The box leans rather than the drops, and it is oversized just enough that
+   the lean does not pull the outermost drops off the edges. It costs nothing
+   to oversize here: the container paints nothing at all, and the drops
+   themselves are a pixel wide. */
+.hero__rain {
+  position: absolute;
+  inset: -8% -6%;
+  z-index: 1;
+  pointer-events: none;
+  rotate: 5deg;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 640ms ease,
+    visibility 0s linear 640ms;
+}
+
+.hero__drop {
+  position: absolute;
+  top: -40px;
+  width: 1px;
+  /* Soft at both ends: a drop seen at speed has no edge, and a hard-ended
+     sliver reads as a tally mark. */
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--hero-rain) 50%,
+    transparent
+  );
+  /* Paused rather than absent while the hero is light: an animation that never
+     runs costs nothing, and every drop already carries a negative delay, so
+     starting it drops the reader into rain that is already falling. */
+  animation-name: hero-drop;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+}
+
+/* Further than any hero is tall, so the fall clears the bottom edge at every
+   size rather than stopping short of it on a long mobile hero. What runs past
+   is clipped by the hero's own overflow. */
+@keyframes hero-drop {
+  to {
+    translate: 0 1700px;
+  }
+}
+
+:root[data-hero-theme="dark"] .hero__rain {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 900ms ease,
+    visibility 0s;
+}
+
+:root[data-hero-theme="dark"] .hero__drop {
+  animation-play-state: running;
+}
+
+/* Rain is nothing but motion, so under reduced motion there is none. Freezing
+   it would leave a scatter of still ticks across the sky, which is a worse
+   picture than a clear night — and the night is complete without it. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__rain {
+    display: none;
+  }
 }
 
 /* --- artwork ------------------------------------------------------------- */

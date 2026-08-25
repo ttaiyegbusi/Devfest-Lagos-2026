@@ -25,18 +25,93 @@ BANDS = {
     "keke": range(122, 158),
     "bus": range(158, 200),
 }
-# Cloud indices grouped into parallax bands, slowest (most distant) first.
-CLOUD_BANDS = {"far": [1, 2], "mid": [3, 5], "near": [0, 4]}
+# The six cloud forms the illustrator drew, by index into the flat export.
+WISP_S, WISP_L = 1, 2   # thin streaks, 104 and 186 wide
+BUMPY = 0               # 375 x 217, bumpy top
+LUMPY_A, LUMPY_B = 3, 4  # 439 x 255 each, different silhouettes
+FLAT = 5                # 396 x 118, long and flat-bottomed
 
-# Every cloud in the export is drawn as white at this opacity. It is lifted off
-# the individual shapes and onto the group that holds all three parallax bands,
-# because the bands travel at different speeds and therefore slide over each
-# other. Two 50% whites stacked composite to 75%, so an overlap used to paint a
-# brighter patch with a hard seam through it — a third tone that exists nowhere
-# in the artwork. Held on the group, overlapping clouds merge into one
-# silhouette instead, and a cloud with nothing behind it renders exactly as it
-# did before.
-CLOUD_OPACITY = "0.5"
+# The sky, laid out by hand.
+#
+# The export puts six clouds in the frame at full size — two of them 439 wide,
+# a third of the screen each, and one sitting square behind the headline. At
+# that scale they read as flat stickers rather than weather. Here the same six
+# forms are re-used smaller and more often, which is closer to how a sky
+# actually looks: many small clouds at a range of sizes, not three big ones.
+#
+# Each entry is (form, x, y, scale). x and y place the shape's top-left corner
+# once scaled, so a cloud can be moved without its size dragging it somewhere
+# else. They are measured against extent() below, which errs outwards by up to
+# ~30 units on the lumpy forms — placement here is by eye against a render, so
+# that slack is already accounted for.
+#
+# Two regions are kept clear of anything large: the headline block (x 70..1030,
+# y 250..600 at the reference size) and the nav bar. Small, low-contrast clouds
+# are welcome in both.
+# Scattered across both axes rather than banded near the top, because the two
+# sizes crop the artwork differently. At the reference width the whole 1440 is
+# on screen; on a phone "slice" keeps the full height but shows only a ~470
+# unit slice down the middle, and the top ~250 of that sits behind the nav bar.
+# Clouds gathered along the top therefore vanish on a phone. Spread through the
+# middle of the frame they read at both sizes.
+#
+# Nothing here avoids the headline. In daylight a cloud only lightens what is
+# behind ink type, so contrast goes up rather than down; at night the clouds
+# are barely above the sky. Neither costs the type anything.
+SKY = {
+    # Furthest: haze. Wisps only, and the least contrast of the three.
+    "far": [
+        (WISP_S, 60, 300, 0.75),
+        (WISP_L, 210, 480, 0.70),
+        (WISP_S, 400, 155, 0.90),
+        (WISP_L, 545, 355, 0.65),
+        (WISP_S, 760, 520, 0.85),
+        (WISP_L, 940, 230, 0.72),
+        (WISP_S, 1150, 430, 0.95),
+        (WISP_L, 1330, 320, 0.68),
+    ],
+    "mid": [
+        (FLAT, 120, 200, 0.44),
+        (LUMPY_A, 470, 430, 0.28),
+        (FLAT, 690, 120, 0.46),
+        (LUMPY_B, 1000, 340, 0.30),
+        (FLAT, 1280, 500, 0.42),
+    ],
+    # Nearest: the largest, and still around half what the export drew.
+    "near": [
+        (LUMPY_A, -60, 380, 0.34),
+        (BUMPY, 300, 90, 0.42),
+        (LUMPY_B, 620, 300, 0.36),
+        (BUMPY, 960, 470, 0.38),
+        (LUMPY_B, 1240, 130, 0.34),
+    ],
+}
+
+# The export draws every cloud as flat white at 50% over the cream sky, which
+# lands on #fffaea — one tone, the same top to bottom. That is what made these
+# read as cut-out shapes: a cloud with no shaded side is a sticker.
+#
+# Each band gets a ramp instead, lit along the top and darker underneath, and
+# the ramps carry the depth as well: atmospheric perspective says a distant
+# cloud loses contrast and drifts towards the colour of the sky it sits in, so
+# the far band is nearly flat and the near band has the deepest shading.
+#
+# The live values are in app/hero/Hero.css with the rest of the hero's colours,
+# because they have to change with the light switch — the veil cannot do it for
+# them. These fills are opaque, so the veil pulls cloud and sky towards itself
+# at the same rate, and clouds tuned for daylight end up reading heavier at
+# night than they do by day. What is written here is the daylight set, kept as
+# the fallback so the sky still paints if the stylesheet ever goes missing.
+#
+# Depth is in the value, never in the alpha. Every fill is opaque, so a nearer
+# cloud simply covers a farther one. The moment any of this moves into alpha,
+# overlapping clouds start compositing and the doubled, brighter patch that
+# used to plague this sky comes straight back.
+CLOUD_RAMPS = {
+    "far": ("#fffdf3", "#fcf4dd"),
+    "mid": ("#fffefa", "#f9efd2"),
+    "near": ("#ffffff", "#f3e6c6"),
+}
 
 CAMEL = {
     "fill-opacity": "fillOpacity",
@@ -63,31 +138,32 @@ PATH_TOKEN = re.compile(r"([A-Za-z])|(-?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?)")
 ARITY = {"M": 2, "L": 2, "H": 1, "V": 1, "C": 6, "Z": 0}
 
 
-def x_extent(d: str) -> tuple[float, float]:
-    """Horizontal bounds of one path, erring outwards.
+def extent(d: str) -> tuple[float, float, float, float]:
+    """Bounds of one path as (x0, y0, x1, y1), erring outwards.
 
     A cubic lies inside the convex hull of its control points, so the extreme
-    control x already bounds the real curve. That makes this an over-estimate
-    and never an under-estimate, which is the safe direction: it can only add a
-    copy that was not strictly needed, never drop one that was.
+    control point already bounds the real curve. That makes this an
+    over-estimate and never an under-estimate, which is the safe direction: it
+    can only add a copy that was not strictly needed, never drop one that was.
     """
     tokens = PATH_TOKEN.findall(d)
     xs: list[float] = []
-    x = start = 0.0
+    ys: list[float] = []
+    x = y = start_x = start_y = 0.0
     cmd = ""
-    args: list[float] = []
     i = 0
 
     while i < len(tokens):
-        letter, number = tokens[i]
+        letter, _ = tokens[i]
         if letter:
             cmd = letter
             if cmd.upper() not in ARITY:
                 raise SystemExit(f"unhandled path command {cmd!r} — extend ARITY")
             i += 1
             if cmd.upper() == "Z":
-                x = start
+                x, y = start_x, start_y
                 xs.append(x)
+                ys.append(y)
             continue
 
         if not cmd:
@@ -99,23 +175,26 @@ def x_extent(d: str) -> tuple[float, float]:
         rel = cmd.islower()
         upper = cmd.upper()
 
-        if upper == "V":
-            pass
-        elif upper == "H":
+        if upper == "H":
             x = x + args[0] if rel else args[0]
+        elif upper == "V":
+            y = y + args[0] if rel else args[0]
         else:
             # M, L and C all finish on the last pair; C's two control points go
-            # into xs as well, and they are what bound the curve.
+            # into the lists as well, and they are what bound the curve.
             for k in range(0, need, 2):
                 xs.append(x + args[k] if rel else args[k])
+                ys.append(y + args[k + 1] if rel else args[k + 1])
             x = x + args[-2] if rel else args[-2]
+            y = y + args[-1] if rel else args[-1]
             if upper == "M":
-                start = x
+                start_x, start_y = x, y
                 # Further pairs with no letter of their own are line segments.
                 cmd = "l" if rel else "L"
         xs.append(x)
+        ys.append(y)
 
-    return min(xs), max(xs)
+    return min(xs), min(ys), max(xs), max(ys)
 
 
 def copy_offsets(extent: tuple[float, float]) -> range:
@@ -151,18 +230,44 @@ def main() -> None:
         pad = " " * indent
         return "\n".join(pad + jsx(els[i]) for i in BANDS[name])
 
-    spans = [x_extent(re.search(r' d="([^"]*)"', els[i]).group(1))
-             for idx in CLOUD_BANDS.values() for i in idx]
-    offsets = copy_offsets((min(a for a, _ in spans), max(b for _, b in spans)))
+    boxes = {i: extent(re.search(r' d="([^"]*)"', els[i]).group(1)) for i in range(6)}
+
+    def placed(band: str) -> tuple[str, tuple[float, float]]:
+        """One band's clouds, and how far they reach either side of the tile."""
+        rows, left, right = [], [], []
+        for form, x, y, scale in SKY[band]:
+            x0, y0, _, _ = boxes[form]
+            # Position first, then scale, so x and y mean the corner the cloud
+            # lands on rather than wherever scaling happened to leave it.
+            tx, ty = x - x0 * scale, y - y0 * scale
+            shape = jsx(els[form])
+            shape = shape.replace(' opacity="0.5"', "")
+            shape = shape.replace(' fill="white"', f' fill="url(#cloud-{band})"')
+            rows.append(
+                f'                <g transform="translate({tx:.1f} {ty:.1f}) '
+                f'scale({scale})">{shape}</g>'
+            )
+            left.append(x)
+            right.append(x + (boxes[form][2] - x0) * scale)
+        return "\n".join(rows), (min(left), max(right))
+
+    bands, reach = {}, []
+    for speed in SKY:
+        markup, span = placed(speed)
+        bands[speed] = markup
+        reach.append(span)
+
+    offsets = copy_offsets((min(a for a, _ in reach), max(b for _, b in reach)))
 
     clouds = []
-    for speed, idx in CLOUD_BANDS.items():
-        shapes = "\n".join(
-            "              " + jsx(els[i]).replace(f' opacity="{CLOUD_OPACITY}"', "")
-            for i in idx
-        )
+    for speed in SKY:
+        # Every copy is a <use>, and the group they point at lives in <defs>
+        # where it does not render on its own. The alternative — letting the
+        # first copy be the group itself — quietly breaks: a <use> carries the
+        # referenced element's own transform and then adds its own, so putting
+        # an offset on the definition shifts every copy by it as well.
         copies = "\n".join(
-            f'            <g transform="translate({k * WIDTH} 0)">\n{shapes}\n            </g>'
+            f'            <use href="#sky-{speed}" transform="translate({k * WIDTH} 0)"/>'
             for k in offsets
         )
         clouds.append(
@@ -171,13 +276,28 @@ def main() -> None:
             f"          </g>"
         )
 
+    sky_defs = "\n".join(
+        f'      <g id="sky-{speed}">\n{bands[speed]}\n      </g>' for speed in SKY
+    )
+
     clouds = [
-        f'        <g className="hero-scene__sky" opacity="{CLOUD_OPACITY}">\n'
+        f'        <g className="hero-scene__sky">\n'
         + "\n".join(clouds)
         + "\n        </g>"
     ]
 
+    ramps = "\n".join(
+        f'      <linearGradient id="cloud-{band}" x1="0" y1="0" x2="0" y2="1">\n'
+        f'      <stop offset="0" stopColor="var(--cloud-{band}-top, {top})"/>\n'
+        f'      <stop offset="1" stopColor="var(--cloud-{band}-base, {base})"/>\n'
+        f"      </linearGradient>"
+        for band, (top, base) in CLOUD_RAMPS.items()
+    )
+
     defs_jsx = "\n".join("      " + jsx(l) for l in defs.splitlines())
+    defs_jsx = defs_jsx.replace(
+        "      </defs>", ramps + "\n" + sky_defs + "\n      </defs>"
+    )
 
     open(OUT, "w").write(
         f'''// Generated from the supplied "BG Newww.svg" ({WIDTH} x {HEIGHT}) by

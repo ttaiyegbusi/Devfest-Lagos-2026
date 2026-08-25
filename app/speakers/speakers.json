@@ -12,7 +12,7 @@
   ],
   "days": [
     {
-      "label": "Day one",
+      "label": "Day One",
       "date": "Friday",
       "speakers": [
         { "name": "Adaeze Okonkwo", "role": "Developer Relations", "org": "Google" },
@@ -25,7 +25,7 @@
       ]
     },
     {
-      "label": "Day two",
+      "label": "Day Two",
       "date": "Saturday",
       "speakers": [
         { "name": "Emeka Nwosu", "role": "Machine Learning Lead", "org": "Google" },

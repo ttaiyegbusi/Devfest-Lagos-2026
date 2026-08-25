@@ -2,6 +2,7 @@
 
 import { useRef, useState, useSyncExternalStore } from "react";
 import type { Day, Presenter, Session } from "./agenda";
+import "../shell/DayTabs.css";
 
 /* The schedule, two ways.
  *
@@ -146,14 +147,14 @@ export function ScheduleViews({ days }: { days: Day[] }) {
     <>
       <div className="schedule__bar">
         {days.length > 1 && (
-          <div className="schedule__days" role="tablist" aria-label="Choose a day">
+          <div className="daytabs" role="tablist" aria-label="Choose a day">
             {days.map((entry, i) => (
               <button
                 key={entry.label}
                 type="button"
                 role="tab"
                 id={`schedule-tab-${i}`}
-                className="schedule__day"
+                className="daytab"
                 aria-selected={i === active}
                 aria-controls={`schedule-panel-${i}`}
                 tabIndex={i === active ? 0 : -1}
@@ -163,9 +164,9 @@ export function ScheduleViews({ days }: { days: Day[] }) {
                 onClick={() => setActive(i)}
                 onKeyDown={onKeyDown}
               >
-                <span className="schedule__day-label">{entry.label}</span>
+                {entry.label}
                 {entry.date && (
-                  <span className="schedule__day-date">{entry.date}</span>
+                  <span className="daytab__date"> ({entry.date})</span>
                 )}
               </button>
             ))}

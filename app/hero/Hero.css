@@ -73,6 +73,14 @@
   display: none;
 }
 
+/* The switch is what pushes the menu to the right-hand end of the bar, and the
+   rule above takes it away — an element that is `display: none` is out of the
+   flex line entirely, auto margin and all. So on these pages the menu carries
+   the push itself. */
+.site-chrome .hero-nav__menu {
+  margin-left: auto;
+}
+
 /* The link to the page you are already on. Not underlined and not coloured:
    the current page is a fact about where you are, not a thing to press. */
 .hero-nav__links a[aria-current="page"] {

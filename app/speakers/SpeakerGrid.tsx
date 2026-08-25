@@ -1,5 +1,4 @@
 import type { Speaker } from "./lineup";
-import "./SpeakerGrid.css";
 
 /* One day's speakers, as a grid.
  *

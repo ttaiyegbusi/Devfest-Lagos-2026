@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { usePathname } from "next/navigation";
 import { DevFestLogo } from "./DevFestLogo";
 import { HeroTheme } from "./HeroTheme";
 import { TICKETS } from "../links";
@@ -11,14 +12,14 @@ import { TICKETS } from "../links";
    goes nowhere is worse than plain text, so an entry without a destination
    renders as text until it has one.
 
-   Speaker and FAQs reach real sections on this page. Schedule and Team do not
-   exist yet.
+   Schedule and FAQs reach sections on the landing page; Speaker leaves it for
+   the full lineup at /speakers. Team does not exist yet.
 
    TO WIRE UP: give the schedule and the team a section with an id (or a page)
    and add the href here — nothing else has to change. */
 const LINKS: { label: string; href?: string }[] = [
-  { label: "Speaker", href: "#speakers" },
-  { label: "Schedule" },
+  { label: "Speaker", href: "/speakers" },
+  { label: "Schedule", href: "#schedule" },
   { label: "Team" },
   { label: "FAQs", href: "#faq" },
 ];
@@ -27,6 +28,9 @@ export function HeroNav() {
   // The desktop reference has no menu state at all. The toggle only exists
   // below the breakpoint where the four links stop fitting inside the bar.
   const [open, setOpen] = useState(false);
+  // So the link to the page you are already on says so, rather than looking
+  // like somewhere else to go.
+  const here = usePathname();
   const nav = useRef<HTMLElement>(null);
 
   /* Below the breakpoint the open menu is a sheet over the whole viewport, so
@@ -131,7 +135,11 @@ export function HeroNav() {
                fifth entry in LINKS. */
             <li key={link.label} style={{ "--i": index } as CSSProperties}>
               {link.href ? (
-                <a href={link.href} onClick={() => setOpen(false)}>
+                <a
+                  href={link.href}
+                  aria-current={link.href === here ? "page" : undefined}
+                  onClick={() => setOpen(false)}
+                >
                   {link.label}
                 </a>
               ) : (

@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import type { Day } from "./lineup";
+import { SpeakerGrid } from "./SpeakerGrid";
 import { Speakers } from "./Speakers";
 
 /* The lineup is split by day, so the day is a choice the reader makes and the
@@ -10,9 +11,21 @@ import { Speakers } from "./Speakers";
  * tab order, and the panel is labelled by the tab that opened it.
  *
  * A single day gets no tabs at all. One tab is not a choice, and a control that
- * cannot change anything is worse than no control. */
+ * cannot change anything is worse than no control.
+ *
+ * The same tabs sit above two different things. On the landing page a day's
+ * speakers are a draggable wall of cards — a taste of who is coming. On
+ * /speakers they are a grid, because that page exists for finding a name among
+ * fifty. `variant` is a plain string rather than the component itself, since
+ * this is a client component and the server has no way to hand one across. */
 
-export function SpeakerDays({ days }: { days: Day[] }) {
+export function SpeakerDays({
+  days,
+  variant = "wall",
+}: {
+  days: Day[];
+  variant?: "wall" | "grid";
+}) {
   const [active, setActive] = useState(0);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -82,7 +95,11 @@ export function SpeakerDays({ days }: { days: Day[] }) {
         {/* Keyed by the day, so switching days builds a new wall rather than
             sliding the old one to a position that means nothing in the new
             lineup. */}
-        <Speakers key={day.label} speakers={day.speakers} />
+        {variant === "grid" ? (
+          <SpeakerGrid key={day.label} speakers={day.speakers} />
+        ) : (
+          <Speakers key={day.label} speakers={day.speakers} />
+        )}
       </div>
     </>
   );

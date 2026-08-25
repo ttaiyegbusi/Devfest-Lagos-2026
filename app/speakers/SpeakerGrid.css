@@ -5,30 +5,36 @@
    of cards is a fine way to offer a taste. This is the other job. Someone here
    is looking for a name among fifty, and for that they need to see fifty.
 
-   It shares the section shell, the heading and the day tabs with Speakers.css;
-   only the grid itself is here.
+   Everything is pitched on the cream, not the dark section the grid was first
+   drawn against. That is not an inversion of the same values — a tint that
+   reads as calm on near-black reads as washed-out on cream, and white type on
+   a pale tile does not read at all — so the tiles, the letters and the type
+   are all set against this ground rather than converted from the other one.
    --------------------------------------------------------------------------- */
 
-/* --- the grid ------------------------------------------------------------ */
+.leaf .daytabs {
+  justify-content: center;
+  margin-top: 34px;
+}
+
+.speakers__count {
+  margin: 30px 0 0;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--quiet);
+}
 
 /* Six across at the reference width, two on a phone, and whatever fits in
    between — auto-fill rather than a fixed count, so a lineup of any length
    fills the rows it needs and the last row is simply short. */
-.speakers__count {
-  margin: 30px 0 0;
-  text-align: center;
-  font-size: 13px;
-  line-height: 18px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-}
-
 .speakers__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
   gap: 34px 24px;
-  width: min(1200px, 100% - 48px);
+  width: min(var(--shell), 100% - var(--gutter) * 2);
   margin: 40px auto 0;
   padding: 0;
   list-style: none;
@@ -41,7 +47,7 @@
   aspect-ratio: 1;
   overflow: hidden;
   border-radius: 6px;
-  background: var(--panel);
+  background: rgba(23, 23, 23, 0.06);
   transition: transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
@@ -56,27 +62,28 @@
   object-fit: cover;
 }
 
-/* Initials rather than an empty tint. Half a lineup usually has no photograph
-   until the week of the event, and a grid of blank rectangles says nothing —
-   two letters at least name the person. */
+/* Initials rather than an empty tile. Half a lineup usually has no photograph
+   until the week of the event, and a grid of blank squares says nothing — two
+   letters at least name the person.
+
+   The tint is mixed most of the way to the cream, so fifty of them read as a
+   quiet field rather than a colour chart, and the letters are ink: on a pale
+   tile white would disappear. */
 .speaker__initials {
   display: grid;
   place-items: center;
   width: 100%;
   height: 100%;
-  /* Mixed back towards the panel. At full strength a grid of these is a
-     colour chart competing with the section, and they are a placeholder —
-     they should sit quietly until the photographs arrive and replace them. */
   background: linear-gradient(
     150deg,
-    color-mix(in srgb, var(--from) 58%, var(--panel)),
-    color-mix(in srgb, var(--to) 58%, var(--panel))
+    color-mix(in srgb, var(--from) 34%, var(--cream)),
+    color-mix(in srgb, var(--to) 28%, var(--cream))
   );
   font-family: var(--font-display);
   font-size: 34px;
   line-height: 1;
   letter-spacing: 0.02em;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(23, 23, 23, 0.62);
 }
 
 /* Names wrap rather than ellipsis. A cut-off role is a small loss; a cut-off
@@ -84,26 +91,25 @@
 .speaker__name {
   margin: 13px 0 0;
   font-size: 15px;
+  font-weight: 500;
   line-height: 20px;
   letter-spacing: -0.01em;
-  color: #fff;
+  color: var(--ink);
 }
 
 .speaker__role {
   margin: 2px 0 0;
   font-size: 13px;
   line-height: 18px;
-  color: var(--ink-dim);
+  color: var(--quiet);
 }
 
 .speaker__org {
   margin: 1px 0 0;
   font-size: 13px;
   line-height: 18px;
-  color: #cbc4c0;
+  color: rgba(23, 23, 23, 0.78);
 }
-
-/* --- responsive ---------------------------------------------------------- */
 
 @media (max-width: 767px) {
   .speakers__grid {

@@ -1,0 +1,87 @@
+/* ---------------------------------------------------------------------------
+   The chrome a standalone page wears: /speakers and /schedule.
+
+   Both are the same shape — the nav, a heading, a tab per day, and then
+   whatever that page is for — so the shape lives here once rather than twice
+   in two section stylesheets that would drift apart.
+
+   Both sit on the cream. A page is a place you arrived at deliberately, and
+   the cream is the site's own ground; the dark sections on the landing page
+   are punctuation in a scroll, which is a different job.
+   --------------------------------------------------------------------------- */
+
+.leaf {
+  /* A warm grey, biased towards the cream it sits on. A neutral grey here
+     reads as a different palette showing through. */
+  --quiet: #6f6754;
+  --rule: rgba(23, 23, 23, 0.13);
+  --rule-strong: rgba(23, 23, 23, 0.26);
+
+  /* What the day tabs below take their colours from. Set here for a page on
+     the cream, and again on .speakers for the dark section on the landing
+     page, so one tab set serves both. */
+  --tab-ink: var(--ink);
+  --tab-quiet: var(--quiet);
+  --tab-accent: var(--amber);
+
+  padding: 76px 0 104px;
+  background: var(--cream);
+  color: var(--ink);
+}
+
+.leaf__intro {
+  width: min(var(--shell), 100% - var(--gutter) * 2);
+  margin-inline: auto;
+}
+
+/* Quiet, above the heading: the way back is not what the page is for. */
+.leaf__back {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.leaf__back a {
+  color: var(--quiet);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.leaf__back a:hover {
+  color: var(--ink);
+}
+
+.leaf__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 46px;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: -1.1px;
+  text-wrap: balance;
+}
+
+.leaf__lede {
+  margin: 12px 0 0;
+  max-width: 54ch;
+  font-size: 17px;
+  line-height: 25px;
+  color: var(--quiet);
+}
+
+@media (max-width: 767px) {
+  .leaf {
+    padding: 52px 0 72px;
+  }
+
+  .leaf__title {
+    font-size: 34px;
+    line-height: 38px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leaf__back a {
+    transition: none;
+  }
+}

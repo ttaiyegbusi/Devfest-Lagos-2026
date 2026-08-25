@@ -1,0 +1,91 @@
+/* ---------------------------------------------------------------------------
+   A tab per day.
+
+   Its own stylesheet rather than part of app/shell/Page.css, because the tabs
+   appear in two places that share nothing else: the cream pages, which wear
+   .leaf, and the dark speaker wall on the landing page, which does not. The
+   component that renders them imports this, so the rules arrive wherever the
+   markup does.
+   --------------------------------------------------------------------------- */
+
+/* --- the day tabs --------------------------------------------------------- */
+
+/* One tab set, two grounds. Every colour comes from a --tab-* property that
+   the section around it sets, so the same markup serves the cream pages and
+   the dark wall on the landing page without a second copy of these rules.
+
+   The label and the date are one line. Stacked, the two tabs came out
+   different heights whenever one date was longer than the other, and their
+   underlines stopped agreeing with each other; on one line every tab is the
+   same height and the rules line up by construction. Every tab also gets the
+   same padding — the first used to have none on the left, which made its
+   underline a different length from its neighbour's. */
+.daytabs {
+  display: flex;
+  gap: 4px;
+}
+
+.daytab {
+  padding: 9px 16px 11px;
+  border: 0;
+  /* A transparent border that becomes the underline, so selecting a day does
+     not move the row by two pixels. */
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--tab-quiet);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+.daytab:hover {
+  color: var(--tab-ink);
+}
+
+.daytab[aria-selected="true"] {
+  color: var(--tab-ink);
+  border-bottom-color: var(--tab-accent);
+}
+
+.daytab__date {
+  font-weight: 400;
+  color: var(--tab-quiet);
+}
+
+.daytab[aria-selected="true"] .daytab__date {
+  opacity: 0.75;
+  color: inherit;
+}
+
+@media (max-width: 767px) {
+  /* Two days fit side by side on any phone; a longer run scrolls rather than
+     wrapping into a second row that reads as two separate controls. */
+  .daytabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+  }
+
+  .daytabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .daytab {
+    flex: none;
+    padding-inline: 12px;
+    scroll-snap-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .daytab {
+    transition: none;
+  }
+}

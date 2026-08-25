@@ -5,16 +5,18 @@ import { SiteFooter } from "../footer/SiteFooter";
 import { getLineup } from "./lineup";
 import { SpeakerDays } from "./SpeakerDays";
 import "../hero/Hero.css";
-import "./Speakers.css";
+import "../shell/Page.css";
+import "./SpeakerGrid.css";
 
 /* The full lineup, on its own page.
  *
- * The landing page carries the wall of cards — a taste of who is coming. This
- * is where someone goes to find a name, so it is a grid: everyone at once, at
- * whatever length the lineup runs to.
+ * The landing page carries the wall of cards — a taste of who is coming, on
+ * the dark. This is where someone goes to find a name, so it is a grid, and it
+ * is on the cream: the same ground as /schedule, because the two pages are the
+ * same kind of thing and should not look like they came from different sites.
  *
- * It wears the site's own nav bar rather than a header of its own, so leaving
- * is the same gesture here as it is anywhere else on the site. */
+ * It wears the site's own nav bar, so leaving is the same gesture here as it
+ * is anywhere else. */
 
 export const metadata: Metadata = {
   title: "Speakers — DevFest Lagos",
@@ -34,15 +36,15 @@ export default async function SpeakersPage() {
         </div>
       </div>
 
-      <section className="speakers" aria-labelledby="lineup-title">
-        <div className="speakers__intro" data-reveal>
-          <p className="speakers__back" data-rise>
+      <section className="leaf" aria-labelledby="lineup-title">
+        <div className="leaf__intro">
+          <p className="leaf__back">
             <Link href="/">&larr; DevFest Lagos 2026</Link>
           </p>
-          <h1 className="speakers__title" id="lineup-title" data-rise>
+          <h1 className="leaf__title" id="lineup-title">
             The full lineup
           </h1>
-          <p className="speakers__lede" data-rise>
+          <p className="leaf__lede">
             {total} speakers across two days. Names and roles are confirmed as
             they are announced.
           </p>

@@ -73,14 +73,6 @@
   display: none;
 }
 
-/* The switch is what pushes the menu to the right-hand end of the bar, and the
-   rule above takes it away — an element that is `display: none` is out of the
-   flex line entirely, auto margin and all. So on these pages the menu carries
-   the push itself. */
-.site-chrome .hero-nav__menu {
-  margin-left: auto;
-}
-
 /* The link to the page you are already on. Not underlined and not coloured:
    the current page is a fact about where you are, not a thing to press. */
 .hero-nav__links a[aria-current="page"] {
@@ -538,9 +530,9 @@
   display: flex;
   align-items: center;
   /* Was space-between, which worked while the bar held exactly two things.
-     The light switch is a third, and space-between would have parked it in the
-     dead centre of the bar; pushing it right with an auto margin instead keeps
-     the brand and the menu exactly where they were. */
+     The light switch is a third and the hamburger a fourth, and space-between
+     would have spread all of them across the bar. Everything after the brand
+     is pushed right instead — by the brand itself, see .hero-nav__brand. */
   justify-content: flex-start;
   gap: 14px;
   height: 70px;
@@ -553,7 +545,15 @@
     color 420ms ease;
 }
 
+/* The brand does the pushing, and it is the only child that can: the switch is
+   hidden on a page with no hero, and below 900px the menu leaves the flow to
+   become a sheet. Hanging the layout off either of those put the rest of the
+   bar back against the logo — on /speakers and /schedule at desktop when the
+   switch went, and on every page at phone widths when the menu did. The brand
+   is present and in flow at every width on every page, so it is the one thing
+   an auto margin here can be trusted to. */
 .hero-nav__brand {
+  margin-right: auto;
   display: flex;
   align-items: center;
 }
@@ -696,8 +696,6 @@
 /* --- the light switch ---------------------------------------------------- */
 
 .hero-theme {
-  /* Pushed to the right-hand end of the bar; everything after it follows. */
-  margin-left: auto;
   /* A flex item shrinks by default, and on a 320px screen this one was being
      squeezed to 35px — under the 44px a finger needs. It is a fixed control;
      it does not give. */

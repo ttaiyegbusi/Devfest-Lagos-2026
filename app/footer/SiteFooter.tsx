@@ -1,7 +1,7 @@
 import { DevFestIcon } from "../hero/DevFestIcon";
 import { SignupForm } from "./SignupForm";
 import "./SiteFooter.css";
-import { TICKETS } from "../links";
+import { SOCIALS, TICKETS } from "../links";
 
 /* `href` is optional, and most of these do not have one yet. They all used to
    point at anchors — #schedule, #team, #x, #app — none of which exist anywhere
@@ -9,9 +9,10 @@ import { TICKETS } from "../links";
    destination renders as plain text rather than as a link that does nothing.
 
    TO WIRE UP:
-     · Schedule, Join Community, Team — need sections or pages.
-     · The five socials — need the real profile URLs. Deliberately not guessed:
-       sending people to the wrong account is worse than not linking yet.
+     · Join Community, Team — need sections or pages.
+     · Facebook — needs the real profile URL. Deliberately not guessed:
+       sending people to the wrong account is worse than not linking yet. The
+       other four are in app/links.ts.
      · Download App, Play Game, DP Generator — need destinations. */
 const COLUMNS: {
   heading: string;
@@ -20,9 +21,9 @@ const COLUMNS: {
   {
     heading: "Devfest",
     links: [
-      { label: "Schedule" },
-      { label: "Speakers", href: "#speakers" },
-      { label: "FAQs", href: "#faq" },
+      { label: "Schedule", href: "/schedule" },
+      { label: "Speakers", href: "/speakers" },
+      { label: "FAQs", href: "/faqs" },
       { label: "Join Community" },
       { label: "Team" },
     ],
@@ -30,11 +31,11 @@ const COLUMNS: {
   {
     heading: "Contact Us",
     links: [
-      { label: "X" },
-      { label: "Linkedin" },
-      { label: "Instagram" },
+      { label: "X", href: SOCIALS.X },
+      { label: "Linkedin", href: SOCIALS.Linkedin },
+      { label: "Instagram", href: SOCIALS.Instagram },
       { label: "Facebook" },
-      { label: "Youtube" },
+      { label: "Youtube", href: SOCIALS.Youtube },
     ],
   },
   {

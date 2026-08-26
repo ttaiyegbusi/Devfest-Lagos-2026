@@ -13,6 +13,15 @@ const RING_MINIMUM = 5;
 
 /** How fast the wall settles onto a card, per second. */
 const SETTLE = 9;
+/** Seconds a card sits in the middle before the next one is sent for.
+ *
+ *  The wall advances a whole card at a time rather than sliding continuously,
+ *  and that is the whole point: between steps it is at rest on a round number,
+ *  which is the only position where the middle card faces straight out and the
+ *  row reads as a curved wall. Drifting through the in-between positions turns
+ *  it into a line of cards all leaning the same way — the arc is still there in
+ *  the geometry, but you cannot see it any more. */
+const DWELL = 3.6;
 /** Where a card starts to fade, and where it has gone entirely.
  *
  *  Two steps out is as far as the wall is calibrated to go: past that the
@@ -57,8 +66,20 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
   const last = useRef(0);
   const grabbing = useRef(false);
   const still = useRef(false);
+  /** Under the pointer, or holding focus — somebody is looking at this one. */
+  const held = useRef(false);
+  /** Scrolled past. Starts true: the wall is well below the fold, and there is
+   *  no sense turning it before anybody is in front of it. */
+  const away = useRef(true);
+  const timer = useRef(0);
 
+  /* Two indices. `active` is which card is in the middle, and drives the
+     highlight and the progress thumb. `spoken` is what the live region says,
+     and only deliberate navigation moves it — an arrow, a card, the end of a
+     drag. A wall that advances on its own would otherwise read a new name
+     aloud every four seconds, for ever. */
   const [active, setActive] = useState(0);
+  const [spoken, setSpoken] = useState(0);
 
   const paint = useCallback(() => {
     for (let i = 0; i < COUNT; i++) {
@@ -132,14 +153,46 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
     raf.current = requestAnimationFrame(tick);
   }, [tick]);
 
+  const rest = useCallback(() => {
+    window.clearTimeout(timer.current);
+    timer.current = 0;
+  }, []);
+
+  /** Send for the next card in DWELL seconds, and again after that, for ever.
+   *
+   *  A timeout rather than a term in the animation loop, so that between steps
+   *  there is no loop running at all: the wall is genuinely still, and a phone
+   *  is not being asked to redraw a picture that is not changing.
+   *
+   *  It does not announce. This is the wall turning, not somebody asking for a
+   *  card, and only the second of those is worth a screen reader's attention. */
+  const schedule = useCallback(
+    function plan() {
+      window.clearTimeout(timer.current);
+      if (still.current || held.current || away.current) return;
+      timer.current = window.setTimeout(() => {
+        target.current = Math.round(target.current) + 1;
+        setActive(asIndex(target.current, COUNT));
+        kick();
+        plan();
+      }, DWELL * 1000);
+    },
+    [COUNT, kick],
+  );
+
   /** Step by whole cards. There is no clamping — that is the point. */
   const go = useCallback(
     (delta: number) => {
       target.current = Math.round(target.current) + delta;
-      setActive(asIndex(target.current, COUNT));
+      const i = asIndex(target.current, COUNT);
+      setActive(i);
+      setSpoken(i);
       kick();
+      // Somebody just moved it themselves; the wall waits a full turn before
+      // taking over again rather than nudging on top of them.
+      schedule();
     },
-    [COUNT, kick],
+    [COUNT, kick, schedule],
   );
 
   /** Bring card `i` to the centre, going whichever way round is shorter. */
@@ -147,10 +200,13 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
     (i: number) => {
       const from = Math.round(target.current);
       target.current = from + Math.round(wrapped(i - from, COUNT));
-      setActive(asIndex(target.current, COUNT));
+      const at = asIndex(target.current, COUNT);
+      setActive(at);
+      setSpoken(at);
       kick();
+      schedule();
     },
-    [COUNT, kick],
+    [COUNT, kick, schedule],
   );
 
   useEffect(() => {
@@ -189,6 +245,7 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
         /* no capture available; the listeners still track the drag */
       }
       el.classList.add("is-grabbing");
+      rest();
       kick();
     };
 
@@ -211,8 +268,11 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
       }
       el.classList.remove("is-grabbing");
       target.current = Math.round(pos.current);
-      setActive(asIndex(target.current, COUNT));
+      const landed = asIndex(target.current, COUNT);
+      setActive(landed);
+      setSpoken(landed);
       kick();
+      schedule();
 
       // A drag that finishes over a card would otherwise also count as a click
       // on it, and pull the wall somewhere the reader did not ask for.
@@ -239,11 +299,40 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
       }
     };
 
+    /* The wall waits while somebody is looking at it — the same courtesy the
+       sponsors band pays on hover. Focus counts too: a keyboard reader tabbing
+       through the cards should not have them moving underneath. */
+    const hold = () => {
+      held.current = true;
+      rest();
+    };
+    const release = () => {
+      held.current = false;
+      schedule();
+    };
+
     el.addEventListener("pointerdown", onDown);
     el.addEventListener("pointermove", onMove);
     el.addEventListener("pointerup", onUp);
     el.addEventListener("pointercancel", onUp);
     el.addEventListener("keydown", onKey);
+    el.addEventListener("pointerenter", hold);
+    el.addEventListener("pointerleave", release);
+    el.addEventListener("focusin", hold);
+    el.addEventListener("focusout", release);
+
+    /* And it does not turn at all until it is on screen. A wall stepping round
+       at the bottom of a page nobody has scrolled to is a phone's battery spent
+       on a picture nobody is looking at. */
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        away.current = !entry.isIntersecting;
+        if (entry.isIntersecting) schedule();
+        else rest();
+      },
+      { threshold: 0 },
+    );
+    io.observe(el);
 
     return () => {
       el.removeEventListener("pointerdown", onDown);
@@ -251,10 +340,16 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
       el.removeEventListener("pointerup", onUp);
       el.removeEventListener("pointercancel", onUp);
       el.removeEventListener("keydown", onKey);
+      el.removeEventListener("pointerenter", hold);
+      el.removeEventListener("pointerleave", release);
+      el.removeEventListener("focusin", hold);
+      el.removeEventListener("focusout", release);
+      io.disconnect();
+      rest();
       if (raf.current) cancelAnimationFrame(raf.current);
       raf.current = 0;
     };
-  }, [COUNT, go, kick]);
+  }, [COUNT, go, kick, rest, schedule]);
 
   /* One card, drawn the same whether it is riding the ring or sitting in a
      plain row. The organisation is the artwork and the person is the caption
@@ -388,8 +483,8 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
       </div>
 
       <p className="visually-hidden" aria-live="polite">
-        {speakers[active].name}, {speakers[active].role} at{" "}
-        {speakers[active].org}. {active + 1} of {COUNT}.
+        {speakers[spoken].name}, {speakers[spoken].role} at{" "}
+        {speakers[spoken].org}. {spoken + 1} of {COUNT}.
       </p>
     </>
   );

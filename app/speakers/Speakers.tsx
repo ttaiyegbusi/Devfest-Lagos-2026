@@ -13,13 +13,15 @@ const RING_MINIMUM = 5;
 
 /** How fast the wall settles onto a card, per second. */
 const SETTLE = 9;
-/** Seconds a card takes to travel one place while the wall is drifting on its
- *  own. The sponsors band crosses a name every 3.4s and this is deliberately a
- *  little slower: those are wordmarks to glance at, these are a name, a role
- *  and an organisation to actually read. */
-const PACE = 4.2;
-/** The same thing the ring can use directly: places per second. */
-const DRIFT = 1 / PACE;
+/** Seconds a card sits in the middle before the next one is sent for.
+ *
+ *  The wall advances a whole card at a time rather than sliding continuously,
+ *  and that is the whole point: between steps it is at rest on a round number,
+ *  which is the only position where the middle card faces straight out and the
+ *  row reads as a curved wall. Drifting through the in-between positions turns
+ *  it into a line of cards all leaning the same way — the arc is still there in
+ *  the geometry, but you cannot see it any more. */
+const DWELL = 3.6;
 /** Where a card starts to fade, and where it has gone entirely.
  *
  *  Two steps out is as far as the wall is calibrated to go: past that the
@@ -64,23 +66,18 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
   const last = useRef(0);
   const grabbing = useRef(false);
   const still = useRef(false);
-  /** Easing towards a card somebody asked for, rather than drifting. */
-  const seeking = useRef(false);
-  /** Under the pointer or holding focus — the reader is looking at something. */
+  /** Under the pointer, or holding focus — somebody is looking at this one. */
   const held = useRef(false);
   /** Scrolled past. Starts true: the wall is well below the fold, and there is
-   *  no sense turning the ring while nobody is in front of it. */
+   *  no sense turning it before anybody is in front of it. */
   const away = useRef(true);
-  /** The index the cards are currently drawn against, so the frame can tell
-   *  when the centre has actually changed rather than setting state at 60Hz. */
-  const shown = useRef(0);
+  const timer = useRef(0);
 
-  /* Two indices, because they answer to different things. `active` is which
-     card is in the middle and drives the highlight and the progress thumb, so
-     it follows the wall wherever the wall goes — drift included. `spoken` is
-     what the live region says, and it only moves when somebody *asks* for a
-     card: a wall that drifts on its own would otherwise read a new name aloud
-     every four seconds, for ever. */
+  /* Two indices. `active` is which card is in the middle, and drives the
+     highlight and the progress thumb. `spoken` is what the live region says,
+     and only deliberate navigation moves it — an arrow, a card, the end of a
+     drag. A wall that advances on its own would otherwise read a new name
+     aloud every four seconds, for ever. */
   const [active, setActive] = useState(0);
   const [spoken, setSpoken] = useState(0);
 
@@ -130,41 +127,24 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
       const dt = Math.min((now - last.current) / 1000, 0.05);
       last.current = now;
 
-      if (grabbing.current) {
-        // The pointer handlers are writing `pos`; there is nothing to integrate.
-      } else if (seeking.current) {
+      if (!grabbing.current) {
         const gap = target.current - pos.current;
         if (still.current || Math.abs(gap) < 0.0005) {
           pos.current = target.current;
-          seeking.current = false;
         } else {
           // Framerate-independent ease, so the settle takes the same time on a
           // 60Hz panel and a 120Hz one.
           pos.current += gap * (1 - Math.exp(-dt * SETTLE));
         }
-      } else if (!still.current && !held.current && !away.current) {
-        // The drift. `pos` is unbounded and wrapped at the point of use, so it
-        // can climb for ever without ever needing a discontinuity — which is
-        // what makes this endless rather than a loop with a seam in it.
-        pos.current += DRIFT * dt;
-        target.current = pos.current;
       }
 
       paint();
 
-      const centre = asIndex(pos.current, COUNT);
-      if (centre !== shown.current) {
-        shown.current = centre;
-        setActive(centre);
-      }
-
-      const idle =
-        !grabbing.current &&
-        !seeking.current &&
-        (still.current || held.current || away.current);
-      raf.current = idle ? 0 : requestAnimationFrame(frame);
+      const done =
+        !grabbing.current && Math.abs(target.current - pos.current) < 0.0005;
+      raf.current = done ? 0 : requestAnimationFrame(frame);
     },
-    [COUNT, paint],
+    [paint],
   );
 
   const kick = useCallback(() => {
@@ -173,20 +153,46 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
     raf.current = requestAnimationFrame(tick);
   }, [tick]);
 
-  /** Step by whole cards. There is no clamping — that is the point.
+  const rest = useCallback(() => {
+    window.clearTimeout(timer.current);
+    timer.current = 0;
+  }, []);
+
+  /** Send for the next card in DWELL seconds, and again after that, for ever.
    *
-   *  `active` is not set here: it is derived from where the wall actually is,
-   *  once a frame, so the highlight travels with the cards instead of jumping
-   *  ahead of them. What is set here is what gets announced, because this is a
-   *  reader asking for a card rather than the wall drifting past one. */
+   *  A timeout rather than a term in the animation loop, so that between steps
+   *  there is no loop running at all: the wall is genuinely still, and a phone
+   *  is not being asked to redraw a picture that is not changing.
+   *
+   *  It does not announce. This is the wall turning, not somebody asking for a
+   *  card, and only the second of those is worth a screen reader's attention. */
+  const schedule = useCallback(
+    function plan() {
+      window.clearTimeout(timer.current);
+      if (still.current || held.current || away.current) return;
+      timer.current = window.setTimeout(() => {
+        target.current = Math.round(target.current) + 1;
+        setActive(asIndex(target.current, COUNT));
+        kick();
+        plan();
+      }, DWELL * 1000);
+    },
+    [COUNT, kick],
+  );
+
+  /** Step by whole cards. There is no clamping — that is the point. */
   const go = useCallback(
     (delta: number) => {
       target.current = Math.round(target.current) + delta;
-      seeking.current = true;
-      setSpoken(asIndex(target.current, COUNT));
+      const i = asIndex(target.current, COUNT);
+      setActive(i);
+      setSpoken(i);
       kick();
+      // Somebody just moved it themselves; the wall waits a full turn before
+      // taking over again rather than nudging on top of them.
+      schedule();
     },
-    [COUNT, kick],
+    [COUNT, kick, schedule],
   );
 
   /** Bring card `i` to the centre, going whichever way round is shorter. */
@@ -194,11 +200,13 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
     (i: number) => {
       const from = Math.round(target.current);
       target.current = from + Math.round(wrapped(i - from, COUNT));
-      seeking.current = true;
-      setSpoken(asIndex(target.current, COUNT));
+      const at = asIndex(target.current, COUNT);
+      setActive(at);
+      setSpoken(at);
       kick();
+      schedule();
     },
-    [COUNT, kick],
+    [COUNT, kick, schedule],
   );
 
   useEffect(() => {
@@ -237,6 +245,7 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
         /* no capture available; the listeners still track the drag */
       }
       el.classList.add("is-grabbing");
+      rest();
       kick();
     };
 
@@ -258,19 +267,12 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
         /* pointer already gone */
       }
       el.classList.remove("is-grabbing");
-      // Snapping to the nearest card only makes sense if the wall is going to
-      // stay there. While it is drifting it would settle onto a card and then
-      // immediately slide off it again, which reads as a stumble — so the
-      // drift simply picks up from wherever the hand left off. Under reduced
-      // motion there is no drift, and the snap is the whole ending.
-      if (still.current) {
-        target.current = Math.round(pos.current);
-        seeking.current = true;
-      } else {
-        target.current = pos.current;
-      }
-      setSpoken(asIndex(pos.current, COUNT));
+      target.current = Math.round(pos.current);
+      const landed = asIndex(target.current, COUNT);
+      setActive(landed);
+      setSpoken(landed);
       kick();
+      schedule();
 
       // A drag that finishes over a card would otherwise also count as a click
       // on it, and pull the wall somewhere the reader did not ask for.
@@ -297,15 +299,16 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
       }
     };
 
-    /* The wall stops while somebody is looking at it — the same courtesy the
+    /* The wall waits while somebody is looking at it — the same courtesy the
        sponsors band pays on hover. Focus counts too: a keyboard reader tabbing
        through the cards should not have them moving underneath. */
     const hold = () => {
       held.current = true;
+      rest();
     };
     const release = () => {
       held.current = false;
-      kick();
+      schedule();
     };
 
     el.addEventListener("pointerdown", onDown);
@@ -318,13 +321,14 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
     el.addEventListener("focusin", hold);
     el.addEventListener("focusout", release);
 
-    /* And it does not turn at all until it is on screen. A ring animating at
-       the bottom of a page nobody has scrolled to is a phone's battery spent
+    /* And it does not turn at all until it is on screen. A wall stepping round
+       at the bottom of a page nobody has scrolled to is a phone's battery spent
        on a picture nobody is looking at. */
     const io = new IntersectionObserver(
       ([entry]) => {
         away.current = !entry.isIntersecting;
-        if (entry.isIntersecting) kick();
+        if (entry.isIntersecting) schedule();
+        else rest();
       },
       { threshold: 0 },
     );
@@ -341,10 +345,11 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
       el.removeEventListener("focusin", hold);
       el.removeEventListener("focusout", release);
       io.disconnect();
+      rest();
       if (raf.current) cancelAnimationFrame(raf.current);
       raf.current = 0;
     };
-  }, [COUNT, go, kick]);
+  }, [COUNT, go, kick, rest, schedule]);
 
   /* One card, drawn the same whether it is riding the ring or sitting in a
      plain row. The organisation is the artwork and the person is the caption

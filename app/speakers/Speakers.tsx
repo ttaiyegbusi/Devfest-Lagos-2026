@@ -13,6 +13,13 @@ const RING_MINIMUM = 5;
 
 /** How fast the wall settles onto a card, per second. */
 const SETTLE = 9;
+/** Seconds a card takes to travel one place while the wall is drifting on its
+ *  own. The sponsors band crosses a name every 3.4s and this is deliberately a
+ *  little slower: those are wordmarks to glance at, these are a name, a role
+ *  and an organisation to actually read. */
+const PACE = 4.2;
+/** The same thing the ring can use directly: places per second. */
+const DRIFT = 1 / PACE;
 /** Where a card starts to fade, and where it has gone entirely.
  *
  *  Two steps out is as far as the wall is calibrated to go: past that the
@@ -57,8 +64,25 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
   const last = useRef(0);
   const grabbing = useRef(false);
   const still = useRef(false);
+  /** Easing towards a card somebody asked for, rather than drifting. */
+  const seeking = useRef(false);
+  /** Under the pointer or holding focus — the reader is looking at something. */
+  const held = useRef(false);
+  /** Scrolled past. Starts true: the wall is well below the fold, and there is
+   *  no sense turning the ring while nobody is in front of it. */
+  const away = useRef(true);
+  /** The index the cards are currently drawn against, so the frame can tell
+   *  when the centre has actually changed rather than setting state at 60Hz. */
+  const shown = useRef(0);
 
+  /* Two indices, because they answer to different things. `active` is which
+     card is in the middle and drives the highlight and the progress thumb, so
+     it follows the wall wherever the wall goes — drift included. `spoken` is
+     what the live region says, and it only moves when somebody *asks* for a
+     card: a wall that drifts on its own would otherwise read a new name aloud
+     every four seconds, for ever. */
   const [active, setActive] = useState(0);
+  const [spoken, setSpoken] = useState(0);
 
   const paint = useCallback(() => {
     for (let i = 0; i < COUNT; i++) {
@@ -106,24 +130,41 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
       const dt = Math.min((now - last.current) / 1000, 0.05);
       last.current = now;
 
-      if (!grabbing.current) {
+      if (grabbing.current) {
+        // The pointer handlers are writing `pos`; there is nothing to integrate.
+      } else if (seeking.current) {
         const gap = target.current - pos.current;
         if (still.current || Math.abs(gap) < 0.0005) {
           pos.current = target.current;
+          seeking.current = false;
         } else {
           // Framerate-independent ease, so the settle takes the same time on a
           // 60Hz panel and a 120Hz one.
           pos.current += gap * (1 - Math.exp(-dt * SETTLE));
         }
+      } else if (!still.current && !held.current && !away.current) {
+        // The drift. `pos` is unbounded and wrapped at the point of use, so it
+        // can climb for ever without ever needing a discontinuity — which is
+        // what makes this endless rather than a loop with a seam in it.
+        pos.current += DRIFT * dt;
+        target.current = pos.current;
       }
 
       paint();
 
-      const done =
-        !grabbing.current && Math.abs(target.current - pos.current) < 0.0005;
-      raf.current = done ? 0 : requestAnimationFrame(frame);
+      const centre = asIndex(pos.current, COUNT);
+      if (centre !== shown.current) {
+        shown.current = centre;
+        setActive(centre);
+      }
+
+      const idle =
+        !grabbing.current &&
+        !seeking.current &&
+        (still.current || held.current || away.current);
+      raf.current = idle ? 0 : requestAnimationFrame(frame);
     },
-    [paint],
+    [COUNT, paint],
   );
 
   const kick = useCallback(() => {
@@ -132,11 +173,17 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
     raf.current = requestAnimationFrame(tick);
   }, [tick]);
 
-  /** Step by whole cards. There is no clamping — that is the point. */
+  /** Step by whole cards. There is no clamping — that is the point.
+   *
+   *  `active` is not set here: it is derived from where the wall actually is,
+   *  once a frame, so the highlight travels with the cards instead of jumping
+   *  ahead of them. What is set here is what gets announced, because this is a
+   *  reader asking for a card rather than the wall drifting past one. */
   const go = useCallback(
     (delta: number) => {
       target.current = Math.round(target.current) + delta;
-      setActive(asIndex(target.current, COUNT));
+      seeking.current = true;
+      setSpoken(asIndex(target.current, COUNT));
       kick();
     },
     [COUNT, kick],
@@ -147,7 +194,8 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
     (i: number) => {
       const from = Math.round(target.current);
       target.current = from + Math.round(wrapped(i - from, COUNT));
-      setActive(asIndex(target.current, COUNT));
+      seeking.current = true;
+      setSpoken(asIndex(target.current, COUNT));
       kick();
     },
     [COUNT, kick],
@@ -210,8 +258,18 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
         /* pointer already gone */
       }
       el.classList.remove("is-grabbing");
-      target.current = Math.round(pos.current);
-      setActive(asIndex(target.current, COUNT));
+      // Snapping to the nearest card only makes sense if the wall is going to
+      // stay there. While it is drifting it would settle onto a card and then
+      // immediately slide off it again, which reads as a stumble — so the
+      // drift simply picks up from wherever the hand left off. Under reduced
+      // motion there is no drift, and the snap is the whole ending.
+      if (still.current) {
+        target.current = Math.round(pos.current);
+        seeking.current = true;
+      } else {
+        target.current = pos.current;
+      }
+      setSpoken(asIndex(pos.current, COUNT));
       kick();
 
       // A drag that finishes over a card would otherwise also count as a click
@@ -239,11 +297,38 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
       }
     };
 
+    /* The wall stops while somebody is looking at it — the same courtesy the
+       sponsors band pays on hover. Focus counts too: a keyboard reader tabbing
+       through the cards should not have them moving underneath. */
+    const hold = () => {
+      held.current = true;
+    };
+    const release = () => {
+      held.current = false;
+      kick();
+    };
+
     el.addEventListener("pointerdown", onDown);
     el.addEventListener("pointermove", onMove);
     el.addEventListener("pointerup", onUp);
     el.addEventListener("pointercancel", onUp);
     el.addEventListener("keydown", onKey);
+    el.addEventListener("pointerenter", hold);
+    el.addEventListener("pointerleave", release);
+    el.addEventListener("focusin", hold);
+    el.addEventListener("focusout", release);
+
+    /* And it does not turn at all until it is on screen. A ring animating at
+       the bottom of a page nobody has scrolled to is a phone's battery spent
+       on a picture nobody is looking at. */
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        away.current = !entry.isIntersecting;
+        if (entry.isIntersecting) kick();
+      },
+      { threshold: 0 },
+    );
+    io.observe(el);
 
     return () => {
       el.removeEventListener("pointerdown", onDown);
@@ -251,6 +336,11 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
       el.removeEventListener("pointerup", onUp);
       el.removeEventListener("pointercancel", onUp);
       el.removeEventListener("keydown", onKey);
+      el.removeEventListener("pointerenter", hold);
+      el.removeEventListener("pointerleave", release);
+      el.removeEventListener("focusin", hold);
+      el.removeEventListener("focusout", release);
+      io.disconnect();
       if (raf.current) cancelAnimationFrame(raf.current);
       raf.current = 0;
     };
@@ -388,8 +478,8 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
       </div>
 
       <p className="visually-hidden" aria-live="polite">
-        {speakers[active].name}, {speakers[active].role} at{" "}
-        {speakers[active].org}. {active + 1} of {COUNT}.
+        {speakers[spoken].name}, {speakers[spoken].role} at{" "}
+        {speakers[spoken].org}. {spoken + 1} of {COUNT}.
       </p>
     </>
   );

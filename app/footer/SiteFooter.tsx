@@ -9,7 +9,7 @@ import { TICKETS } from "../links";
    destination renders as plain text rather than as a link that does nothing.
 
    TO WIRE UP:
-     · Schedule, Join Community, Team — need sections or pages.
+     · Join Community, Team — need sections or pages.
      · The five socials — need the real profile URLs. Deliberately not guessed:
        sending people to the wrong account is worse than not linking yet.
      · Download App, Play Game, DP Generator — need destinations. */
@@ -20,9 +20,9 @@ const COLUMNS: {
   {
     heading: "Devfest",
     links: [
-      { label: "Schedule" },
-      { label: "Speakers", href: "#speakers" },
-      { label: "FAQs", href: "#faq" },
+      { label: "Schedule", href: "/schedule" },
+      { label: "Speakers", href: "/speakers" },
+      { label: "FAQs", href: "/faqs" },
       { label: "Join Community" },
       { label: "Team" },
     ],

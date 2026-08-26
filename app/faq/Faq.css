@@ -1,11 +1,29 @@
 /* ---------------------------------------------------------------------------
    FAQ — a category rail on the left, the questions on the right.
+
+   The same board serves two grounds: the dark section on the landing page and
+   the cream page at /faqs. Every colour below comes from a --faq-* property
+   rather than a literal, and the two hosts set them — .faq here, .faqs in
+   app/faqs/Faqs.css. One component, two palettes, no second copy to drift.
    --------------------------------------------------------------------------- */
 
 .faq {
+  --faq-ink: #fff;
+  --faq-quiet: #a0a0a0;
+  --faq-answer: #b4b4b4;
+  --faq-said: #b0b0b0;
+  --faq-rule: #333;
+  --faq-chip-ink: #cfcfcf;
+  --faq-chip-on: #262626;
+  /* The selected chip's own text. Its own token because the two grounds
+     disagree: on the dark it is the same white as everything else, on the
+     cream the chip goes solid ink and the text has to invert with it. */
+  --faq-chip-on-ink: var(--faq-ink);
+  --faq-chip-off: #202020;
+
   padding: 72px 0 96px;
   background: #171717;
-  color: #fff;
+  color: var(--faq-ink);
 }
 
 .faq__intro {
@@ -25,7 +43,7 @@
   margin: 4px 0 0;
   font-size: 15px;
   line-height: 22px;
-  color: #a0a0a0;
+  color: var(--faq-quiet);
 }
 
 .faq__body {
@@ -50,7 +68,7 @@
   border: 0;
   border-radius: 4px;
   background: transparent;
-  color: #cfcfcf;
+  color: var(--faq-chip-ink);
   font: inherit;
   font-size: 15px;
   line-height: 22px;
@@ -60,12 +78,12 @@
 }
 
 .faq__group:hover {
-  color: #fff;
+  color: var(--faq-ink);
 }
 
 .faq__group[data-active] {
-  background: #262626;
-  color: #fff;
+  background: var(--faq-chip-on);
+  color: var(--faq-chip-on-ink);
 }
 
 .faq__group:focus-visible {
@@ -82,7 +100,7 @@
 .faq__search {
   grid-area: auto;
   margin: 0 0 18px;
-  color: #b0b0b0;
+  color: var(--faq-said);
   font-size: 14.5px;
   line-height: 22px;
 }
@@ -99,7 +117,7 @@
 }
 
 .faq__clear:hover {
-  color: #fff;
+  color: var(--faq-ink);
 }
 
 .faq__list {
@@ -111,11 +129,11 @@
 
 .faq__item + .faq__item,
 .faq__item:last-child {
-  border-top: 1px solid #333;
+  border-top: 1px solid var(--faq-rule);
 }
 
 .faq__item:last-child {
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--faq-rule);
 }
 
 .faq__q {
@@ -133,7 +151,7 @@
   padding: 17px 0;
   border: 0;
   background: transparent;
-  color: #fff;
+  color: var(--faq-ink);
   font: inherit;
   font-size: 15.5px;
   line-height: 22px;
@@ -177,13 +195,38 @@
 
 .faq__a {
   padding: 0 40px 20px 0;
-  color: #b4b4b4;
+  color: var(--faq-answer);
   font-size: 14.5px;
   line-height: 22px;
 }
 
 .faq__a p {
   margin: 0;
+}
+
+/* --- the way to the rest of them ----------------------------------------- */
+
+/* Drawn as a link rather than a block, because it leads somewhere rather than
+   doing something — the same shape the wall uses to reach /speakers. */
+.faq__more {
+  width: min(1300px, 100% - var(--gutter) * 2);
+  margin: 34px auto 0;
+  text-align: center;
+}
+
+.faq__all {
+  color: inherit;
+  font-size: 15px;
+  line-height: 22px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--faq-rule);
+  transition: text-decoration-color 180ms ease;
+}
+
+.faq__all:hover {
+  text-decoration-color: currentColor;
 }
 
 /* --- responsive ---------------------------------------------------------- */
@@ -215,7 +258,7 @@
     flex: none;
     padding: 9px 14px;
     border-radius: 999px;
-    background: #202020;
+    background: var(--faq-chip-off);
     white-space: nowrap;
   }
 }
@@ -223,7 +266,8 @@
 @media (prefers-reduced-motion: reduce) {
   .faq__sign::before,
   .faq__sign::after,
-  .faq__group {
+  .faq__group,
+  .faq__all {
     transition: none;
   }
 }

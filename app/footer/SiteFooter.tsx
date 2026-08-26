@@ -10,9 +10,9 @@ import { SOCIALS, TICKETS } from "../links";
 
    TO WIRE UP:
      · Join Community, Team — need sections or pages.
-     · Facebook and Youtube — need the real profile URLs. Deliberately not
-       guessed: sending people to the wrong account is worse than not linking
-       yet. X, Linkedin and Instagram are in app/links.ts.
+     · Facebook — needs the real profile URL. Deliberately not guessed:
+       sending people to the wrong account is worse than not linking yet. The
+       other four are in app/links.ts.
      · Download App, Play Game, DP Generator — need destinations. */
 const COLUMNS: {
   heading: string;
@@ -35,7 +35,7 @@ const COLUMNS: {
       { label: "Linkedin", href: SOCIALS.Linkedin },
       { label: "Instagram", href: SOCIALS.Instagram },
       { label: "Facebook" },
-      { label: "Youtube" },
+      { label: "Youtube", href: SOCIALS.Youtube },
     ],
   },
   {

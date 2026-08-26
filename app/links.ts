@@ -10,11 +10,12 @@ export const TICKETS = "https://tickets.devfestlagos.com/buy";
 /* GDG Lagos's own accounts. The footer lists them and the FAQ sends people to
    them for announcements, so they are named once here.
 
-   Facebook and YouTube are in the footer's list and are deliberately absent:
-   nobody has given us those handles, and sending people to the wrong account
-   is worse than not linking yet. */
+   Facebook is in the footer's list and is deliberately absent: nobody has
+   given us that handle, and sending people to the wrong account is worse than
+   not linking yet. */
 export const SOCIALS: Record<string, string> = {
   X: "https://x.com/gdglagos",
   Instagram: "https://www.instagram.com/gdglagos",
   Linkedin: "https://www.linkedin.com/company/gdg-lagos/",
+  Youtube: "https://www.youtube.com/@GDGLagos",
 };

@@ -26,8 +26,9 @@
  *
  * STILL TO CONFIRM, marked TODO below:
  *   · where volunteer applications go.
- *   · Facebook and YouTube, which is why the footer still leaves those two
- *     unlinked. X, Instagram and LinkedIn are in app/links.ts.
+ *   · Facebook, which is why the footer still renders that one as plain text
+ *     rather than as a link that goes nowhere. The other four accounts are in
+ *     app/links.ts.
  */
 import { SOCIALS } from "../links";
 

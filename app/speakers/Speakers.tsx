@@ -351,6 +351,35 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
     };
   }, [COUNT, go, kick, rest, schedule]);
 
+  /* Where a slot sits before the engine has touched it.
+   *
+   * Without this the server sends fourteen cards with no transform at all, and
+   * they are absolutely positioned — so the whole lineup is a flat stack in the
+   * middle of the section until hydration runs and paint() draws the arc. On a
+   * desktop that is a blink. On a phone on a slow connection it is the picture
+   * for as long as the bundle takes to arrive, and the ring appearing out of it
+   * reads as the wall changing shape.
+   *
+   * These are the same numbers paint() computes for pos = 0, so the markup the
+   * server sends is already the arc, hydration matches it exactly, and the
+   * engine takes over without anything moving. */
+  const resting = (i: number): React.CSSProperties => {
+    const offset = wrapped(i, COUNT);
+    const n = Math.abs(offset);
+    const t = (offset * ARC * Math.PI) / 180;
+    return {
+      transform: [
+        `translateX(calc(var(--arc-r) * ${Math.sin(t).toFixed(5)}))`,
+        `translateZ(calc(var(--arc-r) * ${(1 - Math.cos(t)).toFixed(5)}))`,
+        `rotateY(${(-offset * ARC).toFixed(3)}deg)`,
+      ].join(" "),
+      opacity:
+        n <= FADE_FROM
+          ? 1
+          : Math.max(0, 1 - (n - FADE_FROM) / (FADE_TO - FADE_FROM)),
+    };
+  };
+
   /* One card, drawn the same whether it is riding the ring or sitting in a
      plain row. The organisation is the artwork and the person is the caption
      under it — see Speakers.css. */
@@ -434,6 +463,7 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
             <li
               key={`${s.name}-${s.org}`}
               className="speakers__slot"
+              style={resting(i)}
               ref={(el) => {
                 slots.current[i] = el;
               }}

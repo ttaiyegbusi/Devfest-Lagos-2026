@@ -150,8 +150,11 @@
 
 /* Every card in a row is lit. The dimming exists to say "this one is not the
    one you are looking at", and in a row they all are. */
+.speakers__row .card::after {
+  opacity: 0;
+}
+
 .speakers__row .card {
-  filter: none;
   box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.85);
   cursor: default;
 }
@@ -244,7 +247,12 @@
   /* No transition: the wall is driven frame by frame in the component, so it
      can follow a cursor continuously rather than only stepping between cards.
      A transition here would lag every drag by its own duration. */
-  will-change: transform, opacity;
+  /* `transform` only. Naming `opacity` here made this a grouping element, and
+     a grouping element inside a 3D rendering context has its transform-style
+     forced to flat by the spec. Chromium keeps that local to the slot; WebKit
+     collapses the whole context, which is what flattened the wall into a plain
+     row on iOS and Safari while every other browser drew the arc. */
+  will-change: transform;
 }
 
 /* Marked on a card once it has faded out, at the point it is carried round to
@@ -268,15 +276,34 @@
   font: inherit;
   text-align: left;
   cursor: pointer;
-  /* The off-centre cards read as unlit screens on the same wall. */
-  filter: brightness(0.62);
-  transition:
-    filter 620ms cubic-bezier(0.22, 0.61, 0.36, 1),
-    box-shadow 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  position: relative;
+  transition: box-shadow 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* The off-centre cards read as unlit screens on the same wall.
+   
+   This was `filter: brightness(0.62)`, and a filter is a grouping property:
+   inside a 3D rendering context it forces transform-style to flat, and WebKit
+   takes the whole wall down with it. A black veil over the card does the same
+   job — the panel underneath is #0d0d0d, so multiplying by 0.62 and laying 38%
+   black over it land in the same place — and opacity on a leaf flattens
+   nothing above it. */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #000;
+  opacity: 0.38;
+  pointer-events: none;
+  transition: opacity 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.speakers__slot[data-current] .card::after {
+  opacity: 0;
 }
 
 .speakers__slot[data-current] .card {
-  filter: none;
   box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.85);
   cursor: default;
 }

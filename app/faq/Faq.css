@@ -204,11 +204,16 @@
   margin: 0;
 }
 
-.faq__link {
+/* A row of them, because "follow our channels" is three accounts and one
+   link would have had to pick a favourite. */
+.faq__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
   margin-top: 10px !important;
 }
 
-.faq__link a {
+.faq__links a {
   color: var(--faq-ink);
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -216,7 +221,7 @@
   transition: text-decoration-color 180ms ease;
 }
 
-.faq__link a:hover {
+.faq__links a:hover {
   text-decoration-color: currentColor;
 }
 
@@ -284,7 +289,7 @@
   .faq__sign::after,
   .faq__group,
   .faq__all,
-  .faq__link a {
+  .faq__links a {
     transition: none;
   }
 }

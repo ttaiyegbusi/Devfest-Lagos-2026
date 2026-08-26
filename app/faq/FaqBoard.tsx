@@ -113,19 +113,23 @@ export function FaqBoard({ clearHref }: { clearHref: string }) {
                 hidden={!isOpen}
               >
                 <p>{f.a}</p>
-                {f.link && (
-                  <p className="faq__link">
-                    {/* Leaves the site — Google's guidelines are not ours to
-                        restate, and a paraphrase of a conduct policy is worse
-                        than the policy. */}
-                    <a
-                      href={f.link.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      tabIndex={isOpen ? undefined : -1}
-                    >
-                      {f.link.label}
-                    </a>
+                {f.links && (
+                  /* All of these leave the site. Google's conduct guidelines
+                     are not ours to restate — a paraphrase of a conduct policy
+                     is worse than the policy — and an answer that says "follow
+                     our channels" should be the thing that follows them. */
+                  <p className="faq__links">
+                    {f.links.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        tabIndex={isOpen ? undefined : -1}
+                      >
+                        {link.label}
+                      </a>
+                    ))}
                   </p>
                 )}
               </div>

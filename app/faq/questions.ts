@@ -18,24 +18,25 @@
  * happened when the two-day tickets landed against a FAQ that still said "the
  * full day".
  *
- * ONE THING TO SETTLE. 2025 was a FIVE-day festival, 18–22 November at the
- * National Theatre, Iganmu. This whole site — the schedule, the two tickets,
- * the lineup, the copy — is built for two days, so that is what these answers
- * say. If 2026 is five days again, it is not this file that is wrong, it is
- * the site, and the schedule and the tiers have to move first.
+ * THE DATES ARE CONFIRMED: 13 and 14 November 2026, at the National Theatre.
+ * They fall on a Friday and a Saturday, which is what the day tabs on
+ * /schedule and /speakers have been saying all along — so the site's two-day
+ * shape is right, and 2025's five days do not carry over. Anything that names
+ * a date names it from here.
  *
- * STILL TO CONFIRM FOR 2026, all marked TODO below:
- *   · the dates and the venue. Do not copy 2025's.
- *   · whether the call for papers is open, and the link to it.
+ * STILL TO CONFIRM, marked TODO below:
  *   · where volunteer applications go.
- *   · the social accounts — the footer's five are unlinked for the same reason.
+ *   · Facebook and YouTube, which is why the footer still leaves those two
+ *     unlinked. X, Instagram and LinkedIn are in app/links.ts.
  */
+import { SOCIALS } from "../links";
+
 export type Faq = {
   q: string;
   a: string;
   group: string;
-  /** One link under the answer, where the answer is not the whole story. */
-  link?: { label: string; href: string };
+  /** Links under the answer, where the answer is not the whole story. */
+  links?: { label: string; href: string }[];
 };
 
 export const GROUPS = [
@@ -56,16 +57,13 @@ export const FAQS: Faq[] = [
   },
   {
     group: "About DevFest",
-    /* TODO: 2025 was a five-day festival. See the note at the top — if 2026 is
-       five again, the schedule and the tiers move before this sentence does. */
     q: "What is DevFest Lagos 2026?",
     a: "DevFest Lagos 2026 is a two-day tech festival that puts tech enthusiasts — beginners, experts, and everyone in between — in one place.",
   },
   {
     group: "About DevFest",
-    /* TODO: dates and venue. Deliberately not stated — see the note above. */
     q: "When & where will DevFest Lagos 2026 take place?",
-    a: "DevFest Lagos 2026 runs over two days in November 2026, with each day's sessions kickstarting by 9:00 AM prompt. The venue and the exact dates are announced ahead of tickets going on sale, so check back here or follow GDG Lagos for the announcement.",
+    a: "DevFest Lagos 2026 will be held on the 13th and 14th of November 2026 — a Friday and a Saturday — with each day's sessions kickstarting by 9:00 AM prompt at the National Theatre, Iganmu, Lagos.",
   },
   {
     group: "About DevFest",
@@ -126,10 +124,12 @@ export const FAQS: Faq[] = [
     group: "At the Event",
     q: "Is there a code of conduct for attendees?",
     a: "Yes, there is a community conduct guideline that all attendees are expected to follow. We are committed to creating a safe and inclusive environment for all participants — please review the guidelines and stick to them, so the experience is a respectful and enjoyable one for everyone.",
-    link: {
-      label: "Read the community guidelines",
-      href: "https://developers.google.com/community-guidelines",
-    },
+    links: [
+      {
+        label: "Read the community guidelines",
+        href: "https://developers.google.com/community-guidelines",
+      },
+    ],
   },
   {
     group: "At the Event",
@@ -138,22 +138,29 @@ export const FAQS: Faq[] = [
   },
   {
     group: "At the Event",
-    /* TODO: the five social accounts in the footer are unlinked for the same
-       reason — nobody has given us the real handles. */
     q: "How can I get updates and announcements about DevFest Lagos 2026?",
     a: "Stay tuned by following our official social media channels and checking back here. You can also subscribe to our newsletter, at the bottom of this page, for the latest on speakers, sessions and event details.",
+    links: [
+      { label: "X", href: SOCIALS.X },
+      { label: "Instagram", href: SOCIALS.Instagram },
+      { label: "LinkedIn", href: SOCIALS.Linkedin },
+    ],
   },
   {
     group: "Getting Involved",
-    /* TODO: where volunteer applications actually go. */
+    /* TODO: a direct destination for volunteer applications. Until there is
+       one the answer sends people where the call is actually announced. */
     q: "Can I volunteer to help make DevFest Lagos 2026 a success?",
     a: "Yes — we welcome volunteers who are passionate about contributing to the success of DevFest Lagos 2026. To join the volunteer team, follow our social media channels for updates and information on how to get involved.",
+    links: [
+      { label: "X", href: SOCIALS.X },
+      { label: "Instagram", href: SOCIALS.Instagram },
+      { label: "LinkedIn", href: SOCIALS.Linkedin },
+    ],
   },
   {
     group: "Getting Involved",
-    /* TODO: confirm whether the 2026 call for papers is open, and link it. 2025
-       closed its own; do not assume 2026 has opened. */
     q: "Can I still submit a proposal for a session or workshop (Call for Papers)?",
-    a: "The call for papers for DevFest Lagos 2026 has not opened yet. When it does it is announced here and across our social media channels, with what to submit and by when.",
+    a: "No you can't. The call for papers for DevFest Lagos 2026 is officially closed. Speakers are announced on the speakers page as they are confirmed.",
   },
 ];

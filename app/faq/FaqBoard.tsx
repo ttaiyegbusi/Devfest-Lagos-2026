@@ -113,6 +113,21 @@ export function FaqBoard({ clearHref }: { clearHref: string }) {
                 hidden={!isOpen}
               >
                 <p>{f.a}</p>
+                {f.link && (
+                  <p className="faq__link">
+                    {/* Leaves the site — Google's guidelines are not ours to
+                        restate, and a paraphrase of a conduct policy is worse
+                        than the policy. */}
+                    <a
+                      href={f.link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      tabIndex={isOpen ? undefined : -1}
+                    >
+                      {f.link.label}
+                    </a>
+                  </p>
+                )}
               </div>
             </li>
           );

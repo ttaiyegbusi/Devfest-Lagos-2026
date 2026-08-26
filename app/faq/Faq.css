@@ -204,6 +204,22 @@
   margin: 0;
 }
 
+.faq__link {
+  margin-top: 10px !important;
+}
+
+.faq__link a {
+  color: var(--faq-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--faq-rule);
+  transition: text-decoration-color 180ms ease;
+}
+
+.faq__link a:hover {
+  text-decoration-color: currentColor;
+}
+
 /* --- the way to the rest of them ----------------------------------------- */
 
 /* Drawn as a link rather than a block, because it leads somewhere rather than
@@ -267,7 +283,8 @@
   .faq__sign::before,
   .faq__sign::after,
   .faq__group,
-  .faq__all {
+  .faq__all,
+  .faq__link a {
     transition: none;
   }
 }

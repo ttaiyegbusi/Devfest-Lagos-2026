@@ -30,7 +30,16 @@
    it belongs to, which the schedule can afford because its rows carry three
    columns and this cannot because it carries one. */
 .faqs .faq__body {
-  justify-content: start;
-  grid-template-columns: 200px minmax(0, 700px);
   margin-top: 40px;
+}
+
+/* Only where there are two columns to align. Below 900px Faq.css drops the
+   board to one column and turns the rail into a scrolling chip row; this rule
+   is more specific than that one, so unguarded it kept the 200px + 700px grid
+   on a 350px screen and pushed the whole page sideways. */
+@media (min-width: 900px) {
+  .faqs .faq__body {
+    justify-content: start;
+    grid-template-columns: 200px minmax(0, 700px);
+  }
 }

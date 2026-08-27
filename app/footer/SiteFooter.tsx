@@ -9,7 +9,7 @@ import { SOCIALS, TICKETS } from "../links";
    destination renders as plain text rather than as a link that does nothing.
 
    TO WIRE UP:
-     · Join Community, Team — need sections or pages.
+     · Join Community — needs the GDG Lagos chapter URL.
      · Facebook — needs the real profile URL. Deliberately not guessed:
        sending people to the wrong account is worse than not linking yet. The
        other four are in app/links.ts.
@@ -25,7 +25,7 @@ const COLUMNS: {
       { label: "Speakers", href: "/speakers" },
       { label: "FAQs", href: "/faqs" },
       { label: "Join Community" },
-      { label: "Team" },
+      { label: "Team", href: "/team" },
     ],
   },
   {

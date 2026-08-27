@@ -1,0 +1,62 @@
+/* ---------------------------------------------------------------------------
+   The team, squad by squad — app/team/page.tsx.
+
+   There is no grid in this file. The people are drawn with the speaker card
+   from app/speakers/SpeakerGrid.css, because a person is a person and the two
+   pages should not invent two ways to show one. All that is left here is what
+   separates one squad from the next.
+   --------------------------------------------------------------------------- */
+
+.squad {
+  width: min(var(--shell), 100% - var(--gutter) * 2);
+  margin: 56px auto 0;
+}
+
+/* The rule carries the eye across to the next squad and gives the heading
+   something to sit on, the same hairline the schedule uses between its rows. */
+.squad__head {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.squad__name {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 26px;
+  letter-spacing: -0.015em;
+}
+
+.squad__blurb {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--quiet);
+}
+
+/* The grid states its own shell width, which is right when it is the only
+   thing on the page and wrong here: .squad has already applied that width, so
+   the two inset one inside the other and the tiles stood indented from the
+   heading above them. Inside a squad the grid simply fills it.
+
+   The top margin is smaller than the grid's own for the same reason it is
+   there at all — the rule under the heading has already done the separating. */
+.squad .speakers__grid {
+  width: 100%;
+  margin-top: 26px;
+}
+
+/* Nobody has been listed yet. Better than an empty page, and it says the true
+   thing rather than pretending the page is broken. */
+.squad--none {
+  margin-top: 44px;
+  font-size: 17px;
+  line-height: 25px;
+  color: var(--quiet);
+}
+
+@media (max-width: 767px) {
+  .squad {
+    margin-top: 44px;
+  }
+}

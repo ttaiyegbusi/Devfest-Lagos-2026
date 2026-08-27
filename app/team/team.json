@@ -1,0 +1,56 @@
+{
+  "_comment": [
+    "PLACEHOLDER TEAM. These are not real people. The names are invented and",
+    "nobody listed here has agreed to anything — replace this file with the",
+    "real organising team before the site is public.",
+    "",
+    "The ROLES are safe to keep: they are the jobs a DevFest actually has, and",
+    "they are what the page is really for. It is the names that must change.",
+    "",
+    "Editing: change the file, commit, and the next deploy carries it. A squad",
+    "with nobody in it is skipped, and a roster with nobody in it at all still",
+    "renders the page with an honest line instead of an empty grid, so you can",
+    "empty this out and fill it in a person at a time.",
+    "",
+    "Every field except image is required. Leave image out and the card falls",
+    "back to a tinted placeholder with the person's initials."
+  ],
+  "squads": [
+    {
+      "name": "Organising",
+      "blurb": "The people the whole thing answers to.",
+      "people": [
+        { "name": "Adebola Ogunleye", "role": "Lead Organiser" },
+        { "name": "Kemi Salawu", "role": "Co-Organiser" },
+        { "name": "Uche Nwankwo", "role": "Operations" }
+      ]
+    },
+    {
+      "name": "Programme",
+      "blurb": "Who speaks, what is on, and when.",
+      "people": [
+        { "name": "Damilola Sowemimo", "role": "Programme Lead" },
+        { "name": "Fatima Bello", "role": "Speaker Relations" },
+        { "name": "Chukwuemeka Obi", "role": "Workshops" }
+      ]
+    },
+    {
+      "name": "Design and Media",
+      "blurb": "Everything you see, read and watch.",
+      "people": [
+        { "name": "Ifeanyi Madu", "role": "Design Lead" },
+        { "name": "Tolu Adeniran", "role": "Content" },
+        { "name": "Blessing Okafor", "role": "Photography and Video" }
+      ]
+    },
+    {
+      "name": "Community and Partnerships",
+      "blurb": "The volunteers, the sponsors, and everyone in the room.",
+      "people": [
+        { "name": "Seyi Balogun", "role": "Volunteer Coordinator" },
+        { "name": "Aminat Yusuf", "role": "Partnerships" },
+        { "name": "Gbenga Alabi", "role": "Community" }
+      ]
+    }
+  ]
+}

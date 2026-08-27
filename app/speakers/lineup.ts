@@ -63,7 +63,10 @@ const TINTS: [string, string][] = [
   ["#0357EE", "#04204F"],
 ];
 
-function tintFor(org: string): [string, string] {
+/* Exported because the team page draws its people with the same placeholder
+   artwork. One palette, one hash, so a face-less card looks the same wherever
+   it appears. */
+export function tintFor(org: string): [string, string] {
   let hash = 0;
   for (let i = 0; i < org.length; i++) hash = (hash * 31 + org.charCodeAt(i)) | 0;
   return TINTS[Math.abs(hash) % TINTS.length];

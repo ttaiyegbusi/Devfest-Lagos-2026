@@ -10,9 +10,6 @@ import { SOCIALS, TICKETS } from "../links";
 
    TO WIRE UP:
      · Join Community — needs the GDG Lagos chapter URL.
-     · Facebook — needs the real profile URL. Deliberately not guessed:
-       sending people to the wrong account is worse than not linking yet. The
-       other four are in app/links.ts.
      · Download App, Play Game, DP Generator — need destinations. */
 const COLUMNS: {
   heading: string;
@@ -34,7 +31,7 @@ const COLUMNS: {
       { label: "X", href: SOCIALS.X },
       { label: "Linkedin", href: SOCIALS.Linkedin },
       { label: "Instagram", href: SOCIALS.Instagram },
-      { label: "Facebook" },
+      { label: "Facebook", href: SOCIALS.Facebook },
       { label: "Youtube", href: SOCIALS.Youtube },
     ],
   },

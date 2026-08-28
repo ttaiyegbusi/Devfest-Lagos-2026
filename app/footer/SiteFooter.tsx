@@ -9,8 +9,7 @@ import { SOCIALS, TICKETS } from "../links";
    destination renders as plain text rather than as a link that does nothing.
 
    TO WIRE UP:
-     · Join Community — needs the GDG Lagos chapter URL.
-     · Download App, Play Game, DP Generator — need destinations. */
+     · Play Game — needs a destination. */
 const COLUMNS: {
   heading: string;
   links: { label: string; href?: string }[];
@@ -21,7 +20,7 @@ const COLUMNS: {
       { label: "Schedule", href: "/schedule" },
       { label: "Speakers", href: "/speakers" },
       { label: "FAQs", href: "/faqs" },
-      { label: "Join Community" },
+      { label: "Join Community", href: "https://gdg.community.dev/gdg-lagos/" },
       { label: "Team", href: "/team" },
     ],
   },
@@ -38,9 +37,9 @@ const COLUMNS: {
   {
     heading: "Product",
     links: [
-      { label: "Download Devfest App" },
+      { label: "Download Devfest App", href: "https://apps.apple.com/ng/app/devfest-lagos-2024/id6737826901" },
       { label: "Play Game" },
-      { label: "DP Generator" },
+      { label: "DP Generator", href: "https://devfestlagos.com/dp-generator" },
       { label: "Buy Tickets", href: TICKETS },
     ],
   },

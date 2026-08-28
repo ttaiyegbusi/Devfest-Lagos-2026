@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import { AskPanel } from "./AskPanel";
 import "./FloatingAskButton.css";
@@ -27,9 +28,14 @@ const buttonStyle: React.CSSProperties = {
 };
 
 export function FloatingAskButton() {
+  const pathname = usePathname();
   const [asking, setAsking] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const trigger = useRef<HTMLButtonElement>(null);
+
+  if (pathname === "/") {
+    return null;
+  }
 
   const hoverStyle = isHovered
     ? {

@@ -484,7 +484,7 @@
   display: flex;
   width: max-content;
   margin: 26px 0 0 calc((var(--pad) + 30px) * -1);
-  animation: expect-strip-drift var(--lap) linear infinite;
+  animation: expect-strip-drift 72s linear infinite;
   will-change: transform;
 }
 
@@ -746,6 +746,7 @@
 
   .shots--strip {
     --pitch: 4.25s; /* 150px shot + 20px gap */
+    animation: expect-strip-drift 51s linear infinite;
   }
 
   .shots--strip .shots__shot {

@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { search } from "../faq/search";
 import { type Faq } from "../faq/questions";
-import { GREETING, NO_ANSWER, PANEL_NAME, STARTERS } from "./starters";
+import { GREETING, GREETING_KEYWORDS, GREETING_RESPONSE, NO_ANSWER, PANEL_NAME, STARTERS } from "./starters";
 import "./Ask.css";
 
 /* The hero's ask panel.
@@ -21,7 +21,12 @@ import "./Ask.css";
  * and an unanswered question says the FAQ does not cover it rather than
  * inventing something. */
 
-type Exchange = { id: number; question: string; hits: Faq[] };
+type Exchange = {
+  id: number;
+  question: string;
+  hits: Faq[];
+  greeting?: { heading: string; note: string };
+};
 
 export function AskPanel({
   open,
@@ -124,10 +129,24 @@ export function AskPanel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
+  const isGreeting = (text: string): boolean => {
+    const lowerText = text.toLowerCase().trim();
+    return GREETING_KEYWORDS.some((keyword) => lowerText === keyword || lowerText.startsWith(keyword + " "));
+  };
+
   const ask = (question: string) => {
     const q = question.trim();
     if (!q) return;
-    setExchanges((prev) => [...prev, { id: next.current++, question: q, hits: search(q) }]);
+
+    const exchange: Exchange = { id: next.current++, question: q, hits: [] };
+
+    if (isGreeting(q)) {
+      exchange.greeting = GREETING_RESPONSE;
+    } else {
+      exchange.hits = search(q);
+    }
+
+    setExchanges((prev) => [...prev, exchange]);
     if (input.current) input.current.value = "";
     // After the answer has been laid out, not before.
     requestAnimationFrame(() => {
@@ -191,7 +210,12 @@ export function AskPanel({
           {exchanges.map((x) => (
             <div className="ask__turn" key={x.id}>
               <p className="ask__question">{x.question}</p>
-              {x.hits.length === 0 ? (
+              {x.greeting ? (
+                <div className="ask__greeting-response">
+                  <h3 className="ask__heading">{x.greeting.heading}</h3>
+                  <p className="ask__note">{x.greeting.note}</p>
+                </div>
+              ) : x.hits.length === 0 ? (
                 <p className="ask__none">{NO_ANSWER}</p>
               ) : (
                 x.hits.map((f) => (

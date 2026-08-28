@@ -29,4 +29,14 @@ export const STARTERS = [
 
 /** Shown when the FAQ has nothing. Names the gap rather than apologising, and
  *  the panel offers the whole FAQ underneath it. */
-export const NO_ANSWER = "Nothing in the FAQ covers that yet.";
+export const NO_ANSWER =
+  "I don't have any information on that at the moment, but feel free to contact us on X, Instagram, LinkedIn, or Facebook for more details!";
+
+/** Greetings that should get a friendly welcome response. */
+export const GREETING_KEYWORDS = ["hey", "hi", "hello", "greetings", "what's up", "howdy"];
+
+/** Friendly greeting response. */
+export const GREETING_RESPONSE = {
+  heading: "Welcome! 👋",
+  note: "I'm here to help with any questions about DevFest Lagos 2026. Just ask me anything about tickets, the schedule, venue, or whatever else you'd like to know!"
+};

@@ -1,0 +1,51 @@
+.floating-ask {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  min-height: 56px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #f9ab00 !important;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(23, 23, 23, 0.2);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.floating-ask svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.floating-ask:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(23, 23, 23, 0.3);
+}
+
+.floating-ask:active {
+  transform: scale(0.96);
+}
+
+/* Mobile: smaller button and adjusted position */
+@media (max-width: 767px) {
+  .floating-ask {
+    bottom: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .floating-ask svg {
+    width: 20px;
+    height: 20px;
+  }
+}

@@ -7,15 +7,19 @@
   place-items: center;
   width: 56px;
   height: 56px;
+  min-width: 56px;
+  min-height: 56px;
   padding: 0;
-  border: 0;
+  border: none;
   border-radius: 50%;
-  background: #f9ab00;
+  background: #f9ab00 !important;
   color: #fff;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(23, 23, 23, 0.2);
   transition: transform 200ms ease, box-shadow 200ms ease;
   font-size: 0;
+  line-height: 1;
+  font-weight: normal;
 }
 
 .floating-ask:hover {

@@ -341,6 +341,7 @@
   border-radius: 999px;
   background: var(--pill-bg);
   color: var(--pill-fg);
+  font-family: var(--font-display);
   font-size: 26px;
   line-height: 1;
   white-space: nowrap;
@@ -401,6 +402,7 @@
   height: 124px;
   pointer-events: none;
   opacity: 0;
+  display: none;
   /* Opaque for the first third so a pill is properly hidden as it crosses the
      edge, then away — a straight two-stop ramp gave up too much too early and
      the top of a pill showed before the rest of it had arrived. */

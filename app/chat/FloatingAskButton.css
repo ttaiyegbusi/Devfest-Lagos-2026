@@ -10,11 +10,12 @@
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: var(--amber);
+  background: #f9ab00;
   color: #fff;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(23, 23, 23, 0.2);
   transition: transform 200ms ease, box-shadow 200ms ease;
+  font-size: 0;
 }
 
 .floating-ask:hover {

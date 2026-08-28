@@ -884,25 +884,6 @@
   opacity: 0.86;
 }
 
-.hero__ask-open {
-  display: grid;
-  place-items: center;
-  width: 60px;
-  height: 60px;
-  padding: 0;
-  border: 0;
-  background: var(--hero-block);
-  color: var(--hero-on-block);
-  cursor: pointer;
-  transition:
-    opacity 150ms ease,
-    background-color 420ms ease,
-    color 420ms ease;
-}
-
-.hero__ask-open:hover {
-  opacity: 0.86;
-}
 
 
 

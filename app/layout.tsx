@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Reveal } from "./motion/Reveal";
+import { FloatingAskButton } from "./chat/FloatingAskButton";
 import "./globals.css";
 
 const title = "DevFest Lagos — One Ecosystem, Endless Opportunities.";
@@ -104,6 +105,7 @@ export default function RootLayout({
         <main id="main" tabIndex={-1}>
           {children}
         </main>
+        <FloatingAskButton />
         <Reveal />
       </body>
     </html>

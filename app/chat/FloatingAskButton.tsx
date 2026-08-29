@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { AskPanel } from "./AskPanel";
 import "./FloatingAskButton.css";
 
@@ -31,9 +31,14 @@ export function FloatingAskButton() {
   const pathname = usePathname();
   const [asking, setAsking] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const trigger = useRef<HTMLButtonElement>(null);
 
-  if (pathname === "/") {
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted || pathname === "/") {
     return null;
   }
 

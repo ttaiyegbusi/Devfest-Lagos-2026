@@ -7,7 +7,6 @@ import { SpeakersSection } from "./speakers/SpeakersSection";
 import { Faq } from "./faq/Faq";
 import { Sponsors } from "./sponsors/Sponsors";
 import { SiteFooter } from "./footer/SiteFooter";
-import { FloatingAskButton } from "./chat/FloatingAskButton";
 
 export default function Page() {
   return (
@@ -30,9 +29,6 @@ export default function Page() {
       {/* Credits, so they sit below the content and above the footer. */}
       <Sponsors />
       <SiteFooter />
-
-      {/* Floating ask button, always accessible in the bottom right corner */}
-      <FloatingAskButton />
     </>
   );
 }

@@ -22,21 +22,23 @@ export const GREETING = {
 };
 
 export const STARTERS = [
-  "What does a ticket grant me access to?",
+  "When and where is DevFest Lagos 2026?",
+  "What does a ticket cover?",
   "Is lunch or swag included?",
-  "Can I transfer a ticket to someone else?",
+  "Can I transfer my ticket?",
+  "What should I expect?",
 ];
 
 /** Shown when the FAQ has nothing. Names the gap rather than apologising, and
  *  the panel offers the whole FAQ underneath it. */
 export const NO_ANSWER =
-  "I don't have any information on that at the moment, but feel free to contact us on X, Instagram, LinkedIn, or Facebook for more details!";
+  "I don't have an answer to that one yet. But no worries! Reach out to us on X, Instagram, LinkedIn, or Facebook, and our team will get back to you ASAP. We're here to help!";
 
 /** Greetings that should get a friendly welcome response. */
 export const GREETING_KEYWORDS = ["hey", "hi", "hello", "greetings", "what's up", "howdy"];
 
 /** Friendly greeting response. */
 export const GREETING_RESPONSE = {
-  heading: "Welcome! 👋",
-  note: "I'm here to help with any questions about DevFest Lagos 2026. Just ask me anything about tickets, the schedule, venue, or whatever else you'd like to know!"
+  heading: "Hey there! 👋",
+  note: "I'm excited to help! Ask me anything about DevFest Lagos 2026 — whether it's about tickets, what to expect, the venue, or any other questions you have. I'm here for it."
 };

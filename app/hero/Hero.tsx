@@ -7,7 +7,7 @@ import "./Hero.css";
 
 export function Hero() {
   return (
-    <section className="hero">
+    <section className="hero" data-sentinel="hero">
       <div className="hero__scene">
         <HeroScene />
       </div>

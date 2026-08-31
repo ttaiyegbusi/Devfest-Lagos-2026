@@ -32,13 +32,37 @@ export function FloatingAskButton() {
   const [asking, setAsking] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [heroVisible, setHeroVisible] = useState(true);
   const trigger = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  if (!isMounted || pathname === "/") {
+  // On landing page, observe when hero scrolls out of view
+  useEffect(() => {
+    if (pathname !== "/") return;
+
+    const heroElement = document.querySelector("[data-sentinel='hero']");
+    if (!heroElement) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setHeroVisible(entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(heroElement);
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  if (!isMounted) {
+    return null;
+  }
+
+  // Hide on landing page while hero is visible, show everywhere else
+  if (pathname === "/" && heroVisible) {
     return null;
   }
 

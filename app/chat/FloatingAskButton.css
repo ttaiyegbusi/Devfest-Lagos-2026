@@ -17,22 +17,47 @@
   color: #fff;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(23, 23, 23, 0.2);
-  transition: transform 200ms ease, box-shadow 200ms ease;
+  transition:
+    transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .floating-ask svg {
   width: 24px;
   height: 24px;
   display: block;
+  transition: filter 220ms ease;
 }
 
 .floating-ask:hover {
-  transform: scale(1.08);
-  box-shadow: 0 6px 16px rgba(23, 23, 23, 0.3);
+  transform: scale(1.12);
+  box-shadow: 0 12px 28px rgba(23, 23, 23, 0.25);
+}
+
+.floating-ask:hover svg {
+  filter: brightness(0.95);
 }
 
 .floating-ask:active {
-  transform: scale(0.96);
+  transform: scale(0.94);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-ask {
+    transition: box-shadow 220ms ease;
+  }
+
+  .floating-ask svg {
+    transition: none;
+  }
+
+  .floating-ask:hover {
+    transform: none;
+  }
+
+  .floating-ask:active {
+    transform: none;
+  }
 }
 
 /* Mobile: smaller button and adjusted position */

@@ -277,7 +277,18 @@
   text-align: left;
   cursor: pointer;
   position: relative;
-  transition: box-shadow 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition:
+    box-shadow 620ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.speakers__slot[data-current] .card:hover {
+  transform: scale(1.04) translateY(-4px);
+  box-shadow: 0 32px 80px -15px rgba(0, 0, 0, 0.95);
+}
+
+.speakers__slot[data-current] .card:active {
+  transform: scale(0.98);
 }
 
 /* The off-centre cards read as unlit screens on the same wall.
@@ -432,11 +443,18 @@
   background: transparent;
   color: #fff;
   cursor: pointer;
-  transition: opacity 150ms ease;
+  transition:
+    opacity 150ms ease,
+    transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .speakers__arrow:hover:not(:disabled) {
   opacity: 0.65;
+  transform: scale(1.12);
+}
+
+.speakers__arrow:active:not(:disabled) {
+  transform: scale(0.95);
 }
 
 .speakers__arrow:disabled {
@@ -558,7 +576,20 @@
 @media (prefers-reduced-motion: reduce) {
   .speakers__track,
   .speakers__thumb,
-  .card {
+  .card,
+  .speakers__arrow {
     transition: none;
+  }
+
+  .speakers__slot[data-current] .card:hover {
+    transform: none;
+  }
+
+  .speakers__arrow:hover:not(:disabled) {
+    transform: none;
+  }
+
+  .speakers__arrow:active:not(:disabled) {
+    transform: none;
   }
 }

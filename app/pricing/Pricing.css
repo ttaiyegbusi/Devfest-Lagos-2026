@@ -110,6 +110,18 @@
   box-shadow: 0 18px 42px -26px rgba(23, 23, 23, 0.5);
   /* Vertical panning belongs to the page. Only the grip takes a finger. */
   touch-action: pan-y;
+  transition:
+    transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.rack:not(.is-live) .badge:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 28px 60px -16px rgba(23, 23, 23, 0.65);
+}
+
+.rack:not(.is-live) .badge:active {
+  transform: translateY(-2px) scale(0.98);
 }
 
 .badge[data-featured] {
@@ -231,11 +243,18 @@
   background: var(--ink);
   color: #fff;
   font-size: 15px;
-  transition: opacity 150ms ease;
+  transition:
+    opacity 150ms ease,
+    transform 160ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .badge__cta:hover {
   opacity: 0.88;
+  transform: scale(1.06);
+}
+
+.badge__cta:active {
+  transform: scale(0.96);
 }
 
 /* --- narrower ------------------------------------------------------------ */
@@ -285,4 +304,23 @@
     font-size: 34px;
   }
 
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge,
+  .badge__cta {
+    transition: opacity 150ms ease;
+  }
+
+  .rack:not(.is-live) .badge:hover {
+    transform: none;
+  }
+
+  .badge__cta:hover {
+    transform: none;
+  }
+
+  .badge__cta:active {
+    transform: none;
+  }
 }

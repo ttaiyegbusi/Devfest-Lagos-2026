@@ -231,14 +231,12 @@
   background: var(--cream);
   transition:
     transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
-    background-color 200ms ease;
+    box-shadow 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .ecard:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 32px -8px rgba(23, 23, 23, 0.18);
-  background-color: #fffbf7;
 }
 
 .ecard:active {
@@ -350,7 +348,6 @@
 
   .ecard:hover {
     transform: none;
-    background-color: var(--cream);
   }
 
   .tag:hover {

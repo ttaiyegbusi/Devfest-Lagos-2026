@@ -50,6 +50,12 @@
      shimmers as it resolves. */
   will-change: transform;
   backface-visibility: hidden;
+  transition: filter 300ms ease;
+  filter: brightness(1);
+}
+
+.stack__layer:hover .stack__slab {
+  filter: brightness(1.02);
 }
 
 /* Whatever is handed to the stack is a full-bleed layer, so it fills the
@@ -61,5 +67,11 @@
 @media (prefers-reduced-motion: reduce) {
   .stack__slab {
     transform: none;
+    transition: none;
+    filter: brightness(1) !important;
+  }
+
+  .stack__layer:hover .stack__slab {
+    filter: brightness(1);
   }
 }

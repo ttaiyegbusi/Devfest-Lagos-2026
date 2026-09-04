@@ -218,7 +218,14 @@
     rotateY(var(--ry, 0deg))
     translateZ(var(--lift, 0px));
   transform-style: preserve-3d;
-  transition: transform 480ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition:
+    transform 480ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    filter 300ms ease;
+  filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
+}
+
+.frame:hover:not(.frame--held) {
+  filter: drop-shadow(0 16px 40px rgba(0, 0, 0, 0.15));
 }
 
 /* Under the cursor the sheet tracks it directly — the transition is only there
@@ -347,6 +354,19 @@
   white-space: nowrap;
   -webkit-font-smoothing: subpixel-antialiased;
   text-shadow: 0 0 0 transparent;
+  transition:
+    transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0);
+}
+
+.pit.is-settled .pills__pill:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.12);
+}
+
+.pit.is-settled .pills__pill:active {
+  transform: scale(0.96);
 }
 
 /* The pit the pills fall into. It is the physics engine's coordinate space, so
@@ -452,6 +472,18 @@
   height: 100%;
   object-fit: cover;
   border-radius: 2px;
+  transition:
+    transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.shots--grid .shots__shot:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.12);
+}
+
+.shots--grid .shots__shot:active {
+  transform: scale(0.98);
 }
 
 .art--placeholder {
@@ -808,5 +840,27 @@
   .frame {
     transform: rotate(var(--frame-tilt, -0.7deg));
     transition: none;
+    filter: none;
+  }
+
+  .frame:hover:not(.frame--held) {
+    filter: none;
+  }
+
+  .shots__shot,
+  .pills__pill {
+    transition: none;
+  }
+
+  .shots--grid .shots__shot:hover {
+    transform: none;
+  }
+
+  .pit.is-settled .pills__pill:hover {
+    transform: none;
+  }
+
+  .pit.is-settled .pills__pill:active {
+    transform: none;
   }
 }

@@ -177,11 +177,6 @@
   align-items: start;
   padding: 22px 0 24px;
   border-top: 1px solid var(--rule);
-  transition: background-color 200ms ease;
-}
-
-.slot:hover {
-  background-color: rgba(23, 23, 23, 0.04);
 }
 
 .slot__title {
@@ -351,10 +346,6 @@
   .ecard,
   .tag {
     transition: none;
-  }
-
-  .slot:hover {
-    background-color: transparent;
   }
 
   .ecard:hover {

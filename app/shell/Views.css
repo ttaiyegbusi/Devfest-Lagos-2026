@@ -27,11 +27,17 @@
   cursor: pointer;
   transition:
     background 180ms ease,
-    color 180ms ease;
+    color 180ms ease,
+    transform 160ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .viewtoggle__btn:hover {
   color: var(--ink);
+  transform: scale(1.04);
+}
+
+.viewtoggle__btn:active {
+  transform: scale(0.98);
 }
 
 .viewtoggle__btn[aria-pressed="true"] {

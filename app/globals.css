@@ -77,6 +77,9 @@ body {
 :focus-visible {
   outline: 2px solid var(--amber);
   outline-offset: 3px;
+  transition:
+    outline-color 150ms ease,
+    outline-offset 150ms ease;
 }
 
 /* The skip link is off-screen until it is focused, then it lands in the top
@@ -216,6 +219,10 @@ img[style*="opacity"] {
 
 /* Reduce motion support for page transitions */
 @media (prefers-reduced-motion: reduce) {
+  :focus-visible {
+    transition: none;
+  }
+
   main {
     animation: none;
   }

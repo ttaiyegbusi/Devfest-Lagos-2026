@@ -245,11 +245,19 @@
   color: #a8a8a8;
   font-size: 14.5px;
   line-height: 22px;
-  transition: color 150ms ease;
+  transition:
+    color 150ms ease,
+    transform 160ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .foot__col a:hover {
   color: #fff;
+  transform: translateX(2px);
+}
+
+.foot__col a:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
 }
 
 .foot__legal {

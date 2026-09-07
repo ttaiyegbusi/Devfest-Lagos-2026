@@ -17,6 +17,9 @@
 .squad__head {
   padding-bottom: 12px;
   border-bottom: 1px solid var(--rule);
+  transition:
+    border-color 200ms ease,
+    color 200ms ease;
 }
 
 .squad__name {

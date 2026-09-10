@@ -7,18 +7,27 @@ import { FAQS, type Faq } from "./questions";
  * was tuned, and "the FAQ found it but the chat did not" is a bug nobody would
  * think to look for. */
 
+/** Common stop words that don't help search but often appear in natural questions. */
+const STOP_WORDS = new Set([
+  "a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "has", "he", "in",
+  "is", "it", "its", "of", "on", "or", "that", "the", "to", "was", "will", "with",
+]);
+
 /** Split a question into the words that have to be found.
  *
  * Punctuation is trimmed off each end. The ask panel invites a question and
  * people type the question mark; "tickets?" appears in no answer ever written,
  * so without this the most natural way to ask is the one way that finds
- * nothing. Trimmed rather than split on, so "can't" stays one word. */
+ * nothing. Trimmed rather than split on, so "can't" stays one word.
+ *
+ * Stop words (common words like "is", "and") are filtered out so natural
+ * questions find answers even when phrased differently from the FAQ. */
 export function terms(query: string): string[] {
   return query
     .toLowerCase()
     .split(/\s+/)
     .map((word) => word.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, ""))
-    .filter(Boolean);
+    .filter((word) => word && !STOP_WORDS.has(word));
 }
 
 /** Every word of the query has to appear somewhere in the entry. Naive, and

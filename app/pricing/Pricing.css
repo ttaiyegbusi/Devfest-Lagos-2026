@@ -368,3 +368,15 @@
     animation: none;
   }
 }
+
+@media (hover: none) and (pointer: coarse) {
+  .rack:not(.is-live) .badge:active {
+    transform: translateY(-2px) scale(0.96);
+    opacity: 0.92;
+  }
+
+  .badge__cta:active {
+    transform: scale(0.92);
+    opacity: 0.85;
+  }
+}

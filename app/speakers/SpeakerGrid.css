@@ -247,3 +247,15 @@
     transform: none;
   }
 }
+
+@media (hover: none) and (pointer: coarse) {
+  .speaker:active .speaker__photo {
+    transform: translateY(-3px) scale(0.97);
+    opacity: 0.9;
+  }
+
+  .pcard:active .pcard__view {
+    transform: translateY(-3px) scale(0.97);
+    opacity: 0.9;
+  }
+}

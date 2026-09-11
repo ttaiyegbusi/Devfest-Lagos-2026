@@ -122,6 +122,23 @@
   }
 }
 
+@media (hover: none) and (pointer: coarse) {
+  .ask__tool:active:not(:disabled) {
+    transform: scale(0.92);
+    opacity: 0.85;
+  }
+
+  .ask__starter:active {
+    transform: translateX(2px) scale(0.97);
+    opacity: 0.9;
+  }
+
+  .ask__send:active {
+    transform: scale(0.92) translateY(0);
+    opacity: 0.85;
+  }
+}
+
 /* --- the column ---------------------------------------------------------- */
 
 /* Everything sits at the BOTTOM of this column and grows upward, so the

@@ -327,3 +327,24 @@
     transform: none;
   }
 }
+
+@media (hover: none) and (pointer: coarse) {
+  .faq__group:active {
+    transform: translateX(1px) scale(0.97);
+    opacity: 0.9;
+  }
+
+  .faq__trigger:active {
+    transform: translateX(1px) scale(0.97);
+    opacity: 0.9;
+  }
+
+  .faq__all:active {
+    transform: scale(0.95);
+    opacity: 0.9;
+  }
+
+  .faq__links a:active {
+    opacity: 0.8;
+  }
+}

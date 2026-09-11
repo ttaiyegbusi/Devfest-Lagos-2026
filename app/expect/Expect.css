@@ -866,3 +866,15 @@
     transform: none;
   }
 }
+
+@media (hover: none) and (pointer: coarse) {
+  .shots--grid .shots__shot:active {
+    transform: scale(0.97);
+    opacity: 0.9;
+  }
+
+  .pit.is-settled .pills__pill:active {
+    transform: scale(0.93);
+    opacity: 0.85;
+  }
+}

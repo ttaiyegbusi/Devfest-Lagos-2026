@@ -308,6 +308,48 @@ img[style*="opacity"] {
   }
 }
 
+/* --- mobile touch feedback -------------------------------------------------- */
+
+/* On touch devices, active state is the only press feedback. Make it crisp and
+   responsive with a pronounced scale-down and brief opacity reduction, so users
+   feel their tap register even on slow phones. */
+@media (hover: none) and (pointer: coarse) {
+  /* Buttons: scale down slightly more aggressively on touch than on hover */
+  button:active:not(:disabled),
+  [role="button"]:active:not(:disabled),
+  a:active {
+    opacity: 0.9;
+    transform: scale(0.95) !important;
+    transition-duration: 80ms;
+  }
+
+  /* Form controls: subtle feedback without disrupting layout */
+  input:active,
+  textarea:active,
+  select:active {
+    opacity: 0.95;
+  }
+
+  /* Cards and clickable containers: gentle lift reduction */
+  [role="link"]:active,
+  [role="menuitem"]:active {
+    transform: scale(0.97) !important;
+  }
+}
+
+/* Ensure prefers-reduced-motion still works on touch devices */
+@media (hover: none) and (pointer: coarse) and (prefers-reduced-motion: reduce) {
+  button:active:not(:disabled),
+  [role="button"]:active:not(:disabled),
+  a:active,
+  [role="link"]:active,
+  [role="menuitem"]:active {
+    transform: none !important;
+    opacity: 1;
+    transition-duration: 150ms;
+  }
+}
+
 /* --- link active states ---------------------------------------------------- */
 
 @media (prefers-reduced-motion: no-preference) {

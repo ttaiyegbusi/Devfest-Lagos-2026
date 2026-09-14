@@ -215,10 +215,24 @@
 }
 
 .faq__a {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
   padding: 0 40px 20px 0;
   color: var(--faq-answer);
   font-size: 14.5px;
   line-height: 22px;
+  pointer-events: none;
+  transition:
+    max-height 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    padding 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq__a[data-open] {
+  max-height: 500px;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .faq__a p {
@@ -311,7 +325,8 @@
   .faq__group,
   .faq__trigger,
   .faq__all,
-  .faq__links a {
+  .faq__links a,
+  .faq__a {
     transition: none;
   }
 

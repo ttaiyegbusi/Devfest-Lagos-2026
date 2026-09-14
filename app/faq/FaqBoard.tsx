@@ -110,7 +110,7 @@ export function FaqBoard({ clearHref }: { clearHref: string }) {
               <div
                 className="faq__a"
                 id={`${id}-${f.q.length}-${f.q.slice(0, 8)}`}
-                hidden={!isOpen}
+                data-open={isOpen || undefined}
               >
                 <p>{f.a}</p>
                 {f.links && (

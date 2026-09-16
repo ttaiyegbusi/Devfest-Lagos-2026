@@ -1,0 +1,26 @@
+/* ---------------------------------------------------------------------------
+   Page transition animations for smooth navigation between routes.
+
+   Pages fade in smoothly as they load, creating a polished navigation
+   experience. The transition is subtle and fast, not interfering with content.
+   --------------------------------------------------------------------------- */
+
+main {
+  animation: page-fade-in 320ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  main {
+    animation: none;
+  }
+}

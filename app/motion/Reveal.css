@@ -41,3 +41,37 @@
 [data-motion] [data-rise="still"] {
   --rise: 0px;
 }
+
+/* Enhanced stagger for grid layouts with tighter timing for visual impact.
+   Used for speaker cards, team members, and other grid-based content. */
+[data-motion] [data-grid] [data-rise] {
+  opacity: 0;
+  translate: 0 var(--rise, 20px);
+  transition:
+    opacity 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    translate 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-motion] [data-grid][data-shown] [data-rise] {
+  opacity: 1;
+  translate: none;
+  transition-delay: calc(var(--rise-i, 0) * 60ms);
+}
+
+/* Scale-in variant for cards that should pop in with slightly more energy */
+[data-motion] [data-rise="scale"] {
+  opacity: 0;
+  translate: 0 var(--rise, 22px);
+  scale: 0.95;
+  transition:
+    opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    translate 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    scale 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-motion] [data-reveal][data-shown] [data-rise="scale"] {
+  opacity: 1;
+  translate: none;
+  scale: 1;
+  transition-delay: calc(var(--rise-i, 0) * 80ms);
+}

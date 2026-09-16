@@ -74,10 +74,16 @@
 }
 
 /* The link to the page you are already on. Not underlined and not coloured:
-   the current page is a fact about where you are, not a thing to press. */
+   the current page is a fact about where you are, not a thing to press.
+   Smooth transition when navigating between pages. */
 .hero-nav__links a[aria-current="page"] {
   opacity: 0.55;
   cursor: default;
+  transition: opacity 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-nav__links a[aria-current="page"]::after {
+  display: none;
 }
 
 .hero-nav__links a[aria-current="page"]:hover {

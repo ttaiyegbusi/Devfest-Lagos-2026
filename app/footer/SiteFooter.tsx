@@ -48,35 +48,23 @@ const COLUMNS: {
 export function SiteFooter() {
   return (
     <footer className="foot">
-      {/* Oversized watermark behind the panel. Decorative, so it is hidden from
-          assistive tech — the same words are already in the nav and the panel.
-
-          The wordmark is set as type rather than taken from the official lockup
-          SVG. The lockup runs "DevFest Lagos" along one line in its own
-          lettering; the design sets it in the display face and lifts "Lagos"
-          above the tail of "Devfest", which is not an arrangement the supplied
-          asset can be bent into. */}
-      <div className="foot__mark" aria-hidden="true" data-reveal data-rise="still">
-        <DevFestIcon className="foot__icon" />
-        <span className="foot__word">
-          Devfest
-          <span className="foot__city">Lagos</span>
-        </span>
-      </div>
-
       <div className="foot__panel">
         <div className="foot__grid" data-reveal>
-          <div className="foot__signup">
-            <h2 className="foot__heading" data-rise>
-              Don&rsquo;t Miss out on Information
-            </h2>
-            <p className="foot__sub" data-rise>
-              Enter your email for news and updates
+          {/* Left section: Branding and CTA */}
+          <div className="foot__brand-section" data-rise>
+            <div className="foot__brand-header">
+              <DevFestIcon className="foot__brand-icon" />
+              <span className="foot__brand-text">DevFest Lagos</span>
+            </div>
+            <p className="foot__brand-desc">
+              Join the largest annual tech conference in Africa, hosted by Google Developer Group Lagos (GDG Lagos).
             </p>
-
-            <SignupForm />
+            <a href={TICKETS} className="foot__brand-cta">
+              Buy Ticket
+            </a>
           </div>
 
+          {/* Link columns */}
           {COLUMNS.map((col) => (
             <nav
               key={col.heading}

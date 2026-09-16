@@ -1,0 +1,107 @@
+/* ---------------------------------------------------------------------------
+   Skeleton loading placeholders with smooth shimmer animation.
+
+   Shows a subtle pulsing shimmer while content loads, creating a sense
+   of motion and feedback to the user. Respects prefers-reduced-motion.
+   --------------------------------------------------------------------------- */
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(23, 23, 23, 0.06) 0%,
+    rgba(23, 23, 23, 0.12) 50%,
+    rgba(23, 23, 23, 0.06) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 2000ms infinite;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Variant styles */
+.skeleton--text {
+  height: 16px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.skeleton--heading {
+  height: 24px;
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.skeleton--card {
+  aspect-ratio: 1;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.skeleton--avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.skeleton--button {
+  height: 44px;
+  border-radius: 6px;
+  min-width: 120px;
+}
+
+/* Skeleton grid for card layouts */
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    var(--skeleton-columns, 3),
+    minmax(0, 1fr)
+  );
+  gap: 24px;
+  width: 100%;
+}
+
+.skeleton-grid-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skeleton-card {
+  margin-bottom: 4px;
+}
+
+.skeleton-text {
+  margin-bottom: 0 !important;
+}
+
+/* Disable animation for motion-sensitive users */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background: rgba(23, 23, 23, 0.08);
+  }
+}
+
+/* Responsive grid columns */
+@media (max-width: 1023px) {
+  .skeleton-grid {
+    grid-template-columns: repeat(var(--skeleton-columns, 2), minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .skeleton-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

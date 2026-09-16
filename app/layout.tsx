@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Reveal } from "./motion/Reveal";
+import { PageTransition } from "./motion/PageTransition";
 import { FloatingAskButton } from "./chat/FloatingAskButton";
 import "./globals.css";
 

@@ -5,7 +5,6 @@ import { expectPanels } from "./expect/panels";
 import { Pricing } from "./pricing/Pricing";
 import { SpeakersSection } from "./speakers/SpeakersSection";
 import { Faq } from "./faq/Faq";
-import { Sponsors } from "./sponsors/Sponsors";
 import { SiteFooter } from "./footer/SiteFooter";
 
 export default function Page() {
@@ -26,8 +25,6 @@ export default function Page() {
       <Suspense>
         <Faq />
       </Suspense>
-      {/* Credits, so they sit below the content and above the footer. */}
-      <Sponsors />
       <SiteFooter />
     </>
   );

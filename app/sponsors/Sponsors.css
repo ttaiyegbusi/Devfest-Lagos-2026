@@ -13,8 +13,8 @@
   --pace: 3.4s;
 
   padding: 90px 0 96px;
-  background: #171717;
-  color: #fff;
+  background: var(--cream);
+  color: var(--ink);
 }
 
 .sponsors__intro {
@@ -83,14 +83,14 @@
   font-size: 38px;
   line-height: 1.1;
   white-space: nowrap;
-  color: #efe9e2;
+  color: var(--ink);
   transition:
     color 200ms ease,
     transform 160ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .sponsors__item:hover .sponsors__wordmark {
-  color: #fff;
+  color: #333;
   transform: scale(1.02);
 }
 

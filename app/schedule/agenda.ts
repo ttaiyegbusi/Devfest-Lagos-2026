@@ -35,7 +35,12 @@ export type Session = {
 };
 
 export type Day = { label: string; date?: string; sessions: Session[] };
-export type Agenda = { days: Day[] };
+export type Agenda = {
+  days: Day[];
+  /** False while the schedule is still being drawn up: the page says so
+   *  instead of showing the sessions. */
+  published: boolean;
+};
 
 const text = (value: unknown): string =>
   typeof value === "string" ? value.trim() : "";
@@ -120,7 +125,7 @@ function fromCsv(body: string): Agenda {
     }
   }
   if (line) lines.push(line);
-  if (!lines.length) return { days: [] };
+  if (!lines.length) return { days: [], published: true };
 
   const headers = splitRow(lines[0]).map((h) => h.trim().toLowerCase());
   const days = new Map<string, Session[]>();
@@ -155,13 +160,22 @@ function fromCsv(body: string): Agenda {
     if (presenter) target.speakers.push(presenter);
   }
 
-  return { days: order.map((label) => ({ label, sessions: days.get(label)! })) };
+  return {
+    days: order.map((label) => ({ label, sessions: days.get(label)! })),
+    published: true,
+  };
 }
 
 function fromJson(value: unknown): Agenda {
-  const days = (value as { days?: unknown })?.days;
-  if (!Array.isArray(days)) return { days: [] };
+  const { days, published } = (value ?? {}) as {
+    days?: unknown;
+    published?: unknown;
+  };
+  // Only an explicit `false` holds the schedule back.
+  const isPublished = published !== false;
+  if (!Array.isArray(days)) return { days: [], published: isPublished };
   return {
+    published: isPublished,
     days: days.flatMap((entry) => {
       const day = entry as { label?: unknown; date?: unknown; sessions?: unknown };
       const label = text(day.label);

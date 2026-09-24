@@ -1,4 +1,4 @@
-import { SPONSORS } from "./sponsors";
+import { SPONSORS, type Sponsor } from "./list";
 import "./Sponsors.css";
 
 /* Sponsors, in one band that never ends.
@@ -10,7 +10,17 @@ import "./Sponsors.css";
  *
  * How long a lap takes is worked out in the stylesheet from this count, so
  * adding a sponsor lengthens the lap rather than speeding the band up. */
+function Mark({ sponsor }: { sponsor: Sponsor }) {
+  return sponsor.logo ? (
+    <img className="sponsors__logo" src={sponsor.logo} alt={sponsor.name} />
+  ) : (
+    <span className="sponsors__wordmark">{sponsor.name}</span>
+  );
+}
+
 export function Sponsors() {
+  if (!SPONSORS.length) return null;
+
   return (
     <section className="sponsors" aria-labelledby="sponsors-title">
       <div className="sponsors__intro" data-reveal>
@@ -28,10 +38,20 @@ export function Sponsors() {
             <ul className="sponsors__run" key={copy} aria-hidden={copy === 1 || undefined}>
               {SPONSORS.map((s) => (
                 <li className="sponsors__item" key={s.name}>
-                  {s.logo ? (
-                    <img className="sponsors__logo" src={s.logo} alt={s.name} />
+                  {s.url ? (
+                    /* The copy's links are out of the tab order as well as
+                       hidden, so a keyboard reader meets each sponsor once. */
+                    <a
+                      className="sponsors__link"
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      tabIndex={copy === 1 ? -1 : undefined}
+                    >
+                      <Mark sponsor={s} />
+                    </a>
                   ) : (
-                    <span className="sponsors__wordmark">{s.name}</span>
+                    <Mark sponsor={s} />
                   )}
                 </li>
               ))}

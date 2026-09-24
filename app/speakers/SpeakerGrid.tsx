@@ -39,8 +39,8 @@ export function SpeakerGrid({ speakers }: { speakers: Speaker[] }) {
        fifty cards travelling together is a lot of movement for a page the
        reader has only just reached. */
     <ul className="speakers__grid" data-reveal data-rise="still">
-      {speakers.map((s) => (
-        <li className="speaker" key={`${s.name}-${s.org}`}>
+      {speakers.map((s, i) => (
+        <li className="speaker" key={`${i}-${s.name}-${s.org}`}>
           <span className="speaker__photo">
             {s.image ? (
               <img src={s.image} alt="" loading="lazy" decoding="async" />
@@ -66,8 +66,8 @@ export function SpeakerGrid({ speakers }: { speakers: Speaker[] }) {
 export function SpeakerGallery({ speakers }: { speakers: Speaker[] }) {
   return (
     <ul className="lineup" data-reveal data-rise="still">
-      {speakers.map((s) => (
-        <li className="pcard" key={`${s.name}-${s.org}`}>
+      {speakers.map((s, i) => (
+        <li className="pcard" key={`${i}-${s.name}-${s.org}`}>
           <span className="pcard__view">
             {s.image ? (
               <img className="pcard__art" src={s.image} alt="" loading="lazy" />

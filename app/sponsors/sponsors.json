@@ -1,0 +1,23 @@
+{
+  "_comment": [
+    "PLACEHOLDER SPONSORS. These companies have NOT sponsored anything. They",
+    "stand in for the real list until it arrives. Replace every entry before",
+    "the site is public.",
+    "",
+    "Editing: change this file, commit, and the next deploy picks it up.",
+    "",
+    "Each entry:",
+    "  name  (required) the sponsor's name, used as the logo's alt text and",
+    "        set as type when there is no logo.",
+    "  logo  (optional) a direct image URL, or a path under public/, e.g.",
+    "        \"/sponsors/google.svg\". Leave it out and the name is shown instead.",
+    "  url   (optional) where clicking the logo goes. Opens in a new tab.",
+    "",
+    "The band scrolls in the order listed here."
+  ],
+  "sponsors": [
+    { "name": "Google for Developers", "logo": "https://www.gstatic.com/devrel-devsite/prod/v01e820f11dab21f3ca0f6bae75161414eea27d2d73afb4b420c81b7d54dc150c/developers/images/lockup-new.svg", "url": "https://developers.google.com" },
+    { "name": "Moniepoint", "logo": "", "url": "" },
+    { "name": "Andela", "logo": "", "url": "" }
+  ]
+}

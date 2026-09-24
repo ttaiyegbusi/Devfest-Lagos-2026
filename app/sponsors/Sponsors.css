@@ -77,6 +77,22 @@
   flex: none;
 }
 
+.sponsors__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.sponsors__link:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 6px;
+}
+
+.sponsors__band:focus-within .sponsors__track {
+  animation-play-state: paused;
+}
+
 .sponsors__wordmark {
   display: block;
   font-family: var(--font-display);

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { HeroNav } from "../hero/HeroNav";
 import { Faq } from "../faq/Faq";
-import { Sponsors } from "../sponsors/Sponsors";
 import { SiteFooter } from "../footer/SiteFooter";
 import { getLineup } from "./lineup";
 import { SpeakerViews } from "./SpeakerViews";
@@ -30,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SpeakersPage() {
-  const { days } = await getLineup();
+  const { days, announced } = await getLineup();
   const total = days.reduce((sum, day) => sum + day.speakers.length, 0);
 
   return (
@@ -47,8 +46,9 @@ export default async function SpeakersPage() {
             The full lineup
           </h1>
           <p className="leaf__lede">
-            {total} speakers across two days. Names and roles are confirmed as
-            they are announced.
+            {announced
+              ? `${total} speakers across two days. Names and roles are confirmed as they are announced.`
+              : "We\u2019re still confirming our speakers. The full lineup will be announced soon."}
           </p>
         </div>
 
@@ -60,7 +60,6 @@ export default async function SpeakersPage() {
       <Suspense>
         <Faq />
       </Suspense>
-      <Sponsors />
       <SiteFooter />
     </>
   );

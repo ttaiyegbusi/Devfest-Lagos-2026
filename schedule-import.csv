@@ -1,0 +1,24 @@
+day,time,until,title,track,format,summary,name,role,org
+Day One,08:30,09:30,Doors open and registration,Foyer,Open,,,
+Day One,09:30,10:15,Opening keynote: One ecosystem,Main Stage,Keynote,"Where the Lagos developer community stands going into 2026, and what the next twelve months ask of it.",Adaeze Okonkwo,Developer Relations,Google
+Day One,10:30,11:10,Shipping agents that survive contact with users,Main Stage,Talk,"What breaks first when an agent leaves the demo, and the guardrails that hold.",Tunde Bakare,Staff Engineer,Paystack
+Day One,10:30,11:10,Payments infrastructure for the rest of Africa,Track B,Talk,"Settlement, reconciliation and the failure modes nobody warns you about.",Chiamaka Eze,Head of Platform,Moniepoint
+Day One,11:20,12:00,"Panel: Hiring engineers in a market that moved",Main Stage,Panel,"Four people who do the hiring, on what has actually changed about the bar.",Ngozi Adeyemi,Engineering Manager,Andela
+Day One,11:20,12:00,"Panel: Hiring engineers in a market that moved",Main Stage,Panel,,Ibrahim Sanni,Principal Engineer,Flutterwave
+Day One,11:20,12:00,"Panel: Hiring engineers in a market that moved",Main Stage,Panel,,Femi Ogunlana,Cloud Advocate,Microsoft
+Day One,12:00,13:00,Lunch,Courtyard,Break,,,
+Day One,13:00,13:40,Android at scale: what a 40MB APK costs you,Track B,Talk,"Startup time, install conversion, and the numbers that changed when we cut it.",Zainab Yusuf,Community Lead,GDG Lagos
+Day One,13:50,14:30,Lightning talks,Main Stage,Lightning,"Six speakers, seven minutes each, no slides past the third.",Emeka Nwosu,Machine Learning Lead,Google
+Day One,13:50,14:30,Lightning talks,Main Stage,Lightning,,Aisha Bello,Product Design Lead,Figma
+Day One,14:40,16:00,Workshop: Building your first agent,Lab,Workshop,Bring a laptop. You will leave with something that runs.,Segun Adebayo,Open Source Maintainer,GitHub
+Day One,16:00,17:00,Sponsor booths and networking,Foyer,Open,,,
+Day Two,09:00,09:30,Doors open,Foyer,Open,,,
+Day Two,09:30,10:10,Design systems that outlive their designers,Main Stage,Talk,Documentation is not the answer. Constraints are.,Aisha Bello,Product Design Lead,Figma
+Day Two,10:20,11:00,Reading the room: observability for small teams,Track B,Talk,"The four signals worth paging on, and everything you can safely ignore.",Halima Musa,Director of Engineering,Spotify
+Day Two,11:10,11:50,Securing an API you did not write,Main Stage,Talk,"Inherited systems, unknown callers, and where to put the first control.",Obinna Chukwu,Security Engineer,Stripe
+Day Two,12:00,13:00,Lunch,Courtyard,Break,,,
+Day Two,13:00,14:20,Workshop: Data pipelines without a data team,Lab,Workshop,What you can get away with before you need a warehouse.,Folake Adesina,Data Platform Lead,Amazon
+Day Two,14:30,15:10,"Open source as a career, honestly",Main Stage,Talk,"The parts that pay, the parts that do not, and how to tell them apart early.",Segun Adebayo,Open Source Maintainer,GitHub
+Day Two,15:20,16:00,Closing keynote: Endless opportunities,Main Stage,Keynote,What to do on Monday with everything you heard.,Emeka Nwosu,Machine Learning Lead,Google
+Day Two,16:00,16:30,Closing and prize draw,Main Stage,Open,,,
+Day Two,19:00,,After party,Rooftop,Social,"Included with every ticket. Both days, both tiers.",,,

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { HeroNav } from "../hero/HeroNav";
 import { Faq } from "../faq/Faq";
-import { Sponsors } from "../sponsors/Sponsors";
 import { SiteFooter } from "../footer/SiteFooter";
 import { getLineup } from "./lineup";
 import { SpeakerViews } from "./SpeakerViews";
@@ -60,7 +59,6 @@ export default async function SpeakersPage() {
       <Suspense>
         <Faq />
       </Suspense>
-      <Sponsors />
       <SiteFooter />
     </>
   );

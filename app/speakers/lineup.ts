@@ -47,7 +47,11 @@ export type Day = {
   speakers: Speaker[];
 };
 
-export type Lineup = { days: Day[] };
+export type Lineup = {
+  days: Day[];
+  /** False while the lineup is still being confirmed: every card reads TBD. */
+  announced: boolean;
+};
 
 /* Placeholder artwork. A sheet should not have to carry a pair of hex codes
    per row, so the tint is derived from the organisation's name instead: the
@@ -140,7 +144,7 @@ function fromCsv(body: string): Lineup {
     }
   }
   if (line) lines.push(line);
-  if (!lines.length) return { days: [] };
+  if (!lines.length) return { days: [], announced: true };
 
   const headers = splitRow(lines[0]).map((h) => h.trim().toLowerCase());
   const days = new Map<string, Speaker[]>();
@@ -162,14 +166,24 @@ function fromCsv(body: string): Lineup {
     days.get(day)!.push(speaker);
   }
 
-  return { days: order.map((label) => ({ label, speakers: days.get(label)! })) };
+  return {
+    days: order.map((label) => ({ label, speakers: days.get(label)! })),
+    announced: true,
+  };
 }
 
 /** The JSON shape: days, each with its own list. */
 function fromJson(value: unknown): Lineup {
-  const days = (value as { days?: unknown })?.days;
-  if (!Array.isArray(days)) return { days: [] };
+  const { days, announced } = (value ?? {}) as {
+    days?: unknown;
+    announced?: unknown;
+  };
+  // Only an explicit `false` holds the names back; a feed that says nothing
+  // about it is taken to be the real lineup.
+  const isAnnounced = announced !== false;
+  if (!Array.isArray(days)) return { days: [], announced: isAnnounced };
   return {
+    announced: isAnnounced,
     days: days.flatMap((entry) => {
       const day = entry as { label?: unknown; date?: unknown; speakers?: unknown };
       const label = text(day.label);
@@ -185,7 +199,26 @@ function fromJson(value: unknown): Lineup {
   };
 }
 
-const COMMITTED = fromJson(local);
+/* Not announced yet: the cards stay, so the wall and the grid keep their
+   shape, but every name, role and organisation reads TBD. The tint is kept
+   from the placeholder row so the wall is not one flat colour. */
+function masked(lineup: Lineup): Lineup {
+  if (lineup.announced) return lineup;
+  return {
+    ...lineup,
+    days: lineup.days.map((day) => ({
+      ...day,
+      speakers: day.speakers.map((s) => ({
+        name: "Speaker TBD",
+        role: "To be announced",
+        org: "TBD",
+        tint: s.tint,
+      })),
+    })),
+  };
+}
+
+const COMMITTED = masked(fromJson(local));
 
 export async function getLineup(): Promise<Lineup> {
   if (!SOURCE) return COMMITTED;
@@ -208,7 +241,7 @@ export async function getLineup(): Promise<Lineup> {
         : fromCsv(body);
 
     if (!lineup.days.length) throw new Error("no usable rows in the feed");
-    return lineup;
+    return masked(lineup);
   } catch (error) {
     // Never a broken page over a speaker list.
     console.error(

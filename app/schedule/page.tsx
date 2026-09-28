@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SchedulePage() {
-  const { days } = await getAgenda();
+  const { days, published } = await getAgenda();
 
   return (
     <>
@@ -43,7 +43,19 @@ export default async function SchedulePage() {
         </div>
 
         <div className="schedule">
-          <ScheduleViews days={days} />
+          {published && days.length ? (
+            <ScheduleViews days={days} />
+          ) : (
+            <div className="schedule__pending" role="status">
+              <p className="schedule__pending-title">
+                The schedule will be updated soon
+              </p>
+              <p className="schedule__pending-text">
+                We&rsquo;re still putting the sessions together. Check back
+                closer to the event for times, tracks and speakers.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

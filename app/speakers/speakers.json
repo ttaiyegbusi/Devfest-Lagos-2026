@@ -10,8 +10,13 @@
     "Editing in a spreadsheet instead: see the note at the top of lineup.ts.",
     "",
     "Every field except image is required. Leave image out and the card falls",
-    "back to a tinted placeholder, so a half-filled lineup still renders."
+    "back to a tinted placeholder, so a half-filled lineup still renders.",
+    "",
+    "`announced`: while false, every card on the landing-page wall and on",
+    "/speakers reads TBD instead of the names below, so the layout can ship",
+    "before the lineup is confirmed. Set it to true once the real names are in."
   ],
+  "announced": false,
   "days": [
     {
       "label": "Day One",

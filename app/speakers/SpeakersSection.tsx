@@ -11,7 +11,7 @@ import "./Speakers.css";
  * reachable only from the nav, and people do not look there. */
 
 export async function SpeakersSection() {
-  const { days } = await getLineup();
+  const { days, announced } = await getLineup();
   const total = days.reduce((sum, day) => sum + day.speakers.length, 0);
 
   return (
@@ -31,7 +31,7 @@ export async function SpeakersSection() {
       <div className="speakers__more" data-reveal data-rise>
         {/* The count is in the label because it is the reason to follow it. */}
         <Link className="speakers__all" href="/speakers">
-          See all {total} speakers
+          {announced ? `See all ${total} speakers` : "See the lineup"}
         </Link>
       </div>
     </section>

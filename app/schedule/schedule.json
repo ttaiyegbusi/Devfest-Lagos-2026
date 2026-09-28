@@ -8,8 +8,12 @@
     "still a row on the schedule, and the layouts expect to meet one.",
     "",
     "`until`, `track`, `format` and `summary` are all optional. A session with",
-    "none of them is a time and a title, and still renders."
+    "none of them is a time and a title, and still renders.",
+    "",
+    "`published`: while false, /schedule shows a 'will be updated' notice",
+    "instead of the sessions below. Set it to true once the schedule is final."
   ],
+  "published": false,
   "days": [
     {
       "label": "Day One",

@@ -434,7 +434,7 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
     return (
       <ul className="speakers__row" data-reveal>
         {speakers.map((s, i) => (
-          <li key={`${s.name}-${s.org}`} data-rise style={{ ["--rise-i" as string]: i }}>
+          <li key={`${i}-${s.name}-${s.org}`} data-rise style={{ ["--rise-i" as string]: i }}>
             {card(s, i, false)}
           </li>
         ))}
@@ -461,7 +461,7 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
         <ul className="speakers__track" id={trackId}>
           {speakers.map((s, i) => (
             <li
-              key={`${s.name}-${s.org}`}
+              key={`${i}-${s.name}-${s.org}`}
               className="speakers__slot"
               style={resting(i)}
               ref={(el) => {

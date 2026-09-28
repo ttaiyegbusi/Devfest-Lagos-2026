@@ -130,7 +130,6 @@
 }
 
 .faq__list {
-  min-height: calc(var(--rows, 7) * 57px);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -288,11 +287,6 @@
 /* --- responsive ---------------------------------------------------------- */
 
 @media (max-width: 899px) {
-  /* Rows wrap to two lines at this width, so each one is taller. */
-  .faq__list {
-    min-height: calc(var(--rows, 7) * 67px);
-  }
-
   .faq__body {
     grid-template-columns: minmax(0, 1fr);
     gap: 28px;

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { HeroNav } from "../hero/HeroNav";
 import { SpeakerGrid } from "../speakers/SpeakerGrid";
-import { Sponsors } from "../sponsors/Sponsors";
 import { SiteFooter } from "../footer/SiteFooter";
 import { HEADCOUNT, SQUADS } from "./roster";
 import "../hero/Hero.css";
@@ -79,7 +78,6 @@ export default function TeamPage() {
         )}
       </section>
 
-      <Sponsors />
       <SiteFooter />
     </>
   );

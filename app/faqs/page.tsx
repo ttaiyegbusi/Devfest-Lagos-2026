@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { HeroNav } from "../hero/HeroNav";
 import { FaqBoard } from "../faq/FaqBoard";
-import { Sponsors } from "../sponsors/Sponsors";
 import { SiteFooter } from "../footer/SiteFooter";
 import "../hero/Hero.css";
 import "../shell/Page.css";
@@ -53,7 +52,6 @@ export default function FaqsPage() {
         </Suspense>
       </section>
 
-      <Sponsors />
       <SiteFooter />
     </>
   );

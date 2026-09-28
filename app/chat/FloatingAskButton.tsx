@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useSyncExternalStore } from "react";
 import { AskPanel } from "./AskPanel";
 import "./FloatingAskButton.css";
 
@@ -31,13 +31,9 @@ export function FloatingAskButton() {
   const pathname = usePathname();
   const [asking, setAsking] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const isMounted = useSyncExternalStore(() => () => {}, () => true, () => false);
   const [heroVisible, setHeroVisible] = useState(true);
   const trigger = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   // On landing page, observe when hero scrolls out of view
   useEffect(() => {

@@ -3,6 +3,7 @@ import { type Media, type Shot, type Track } from "./tracks";
 import { PillPit } from "./PillPit";
 import { onDisk } from "./assets";
 import { PaperFrame } from "./PaperFrame";
+import { DraggableStrip } from "./DraggableStrip";
 import "./Expect.css";
 
 export function ExpectPanel({
@@ -132,7 +133,7 @@ function MediaBlock({ media }: { media: Media }) {
       // that changes with the viewport, and only CSS knows it. Adding
       // photographs lengthens the lap rather than speeding the band up.
       return (
-        <div
+        <DraggableStrip
           className="shots shots--strip"
           style={{ ["--shots" as string]: media.shots.length }}
         >
@@ -147,7 +148,7 @@ function MediaBlock({ media }: { media: Media }) {
               ))}
             </div>
           ))}
-        </div>
+        </DraggableStrip>
       );
     }
   }

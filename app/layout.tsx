@@ -67,7 +67,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Stamps <html data-motion> before the first paint, which is what the
             reveal stylesheet keys its hidden state on. It has to run here, not

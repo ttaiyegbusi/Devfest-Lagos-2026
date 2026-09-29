@@ -54,3 +54,5 @@ __pycache__/
 # Trade-off: installs are no longer pinned. Commit a lockfile generated on
 # Linux if reproducible builds become important.
 package-lock.json
+.vercel
+.env*

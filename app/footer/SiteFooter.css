@@ -147,6 +147,42 @@
   }
 }
 
+/* --- danfo drive --------------------------------------------------------- */
+
+.foot__danfo {
+  animation: foot-danfo-drive 18s linear infinite;
+  will-change: transform;
+}
+
+@keyframes foot-danfo-drive {
+  from {
+    transform: translateX(-500px);
+  }
+  to {
+    transform: translateX(1500px);
+  }
+}
+
+/* --- wheel spin ---------------------------------------------------------- */
+
+.foot__wheel--front {
+  transform-origin: 307px 979px;
+}
+
+.foot__wheel--rear {
+  transform-origin: 118px 981px;
+}
+
+.foot__wheel {
+  animation: foot-wheel-spin 1.2s linear infinite;
+}
+
+@keyframes foot-wheel-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* --- responsive ---------------------------------------------------------- */
 
 @media (max-width: 767px) {
@@ -176,7 +212,9 @@
     transition: none;
   }
 
-  .foot__clouds {
+  .foot__clouds,
+  .foot__danfo,
+  .foot__wheel {
     animation: none;
   }
 }

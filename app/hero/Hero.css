@@ -266,15 +266,15 @@
 }
 
 .hero-scene__clouds--far {
-  animation-duration: 240s;
+  animation-duration: 300s;
 }
 
 .hero-scene__clouds--mid {
-  animation-duration: 190s;
+  animation-duration: 240s;
 }
 
 .hero-scene__clouds--near {
-  animation-duration: 150s;
+  animation-duration: 190s;
 }
 
 @keyframes hero-cloud-drift {

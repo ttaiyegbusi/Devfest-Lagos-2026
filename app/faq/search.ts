@@ -27,14 +27,17 @@ export function terms(query: string): string[] {
     .toLowerCase()
     .split(/\s+/)
     .map((word) => word.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, ""))
-    .filter((word) => word && !STOP_WORDS.has(word));
+    .filter((word) => word.length >= 3 && !STOP_WORDS.has(word));
 }
 
-/** Every word of the query has to appear somewhere in the entry. Naive, and
- *  right for seven questions: no index, no ranking, no stemming to get wrong. */
+/** Every word of the query has to appear as a whole word (or the start of one)
+ *  somewhere in the entry. Prefix matching lets "ticket" find "tickets". */
 export function matches(haystack: string, query: string): boolean {
   const hay = haystack.toLowerCase();
-  return terms(query).every((word) => hay.includes(word));
+  const hayWords = hay.split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+  return terms(query).every((word) =>
+    hayWords.some((hw) => hw === word || hw.startsWith(word)),
+  );
 }
 
 /** The entries that answer `query`, best first.
@@ -46,7 +49,10 @@ export function search(query: string): Faq[] {
   const words = terms(query);
   if (words.length === 0) return [];
   return FAQS.filter((f) => matches(`${f.q} ${f.a}`, query)).sort((a, b) => {
-    const score = (f: Faq) => words.filter((w) => f.q.toLowerCase().includes(w)).length;
+    const score = (f: Faq) => {
+      const qWords = f.q.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+      return words.filter((w) => qWords.some((qw) => qw === w || qw.startsWith(w))).length;
+    };
     return score(b) - score(a);
   });
 }

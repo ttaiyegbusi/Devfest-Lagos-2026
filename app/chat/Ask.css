@@ -143,18 +143,22 @@
 
 /* Everything sits at the BOTTOM of this column and grows upward, so the
    greeting starts just above the field and the newest answer is always the one
-   next to it. `justify-content: flex-end` on a scroller keeps that true whether
-   there is one line in it or thirty. */
+   next to it. A ::before spacer pushes content down when short, but shrinks to
+   zero when content overflows so the scroller works normally. */
 .ask__log {
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   gap: 26px;
   overflow-y: auto;
   padding: 24px 20px 8px;
   overscroll-behavior: contain;
+}
+
+.ask__log::before {
+  content: "";
+  flex: 1 0 0px;
 }
 
 .ask__greeting {
@@ -308,6 +312,7 @@
 .ask__form:focus-within {
   border-color: var(--ink);
   box-shadow: 0 0 0 3px rgba(23, 23, 23, 0.06);
+  outline: none;
 }
 
 .ask__input {
@@ -321,6 +326,10 @@
   font-size: 14px;
   outline: none;
   transition: color 200ms ease;
+}
+
+.ask__input:focus-visible {
+  outline: none;
 }
 
 .ask__input::placeholder {

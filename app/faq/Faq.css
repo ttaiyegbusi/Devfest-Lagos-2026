@@ -21,9 +21,36 @@
   --faq-chip-on-ink: var(--faq-ink);
   --faq-chip-off: #202020;
 
+  position: relative;
   padding: 72px 0 96px;
   background: #171717;
   color: var(--faq-ink);
+}
+
+.faq::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(255, 255, 255, 0.075) 1px,
+    transparent 0
+  );
+  background-size: 24px 24px;
+  -webkit-mask-image:
+    radial-gradient(140% 118% at 50% 122%, #000 52%, transparent 84%),
+    linear-gradient(to bottom, transparent 0%, #000 20%, #000 76%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(140% 118% at 50% 122%, #000 52%, transparent 84%),
+    linear-gradient(to bottom, transparent 0%, #000 20%, #000 76%, transparent 100%);
+  mask-composite: intersect;
+  pointer-events: none;
+}
+
+.faq > * {
+  position: relative;
+  z-index: 1;
 }
 
 .faq__intro {

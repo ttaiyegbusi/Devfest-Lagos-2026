@@ -207,26 +207,45 @@ export function AskPanel({
         </div>
 
         <div className="ask__log" ref={log} role="log" aria-live="polite">
-          {exchanges.map((x) => (
-            <div className="ask__turn" key={x.id}>
-              <p className="ask__question">{x.question}</p>
-              {x.greeting ? (
-                <div className="ask__greeting-response">
-                  <h3 className="ask__heading">{x.greeting.heading}</h3>
-                  <p className="ask__note">{x.greeting.note}</p>
-                </div>
-              ) : x.hits.length === 0 ? (
-                <p className="ask__none">{NO_ANSWER}</p>
-              ) : (
-                x.hits.map((f) => (
-                  <div className="ask__answer" key={f.q}>
-                    <p className="ask__answer-q">{f.q}</p>
-                    <p className="ask__answer-a">{f.a}</p>
+          {exchanges.map((x, i) => {
+            const isLast = i === exchanges.length - 1;
+            const asked = new Set(exchanges.map((e) => e.question));
+            const followUps = isLast
+              ? STARTERS.filter((s) => !asked.has(s)).slice(0, 3)
+              : [];
+
+            return (
+              <div className="ask__turn" key={x.id}>
+                <p className="ask__question">{x.question}</p>
+                {x.greeting ? (
+                  <div className="ask__greeting-response">
+                    <h3 className="ask__heading">{x.greeting.heading}</h3>
+                    <p className="ask__note">{x.greeting.note}</p>
                   </div>
-                ))
-              )}
-            </div>
-          ))}
+                ) : x.hits.length === 0 ? (
+                  <p className="ask__none">{NO_ANSWER}</p>
+                ) : (
+                  x.hits.map((f) => (
+                    <div className="ask__answer" key={f.q}>
+                      <p className="ask__answer-q">{f.q}</p>
+                      <p className="ask__answer-a">{f.a}</p>
+                    </div>
+                  ))
+                )}
+                {followUps.length > 0 && (
+                  <ul className="ask__starters">
+                    {followUps.map((s) => (
+                      <li key={s}>
+                        <button type="button" className="ask__starter" onClick={() => ask(s)}>
+                          <span aria-hidden="true">&#8627;</span> {s}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            );
+          })}
 
           {/* The greeting sits at the bottom of the column, above the field it
               is inviting you to use, and is pushed up out of the way by the

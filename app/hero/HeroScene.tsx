@@ -72,41 +72,21 @@ export function HeroScene() {
       <clipPath id="clip0_11099_11033">
       <rect width="1440" height="1024" fill="white"/>
       </clipPath>
-      <linearGradient id="cloud-far" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stopColor="var(--cloud-far-top, #fffdf3)"/>
-      <stop offset="1" stopColor="var(--cloud-far-base, #fcf4dd)"/>
-      </linearGradient>
-      <linearGradient id="cloud-mid" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stopColor="var(--cloud-mid-top, #fffefa)"/>
-      <stop offset="1" stopColor="var(--cloud-mid-base, #f9efd2)"/>
-      </linearGradient>
-      <linearGradient id="cloud-near" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stopColor="var(--cloud-near-top, #ffffff)"/>
-      <stop offset="1" stopColor="var(--cloud-near-base, #f3e6c6)"/>
-      </linearGradient>
       <g id="sky-far">
-        <g transform="translate(60 220) scale(0.7)"><path d="M2 15C10 8 28 6 45 10C58 4 72 8 85 11C95 6 103 12 100 17C90 21 74 19 58 18C42 22 26 19 12 20C5 19 2 18 2 15Z" fill="url(#cloud-far)"/></g>
-        <g transform="translate(250 400) scale(0.55)"><path d="M2 28C2 23 7 18 14 18C17 12 25 6 36 8C41 3 51 1 60 5C67 1 75 7 78 15C82 13 85 19 83 25C83 28 79 30 73 28L9 28C4 28 2 26 2 24Z" fill="url(#cloud-far)"/></g>
-        <g transform="translate(430 130) scale(0.8)"><path d="M2 15C10 8 28 6 45 10C58 4 72 8 85 11C95 6 103 12 100 17C90 21 74 19 58 18C42 22 26 19 12 20C5 19 2 18 2 15Z" fill="url(#cloud-far)"/></g>
-        <g transform="translate(620 460) scale(0.5)"><path d="M2 28C2 23 7 18 14 18C17 12 25 6 36 8C41 3 51 1 60 5C67 1 75 7 78 15C82 13 85 19 83 25C83 28 79 30 73 28L9 28C4 28 2 26 2 24Z" fill="url(#cloud-far)"/></g>
-        <g transform="translate(780 280) scale(0.75)"><path d="M2 15C10 8 28 6 45 10C58 4 72 8 85 11C95 6 103 12 100 17C90 21 74 19 58 18C42 22 26 19 12 20C5 19 2 18 2 15Z" fill="url(#cloud-far)"/></g>
-        <g transform="translate(960 170) scale(0.6)"><path d="M2 28C2 23 7 18 14 18C17 12 25 6 36 8C41 3 51 1 60 5C67 1 75 7 78 15C82 13 85 19 83 25C83 28 79 30 73 28L9 28C4 28 2 26 2 24Z" fill="url(#cloud-far)"/></g>
-        <g transform="translate(1140 380) scale(0.85)"><path d="M2 15C10 8 28 6 45 10C58 4 72 8 85 11C95 6 103 12 100 17C90 21 74 19 58 18C42 22 26 19 12 20C5 19 2 18 2 15Z" fill="url(#cloud-far)"/></g>
-        <g transform="translate(1310 260) scale(0.5)"><path d="M2 28C2 23 7 18 14 18C17 12 25 6 36 8C41 3 51 1 60 5C67 1 75 7 78 15C82 13 85 19 83 25C83 28 79 30 73 28L9 28C4 28 2 26 2 24Z" fill="url(#cloud-far)"/></g>
+        <g transform="translate(100 200) scale(0.65)"><ellipse cx="0" cy="8" rx="18" ry="8" fill="var(--cloud-far-fill, #fff)"/><ellipse cx="24" cy="5" rx="22" ry="10" fill="var(--cloud-far-fill, #fff)"/><ellipse cx="50" cy="8" rx="16" ry="8" fill="var(--cloud-far-fill, #fff)"/></g>
+        <g transform="translate(520 150) scale(0.55)"><ellipse cx="0" cy="6" rx="14" ry="7" fill="var(--cloud-far-fill, #fff)"/><ellipse cx="22" cy="4" rx="18" ry="9" fill="var(--cloud-far-fill, #fff)"/></g>
+        <g transform="translate(860 280) scale(0.6)"><ellipse cx="0" cy="8" rx="18" ry="8" fill="var(--cloud-far-fill, #fff)"/><ellipse cx="24" cy="5" rx="22" ry="10" fill="var(--cloud-far-fill, #fff)"/><ellipse cx="50" cy="8" rx="16" ry="8" fill="var(--cloud-far-fill, #fff)"/></g>
+        <g transform="translate(1240 180) scale(0.5)"><ellipse cx="0" cy="6" rx="14" ry="7" fill="var(--cloud-far-fill, #fff)"/><ellipse cx="22" cy="4" rx="18" ry="9" fill="var(--cloud-far-fill, #fff)"/></g>
       </g>
       <g id="sky-mid">
-        <g transform="translate(80 230) scale(0.5)"><path d="M2 40C2 36 7 30 16 30C19 22 30 14 42 16C47 8 59 3 72 7C80 1 92 0 102 7C110 3 120 9 126 17C131 13 135 21 133 30C135 36 131 40 125 40L9 40C4 40 2 38 2 36Z" fill="url(#cloud-mid)"/></g>
-        <g transform="translate(380 420) scale(0.4)"><path d="M2 20C7 14 20 10 38 12C54 6 72 8 92 10C110 4 128 8 145 12C160 7 170 12 175 18C178 16 180 20 178 23L6 23C3 23 2 22 2 20Z" fill="url(#cloud-mid)"/></g>
-        <g transform="translate(680 150) scale(0.55)"><path d="M2 40C2 36 7 30 16 30C19 22 30 14 42 16C47 8 59 3 72 7C80 1 92 0 102 7C110 3 120 9 126 17C131 13 135 21 133 30C135 36 131 40 125 40L9 40C4 40 2 38 2 36Z" fill="url(#cloud-mid)"/></g>
-        <g transform="translate(1020 370) scale(0.35)"><path d="M2 20C7 14 20 10 38 12C54 6 72 8 92 10C110 4 128 8 145 12C160 7 170 12 175 18C178 16 180 20 178 23L6 23C3 23 2 22 2 20Z" fill="url(#cloud-mid)"/></g>
-        <g transform="translate(1280 490) scale(0.45)"><path d="M2 40C2 36 7 30 16 30C19 22 30 14 42 16C47 8 59 3 72 7C80 1 92 0 102 7C110 3 120 9 126 17C131 13 135 21 133 30C135 36 131 40 125 40L9 40C4 40 2 38 2 36Z" fill="url(#cloud-mid)"/></g>
+        <g transform="translate(180 260) scale(0.5)"><ellipse cx="40" cy="24" rx="46" ry="10" fill="var(--cloud-mid-fill, #fff)"/><ellipse cx="16" cy="16" rx="18" ry="14" fill="var(--cloud-mid-fill, #fff)"/><ellipse cx="38" cy="8" rx="22" ry="16" fill="var(--cloud-mid-fill, #fff)"/><ellipse cx="62" cy="14" rx="18" ry="14" fill="var(--cloud-mid-fill, #fff)"/></g>
+        <g transform="translate(720 190) scale(0.45)"><ellipse cx="40" cy="24" rx="46" ry="10" fill="var(--cloud-mid-fill, #fff)"/><ellipse cx="16" cy="16" rx="18" ry="14" fill="var(--cloud-mid-fill, #fff)"/><ellipse cx="38" cy="8" rx="22" ry="16" fill="var(--cloud-mid-fill, #fff)"/><ellipse cx="62" cy="14" rx="18" ry="14" fill="var(--cloud-mid-fill, #fff)"/></g>
+        <g transform="translate(1150 320) scale(0.42)"><ellipse cx="50" cy="14" rx="56" ry="8" fill="var(--cloud-mid-fill, #fff)"/><ellipse cx="26" cy="8" rx="20" ry="10" fill="var(--cloud-mid-fill, #fff)"/><ellipse cx="50" cy="4" rx="24" ry="12" fill="var(--cloud-mid-fill, #fff)"/><ellipse cx="76" cy="8" rx="18" ry="10" fill="var(--cloud-mid-fill, #fff)"/></g>
       </g>
       <g id="sky-near">
-        <g transform="translate(-20 360) scale(0.5)"><path d="M2 48C2 44 7 36 17 36C20 26 34 16 48 18C53 10 66 4 82 8C91 1 104 0 116 7C124 1 138 6 147 14C156 8 168 15 174 24C180 20 184 28 182 38C184 44 180 48 174 48L8 48C3 48 2 46 2 44Z" fill="url(#cloud-near)"/></g>
-        <g transform="translate(300 120) scale(0.6)"><path d="M2 40C2 36 7 30 16 30C19 22 30 14 42 16C47 8 59 3 72 7C80 1 92 0 102 7C110 3 120 9 126 17C131 13 135 21 133 30C135 36 131 40 125 40L9 40C4 40 2 38 2 36Z" fill="url(#cloud-near)"/></g>
-        <g transform="translate(650 310) scale(0.45)"><path d="M2 48C2 44 7 36 17 36C20 26 34 16 48 18C53 10 66 4 82 8C91 1 104 0 116 7C124 1 138 6 147 14C156 8 168 15 174 24C180 20 184 28 182 38C184 44 180 48 174 48L8 48C3 48 2 46 2 44Z" fill="url(#cloud-near)"/></g>
-        <g transform="translate(960 470) scale(0.55)"><path d="M2 40C2 36 7 30 16 30C19 22 30 14 42 16C47 8 59 3 72 7C80 1 92 0 102 7C110 3 120 9 126 17C131 13 135 21 133 30C135 36 131 40 125 40L9 40C4 40 2 38 2 36Z" fill="url(#cloud-near)"/></g>
-        <g transform="translate(1260 180) scale(0.48)"><path d="M2 48C2 44 7 36 17 36C20 26 34 16 48 18C53 10 66 4 82 8C91 1 104 0 116 7C124 1 138 6 147 14C156 8 168 15 174 24C180 20 184 28 182 38C184 44 180 48 174 48L8 48C3 48 2 46 2 44Z" fill="url(#cloud-near)"/></g>
+        <g transform="translate(80 360) scale(0.48)"><ellipse cx="50" cy="34" rx="58" ry="12" fill="var(--cloud-near-fill, #fff)"/><ellipse cx="20" cy="24" rx="22" ry="16" fill="var(--cloud-near-fill, #fff)"/><ellipse cx="46" cy="14" rx="26" ry="20" fill="var(--cloud-near-fill, #fff)"/><ellipse cx="72" cy="18" rx="22" ry="16" fill="var(--cloud-near-fill, #fff)"/><ellipse cx="90" cy="26" rx="16" ry="12" fill="var(--cloud-near-fill, #fff)"/></g>
+        <g transform="translate(580 300) scale(0.44)"><ellipse cx="44" cy="28" rx="50" ry="10" fill="var(--cloud-near-fill, #fff)"/><ellipse cx="18" cy="20" rx="20" ry="14" fill="var(--cloud-near-fill, #fff)"/><ellipse cx="40" cy="10" rx="24" ry="18" fill="var(--cloud-near-fill, #fff)"/><ellipse cx="64" cy="14" rx="20" ry="14" fill="var(--cloud-near-fill, #fff)"/></g>
+        <g transform="translate(1080 340) scale(0.46)"><ellipse cx="50" cy="34" rx="58" ry="12" fill="var(--cloud-near-fill, #fff)"/><ellipse cx="20" cy="24" rx="22" ry="16" fill="var(--cloud-near-fill, #fff)"/><ellipse cx="46" cy="14" rx="26" ry="20" fill="var(--cloud-near-fill, #fff)"/><ellipse cx="72" cy="18" rx="22" ry="16" fill="var(--cloud-near-fill, #fff)"/></g>
       </g>
       </defs>
       <g clipPath="url(#clip0_11099_11033)">
@@ -128,6 +108,16 @@ export function HeroScene() {
             <use href="#sky-near" transform="translate(-1440 0)"/>
             <use href="#sky-near" transform="translate(0 0)"/>
             <use href="#sky-near" transform="translate(1440 0)"/>
+          </g>
+        </g>
+        <g className="hero-scene__birds">
+          <g className="hero-scene__bird hero-scene__bird--1">
+            <g className="hero-scene__wing" style={{transformOrigin: '8px 0px'}}><path d="M0 5Q4 0 8 4" fill="none" stroke="var(--hero-ink, #222)" strokeWidth="1.4" strokeLinecap="round"/></g>
+            <g className="hero-scene__wing" style={{transformOrigin: '0px 0px'}}><path d="M8 4Q12 0 16 5" fill="none" stroke="var(--hero-ink, #222)" strokeWidth="1.4" strokeLinecap="round"/></g>
+          </g>
+          <g className="hero-scene__bird hero-scene__bird--2">
+            <g className="hero-scene__wing" style={{transformOrigin: '6px 0px'}}><path d="M0 4Q3 0 6 3" fill="none" stroke="var(--hero-ink, #222)" strokeWidth="1.2" strokeLinecap="round"/></g>
+            <g className="hero-scene__wing" style={{transformOrigin: '0px 0px'}}><path d="M6 3Q9 0 12 4" fill="none" stroke="var(--hero-ink, #222)" strokeWidth="1.2" strokeLinecap="round"/></g>
           </g>
         </g>
         <g className="hero-scene__static">

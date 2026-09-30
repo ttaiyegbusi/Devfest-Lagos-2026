@@ -36,19 +36,9 @@
   --hero-quiet: #8c8c8c;
   --hero-accent: var(--amber);
 
-  /* The sky. Each parallax band is lit along the top and darker underneath —
-     see the note beside CLOUD_RAMPS in app/hero/generate-scene.py for why the
-     values live out here rather than in the artwork. Two things they have to
-     do: stay warm, because a blue-grey underside on a cream sky reads as a
-     smudge rather than as shadow; and lose contrast with distance, which is
-     what makes the far band nearly flat and the near band the only one with a
-     real shaded side. */
-  --cloud-far-top: #fffdf3;
-  --cloud-far-base: #fcf4dd;
-  --cloud-mid-top: #fffefa;
-  --cloud-mid-base: #f9efd2;
-  --cloud-near-top: #ffffff;
-  --cloud-near-base: #f3e6c6;
+  --cloud-far-fill: #ffffff;
+  --cloud-mid-fill: #ffffff;
+  --cloud-near-fill: #ffffff;
 }
 
 .hero {
@@ -107,12 +97,9 @@
      out heavier at night than they were by day — grey slabs on a dark sky.
      These are pitched against the night sky instead, close enough that what
      is left after the veil is weather rather than furniture. */
-  --cloud-far-top: #232c42;
-  --cloud-far-base: #1a2234;
-  --cloud-mid-top: #33405c;
-  --cloud-mid-base: #232d44;
-  --cloud-near-top: #45536f;
-  --cloud-near-base: #2c3750;
+  --cloud-far-fill: #1e273b;
+  --cloud-mid-fill: #2b3750;
+  --cloud-near-fill: #384560;
 
   /* Rain only falls at night, so this is the only place it is set. Cool, and
      the per-drop opacity in Rain.tsx takes it down much further still: drops
@@ -491,11 +478,68 @@
   }
 }
 
+/* --- birds --------------------------------------------------------------- */
+
+.hero-scene__bird--1 {
+  animation: hero-bird-fly-1 22s linear infinite;
+}
+
+.hero-scene__bird--2 {
+  animation: hero-bird-fly-2 28s linear infinite;
+  animation-delay: -10s;
+}
+
+@keyframes hero-bird-fly-1 {
+  0%   { transform: translate(-40px, 240px); }
+  10%  { transform: translate(114px, 228px); }
+  20%  { transform: translate(268px, 220px); }
+  30%  { transform: translate(422px, 226px); }
+  40%  { transform: translate(576px, 216px); }
+  50%  { transform: translate(730px, 210px); }
+  60%  { transform: translate(884px, 218px); }
+  70%  { transform: translate(1038px, 206px); }
+  80%  { transform: translate(1192px, 196px); }
+  90%  { transform: translate(1346px, 190px); }
+  100% { transform: translate(1500px, 184px); }
+}
+
+@keyframes hero-bird-fly-2 {
+  0%   { transform: translate(-60px, 320px); }
+  10%  { transform: translate(96px, 312px); }
+  20%  { transform: translate(252px, 306px); }
+  30%  { transform: translate(408px, 314px); }
+  40%  { transform: translate(564px, 302px); }
+  50%  { transform: translate(720px, 296px); }
+  60%  { transform: translate(876px, 306px); }
+  70%  { transform: translate(1032px, 292px); }
+  80%  { transform: translate(1188px, 286px); }
+  90%  { transform: translate(1344px, 282px); }
+  100% { transform: translate(1500px, 278px); }
+}
+
+.hero-scene__wing {
+  animation: hero-bird-flap 0.5s ease-in-out infinite;
+}
+
+.hero-scene__bird--2 .hero-scene__wing {
+  animation-duration: 0.55s;
+  animation-delay: -0.15s;
+}
+
+@keyframes hero-bird-flap {
+  0%   { transform: scaleY(1); }
+  30%  { transform: scaleY(-0.5); }
+  50%  { transform: scaleY(0.2); }
+  100% { transform: scaleY(1); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-scene__clouds,
   .hero-scene__bus,
   .hero-scene__keke,
-  .hero-scene__keke-body {
+  .hero-scene__keke-body,
+  .hero-scene__bird,
+  .hero-scene__wing {
     animation: none;
   }
 

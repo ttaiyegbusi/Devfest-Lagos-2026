@@ -1,10 +1,10 @@
-import local from "./speakers.json";
+import data from "../data.json";
 
 /* Where the lineup comes from.
  *
- * By default, the committed speakers.json next to this file: edit it, commit,
- * and the next deploy carries it. That is the whole of it for a repo the
- * organisers can push to.
+ * By default, the committed data.json at the app root (the "speakers" key):
+ * edit it, commit, and the next deploy carries it. That is the whole of it
+ * for a repo the organisers can push to.
  *
  * To edit the lineup without touching the repo, set SPEAKERS_URL and point it
  * at either a JSON feed of the same shape or a published Google Sheet. The
@@ -218,7 +218,7 @@ function masked(lineup: Lineup): Lineup {
   };
 }
 
-const COMMITTED = masked(fromJson(local));
+const COMMITTED = masked(fromJson(data.speakers));
 
 export async function getLineup(): Promise<Lineup> {
   if (!SOURCE) return COMMITTED;

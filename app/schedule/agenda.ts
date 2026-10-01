@@ -1,8 +1,8 @@
-import local from "./schedule.json";
+import data from "../data.json";
 
 /* Where the schedule comes from — the same arrangement as the speaker lineup,
- * for the same reason. By default the committed schedule.json next to this
- * file; set SCHEDULE_URL to read a JSON feed of the same shape or a Google
+ * for the same reason. By default the committed data.json at the app root
+ * (the "schedule" key); set SCHEDULE_URL to read a JSON feed of the same shape or a Google
  * Sheet published as CSV instead. See app/speakers/lineup.ts for the long
  * version and .env.example for how to publish the sheet.
  *
@@ -191,7 +191,7 @@ function fromJson(value: unknown): Agenda {
   };
 }
 
-const COMMITTED = fromJson(local);
+const COMMITTED = fromJson(data.schedule);
 
 export async function getAgenda(): Promise<Agenda> {
   if (!SOURCE) return COMMITTED;

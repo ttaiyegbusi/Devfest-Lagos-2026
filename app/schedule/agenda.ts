@@ -75,6 +75,33 @@ function toSession(value: Record<string, unknown>): Session | null {
   };
 }
 
+/* A spreadsheet error, published.
+ *
+ * The schedule tab is generated from the run-of-show rather than typed, so it
+ * can fail in a way the speakers tab cannot: in October 2026 its published CSV
+ * came back as the header row and a single #NAME? for a few minutes while the
+ * sheet recalculated. Zero usable rows is already caught below, but a feed can
+ * also come back half-right — one broken formula in a column and every row
+ * carries a #REF! where its title should be — and that is worse, because it
+ * renders. A feed carrying a spreadsheet error is a feed mid-recalculation or
+ * mid-breakage. Neither is worth putting on the page, so it is treated exactly
+ * like a feed that could not be fetched: the committed schedule is served and
+ * the reason is logged. The next revalidation, five minutes later, picks the
+ * sheet up once it has recovered. */
+const SHEET_ERRORS = new Set([
+  "#NAME?",
+  "#REF!",
+  "#VALUE!",
+  "#DIV/0!",
+  "#NUM!",
+  "#NULL!",
+  "#N/A",
+  "#ERROR!",
+  "#GETTING_DATA",
+]);
+
+const isSheetError = (cell: string) => SHEET_ERRORS.has(cell.trim().toUpperCase());
+
 /** Splits one CSV line, honouring quoted fields and doubled quotes inside them. */
 function splitRow(line: string): string[] {
   const cells: string[] = [];
@@ -128,6 +155,9 @@ function fromCsv(body: string): Agenda {
 
   for (const row of lines.slice(1)) {
     const cells = splitRow(row);
+    const broken = cells.find(isSheetError);
+    if (broken) throw new Error(`the feed carries a spreadsheet error (${broken})`);
+
     const record: Record<string, string> = {};
     headers.forEach((header, i) => {
       record[header] = cells[i] ?? "";
@@ -188,26 +218,58 @@ function fromJson(value: unknown): Agenda {
 
 const COMMITTED = fromJson(data.schedule);
 
+/* Google serves a published sheet from a cache, and the schedule tab currently
+ * has more than one snapshot in it: ask three times in a row and you get the
+ * full thirty-seven rows, then #NAME?, then #NAME? again. The tab is generated
+ * rather than typed, and whatever generates it uses a function the publishing
+ * renderer does not always resolve.
+ *
+ * One request therefore decides nothing. Asking again costs a few hundred
+ * milliseconds once every five minutes and usually lands on a good snapshot,
+ * which is the difference between the live schedule and yesterday's commit. */
+const ATTEMPTS = 3;
+
+/** The feed, or a throw describing every attempt that failed. */
+async function fromFeed(source: string): Promise<Agenda> {
+  const failures: string[] = [];
+
+  for (let attempt = 0; attempt < ATTEMPTS; attempt++) {
+    // Each attempt needs its own URL. Retrying the first one would be served
+    // the same cached response — Next's cache and Google's both — and a retry
+    // that cannot see a different answer is not a retry.
+    const url = new URL(source);
+    if (attempt) url.searchParams.set("attempt", String(attempt));
+
+    try {
+      const response = await fetch(url, {
+        next: { revalidate: REVALIDATE_SECONDS },
+      });
+      if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+
+      const body = await response.text();
+      const trimmed = body.trimStart();
+      const agenda =
+        trimmed.startsWith("{") || trimmed.startsWith("[")
+          ? fromJson(JSON.parse(body))
+          : fromCsv(body);
+
+      if (!agenda.days.length) throw new Error("no usable rows in the feed");
+      return agenda;
+    } catch (error) {
+      failures.push(`attempt ${attempt + 1}: ${(error as Error).message}`);
+    }
+  }
+
+  throw new Error(failures.join("; "));
+}
+
 export async function getAgenda(): Promise<Agenda> {
   if (!SOURCE) return COMMITTED;
 
   try {
-    const response = await fetch(SOURCE, {
-      next: { revalidate: REVALIDATE_SECONDS },
-    });
-    if (!response.ok) {
-      throw new Error(`${response.status} ${response.statusText}`);
-    }
-
-    const body = await response.text();
-    const trimmed = body.trimStart();
-    const agenda =
-      trimmed.startsWith("{") || trimmed.startsWith("[")
-        ? fromJson(JSON.parse(body))
-        : fromCsv(body);
-
-    if (!agenda.days.length) throw new Error("no usable rows in the feed");
-    return agenda;
+    return await fromFeed(SOURCE);
   } catch (error) {
     // Never a broken page over a schedule.
     console.error(

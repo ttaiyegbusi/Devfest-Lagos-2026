@@ -14,6 +14,10 @@ import data from "../data.json";
  * In Sheets: File -> Share -> Publish to web -> pick the speakers tab ->
  * Comma-separated values (.csv), then set SPEAKERS_URL to that URL.
  *
+ * "image" takes either a direct link to an image file or a share link to a
+ * page holding one — an ImgBB or Google Photos link straight out of the Share
+ * button is fine, see withImages below.
+ *
  * The feed is re-read every five minutes, so a spreadsheet edit reaches the
  * site within that without a deploy. If the fetch fails for any reason — sheet
  * unpublished, network down, a column renamed — the committed lineup is served
@@ -78,6 +82,108 @@ export function tintFor(org: string): [string, string] {
 const text = (value: unknown): string =>
   typeof value === "string" ? value.trim() : "";
 
+/* Hosts whose share links point at a page about the picture rather than the
+   picture. Pasting one into the sheet is the single most common mistake in the
+   image column, because the link the "Share" button hands you is this one and
+   it looks right. Rendering it gives a broken image icon on the card, which is
+   worse than the placeholder the card already knows how to draw — so these are
+   dropped, and the reason is logged with the name so it can be fixed.
+
+   The direct link lives on a sibling host: ibb.co/AbCdEf is the page,
+   i.ibb.co/.../photo.jpg is the file. */
+const VIEWER_HOSTS = new Set([
+  "ibb.co",
+  "www.ibb.co",
+  "imgur.com",
+  "www.imgur.com",
+  "photos.app.goo.gl",
+  "photos.google.com",
+  "drive.google.com",
+  "docs.google.com",
+  "dropbox.com",
+  "www.dropbox.com",
+  "1drv.ms",
+  "onedrive.live.com",
+]);
+
+/** The file behind a viewer page, which is what its link preview shows. */
+async function ogImage(page: string): Promise<string | undefined> {
+  const response = await fetch(page, {
+    next: { revalidate: REVALIDATE_SECONDS },
+    headers: { "user-agent": "Mozilla/5.0 (compatible; devfest-lagos)" },
+  });
+  if (!response.ok) return undefined;
+  const found = /<meta property="og:image" content="([^"]+)"/.exec(
+    await response.text(),
+  )?.[1];
+  // Google Photos crops its og:image to a link-preview box; ask for a width
+  // instead and the whole picture comes back.
+  return found?.replace(/=w\d+-h\d+-p-k$/, "=w800");
+}
+
+/** One image: the URL as given, the file behind it, or nothing. */
+async function usableImage(url: string, name: string): Promise<string | undefined> {
+  if (!url) return undefined;
+  // A path under public/, e.g. "/speakers/ada.webp".
+  if (url.startsWith("/")) return url;
+
+  let host: string;
+  try {
+    host = new URL(url).hostname.toLowerCase();
+  } catch {
+    console.warn(`[speakers] ${name}: "${url}" is not a URL, no image used`);
+    return undefined;
+  }
+  if (!VIEWER_HOSTS.has(host)) return url;
+
+  try {
+    const image = await ogImage(url);
+    if (image) return image;
+    throw new Error("no og:image on the page");
+  } catch (error) {
+    console.warn(
+      `[speakers] ${name}: ${url} is a viewer page and the file behind it could ` +
+        `not be found, so the placeholder is drawn:`,
+      error,
+    );
+    return undefined;
+  }
+}
+
+/* Resolving the image column, after the rows are parsed.
+ *
+ * The column collects viewer pages, because the link the Share button gives
+ * you is one: ibb.co/AbCdEf is a page about the photo, i.ibb.co/.../photo.jpg
+ * is the photo. Pasting the first renders a broken image icon on the card.
+ *
+ * The comment above this function used to say "must be a direct link", which
+ * is true and did not help: the lineup arrived in October 2026 with fourteen
+ * viewer pages in it. So the page resolves them instead of asking the sheet to
+ * be careful — one fetch per distinct link, on the same five-minute
+ * revalidation as the feed itself, and the placeholder when that fails too. */
+async function withImages(lineup: Lineup): Promise<Lineup> {
+  const seen = new Map<string, Promise<string | undefined>>();
+  const resolve = (url: string, name: string) => {
+    const pending = seen.get(url) ?? usableImage(url, name);
+    seen.set(url, pending);
+    return pending;
+  };
+
+  const days = await Promise.all(
+    lineup.days.map(async (day) => ({
+      ...day,
+      speakers: await Promise.all(
+        day.speakers.map(async ({ image, ...speaker }) => {
+          const found = image ? await resolve(image, speaker.name) : undefined;
+          return found ? { ...speaker, image: found } : speaker;
+        }),
+      ),
+    })),
+  );
+
+  return { ...lineup, days };
+}
+
 function toSpeaker(row: Record<string, unknown>): Speaker | null {
   const name = text(row.name);
   if (!name) return null;
@@ -91,6 +197,24 @@ function toSpeaker(row: Record<string, unknown>): Speaker | null {
     tint: tintFor(org || name),
   };
 }
+
+/* A published spreadsheet error. The speakers tab is typed by hand, so it has
+   no formulas to break — but it is a tab in the same file as ones that do, and
+   a stray formula added later should cost freshness rather than put #REF! on a
+   card. See the long version in app/schedule/agenda.ts. */
+const SHEET_ERRORS = new Set([
+  "#NAME?",
+  "#REF!",
+  "#VALUE!",
+  "#DIV/0!",
+  "#NUM!",
+  "#NULL!",
+  "#N/A",
+  "#ERROR!",
+  "#GETTING_DATA",
+]);
+
+const isSheetError = (cell: string) => SHEET_ERRORS.has(cell.trim().toUpperCase());
 
 /** Splits one CSV line, honouring quoted fields and doubled quotes inside them. */
 function splitRow(line: string): string[] {
@@ -146,6 +270,9 @@ function fromCsv(body: string): Lineup {
 
   for (const row of lines.slice(1)) {
     const cells = splitRow(row);
+    const broken = cells.find(isSheetError);
+    if (broken) throw new Error(`the feed carries a spreadsheet error (${broken})`);
+
     const record: Record<string, string> = {};
     headers.forEach((header, i) => {
       record[header] = cells[i] ?? "";
@@ -214,28 +341,53 @@ function masked(lineup: Lineup): Lineup {
 
 const COMMITTED = masked(fromJson(data.speakers));
 
+/* Asked more than once, for the reason set out in app/schedule/agenda.ts: a
+   published sheet is served from a cache that can hold more than one snapshot
+   of the same tab, and one request is not evidence. */
+const ATTEMPTS = 3;
+
+/** The feed, or a throw describing every attempt that failed. */
+async function fromFeed(source: string): Promise<Lineup> {
+  const failures: string[] = [];
+
+  for (let attempt = 0; attempt < ATTEMPTS; attempt++) {
+    // A retry served the same cached response is not a retry, so each attempt
+    // gets its own URL.
+    const url = new URL(source);
+    if (attempt) url.searchParams.set("attempt", String(attempt));
+
+    try {
+      const response = await fetch(url, {
+        next: { revalidate: REVALIDATE_SECONDS },
+      });
+      if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+
+      const body = await response.text();
+      // A published sheet answers with CSV whatever the URL looks like, and a
+      // JSON feed never begins with anything but a brace or a bracket.
+      const trimmed = body.trimStart();
+      const lineup =
+        trimmed.startsWith("{") || trimmed.startsWith("[")
+          ? fromJson(JSON.parse(body))
+          : fromCsv(body);
+
+      if (!lineup.days.length) throw new Error("no usable rows in the feed");
+      return lineup;
+    } catch (error) {
+      failures.push(`attempt ${attempt + 1}: ${(error as Error).message}`);
+    }
+  }
+
+  throw new Error(failures.join("; "));
+}
+
 export async function getLineup(): Promise<Lineup> {
   if (!SOURCE) return COMMITTED;
 
   try {
-    const response = await fetch(SOURCE, {
-      next: { revalidate: REVALIDATE_SECONDS },
-    });
-    if (!response.ok) {
-      throw new Error(`${response.status} ${response.statusText}`);
-    }
-
-    const body = await response.text();
-    // A published sheet answers with CSV whatever the URL looks like, and a
-    // JSON feed never begins with anything but a brace or a bracket.
-    const trimmed = body.trimStart();
-    const lineup =
-      trimmed.startsWith("{") || trimmed.startsWith("[")
-        ? fromJson(JSON.parse(body))
-        : fromCsv(body);
-
-    if (!lineup.days.length) throw new Error("no usable rows in the feed");
-    return masked(lineup);
+    return masked(await withImages(await fromFeed(SOURCE)));
   } catch (error) {
     // Never a broken page over a speaker list.
     console.error(

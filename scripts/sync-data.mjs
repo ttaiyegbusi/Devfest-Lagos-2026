@@ -78,14 +78,52 @@ function records(body) {
   });
 }
 
+const SHEET_ERRORS = new Set([
+  "#NAME?",
+  "#REF!",
+  "#VALUE!",
+  "#DIV/0!",
+  "#NUM!",
+  "#NULL!",
+  "#N/A",
+  "#ERROR!",
+  "#GETTING_DATA",
+]);
+
+/* Asked up to five times. The site asks three (see app/schedule/agenda.ts) and
+   has to answer a request while it does; this runs on a laptop with nothing
+   waiting, so it can afford to be stubborn — and a snapshot written from a
+   half-recalculated sheet is the one thing this script must not produce. */
+const ATTEMPTS = 5;
+
 async function feed(name) {
-  const url = process.env[name];
-  if (!url) throw new Error(`${name} is not set`);
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`${name}: ${response.status} ${response.statusText}`);
+  const source = process.env[name];
+  if (!source) throw new Error(`${name} is not set`);
+  const failures = [];
+
+  for (let attempt = 0; attempt < ATTEMPTS; attempt++) {
+    const url = new URL(source);
+    if (attempt) url.searchParams.set("attempt", String(attempt));
+
+    try {
+      const response = await fetch(url, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+      const rows = records(await response.text());
+
+      const broken = rows.flatMap(Object.values).find((c) => SHEET_ERRORS.has(c));
+      if (broken) throw new Error(`the sheet published ${broken}`);
+      if (!rows.length) throw new Error("no rows");
+
+      if (attempt) console.warn(`  ${name}: good on attempt ${attempt + 1}`);
+      return rows;
+    } catch (error) {
+      failures.push(`attempt ${attempt + 1}: ${error.message}`);
+    }
   }
-  return records(await response.text());
+
+  throw new Error(`${name}: ${failures.join("; ")}`);
 }
 
 /* Rows are grouped by their day column, in the order the days first appear,
@@ -103,17 +141,74 @@ function byDay(rows) {
 const optional = (row, keys) =>
   Object.fromEntries(keys.filter((k) => row[k]).map((k) => [k, row[k]]));
 
-function speakers(rows) {
+/* The image column collects share links, because that is what the Share button
+   gives you: ibb.co/AbCdEf is a page about the photo, not the photo. The site
+   drops those rather than render a broken image (see directImage in
+   app/speakers/lineup.ts) — but this script has a network and no deadline, so
+   it resolves them instead, and the committed snapshot gets real pictures
+   whatever was pasted into the sheet.
+
+   Every one of these pages carries the file in its og:image, which is what a
+   link preview uses. */
+const VIEWER_HOSTS = new Set([
+  "ibb.co",
+  "www.ibb.co",
+  "imgur.com",
+  "www.imgur.com",
+  "photos.app.goo.gl",
+  "photos.google.com",
+  "drive.google.com",
+  "docs.google.com",
+  "dropbox.com",
+  "www.dropbox.com",
+  "1drv.ms",
+  "onedrive.live.com",
+]);
+
+async function directImage(url, name) {
+  if (!url || url.startsWith("/")) return url;
+
+  let host;
+  try {
+    host = new URL(url).hostname.toLowerCase();
+  } catch {
+    console.warn(`  ${name}: "${url}" is not a URL, dropped`);
+    return "";
+  }
+  if (!VIEWER_HOSTS.has(host)) return url;
+
+  const response = await fetch(url, {
+    headers: { "user-agent": "Mozilla/5.0 (compatible; devfest-lagos sync)" },
+  });
+  const found = response.ok
+    ? /<meta property="og:image" content="([^"]+)"/.exec(await response.text())?.[1]
+    : undefined;
+  if (!found) {
+    console.warn(`  ${name}: ${host} viewer page, no image found in it, dropped`);
+    return "";
+  }
+
+  // Google Photos' og:image is cropped to a link-preview box; ask for a width
+  // instead and the full picture comes back.
+  const image = found.replace(/=w\d+-h\d+-p-k$/, "=w800");
+  console.warn(`  ${name}: resolved ${host} viewer page -> ${image}`);
+  return image;
+}
+
+async function speakers(rows) {
   const days = [];
   for (const [label, group] of byDay(rows)) {
-    const people = group
-      .filter((row) => row.name)
-      .map((row) => ({
+    const people = [];
+    for (const row of group) {
+      if (!row.name) continue;
+      const image = await directImage(row.image, row.name);
+      people.push({
         name: row.name,
         role: row.role,
         org: row.org,
-        ...optional(row, ["image"]),
-      }));
+        ...(image ? { image } : {}),
+      });
+    }
     if (people.length) days.push({ label, speakers: people });
   }
   return { announced: true, days };
@@ -159,7 +254,7 @@ const [speakerRows, scheduleRows] = await Promise.all([
 
 const next = {
   ...JSON.parse(readFileSync(OUT, "utf8")),
-  speakers: speakers(speakerRows),
+  speakers: await speakers(speakerRows),
   schedule: schedule(scheduleRows),
 };
 

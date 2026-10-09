@@ -306,7 +306,9 @@ def main() -> None:
 // The flat Figma export is one long list of path elements in paint order.
 // It is sliced here into four bands so the drifting clouds and the traffic can
 // be transformed independently while every overlap stays exactly as drawn:
-// clouds sit behind the scene, the keke and the danfo in front of the road.
+// clouds sit behind the scene, the danfo and the keke in front of the road.
+// The keke is painted after the danfo because it takes the nearer lane — see
+// the traffic note in Hero.css.
 //
 // "slice" makes the artwork behave like background-size: cover anchored to the
 // top edge, so wider viewports reveal more road rather than letterboxing, and
@@ -329,13 +331,13 @@ export function HeroScene() {{
 {band("scene", 10)}
         </g>
         <g className="hero-scene__traffic">
+          <g className="hero-scene__bus">
+{band("bus", 12)}
+          </g>
           <g className="hero-scene__keke">
             <g className="hero-scene__keke-body">
 {band("keke", 14)}
             </g>
-          </g>
-          <g className="hero-scene__bus">
-{band("bus", 12)}
           </g>
         </g>
       </g>

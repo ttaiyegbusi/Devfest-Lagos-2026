@@ -55,8 +55,19 @@ class V:
             out.append((round(travel * p, 1), d))
         return out
 
-danfo = V("danfo", 1288, 886.5, 124.3, 161, 95.5, lane=0.82, h0=4,  h1=66)
-keke  = V("keke",  1105, 817,   34.85,  98,  45,  lane=0.70, h0=3,  h1=64)
+# lane: 0 is the near kerb, 1 the far one. These sat at 0.82 and 0.70 until
+# October 2026, which put both vehicles hard against the far edge — six pixels
+# of tarmac above the danfo and three hundred below it — so they read as
+# driving along the grass verge rather than down the road. Centred now, and
+# one lane apart.
+#
+# href is the depth a vehicle is drawn at scale 1. For the danfo it is simply
+# where its wheels sit (886.5 - 791). The keke is drawn small for its own
+# anchor, so scaling it off that anchor made it tower over the danfo; 64 is the
+# depth at which it comes out slightly shorter than a danfo, which is what a
+# tricycle is.
+danfo = V("danfo", 1288, 886.5, 124.3, 161, 95.5, lane=0.46, h0=4,  h1=66)
+keke  = V("keke",  1105, 817,   34.85,  98,  64,  lane=0.26, h0=3,  h1=64)
 
 for v in (danfo, keke):
     print(f"\n--- {v.name}: lane {v.lane:.2f} held throughout, depth {v.h0}->{v.h1} ---")

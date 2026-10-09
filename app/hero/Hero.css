@@ -301,15 +301,24 @@
 
    The keke needs one extra correction: it is drawn larger than its position on
    the road implies, so it is scaled against a deeper reference than its own
-   wheels suggest. Otherwise it swells to twice the height of the danfo by the
-   time it reaches the corner. Its translate carries a small vertical component
-   to keep the wheels on the tarmac while that plays out.
+   wheels suggest. Otherwise it swells past the danfo, which is how it ran
+   until October 2026 — a tricycle a third taller than a VW bus standing beside
+   it. Its translate carries a small vertical component to keep the wheels on
+   the tarmac while that plays out.
+
+   Which lane each one takes is the other thing that has to be right, and was
+   not. Both sat hard against the far kerb, six pixels of tarmac above the
+   danfo and three hundred below it, so they read as driving along the grass
+   verge rather than down the road — and because the lane fraction is held
+   constant, a lane that high tracks the verge instead of running down the
+   road. They are centred now, one lane apart. See scripts/lanes.py.
 
    The two run the same cycle half a period apart on their own lanes, so one is
    always well down the road while the other is being born at the bridge: no
    empty road, no restart beat, and no more moving like they are welded
-   together. Their paths never cross, and where they overlap the danfo is
-   always the nearer of the two — which is the order they are painted in. */
+   together. Their boxes do not meet anywhere in the cycle, but the keke now
+   has the nearer lane, so it is painted last — the order the geometry asks
+   for, rather than one that happened to be true of the old lanes. */
 .hero-scene__bus,
 .hero-scene__keke {
   transform-box: view-box;
@@ -336,126 +345,118 @@
    a fixed lane, so the lane percentage never moves. */
 @keyframes hero-danfo {
   0.0% {
-    transform: translate(109.3px, 0.0px) scale(0.042);
+    transform: translate(67.0px, 0.0px) scale(0.042);
     opacity: 0;
   }
   8.0% {
-    transform: translate(115.3px, 0.0px) scale(0.058);
+    transform: translate(71.0px, 0.0px) scale(0.058);
     opacity: 1;
   }
   16.0% {
-    transform: translate(125.3px, 0.0px) scale(0.086);
+    transform: translate(77.2px, 0.0px) scale(0.086);
     opacity: 1;
   }
   24.0% {
-    transform: translate(138.3px, 0.0px) scale(0.123);
+    transform: translate(84.6px, 0.0px) scale(0.123);
     opacity: 1;
   }
   32.0% {
-    transform: translate(154.7px, 0.0px) scale(0.167);
+    transform: translate(93.0px, 0.0px) scale(0.167);
     opacity: 1;
   }
   40.0% {
-    transform: translate(174.2px, 0.0px) scale(0.216);
+    transform: translate(102.6px, 0.0px) scale(0.216);
     opacity: 1;
   }
   48.0% {
-    transform: translate(197.1px, 0.0px) scale(0.271);
+    transform: translate(113.3px, 0.0px) scale(0.271);
     opacity: 1;
   }
   56.0% {
-    transform: translate(223.3px, 0.0px) scale(0.331);
+    transform: translate(125.3px, 0.0px) scale(0.331);
     opacity: 1;
   }
   64.0% {
-    transform: translate(252.8px, 0.0px) scale(0.395);
+    transform: translate(138.4px, 0.0px) scale(0.395);
     opacity: 1;
   }
   72.0% {
-    transform: translate(285.7px, 0.0px) scale(0.464);
+    transform: translate(152.9px, 0.0px) scale(0.464);
     opacity: 1;
   }
   80.0% {
-    transform: translate(321.9px, 0.0px) scale(0.536);
+    transform: translate(168.7px, 0.0px) scale(0.536);
     opacity: 1;
   }
   88.0% {
-    transform: translate(361.7px, 0.0px) scale(0.612);
+    transform: translate(186.0px, 0.0px) scale(0.612);
     opacity: 1;
   }
-  96% {
-    transform: translate(366.9px, 0.0px) scale(0.691);
+  96.0% {
+    transform: translate(183.4px, 0.0px) scale(0.691);
     opacity: 1;
-  }
-  96.01% {
-    transform: translate(366.9px, 0.0px) scale(0.691);
-    opacity: 0;
   }
   100% {
-    transform: translate(109.3px, 0.0px) scale(0.042);
+    transform: translate(67.0px, 0.0px) scale(0.042);
     opacity: 0;
   }
 }
 
 @keyframes hero-keke {
   0.0% {
-    transform: translate(93.3px, 1.3px) scale(0.067);
+    transform: translate(45.2px, 1.8px) scale(0.047);
     opacity: 0;
   }
   8.0% {
-    transform: translate(99.9px, 1.9px) scale(0.099);
+    transform: translate(50.6px, 2.7px) scale(0.070);
     opacity: 1;
   }
   16.0% {
-    transform: translate(110.8px, 3.0px) scale(0.159);
+    transform: translate(58.9px, 4.2px) scale(0.112);
     opacity: 1;
   }
   24.0% {
-    transform: translate(124.0px, 4.5px) scale(0.236);
+    transform: translate(68.0px, 6.3px) scale(0.166);
     opacity: 1;
   }
   32.0% {
-    transform: translate(140.0px, 6.2px) scale(0.328);
+    transform: translate(77.9px, 8.8px) scale(0.230);
     opacity: 1;
   }
   40.0% {
-    transform: translate(159.0px, 8.2px) scale(0.431);
+    transform: translate(88.4px, 11.5px) scale(0.303);
     opacity: 1;
   }
   48.0% {
-    transform: translate(180.7px, 10.4px) scale(0.546);
+    transform: translate(99.4px, 14.6px) scale(0.384);
     opacity: 1;
   }
   56.0% {
-    transform: translate(205.4px, 12.7px) scale(0.671);
+    transform: translate(111.1px, 17.9px) scale(0.472);
     opacity: 1;
   }
   64.0% {
-    transform: translate(232.8px, 15.3px) scale(0.805);
+    transform: translate(123.5px, 21.5px) scale(0.566);
     opacity: 1;
   }
   72.0% {
-    transform: translate(263.1px, 18.0px) scale(0.947);
+    transform: translate(136.5px, 25.3px) scale(0.666);
     opacity: 1;
   }
   80.0% {
-    transform: translate(296.3px, 20.9px) scale(1.098);
+    transform: translate(150.2px, 29.3px) scale(0.772);
     opacity: 1;
   }
   88.0% {
-    transform: translate(332.6px, 23.9px) scale(1.256);
+    transform: translate(164.6px, 33.6px) scale(0.883);
     opacity: 1;
   }
-  96% {
-    transform: translate(353.9px, 27.0px) scale(1.422);
+  96.0% {
+    transform: translate(173.2px, 38.0px) scale(1.000);
     opacity: 1;
-  }
-  96.01% {
-    transform: translate(353.9px, 27.0px) scale(1.422);
-    opacity: 0;
   }
   100% {
-    transform: translate(93.3px, 1.3px) scale(0.067);
+    transform: translate(45.2px, 1.8px) scale(0.047);
     opacity: 0;
   }
 }

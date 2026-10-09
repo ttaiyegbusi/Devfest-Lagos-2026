@@ -371,17 +371,17 @@
     linear-gradient(150deg, var(--from) 0%, var(--to) 55%, #0b0b0b 100%);
 }
 
-.card__org {
+/* Only ever drawn over the placeholder, never over a photograph. */
+.card__initials {
   position: absolute;
   inset: 0;
   display: grid;
   place-items: center;
-  padding-inline: 12px;
-  color: #fff;
-  font-size: 34px;
-  line-height: 1.1;
-  letter-spacing: -0.6px;
-  text-align: center;
+  font-family: var(--font-display);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 40px;
+  line-height: 1;
+  letter-spacing: 0.04em;
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
 }
 
@@ -508,7 +508,7 @@
     margin-top: 68px;
   }
 
-  .card__org {
+  .card__initials {
     font-size: 26px;
   }
 
@@ -568,7 +568,7 @@
     margin-top: 56px;
   }
 
-  .card__org {
+  .card__initials {
     font-size: 22px;
   }
 }

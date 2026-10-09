@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import type { Speaker } from "./lineup";
+import { SpeakerPhoto } from "./SpeakerPhoto";
 import "./Speakers.css";
 
 /* The ring needs enough cards to hide its own seam. A card is carried round to
@@ -381,7 +382,7 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
   };
 
   /* One card, drawn the same whether it is riding the ring or sitting in a
-     plain row. The organisation is the artwork and the person is the caption
+     plain row. The photograph is the artwork and the person is the caption
      under it — see Speakers.css. */
   const card = (s: Speaker, i: number, onRing: boolean) => (
     <button
@@ -406,21 +407,14 @@ export function Speakers({ speakers }: { speakers: Speaker[] }) {
         <span className="card__menu" />
       </span>
       <span className="card__view">
-        {s.image ? (
-          <img className="card__art" src={s.image} alt="" loading="lazy" />
-        ) : (
-          <span
-            className="card__art card__art--placeholder"
-            style={{
-              ["--from" as string]: s.tint[0],
-              ["--to" as string]: s.tint[1],
-            }}
-          />
-        )}
-        <span className="card__org">{s.org}</span>
+        <SpeakerPhoto
+          speaker={s}
+          art="card__art"
+          placeholder="card__art card__art--placeholder"
+          mark="card__initials"
+        />
       </span>
-      {/* Under the screen rather than over it: the organisation is the
-          artwork, the person is the caption. */}
+      {/* The photograph is the artwork, the person is the caption. */}
       <span className="card__caption">
         <span className="card__name">{s.name}</span>
         <span className="card__role">{s.role}</span>

@@ -7,18 +7,12 @@ import data from "../data.json";
  * for a repo the organisers can push to.
  *
  * To edit the lineup without touching the repo, set SPEAKERS_URL and point it
- * at either a JSON feed of the same shape or a published Google Sheet. The
- * sheet route, in full:
+ * at the speakers tab of a published Google Sheet. Columns:
  *
- *   1. One row per speaker, with a header row naming the columns
- *      day, name, role, org, image — in any order, any capitalisation.
- *      "day" is whatever you want the tab to read: "Day one", "Saturday".
- *   2. File -> Share -> Publish to web -> Comma-separated values (.csv).
- *   3. Set SPEAKERS_URL to the URL that dialog gives you.
+ *   day, name, role, org, image — in any order, any capitalisation.
  *
- * Images in a sheet are URLs, and they must be direct links to an image file.
- * A Google Drive share link is a link to a viewer page, not to a picture, and
- * will not render.
+ * In Sheets: File -> Share -> Publish to web -> pick the speakers tab ->
+ * Comma-separated values (.csv), then set SPEAKERS_URL to that URL.
  *
  * The feed is re-read every five minutes, so a spreadsheet edit reaches the
  * site within that without a deploy. If the fetch fails for any reason — sheet

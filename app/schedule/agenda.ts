@@ -2,19 +2,14 @@ import data from "../data.json";
 
 /* Where the schedule comes from — the same arrangement as the speaker lineup,
  * for the same reason. By default the committed data.json at the app root
- * (the "schedule" key); set SCHEDULE_URL to read a JSON feed of the same shape or a Google
- * Sheet published as CSV instead. See app/speakers/lineup.ts for the long
- * version and .env.example for how to publish the sheet.
+ * (the "schedule" key); set SCHEDULE_URL to read the schedule tab of a
+ * published Google Sheet as CSV. See app/speakers/lineup.ts for the long
+ * version.
  *
  * The sheet is one row per SPEAKER, not per session, because a spreadsheet has
  * no good way to hold a list inside a cell. Rows that share a day, a time and
  * a title are folded into one session with several speakers — so a session
- * with three people is three rows that repeat the first four columns. Columns:
- *
- *   day, time, until, title, track, format, summary, name, role, org
- *
- * in any order and any capitalisation. A row with no speaker name is a session
- * with no speakers, which is what a lunch break is.
+ * with three people is three rows that repeat the first four columns.
  */
 
 const SOURCE = process.env.SCHEDULE_URL;

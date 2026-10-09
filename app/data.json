@@ -8,117 +8,509 @@
     "`published`: while false, /schedule shows a 'will be updated' notice."
   ],
   "speakers": {
-    "announced": false,
+    "announced": true,
     "days": [
       {
         "label": "Day One",
-        "date": "Friday",
         "speakers": [
-          { "name": "Adaeze Okonkwo", "role": "Developer Relations", "org": "Google" },
-          { "name": "Tunde Bakare", "role": "Staff Engineer", "org": "Paystack" },
-          { "name": "Chiamaka Eze", "role": "Head of Platform", "org": "Moniepoint" },
-          { "name": "Ibrahim Sanni", "role": "Principal Engineer", "org": "Flutterwave" },
-          { "name": "Ngozi Adeyemi", "role": "Engineering Manager", "org": "Andela" },
-          { "name": "Femi Ogunlana", "role": "Cloud Advocate", "org": "Microsoft" },
-          { "name": "Zainab Yusuf", "role": "Community Lead", "org": "GDG Lagos" },
-          { "name": "Kelechi Umeh", "role": "Android Lead", "org": "Bolt" },
-          { "name": "Amara Nnadi", "role": "Site Reliability Engineer", "org": "Cloudflare" },
-          { "name": "Yusuf Lawal", "role": "Head of Data", "org": "Kuda" },
-          { "name": "Bisi Afolabi", "role": "Design Systems Lead", "org": "Interswitch" },
-          { "name": "Daniel Okoro", "role": "Developer Advocate", "org": "Vercel" },
-          { "name": "Hauwa Ibrahim", "role": "Product Manager", "org": "Piggyvest" },
-          { "name": "Chinedu Obi", "role": "Backend Lead", "org": "Cowrywise" }
+          {
+            "name": "Shola Jegede",
+            "role": "Developer Relations Engineer",
+            "org": "Kinde",
+            "image": "https://ibb.co/cBCS8Fk"
+          },
+          {
+            "name": "Chisom Uma",
+            "role": "Technical Writer",
+            "org": "",
+            "image": "https://ibb.co/gFVjWkj4"
+          },
+          {
+            "name": "Precious Lamina",
+            "role": "Head of Product (Marketplace)",
+            "org": "Chowdeck",
+            "image": "https://ibb.co/GQP6jVkn"
+          },
+          {
+            "name": "Sebastine Odeh",
+            "role": "Senior Mobile Engineer",
+            "org": "Snag",
+            "image": "https://ibb.co/4RJdLTqC"
+          },
+          {
+            "name": "Claret Ibeawuchi",
+            "role": "Head of Engineering",
+            "org": "Dockie",
+            "image": "https://ibb.co/3YRTB4K8"
+          },
+          {
+            "name": "Kosisochukwu Benjamin",
+            "role": "Application Security Engineer",
+            "org": "Sterling Bank",
+            "image": "https://ibb.co/tMCDF9hg"
+          }
         ]
       },
       {
         "label": "Day Two",
-        "date": "Saturday",
         "speakers": [
-          { "name": "Emeka Nwosu", "role": "Machine Learning Lead", "org": "Google" },
-          { "name": "Aisha Bello", "role": "Product Design Lead", "org": "Figma" },
-          { "name": "Segun Adebayo", "role": "Open Source Maintainer", "org": "GitHub" },
-          { "name": "Halima Musa", "role": "Director of Engineering", "org": "Spotify" },
-          { "name": "Obinna Chukwu", "role": "Security Engineer", "org": "Stripe" },
-          { "name": "Folake Adesina", "role": "Data Platform Lead", "org": "Amazon" },
-          { "name": "Ifeoma Nwachukwu", "role": "Research Scientist", "org": "DeepMind" },
-          { "name": "Musa Danjuma", "role": "Infrastructure Lead", "org": "Flutterwave" },
-          { "name": "Temiloluwa Ajayi", "role": "iOS Engineer", "org": "Spotify" },
-          { "name": "Grace Etim", "role": "Head of Developer Experience", "org": "Paystack" },
-          { "name": "Abubakar Sadiq", "role": "Staff Data Engineer", "org": "Moniepoint" },
-          { "name": "Oluwaseun Bamidele", "role": "Frontend Architect", "org": "Shopify" },
-          { "name": "Nneka Igwe", "role": "Technical Program Manager", "org": "Microsoft" },
-          { "name": "Rotimi Alabi", "role": "Founding Engineer", "org": "Mono" }
+          {
+            "name": "Obasola Akintola",
+            "role": "Senior Brand Designer",
+            "org": "Chowdeck",
+            "image": "https://ibb.co/nqxq9CmN"
+          },
+          {
+            "name": "Obi Uchenna David",
+            "role": "Associate Vice President of Engineering",
+            "org": "Cowrywise",
+            "image": "https://ibb.co/x8wJzMyZ"
+          },
+          {
+            "name": "Babatunde Lamidi",
+            "role": "Engineering Manager",
+            "org": "Flutterwave / GDE Angular",
+            "image": "https://ibb.co/PvTM0y4z"
+          },
+          {
+            "name": "Gabriel Agbobli",
+            "role": "Google Developer Expert (GDE) in Google Cloud",
+            "org": "",
+            "image": "https://photos.app.goo.gl/M8o8KowfAuN66p657"
+          },
+          {
+            "name": "Temitayo Alade",
+            "role": "Manager Technology Operations",
+            "org": "Qore",
+            "image": "https://ibb.co/Y4w9HmKK"
+          },
+          {
+            "name": "Hazel Agoni",
+            "role": "Senior Product Manager",
+            "org": "Ramp by Quidax",
+            "image": "https://ibb.co/gZxvt15J"
+          },
+          {
+            "name": "Kerry Ehikioya",
+            "role": "",
+            "org": "",
+            "image": "https://ibb.co/dsrn27Ls"
+          },
+          {
+            "name": "Auwal MS",
+            "role": "",
+            "org": "",
+            "image": "https://photos.app.goo.gl/LKuXLAE2vXZZAUnQA"
+          }
         ]
       }
     ]
   },
   "schedule": {
-    "published": false,
+    "published": true,
     "days": [
       {
         "label": "Day One",
-        "date": "Friday",
         "sessions": [
-          { "time": "08:30", "until": "09:30", "title": "Doors open and registration", "track": "Foyer", "format": "Open" },
-          { "time": "09:30", "until": "10:15", "title": "Opening keynote: One ecosystem", "track": "Main Stage", "format": "Keynote",
-            "summary": "Where the Lagos developer community stands going into 2026, and what the next twelve months ask of it.",
-            "speakers": [{ "name": "Adaeze Okonkwo", "role": "Developer Relations", "org": "Google" }] },
-          { "time": "10:30", "until": "11:10", "title": "Shipping agents that survive contact with users", "track": "Main Stage", "format": "Talk",
-            "summary": "What breaks first when an agent leaves the demo, and the guardrails that hold.",
-            "speakers": [{ "name": "Tunde Bakare", "role": "Staff Engineer", "org": "Paystack" }] },
-          { "time": "10:30", "until": "11:10", "title": "Payments infrastructure for the rest of Africa", "track": "Track B", "format": "Talk",
-            "summary": "Settlement, reconciliation and the failure modes nobody warns you about.",
-            "speakers": [{ "name": "Chiamaka Eze", "role": "Head of Platform", "org": "Moniepoint" }] },
-          { "time": "11:20", "until": "12:00", "title": "Panel: Hiring engineers in a market that moved", "track": "Main Stage", "format": "Panel",
-            "summary": "Four people who do the hiring, on what has actually changed about the bar.",
+          {
+            "time": "8:00",
+            "until": "9:00",
+            "title": "Registration",
+            "track": "Outside",
+            "format": "Open",
+            "speakers": []
+          },
+          {
+            "time": "9:30",
+            "until": "9:45",
+            "title": "Welcome to DevFest Lagos, Ground Rules and Safety",
+            "track": "Room 1",
+            "format": "Open",
+            "speakers": []
+          },
+          {
+            "time": "9:30",
+            "until": "9:45",
+            "title": "Broadcast: Welcome to DevFest Lagos",
+            "track": "Room 2",
+            "format": "Open",
+            "speakers": []
+          },
+          {
+            "time": "9:50",
+            "until": "10:30",
+            "title": "Key Note 1",
+            "track": "Room 1",
+            "format": "Keynote",
+            "speakers": []
+          },
+          {
+            "time": "10:35",
+            "until": "11:15",
+            "title": "Panel Session 1",
+            "track": "Room 1",
+            "format": "Panel",
+            "speakers": []
+          },
+          {
+            "time": "10:35",
+            "until": "11:15",
+            "title": "Panel Session 2",
+            "track": "Room 2",
+            "format": "Panel",
+            "speakers": []
+          },
+          {
+            "time": "11:15",
+            "until": "11:25",
+            "title": "WALK TO TAKE PHOTOGRAPH",
+            "track": "Outside",
+            "format": "Break",
+            "speakers": []
+          },
+          {
+            "time": "11:25",
+            "until": "12:00",
+            "title": "Group Photograph",
+            "track": "General",
+            "format": "Break",
+            "speakers": []
+          },
+          {
+            "time": "12:00",
+            "until": "12:40",
+            "title": "Lunch",
+            "track": "General",
+            "format": "Break",
+            "speakers": []
+          },
+          {
+            "time": "12:40",
+            "until": "13:00",
+            "title": "Walk to venue/Cleanup",
+            "track": "General",
+            "format": "Break",
+            "speakers": []
+          },
+          {
+            "time": "13:00",
+            "until": "13:30",
+            "title": "Designing API Documentation for AI Agent Friendliness: A New Standard for the Agentic Era",
+            "track": "Room 1",
+            "format": "Talk",
+            "summary": "Understand why traditional API documentation patterns fall short for AI agent consumption. Identify the key structural and semantic qualities that make documentation \"agent-friendly\".",
             "speakers": [
-              { "name": "Ngozi Adeyemi", "role": "Engineering Manager", "org": "Andela" },
-              { "name": "Ibrahim Sanni", "role": "Principal Engineer", "org": "Flutterwave" },
-              { "name": "Femi Ogunlana", "role": "Cloud Advocate", "org": "Microsoft" }
-            ] },
-          { "time": "12:00", "until": "13:00", "title": "Lunch", "track": "Courtyard", "format": "Break" },
-          { "time": "13:00", "until": "13:40", "title": "Android at scale: what a 40MB APK costs you", "track": "Track B", "format": "Talk",
-            "summary": "Startup time, install conversion, and the numbers that changed when we cut it.",
-            "speakers": [{ "name": "Zainab Yusuf", "role": "Community Lead", "org": "GDG Lagos" }] },
-          { "time": "13:50", "until": "14:30", "title": "Lightning talks", "track": "Main Stage", "format": "Lightning",
-            "summary": "Six speakers, seven minutes each, no slides past the third.",
+              {
+                "name": "Chisom Uma",
+                "role": "Technical Writer",
+                "org": ""
+              }
+            ]
+          },
+          {
+            "time": "13:00",
+            "until": "13:30",
+            "title": "40,000+ Orders a Day: What Building a Consumer Super-App in Lagos Actually Teaches You",
+            "track": "Room 2",
+            "format": "Talk",
+            "summary": "Building a consumer product in Lagos is not a chapter in a product management. textbook. The infrastructure assumptions are different. The user behaviour is. different. The failure modes are different.",
             "speakers": [
-              { "name": "Emeka Nwosu", "role": "Machine Learning Lead", "org": "Google" },
-              { "name": "Aisha Bello", "role": "Product Design Lead", "org": "Figma" }
-            ] },
-          { "time": "14:40", "until": "16:00", "title": "Workshop: Building your first agent", "track": "Lab", "format": "Workshop",
-            "summary": "Bring a laptop. You will leave with something that runs.",
-            "speakers": [{ "name": "Segun Adebayo", "role": "Open Source Maintainer", "org": "GitHub" }] },
-          { "time": "16:00", "until": "17:00", "title": "Sponsor booths and networking", "track": "Foyer", "format": "Open" }
+              {
+                "name": "Precious Lamina",
+                "role": "Head of Product (Marketplace)",
+                "org": "Chowdeck"
+              }
+            ]
+          },
+          {
+            "time": "13:00",
+            "until": "14:00",
+            "title": "The Agentic Shift: Building Zero-Code Flutter Integration Tests with Gherkin and Marionette",
+            "track": "Room 3",
+            "format": "Workshop",
+            "summary": "Traditional mobile integration tests are notoriously rigid, requiring extensive code and constant maintenance. This session introduces a groundbreaking shift: truly agentic integration testing for Flutter applications.",
+            "speakers": [
+              {
+                "name": "Sebastine Odeh",
+                "role": "Senior Mobile Engineer",
+                "org": "Snag"
+              }
+            ]
+          },
+          {
+            "time": "13:00",
+            "until": "14:00",
+            "title": "Your WAF Is Lying to You: How Cloudflare & EDR Get Bypassed and How to Actually Harden Them",
+            "track": "Room 4",
+            "format": "Workshop",
+            "summary": "Most teams deploy Cloudflare or an EDR solution and consider themselves protected. Attackers know otherwise.",
+            "speakers": [
+              {
+                "name": "Kosisochukwu Benjamin",
+                "role": "Application Security Engineer",
+                "org": "Sterling Bank"
+              }
+            ]
+          },
+          {
+            "time": "13:35",
+            "until": "14:05",
+            "title": "Authenticating AI Agents: Why Your Agents Need Their Own Identity",
+            "track": "Room 1",
+            "format": "Talk",
+            "summary": "The agentic AI landscape of 2026 has made one thing painfully clear. Most teams are shipping AI agents into production without an authentication model that actually fits them.",
+            "speakers": [
+              {
+                "name": "Shola Jegede",
+                "role": "Developer Relations Engineer",
+                "org": "Kinde"
+              }
+            ]
+          },
+          {
+            "time": "15:10",
+            "until": "16:10",
+            "title": "Horizontally Scaling Agentic Systems with Google ADK on Kubernetes",
+            "track": "Room 3",
+            "format": "Workshop",
+            "summary": "A practical workshop on how to horizontally scale agentic systems built with Google ADK on Kubernetes.",
+            "speakers": [
+              {
+                "name": "Claret Ibeawuchi",
+                "role": "Head of Engineering",
+                "org": "Dockie"
+              }
+            ]
+          },
+          {
+            "time": "17:15",
+            "until": "18:00",
+            "title": "Networking",
+            "track": "General",
+            "format": "Open",
+            "speakers": []
+          }
         ]
       },
       {
         "label": "Day Two",
-        "date": "Saturday",
         "sessions": [
-          { "time": "09:00", "until": "09:30", "title": "Doors open", "track": "Foyer", "format": "Open" },
-          { "time": "09:30", "until": "10:10", "title": "Design systems that outlive their designers", "track": "Main Stage", "format": "Talk",
-            "summary": "Documentation is not the answer. Constraints are.",
-            "speakers": [{ "name": "Aisha Bello", "role": "Product Design Lead", "org": "Figma" }] },
-          { "time": "10:20", "until": "11:00", "title": "Reading the room: observability for small teams", "track": "Track B", "format": "Talk",
-            "summary": "The four signals worth paging on, and everything you can safely ignore.",
-            "speakers": [{ "name": "Halima Musa", "role": "Director of Engineering", "org": "Spotify" }] },
-          { "time": "11:10", "until": "11:50", "title": "Securing an API you did not write", "track": "Main Stage", "format": "Talk",
-            "summary": "Inherited systems, unknown callers, and where to put the first control.",
-            "speakers": [{ "name": "Obinna Chukwu", "role": "Security Engineer", "org": "Stripe" }] },
-          { "time": "12:00", "until": "13:00", "title": "Lunch", "track": "Courtyard", "format": "Break" },
-          { "time": "13:00", "until": "14:20", "title": "Workshop: Data pipelines without a data team", "track": "Lab", "format": "Workshop",
-            "summary": "What you can get away with before you need a warehouse.",
-            "speakers": [{ "name": "Folake Adesina", "role": "Data Platform Lead", "org": "Amazon" }] },
-          { "time": "14:30", "until": "15:10", "title": "Open source as a career, honestly", "track": "Main Stage", "format": "Talk",
-            "summary": "The parts that pay, the parts that do not, and how to tell them apart early.",
-            "speakers": [{ "name": "Segun Adebayo", "role": "Open Source Maintainer", "org": "GitHub" }] },
-          { "time": "15:20", "until": "16:00", "title": "Closing keynote: Endless opportunities", "track": "Main Stage", "format": "Keynote",
-            "summary": "What to do on Monday with everything you heard.",
-            "speakers": [{ "name": "Emeka Nwosu", "role": "Machine Learning Lead", "org": "Google" }] },
-          { "time": "16:00", "until": "16:30", "title": "Closing and prize draw", "track": "Main Stage", "format": "Open" },
-          { "time": "19:00", "title": "After party", "track": "Rooftop", "format": "Social",
-            "summary": "Included with every ticket. Both days, both tiers." }
+          {
+            "time": "8:00",
+            "until": "9:00",
+            "title": "Registration",
+            "track": "Outside",
+            "format": "Open",
+            "speakers": []
+          },
+          {
+            "time": "9:05",
+            "until": "9:10",
+            "title": "Welcome to DevFest Lagos, Ground Rules and Safety",
+            "track": "Room 1",
+            "format": "Open",
+            "speakers": []
+          },
+          {
+            "time": "9:05",
+            "until": "9:10",
+            "title": "Broadcast: Welcome to DevFest Lagos",
+            "track": "Room 2",
+            "format": "Open",
+            "speakers": []
+          },
+          {
+            "time": "9:15",
+            "until": "9:45",
+            "title": "Keynote",
+            "track": "Room 1",
+            "format": "Keynote",
+            "speakers": []
+          },
+          {
+            "time": "9:15",
+            "until": "9:45",
+            "title": "Broadcast: Keynote",
+            "track": "Room 2",
+            "format": "Keynote",
+            "speakers": []
+          },
+          {
+            "time": "9:50",
+            "until": "10:30",
+            "title": "Panel Session 1",
+            "track": "Room 1",
+            "format": "Panel",
+            "speakers": []
+          },
+          {
+            "time": "9:50",
+            "until": "10:30",
+            "title": "Panel Session 2",
+            "track": "Room 2",
+            "format": "Panel",
+            "speakers": []
+          },
+          {
+            "time": "11:15",
+            "until": "11:25",
+            "title": "WALK TO TAKE PHOTOGRAPH",
+            "track": "Outside",
+            "format": "Break",
+            "speakers": []
+          },
+          {
+            "time": "11:25",
+            "until": "12:00",
+            "title": "Group Photograph",
+            "track": "General",
+            "format": "Break",
+            "speakers": []
+          },
+          {
+            "time": "12:00",
+            "until": "12:40",
+            "title": "Lunch",
+            "track": "General",
+            "format": "Break",
+            "speakers": []
+          },
+          {
+            "time": "12:40",
+            "until": "13:00",
+            "title": "Walk to venue/Cleanup",
+            "track": "General",
+            "format": "Break",
+            "speakers": []
+          },
+          {
+            "time": "13:00",
+            "until": "13:30",
+            "title": "Agentic AI in Finance: Tool Use, Trust Boundaries, and Human Oversight",
+            "track": "Room 1",
+            "format": "Talk",
+            "summary": "Agentic AI is moving beyond chat interfaces into systems that can retrieve data, use tools, reason over context, and support user decisions.",
+            "speakers": [
+              {
+                "name": "Obi Uchenna David",
+                "role": "Associate Vice President of Engineering",
+                "org": "Cowrywise"
+              }
+            ]
+          },
+          {
+            "time": "13:00",
+            "until": "13:30",
+            "title": "Impossible to Ignore: Building a Design Practice That Gets Noticed in a Noisy World",
+            "track": "Room 2",
+            "format": "Talk",
+            "summary": "In a world where everyone has a portfolio and every brand has a designer, visibility is no longer guaranteed by talent alone.",
+            "speakers": [
+              {
+                "name": "Obasola Akintola",
+                "role": "Senior Brand Designer",
+                "org": "Chowdeck"
+              }
+            ]
+          },
+          {
+            "time": "13:35",
+            "until": "14:05",
+            "title": "5 Corridors, One Ramp: What We Learned Shipping Stablecoin Infrastructure Across Africa",
+            "track": "Room 1",
+            "format": "Talk",
+            "summary": "Stablecoins are becoming the settlement layer for cross-border payments in Africa.",
+            "speakers": [
+              {
+                "name": "Hazel Agoni",
+                "role": "Senior Product Manager",
+                "org": "Ramp by Quidax"
+              }
+            ]
+          },
+          {
+            "time": "13:35",
+            "until": "14:05",
+            "title": "The Day Production Went Down: What SREs Really Do When Everything Breaks",
+            "track": "Room 2",
+            "format": "Talk",
+            "summary": "This session walks through a real-world production incident, showing how systems fail, how SREs respond under pressure, and what it takes to restore stability.",
+            "speakers": [
+              {
+                "name": "Temitayo Alade",
+                "role": "Manager Technology Operations",
+                "org": "Qore"
+              }
+            ]
+          },
+          {
+            "time": "14:05",
+            "until": "15:05",
+            "title": "Building a Trustworthy AI Agent for Election Intelligence with ADK and the Antigravity Harness",
+            "track": "Room 3",
+            "format": "Workshop",
+            "summary": "As elections approach, millions turn to the internet and AI for answers about candidates, voting procedures, and breaking news.",
+            "speakers": [
+              {
+                "name": "Gabriel Agbobli",
+                "role": "Google Developer Expert (GDE) in Google Cloud",
+                "org": ""
+              }
+            ]
+          },
+          {
+            "time": "14:10",
+            "until": "14:40",
+            "title": "Hybrid AI on the Web: Offloading Cloud Costs to the Browser",
+            "track": "Room 2",
+            "format": "Talk",
+            "summary": "Running generative AI features in production usually comes with two massive pain points: high cloud API bills and noticeable latency.",
+            "speakers": [
+              {
+                "name": "Auwal MS",
+                "role": "",
+                "org": ""
+              }
+            ]
+          },
+          {
+            "time": "14:45",
+            "until": "15:15",
+            "title": "WebAI: Building Browser-Native Conversational AI Agents",
+            "track": "Room 1",
+            "format": "Talk",
+            "summary": "How we build, what we build, and who we build for is changing fundamentally. AI agent adoption. is on the rise, and as we move from traditional software toward agentic experiences, the way.",
+            "speakers": [
+              {
+                "name": "Kerry Ehikioya",
+                "role": "",
+                "org": ""
+              }
+            ]
+          },
+          {
+            "time": "15:20",
+            "until": "15:50",
+            "title": "Signals, Resources, and Signal Forms: Composing Modern Angular End-to-End",
+            "track": "Room 2",
+            "format": "Talk",
+            "summary": "If you have been writing Angular lately, you've probably encountered signals, then resources, then Signal Forms—usually one at a time and often in a blog post.",
+            "speakers": [
+              {
+                "name": "Babatunde Lamidi",
+                "role": "Engineering Manager",
+                "org": "Flutterwave / GDE Angular"
+              }
+            ]
+          },
+          {
+            "time": "18:00",
+            "until": "21:00",
+            "title": "Party",
+            "track": "General",
+            "format": "Open",
+            "speakers": []
+          }
         ]
       }
     ]

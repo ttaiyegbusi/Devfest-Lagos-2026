@@ -53,6 +53,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Speaker photographs are portraits and the boxes they go in are not, so
+     cover throws away a quarter of the height at each end. Centred, that takes
+     the top of the head off. Faces sit high in a portrait, so the crop is
+     anchored high: the frame keeps the head and gives up the legs. */
+  object-position: 50% 20%;
 }
 
 /* Initials rather than an empty tile. Half a lineup usually has no photograph
@@ -156,6 +161,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Speaker photographs are portraits and the boxes they go in are not, so
+     cover throws away a quarter of the height at each end. Centred, that takes
+     the top of the head off. Faces sit high in a portrait, so the crop is
+     anchored high: the frame keeps the head and gives up the legs. */
+  object-position: 50% 20%;
 }
 
 .pcard__art--placeholder {

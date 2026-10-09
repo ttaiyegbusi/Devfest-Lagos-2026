@@ -7,6 +7,9 @@
 /** Ticketing is a separate host, so anything pointing here leaves the site. */
 export const TICKETS = "https://tickets.devfestlagos.com/buy";
 
+/** The conference game, also its own host. Listed in the footer's Product column. */
+export const GAME = "https://game.devfestlagos.com/";
+
 /* GDG Lagos's own accounts. The footer lists them and the FAQ sends people to
    them for announcements, so they are named once here. */
 export const SOCIALS: Record<string, string> = {

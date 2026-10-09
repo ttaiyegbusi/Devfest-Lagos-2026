@@ -1,7 +1,7 @@
 import { DevFestLogo } from "../hero/DevFestLogo";
 import { LandmarkScene } from "./LandmarkScene";
 import "./SiteFooter.css";
-import { SOCIALS, TICKETS } from "../links";
+import { GAME, SOCIALS, TICKETS } from "../links";
 
 const COLUMNS: {
   heading: string;
@@ -31,7 +31,7 @@ const COLUMNS: {
     heading: "Product",
     links: [
       { label: "Download Devfest App", href: "https://apps.apple.com/ng/app/devfest-lagos-2024/id6737826901" },
-      { label: "Play Game" },
+      { label: "Play Game", href: GAME },
       { label: "DP Generator", href: "https://devfestlagos.com/dp-generator" },
       { label: "Buy Tickets", href: TICKETS },
     ],

@@ -107,12 +107,16 @@ const VIEWER_HOSTS = new Set([
 ]);
 
 /** The file behind a viewer page, which is what its link preview shows. */
-async function ogImage(page: string): Promise<string | undefined> {
-  const response = await fetch(page, {
+async function ogImage(page: string, attempt: number): Promise<string | undefined> {
+  // A second ask needs its own cache key, or it is served the refusal the
+  // first one got.
+  const url = new URL(page);
+  if (attempt) url.searchParams.set("retry", String(attempt));
+  const response = await fetch(url, {
     next: { revalidate: REVALIDATE_SECONDS },
     headers: { "user-agent": "Mozilla/5.0 (compatible; devfest-lagos)" },
   });
-  if (!response.ok) return undefined;
+  if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
   const found = /<meta property="og:image" content="([^"]+)"/.exec(
     await response.text(),
   )?.[1];
@@ -120,6 +124,30 @@ async function ogImage(page: string): Promise<string | undefined> {
   // instead and the whole picture comes back.
   return found?.replace(/=w\d+-h\d+-p-k$/, "=w800");
 }
+
+/* The photograph this speaker had the last time the sheet was synced.
+ *
+ * Resolving a viewer page means asking an image host for a web page on every
+ * revalidation, and image hosts rate-limit: on 9 October the home page
+ * rendered with two of its six photographs missing while /speakers, rendered
+ * a moment apart, had all fourteen. Both pages were right about what they
+ * were told and wrong about what to show.
+ *
+ * So a failed lookup falls back to the snapshot in data.json, whose images
+ * scripts/sync-data.mjs has already resolved. A speaker photographed in the
+ * committed lineup does not lose their face to someone else's rate limiter;
+ * only a speaker added to the sheet since the last sync can, and they get the
+ * initials until it succeeds. */
+const COMMITTED_IMAGES = new Map(
+  (data.speakers?.days ?? []).flatMap((day) =>
+    (day.speakers ?? []).flatMap((s) => {
+      const entry = s as { name?: string; image?: string };
+      return entry.name && entry.image
+        ? ([[entry.name.trim().toLowerCase(), entry.image]] as [string, string][])
+        : [];
+    }),
+  ),
+);
 
 /** One image: the URL as given, the file behind it, or nothing. */
 async function usableImage(url: string, name: string): Promise<string | undefined> {
@@ -136,18 +164,26 @@ async function usableImage(url: string, name: string): Promise<string | undefine
   }
   if (!VIEWER_HOSTS.has(host)) return url;
 
-  try {
-    const image = await ogImage(url);
-    if (image) return image;
-    throw new Error("no og:image on the page");
-  } catch (error) {
-    console.warn(
-      `[speakers] ${name}: ${url} is a viewer page and the file behind it could ` +
-        `not be found, so the placeholder is drawn:`,
-      error,
-    );
-    return undefined;
+  // Twice, because the usual failure is a rate limiter rather than a wrong
+  // address, and a rate limiter often says yes on the second ask.
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const image = await ogImage(url, attempt);
+      if (image) return image;
+      throw new Error("no og:image on the page");
+    } catch (error) {
+      if (attempt) {
+        const committed = COMMITTED_IMAGES.get(name.trim().toLowerCase());
+        console.warn(
+          `[speakers] ${name}: could not resolve ${url}, ` +
+            `${committed ? "serving the committed photograph" : "drawing the placeholder"}:`,
+          error,
+        );
+        return committed;
+      }
+    }
   }
+  return undefined;
 }
 
 /* Resolving the image column, after the rows are parsed.

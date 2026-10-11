@@ -48,8 +48,10 @@ def farX(y):
 
 XD, YD, HALFW, HREF = 1288, 886.5, 124.3, 95.5   # danfo anchor, half width, depth at scale 1
 CAP   = 0.42        # it stops growing here: 104px wide, about 7% of the frame
-LANE0, LANE1 = 0.44, 0.62   # mid road, drifting out as the bend opens — the line a driver takes
-BEND  = 0.72        # < 1 keeps it in the curve longer
+LANE0, LANE1 = 0.42, 0.68   # mid road, drifting out as the bend opens — the line a driver takes
+BEND  = 1.0         # an even crossing. 0.72 lingers in the curve instead; it reads as
+                    # more of a turn but drops the vehicle further down the road, and
+                    # side by side the even one looked better.
 CLEAR = 40          # how far past the frame edge it must be before it is parked
 H0, N = 6.0, 26
 WINDOWS = {"danfo": (0.0, 48.0), "keke": (50.0, 98.0)}   # one at a time, no empty road

@@ -5,71 +5,75 @@
  * and reasonably concludes the whole panel is broken. Run in CI.
  *
  * The check is only worth anything if it searches the way the panel searches.
- * It did not: this file carried its own matching — every word of the question
- * had to appear as a substring somewhere in the entry — while app/faq/search.ts
- * had moved on to dropping stop words and short words and matching on word
- * boundaries. So the two starters whose wording differs most from their FAQ
- * ("When and where is DevFest Lagos 2026?" against "When & where will DevFest
- * Lagos 2026 take place?") failed here and worked in the panel, and CI was red
- * for a month over a bug that did not exist.
+ * It did not, once: this file carried its own copy of the matching and lifted
+ * the data out of the sources with regular expressions, the real rules moved
+ * on without it, and CI was red for a month over a bug that did not exist.
  *
- * The rules below are now the ones in search.ts, with its stop words lifted
- * from the file rather than retyped, so adding one there cannot quietly change
- * what this checks.
+ * So it no longer has a copy of anything. It imports the panel's own ranking,
+ * the panel's own starters and the panel's own bundled entries, which is why
+ * those files spell their imports with a .ts — Node strips the types and runs
+ * them as they are (`node --experimental-strip-types`, see package.json).
+ *
+ * What it cannot see is the schedule and the lineup, which come from a
+ * spreadsheet at request time. So it checks the FAQ and the tickets, and the
+ * starters are kept to questions those can answer.
  */
-import { readFileSync } from "node:fs";
+import { staticEntries } from "../app/chat/entry.ts";
+import { STARTERS } from "../app/chat/starters.ts";
+import { rank } from "../app/faq/match.ts";
 
-const read = (p) => readFileSync(new URL(p, import.meta.url), "utf8");
+const ENTRIES = staticEntries();
 
-// The data files are plain TS with no imports worth resolving, so the arrays
-// are lifted out rather than the project being compiled to check three strings.
-const faqSrc = read("../app/faq/questions.ts");
-const startSrc = read("../app/chat/starters.ts");
-const searchSrc = read("../app/faq/search.ts");
+/* The ways people actually ask, which is not how the FAQ is worded. Most of
+   these found nothing under the old all-words-must-match rule; they are here
+   so that tuning the ranking cannot quietly lose them again. */
+const MUST_ANSWER = [
+  "How much is a ticket?",
+  "ticket price",
+  "What time does it start?",
+  "Where is the venue?",
+  "Can I get a refund?",
+  "How do I volunteer?",
+  "How can I become a speaker?",
+  "Can I come if I am a designer?",
+  "Is food provided?",
+  "What is DevFest?",
+];
 
-const FAQS = [...faqSrc.matchAll(/q:\s*"((?:[^"\\]|\\.)*)",\s*\n\s*a:\s*"((?:[^"\\]|\\.)*)"/g)]
-  .map((m) => ({ q: m[1], a: m[2] }));
-const STARTERS = [...(/export const STARTERS = \[([\s\S]*?)\];/.exec(startSrc)?.[1] ?? "")
-  .matchAll(/"((?:[^"\\]|\\.)*)"/g)].map((m) => m[1]);
+/* And the other half: nothing on the site answers these, so the panel has to
+   say so and send them to X. A ranking loose enough to answer them is wrong
+   in a way no starter would catch. If the FAQ ever does cover one, move it. */
+const MUST_NOT_ANSWER = ["Is there parking?", "Do I need a laptop?", "asdf qwerty"];
 
-const STOP_WORDS = new Set(
-  [...(/const STOP_WORDS = new Set\(\[([\s\S]*?)\]\)/.exec(searchSrc)?.[1] ?? "")
-    .matchAll(/"([^"]+)"/g)].map((m) => m[1]),
-);
-
-/* terms() and matches(), as app/faq/search.ts defines them. */
-const terms = (q) => q.toLowerCase().split(/\s+/)
-  .map((w) => w.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, ""))
-  .filter((w) => w.length >= 3 && !STOP_WORDS.has(w));
-const hits = (q) => FAQS.filter((f) => {
-  const hayWords = `${f.q} ${f.a}`.toLowerCase()
-    .split(/[^\p{L}\p{N}]+/u).filter(Boolean);
-  return terms(q).every((w) => hayWords.some((hw) => hw === w || hw.startsWith(w)));
-});
-
-// A regex that quietly stops matching would turn this check into one that
-// always passes, so an empty lift is a failure rather than a clean run.
-if (FAQS.length === 0 || STARTERS.length === 0 || STOP_WORDS.size === 0) {
-  console.error(
-    `could not read the data: ${FAQS.length} faqs, ${STARTERS.length} starters, ` +
-      `${STOP_WORDS.size} stop words`,
-  );
+if (ENTRIES.length === 0 || STARTERS.length === 0) {
+  console.error(`could not read the data: ${ENTRIES.length} entries, ${STARTERS.length} starters`);
   process.exit(1);
 }
 
 let bad = 0;
-console.log(`${STARTERS.length} starters against ${FAQS.length} FAQ entries\n`);
-for (const s of STARTERS) {
-  const found = hits(s);
-  if (found.length === 0) bad++;
-  console.log(`  ${found.length ? "ok  " : "NONE"}  "${s}"`);
-  for (const f of found) console.log(`          -> ${f.q}`);
-}
+const report = (title, questions, wanted) => {
+  console.log(`\n${title}`);
+  for (const q of questions) {
+    const found = rank(ENTRIES, q);
+    const ok = wanted ? found.length > 0 : found.length === 0;
+    if (!ok) bad++;
+    console.log(`  ${ok ? "ok  " : "FAIL"}  "${q}"`);
+    for (const f of found) console.log(`          -> ${f.q}`);
+  }
+};
+
+console.log(`${STARTERS.length} starters against ${ENTRIES.length} entries`);
+report("Starters", STARTERS, true);
+report("Natural questions", MUST_ANSWER, true);
+report("Questions the site does not answer", MUST_NOT_ANSWER, false);
+
 // And the question mark must not be what decides it.
-for (const s of STARTERS) {
-  if (hits(s).length !== hits(s.replace(/\?$/, "")).length) {
-    console.log(`\n  punctuation changes the result for "${s}"`); bad++;
+for (const s of [...STARTERS, ...MUST_ANSWER]) {
+  if (rank(ENTRIES, s).length !== rank(ENTRIES, s.replace(/\?$/, "")).length) {
+    console.log(`\n  punctuation changes the result for "${s}"`);
+    bad++;
   }
 }
-console.log(bad ? `\n${bad} starter(s) answer nothing.` : "\nEvery starter is answerable.");
+
+console.log(bad ? `\n${bad} check(s) failed.` : "\nEvery starter is answerable.");
 process.exit(bad ? 1 : 0);

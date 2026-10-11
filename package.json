@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "oxlint --deny-warnings",
-    "check:starters": "node scripts/starters.mjs"
+    "check:starters": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/starters.mjs"
   },
   "dependencies": {
     "matter-js": "^0.20.0",

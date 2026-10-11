@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useRef, useState, useEffect, useSyncExternalStore } from "react";
-import { AskPanel } from "./AskPanel";
+import { useAsk } from "./useAsk";
 import "./FloatingAskButton.css";
 
 const buttonStyle: React.CSSProperties = {
@@ -29,7 +29,7 @@ const buttonStyle: React.CSSProperties = {
 
 export function FloatingAskButton() {
   const pathname = usePathname();
-  const [asking, setAsking] = useState(false);
+  const { open: asking, toggle } = useAsk();
   const [isHovered, setIsHovered] = useState(false);
   const isMounted = useSyncExternalStore(() => () => {}, () => true, () => false);
   const [heroVisible, setHeroVisible] = useState(true);
@@ -76,7 +76,7 @@ export function FloatingAskButton() {
         className="floating-ask"
         ref={trigger}
         aria-expanded={asking}
-        onClick={() => setAsking((v) => !v)}
+        onClick={() => toggle(trigger.current)}
         aria-label={asking ? "Close the question panel" : "Ask a question about DevFest"}
         style={{ ...buttonStyle, ...hoverStyle }}
         onMouseEnter={() => setIsHovered(true)}
@@ -89,8 +89,6 @@ export function FloatingAskButton() {
           />
         </svg>
       </button>
-
-      <AskPanel open={asking} onClose={() => setAsking(false)} returnTo={trigger} />
     </>
   );
 }

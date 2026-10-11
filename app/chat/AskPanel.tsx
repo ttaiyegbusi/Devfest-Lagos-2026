@@ -1,13 +1,23 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import Link from "next/link";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { search } from "../faq/search";
-import { type Faq } from "../faq/questions";
-import { GREETING, GREETING_KEYWORDS, GREETING_RESPONSE, NO_ANSWER, PANEL_NAME, STARTERS } from "./starters";
+import { rank } from "../faq/match";
+import { staticEntries, type Entry } from "./entry";
+import {
+  GREETING,
+  GREETING_KEYWORDS,
+  GREETING_RESPONSE,
+  NO_ANSWER,
+  PANEL_NAME,
+  STARTERS,
+  askOnX,
+} from "./starters";
 import "./Ask.css";
 
-/* The hero's ask panel.
+/* The ask panel. One of them, rendered by AskProvider and opened from the
+ * hero or from the floating button.
  *
  * PORTALLED TO document.body ON PURPOSE. The hero is a layer of the pinned
  * stack, and `.stack__slab` carries a rotate/scale — a transformed ancestor
@@ -16,17 +26,25 @@ import "./Ask.css";
  * would slide away with it the moment the next panel climbed over. It looks
  * right until you scroll, which is the worst kind of wrong.
  *
- * It searches the FAQ. It is not, and must not look like, something that knows
- * the schedule or the lineup: the empty state says where the answers come from,
- * and an unanswered question says the FAQ does not cover it rather than
- * inventing something. */
+ * It looks things up; it does not compose anything. Every answer is an entry
+ * built from the data a page of this site is drawn from — the FAQ, the
+ * tickets, the schedule, the lineup (see knowledge.ts) — found by the same
+ * ranking the FAQ section uses. So the empty state says where the answers come
+ * from, and a question nothing answers is sent to the people who can answer
+ * it, on X, rather than answered with a guess. */
 
 type Exchange = {
   id: number;
   question: string;
-  hits: Faq[];
+  hits: Entry[];
   greeting?: { heading: string; note: string };
 };
+
+/* The FAQ and the tickets, which are in the bundle. What the panel searches
+   until the rest arrives, and what it keeps searching if the rest never does. */
+const BUNDLED = staticEntries();
+
+const isExternal = (href: string) => /^https?:/.test(href);
 
 export function AskPanel({
   open,
@@ -45,6 +63,33 @@ export function AskPanel({
   const input = useRef<HTMLInputElement>(null);
   const log = useRef<HTMLDivElement>(null);
   const next = useRef(0);
+
+  /* The schedule and the lineup come from the server, once, the first time
+     the panel is opened — not on page load, since most visitors never open it.
+     A failed request is forgotten rather than remembered, so the next question
+     tries again. */
+  const [entries, setEntries] = useState<Entry[]>(BUNDLED);
+  const pending = useRef<Promise<Entry[]> | null>(null);
+  const load = useCallback(() => {
+    pending.current ??= fetch("/api/ask/knowledge")
+      .then((response) => {
+        if (!response.ok) throw new Error(`${response.status}`);
+        return response.json() as Promise<Entry[]>;
+      })
+      .then((found) => {
+        setEntries(found);
+        return found;
+      })
+      .catch(() => {
+        pending.current = null;
+        return BUNDLED;
+      });
+    return pending.current;
+  }, []);
+
+  useEffect(() => {
+    if (open) void load();
+  }, [open, load]);
 
   useEffect(() => setMounted(true), []);
 
@@ -134,25 +179,35 @@ export function AskPanel({
     return GREETING_KEYWORDS.some((keyword) => lowerText === keyword || lowerText.startsWith(keyword + " "));
   };
 
-  const ask = (question: string) => {
+  const ask = async (question: string) => {
     const q = question.trim();
     if (!q) return;
+    if (input.current) input.current.value = "";
 
     const exchange: Exchange = { id: next.current++, question: q, hits: [] };
 
     if (isGreeting(q)) {
       exchange.greeting = GREETING_RESPONSE;
     } else {
-      exchange.hits = search(q);
+      // Waits for the full set if it is still on its way: a question about a
+      // speaker asked the instant the panel opens should not miss.
+      exchange.hits = rank(await load(), q);
     }
 
     setExchanges((prev) => [...prev, exchange]);
-    if (input.current) input.current.value = "";
-    // After the answer has been laid out, not before.
-    requestAnimationFrame(() => {
-      if (log.current) log.current.scrollTop = log.current.scrollHeight;
-    });
   };
+
+  /* Each new question is brought to the top of the column, not the bottom.
+     An answer can be a day's whole schedule, and scrolling to its end would
+     show the last session and hide the question that was asked. In an effect,
+     so it runs once the answer has been laid out. */
+  useEffect(() => {
+    const column = log.current;
+    const turn = column?.querySelector<HTMLElement>(".ask__turn:last-of-type");
+    if (!column || !turn) return;
+    column.scrollTop +=
+      turn.getBoundingClientRect().top - column.getBoundingClientRect().top - 16;
+  }, [exchanges]);
 
   if (!mounted) return null;
 
@@ -210,8 +265,19 @@ export function AskPanel({
           {exchanges.map((x, i) => {
             const isLast = i === exchanges.length - 1;
             const asked = new Set(exchanges.map((e) => e.question));
+            /* What to ask next: first the neighbours of what was just
+               answered — the other ticket questions after a ticket question —
+               then whichever starters are still unasked. */
+            const group = x.hits[0]?.group;
+            const related = group
+              ? entries
+                  .filter((e) => e.group === group && !x.hits.includes(e))
+                  .map((e) => e.q)
+              : [];
             const followUps = isLast
-              ? STARTERS.filter((s) => !asked.has(s)).slice(0, 3)
+              ? [...new Set([...related.slice(0, 2), ...STARTERS])]
+                  .filter((s) => !asked.has(s))
+                  .slice(0, 3)
               : [];
 
             return (
@@ -223,12 +289,47 @@ export function AskPanel({
                     <p className="ask__note">{x.greeting.note}</p>
                   </div>
                 ) : x.hits.length === 0 ? (
-                  <p className="ask__none">{NO_ANSWER}</p>
+                  <p className="ask__none">
+                    {NO_ANSWER.lead}{" "}
+                    <a href={askOnX(x.question)} target="_blank" rel="noreferrer">
+                      {NO_ANSWER.ask}
+                    </a>{" "}
+                    {NO_ANSWER.after}
+                  </p>
                 ) : (
                   x.hits.map((f) => (
                     <div className="ask__answer" key={f.q}>
                       <p className="ask__answer-q">{f.q}</p>
                       <p className="ask__answer-a">{f.a}</p>
+                      {f.lines && (
+                        <ul className="ask__lines">
+                          {f.lines.map((line) => (
+                            <li key={line}>{line}</li>
+                          ))}
+                        </ul>
+                      )}
+                      {f.links && (
+                        <p className="ask__links">
+                          {f.links.map((link) =>
+                            isExternal(link.href) ? (
+                              <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
+                                {link.label}
+                              </a>
+                            ) : (
+                              /* On the phone the panel is the whole screen, so
+                                 a link to a page has to get out of that
+                                 page's way. Beside the page it can stay. */
+                              <Link
+                                key={link.href}
+                                href={link.href}
+                                onClick={phone ? onClose : undefined}
+                              >
+                                {link.label}
+                              </Link>
+                            )
+                          )}
+                        </p>
+                      )}
                     </div>
                   ))
                 )}

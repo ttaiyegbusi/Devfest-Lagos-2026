@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Reveal } from "./motion/Reveal";
+import { AskProvider } from "./chat/AskProvider";
 import { FloatingAskButton } from "./chat/FloatingAskButton";
 import "./globals.css";
 
@@ -102,10 +103,15 @@ export default function RootLayout({
         <a className="skip" href="#main">
           Skip to content
         </a>
-        <main id="main" tabIndex={-1}>
-          {children}
-        </main>
-        <FloatingAskButton />
+        {/* Around the page and the floating button both: the hero's ask
+            control is somewhere inside {children}, and the two open the same
+            panel. See app/chat/AskProvider.tsx. */}
+        <AskProvider>
+          <main id="main" tabIndex={-1}>
+            {children}
+          </main>
+          <FloatingAskButton />
+        </AskProvider>
         <Reveal />
       </body>
     </html>

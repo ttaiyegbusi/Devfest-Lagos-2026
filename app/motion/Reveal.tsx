@@ -82,12 +82,25 @@ export function Reveal() {
         if (known.has(group)) continue;
         known.add(group);
 
-        // Each member's place in its own group's queue, read once. The
-        // stylesheet turns it into a delay, so none of this runs again while
-        // scrolling. A group that is its own single member has no queue.
+        /* Each member's place in its own group's queue, read once. The
+           stylesheet turns it into a delay, so none of this runs again while
+           scrolling. A group that is its own single member has no queue.
+
+           Anything whose markup already carries --rise-i is left alone. That
+           matters for content behind a Suspense boundary: it reaches the DOM in
+           a later commit than the rest of the page, the observer below sees it
+           arrive, and stamping it here lands before React hydrates it — React
+           then finds an inline style its own render never produced and reports
+           a hydration mismatch it refuses to patch up. Numbering those in the
+           markup instead keeps server and client identical, and this skips
+           them. See app/faq/Faq.tsx. */
         group
           .querySelectorAll<HTMLElement>("[data-rise]")
-          .forEach((el, i) => el.style.setProperty("--rise-i", String(i)));
+          .forEach((el, i) => {
+            if (el.style.getPropertyValue("--rise-i") === "") {
+              el.style.setProperty("--rise-i", String(i));
+            }
+          });
 
         // Written bare in JSX, `data-reveal` reaches the DOM as the string
         // "true", so `late` is the opt-in rather than both being named.

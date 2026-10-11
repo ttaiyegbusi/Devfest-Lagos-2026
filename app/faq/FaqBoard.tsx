@@ -68,6 +68,7 @@ export function FaqBoard({ clearHref }: { clearHref: string }) {
         aria-label="Filter questions"
         hidden={!!query}
         data-rise
+        style={{ ["--rise-i" as string]: 0 }}
       >
         {GROUPS.map((g) => (
           <button
@@ -87,10 +88,15 @@ export function FaqBoard({ clearHref }: { clearHref: string }) {
       </nav>
 
       <ul className="faq__list" style={{ ["--rows" as string]: tallest }}>
-        {shown.map((f) => {
+        {shown.map((f, i) => {
           const isOpen = open === f.q;
           return (
-            <li key={f.q} className="faq__item" data-rise>
+            <li
+              key={f.q}
+              className="faq__item"
+              data-rise
+              style={{ ["--rise-i" as string]: i + 1 }}
+            >
               <h3 className="faq__q">
                 <button
                   type="button"

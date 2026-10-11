@@ -15,17 +15,25 @@ export function Faq() {
   return (
     <section className="faq" id="faq" aria-labelledby="faq-title">
       <div className="faq__intro" data-reveal>
-        <h2 className="faq__title" id="faq-title" data-rise>
+        {/* Numbered here rather than by app/motion/Reveal.tsx: this section is
+            behind a Suspense boundary, and a stamp applied before React hydrates
+            it reads as a hydration mismatch. See the note in Reveal.tsx. */}
+        <h2
+          className="faq__title"
+          id="faq-title"
+          data-rise
+          style={{ ["--rise-i" as string]: 0 }}
+        >
           Frequently asked questions
         </h2>
-        <p className="faq__lede" data-rise>
+        <p className="faq__lede" data-rise style={{ ["--rise-i" as string]: 1 }}>
           All your questions answered
         </p>
       </div>
 
       <FaqBoard clearHref="/#faq" />
 
-      <div className="faq__more" data-reveal data-rise>
+      <div className="faq__more" data-reveal data-rise style={{ ["--rise-i" as string]: 0 }}>
         {/* The count is in the label because it is the reason to follow it. */}
         <Link className="faq__all" href="/faqs">
           Read all {FAQS.length} questions

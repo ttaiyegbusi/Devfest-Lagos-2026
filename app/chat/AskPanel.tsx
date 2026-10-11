@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { rank } from "../faq/match";
-import { staticEntries, type Entry } from "./entry";
+import { answer, staticEntries, type Entry } from "./entry";
 import {
   GREETING,
   GREETING_KEYWORDS,
@@ -191,7 +190,7 @@ export function AskPanel({
     } else {
       // Waits for the full set if it is still on its way: a question about a
       // speaker asked the instant the panel opens should not miss.
-      exchange.hits = rank(await load(), q);
+      exchange.hits = answer(await load(), q);
     }
 
     setExchanges((prev) => [...prev, exchange]);

@@ -5,6 +5,7 @@ import sponsorsFile from "../sponsors/sponsors.json";
 import { SQUADS } from "../team/roster";
 import teamFile from "../team/team.json";
 import { staticEntries, type Entry } from "./entry";
+import { toMinutes, type When } from "./when";
 
 /* Everything the ask panel can answer.
  *
@@ -36,6 +37,16 @@ const person = (p: { name: string; role: string; org: string }) => {
   const title = [p.role, p.org].filter(Boolean).join(", ");
   return title ? `${p.name} (${title})` : p.name;
 };
+
+/* A session's place on the clock. The sheet's times are display text, so one
+   that cannot be read leaves the session findable by its words and not by the
+   hour. With no end time it is taken to run half an hour. */
+function slot(day: number, label: string, time: string, until?: string): { when?: When } {
+  const from = toMinutes(time);
+  if (from === null) return {};
+  const end = until ? toMinutes(until) : null;
+  return { when: { day, label, from, to: end !== null && end > from ? end : from + 30 } };
+}
 
 /* A room relaying another room's session is a row in the sheet and not a
    second session: listing it would answer "what is on at ten?" twice. */
@@ -82,6 +93,7 @@ function schedule(agenda: Agenda): Entry[] {
            speaker, and "day 2" should not find every talk in Room 2. */
         tags: s.format ? [s.format] : [],
         links: [SCHEDULE],
+        ...slot(index, day.label, s.time, s.until),
       })),
     ];
   });

@@ -18,7 +18,7 @@
  * spreadsheet at request time. So it checks the FAQ and the tickets, and the
  * starters are kept to questions those can answer.
  */
-import { staticEntries } from "../app/chat/entry.ts";
+import { answer, staticEntries } from "../app/chat/entry.ts";
 import { STARTERS } from "../app/chat/starters.ts";
 import { rank } from "../app/faq/match.ts";
 
@@ -73,6 +73,35 @@ for (const s of [...STARTERS, ...MUST_ANSWER]) {
     console.log(`\n  punctuation changes the result for "${s}"`);
     bad++;
   }
+}
+
+/* Questions about a time are answered from the clock, not from words. The
+   real sessions are in a spreadsheet this cannot see, so two stand in for
+   them: lunch on the first day, a closing on the second. */
+const session = (q, day, label, from, to) => ({ q, a: "", when: { day, label, from, to } });
+const TIMED = [
+  ...ENTRIES,
+  session("Lunch", 0, "Day One", 12 * 60, 12 * 60 + 40),
+  session("Closing", 1, "Day Two", 15 * 60, 16 * 60),
+];
+const AT = [
+  ["What is happening at 12pm on Day 1", "Lunch"],
+  ["What is happening at 3:30pm on Day 2", "Closing"],
+  ["what's on at 12:30 on day one?", "Lunch"],
+  ["What is on at noon?", "Lunch"],
+  ["15:30 on the second day", "Closing"],
+  ["who is on at 3:30 on day two", "Closing"],
+  ["What is happening at 3:30pm on Day 1", "3:30 PM on Day One"],
+  // And a question with no time in it is still a search.
+  ["What time does it start?", "What time does each day start?"],
+  ["When and where is DevFest Lagos 2026?", "When & where will DevFest Lagos 2026 take place?"],
+];
+console.log("\nQuestions about a time");
+for (const [q, want] of AT) {
+  const got = answer(TIMED, q).map((e) => e.q);
+  const ok = got.length === 1 && got[0] === want;
+  if (!ok) bad++;
+  console.log(`  ${ok ? "ok  " : "FAIL"}  "${q}"\n          -> ${got.join(" | ") || "(nothing)"}`);
 }
 
 console.log(bad ? `\n${bad} check(s) failed.` : "\nEvery starter is answerable.");

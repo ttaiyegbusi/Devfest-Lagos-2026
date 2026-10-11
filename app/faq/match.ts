@@ -23,7 +23,7 @@ export const STOP_WORDS = new Set([
   "a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "has", "he", "in",
   "is", "it", "its", "of", "on", "or", "that", "the", "to", "was", "will", "with",
   "about", "all", "also", "any", "been", "but", "can", "cant", "could", "did", "does",
-  "doing", "dont", "have", "her", "him", "his", "how", "into", "just", "may", "not",
+  "doing", "dont", "going", "happen", "happening", "have", "her", "him", "his", "how", "into", "just", "may", "not",
   "our", "out", "she", "should", "some", "than", "their", "them", "then", "there",
   "these", "they", "this", "too", "what", "whats", "which", "would", "you", "your",
   "available", "come", "get", "know", "like", "need", "offer", "offered", "please",

@@ -1,4 +1,4 @@
-import { SPONSORS, type Sponsor } from "./list";
+import { getSponsors, type Sponsor } from "./list";
 import "./Sponsors.css";
 
 /* Sponsors, in one band that never ends.
@@ -18,7 +18,8 @@ function Mark({ sponsor }: { sponsor: Sponsor }) {
   );
 }
 
-export function Sponsors() {
+export async function Sponsors() {
+  const { sponsors: SPONSORS } = await getSponsors();
   if (!SPONSORS.length) return null;
 
   return (

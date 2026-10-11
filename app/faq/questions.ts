@@ -18,7 +18,7 @@
  * happened when the two-day tickets landed against a FAQ that still said "the
  * full day".
  *
- * THE DATES ARE CONFIRMED: 13 and 14 November 2026, at the National Theatre.
+ * THE DATES ARE CONFIRMED: 13 and 14 November 2026, at the Landmark Event Centre.
  * They fall on a Friday and a Saturday, which is what the day tabs on
  * /schedule and /speakers have been saying all along — so the site's two-day
  * shape is right, and 2025's five days do not carry over. Anything that names
@@ -67,7 +67,7 @@ export const FAQS: Faq[] = [
     group: "About DevFest",
     q: "When & where will DevFest Lagos 2026 take place?",
     tags: ["venue", "location", "address", "date", "dates", "held", "happening", "place", "theatre"],
-    a: "DevFest Lagos 2026 will be held on the 13th and 14th of November 2026 — a Friday and a Saturday — with each day's sessions kickstarting by 9:00 AM prompt at the National Theatre, Iganmu, Lagos.",
+    a: "DevFest Lagos 2026 will be held on the 13th and 14th of November 2026 — a Friday and a Saturday — with each day's sessions kickstarting by 9:00 AM prompt at Landmark Event Centre, Lagos.",
   },
   {
     group: "About DevFest",

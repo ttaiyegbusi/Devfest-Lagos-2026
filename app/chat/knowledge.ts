@@ -1,7 +1,6 @@
 import { getAgenda, type Agenda } from "../schedule/agenda";
 import { getLineup, type Lineup } from "../speakers/lineup";
-import { SPONSORS } from "../sponsors/list";
-import sponsorsFile from "../sponsors/sponsors.json";
+import { getSponsors, type Sponsor } from "../sponsors/list";
 import { SQUADS } from "../team/roster";
 import teamFile from "../team/team.json";
 import { staticEntries, type Entry } from "./entry";
@@ -13,9 +12,9 @@ import { toMinutes, type When } from "./when";
  * Nothing here is written for the panel — each entry is built from the data a
  * page is drawn from, so the panel cannot say something the page does not.
  *
- * The schedule and the lineup are read through getAgenda() and getLineup(),
- * never from data.json directly: with SCHEDULE_URL / SPEAKERS_URL set those
- * follow the spreadsheet, and data.json is only the snapshot they fall back
+ * The schedule, the lineup and the sponsors are read through getAgenda(),
+ * getLineup() and getSponsors(), never from the committed files directly: with
+ * SCHEDULE_URL / SPEAKERS_URL set those follow the spreadsheet, and data.json is only the snapshot they fall back
  * to. Reading the file would leave the panel a deploy behind the pages.
  *
  * Server only, because of those two fetches. The panel gets the result from
@@ -153,12 +152,15 @@ function speakers(lineup: Lineup, agenda: Agenda): Entry[] {
    people, and each says so in a _comment that starts with PLACEHOLDER. A page
    of placeholder logos is visibly a draft; the panel naming one in a sentence
    is a claim. So a file still carrying that word is not read here, and
-   replacing it with the real list is what switches it on. */
+   replacing it with the real list is what switches it on. Sponsors read from
+   the sheet's sponsors tab are never a placeholder — getSponsors() says which
+   it handed back. */
 const isPlaceholder = (file: { _comment?: unknown }) =>
   [file._comment].flat().join(" ").includes("PLACEHOLDER");
 
-function sponsors(): Entry[] {
-  if (isPlaceholder(sponsorsFile) || !SPONSORS.length) return [];
+function sponsors(list: Sponsor[], placeholder: boolean): Entry[] {
+  const SPONSORS = list;
+  if (placeholder || !SPONSORS.length) return [];
   return [
     {
       q: "Who is sponsoring DevFest Lagos 2026?",
@@ -182,12 +184,16 @@ function team(): Entry[] {
 }
 
 export async function getKnowledge(): Promise<Entry[]> {
-  const [agenda, lineup] = await Promise.all([getAgenda(), getLineup()]);
+  const [agenda, lineup, backers] = await Promise.all([
+    getAgenda(),
+    getLineup(),
+    getSponsors(),
+  ]);
   return [
     ...staticEntries(),
     ...schedule(agenda),
     ...speakers(lineup, agenda),
-    ...sponsors(),
+    ...sponsors(backers.sponsors, backers.placeholder),
     ...team(),
   ];
 }

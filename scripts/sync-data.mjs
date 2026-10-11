@@ -14,12 +14,13 @@
  *   node --env-file=.env.local scripts/sync-data.mjs
  *
  * It reads SPEAKERS_URL and SCHEDULE_URL, the same two variables the site
- * reads, and refuses to write anything if either feed comes back empty — a
+ * reads (and the sheet's sponsors tab, into app/sponsors/sponsors.json), and refuses to write anything if either feed comes back empty — a
  * bad fetch should not be able to wipe the fallback it exists to replace.
  */
 import { readFileSync, writeFileSync } from "node:fs";
 
 const OUT = new URL("../app/data.json", import.meta.url);
+const SPONSORS_OUT = new URL("../app/sponsors/sponsors.json", import.meta.url);
 
 /** Splits one CSV line, honouring quoted fields and doubled quotes inside them. */
 function splitRow(line) {
@@ -274,3 +275,37 @@ console.log(
     `${total(next.schedule.days, "sessions")} sessions across ` +
     `${next.schedule.days.length} day(s)`,
 );
+
+/* The sponsors tab, when the sheet has one. It has no variable of its own:
+   it is found by name in the same published sheet as the speakers — see
+   feedFor() in app/sponsors/list.ts, which this repeats. Optional where the
+   other two are not: a sheet with no sponsors tab yet is not a failed sync.
+   Once there is one, the same rule applies — an empty feed writes nothing. */
+const TAB = "sponsors";
+const index = new URL(process.env.SPEAKERS_URL);
+index.pathname = index.pathname.replace(/\/pub$/, "/pubhtml");
+index.search = "";
+const published = await fetch(index, { cache: "no-store" });
+const tab = published.ok
+  ? [...(await published.text()).matchAll(
+      /items\.push\(\{name: "([^"]+)", pageUrl: "[^"]*?gid(?:=|\\x3d)(\d+)/g,
+    )].find(([, name]) => name.trim().toLowerCase() === TAB)
+  : undefined;
+
+if (!tab) {
+  console.warn(`no published tab named "${TAB}" in the sheet, sponsors.json left as it is`);
+} else {
+  const source = new URL(process.env.SPEAKERS_URL);
+  source.searchParams.set("gid", tab[2]);
+  process.env.SPONSORS_TAB = source.href;
+
+  const sponsors = (await feed("SPONSORS_TAB"))
+    .filter((row) => row.name)
+    .map((row) => ({
+      name: row.name,
+      ...optional({ logo: row.logo || row.image, url: row.url || row.website || row.link }, ["logo", "url"]),
+    }));
+  if (!sponsors.length) throw new Error("sponsors: the feed held no usable rows, nothing written");
+  writeFileSync(SPONSORS_OUT, `${JSON.stringify({ sponsors }, null, 2)}\n`);
+  console.log(`app/sponsors/sponsors.json: ${sponsors.length} sponsor(s)`);
+}

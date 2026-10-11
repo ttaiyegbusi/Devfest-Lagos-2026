@@ -1,5 +1,6 @@
 import { DevFestLogo } from "../hero/DevFestLogo";
 import { LandmarkScene } from "./LandmarkScene";
+import { Sponsors } from "../sponsors/Sponsors";
 import "./SiteFooter.css";
 import { GAME, SOCIALS, TICKETS } from "../links";
 
@@ -41,6 +42,8 @@ const COLUMNS: {
 export function SiteFooter() {
   return (
     <footer className="foot">
+      <Sponsors />
+
       <div className="foot__body">
         <div className="foot__brand" data-reveal>
           <DevFestLogo className="foot__logo" />

@@ -4,7 +4,8 @@
 // The flat Figma export is one long list of path elements in paint order.
 // It is sliced here into four bands so the drifting clouds and the traffic can
 // be transformed independently while every overlap stays exactly as drawn:
-// clouds sit behind the scene, the danfo and the keke in front of the road.
+// clouds sit behind the scene, the danfo and the keke in front of the road,
+// each with a contact shadow and a body group that leans and bounces.
 // The keke is painted after the danfo because it takes the nearer lane — see
 // the traffic note in Hero.css.
 //
@@ -242,6 +243,11 @@ export function HeroScene() {
         </g>
         <g className="hero-scene__traffic">
           <g className="hero-scene__bus">
+            {/* Contact shadow. Inside the lane transform so it travels and scales with
+    the vehicle, but outside the body group so the suspension does not lift it
+    off the road. See the traffic note in Hero.css. */}
+            <ellipse className="shadow" cx="1288" cy="880" rx="106" ry="13" fill="#15223a" opacity="0.22"/>
+            <g className="hero-scene__bus-body">
             <path d="M1402.49 836.94C1402.49 836.94 1407.43 812.582 1407.41 809.923C1407.39 807.264 1412.03 798.035 1408.49 790.494C1404.96 782.954 1368.44 735.169 1368.44 735.169C1368.44 735.169 1364.94 731.51 1346.94 729.598C1328.94 727.677 1263.92 725.949 1263.92 725.949L1186.03 731.656C1186.03 731.656 1176.3 732.063 1174.66 737.604C1173.02 743.155 1164.62 764.515 1164.62 764.515L1164.35 773.405C1164.35 773.405 1163.69 774.919 1163.86 775.928C1164.04 776.937 1165.18 796.045 1165.18 796.045L1169.28 805.75L1193.83 821.578L1208.31 827.556L1244.43 842.957L1277.08 851.74C1277.08 851.74 1278.77 853.991 1279.62 853.982C1280.46 853.972 1303.07 860.717 1303.07 860.717L1360.94 859.397L1398.78 844.267L1402.49 836.931V836.94Z" fill="#F7AB1B"/>
             <path d="M1399.13 817.736C1399.13 817.736 1398.72 826.063 1397.51 828.382C1396.29 830.702 1387.37 832.458 1387.37 832.458L1386.77 834.001L1349.98 843.201L1348.43 841.668L1333.81 844.395L1332.11 843.327L1334.49 830.983C1334.49 830.983 1393.93 822.395 1399.14 817.736H1399.13Z" fill="black"/>
             <path d="M1317.82 833.924L1316.19 845.21L1310.99 845.628L1306.15 844.24C1306.15 844.24 1305.24 835.438 1307.41 834.477L1311.95 834.448L1317.82 833.934V833.924Z" fill="#C63827"/>
@@ -285,7 +291,15 @@ export function HeroScene() {
             <path d="M1400.74 830.709L1412.25 832.815C1412.25 832.815 1414.18 837.89 1409.84 841.995L1392.29 849.39L1359.34 860.822C1359.34 860.822 1323.45 867.334 1321.71 867.344C1319.96 867.353 1306.27 865.558 1305.38 863.53C1304.49 861.502 1303.07 860.725 1303.07 860.725C1303.07 860.725 1303.4 851.758 1304.42 851.603C1305.44 851.448 1311.71 853.884 1311.71 853.884L1350.37 848.517L1368.68 844.46L1390.02 837.764L1402.79 833.019L1400.73 830.709H1400.74Z" fill="url(#paint6_linear_11099_11033)"/>
             <path d="M1308.06 855.515L1318.18 858.204L1321.96 856.796L1335.27 856.01C1335.27 856.01 1360.05 852.274 1366 850.285C1371.96 848.295 1395.1 841.473 1397.95 840.075C1400.82 838.678 1412.23 832.807 1412.23 832.807L1412.44 833.437L1401.14 839.144L1383.72 845.558L1366.86 850.731L1349.99 854.409L1337.16 856.301L1322.97 857.679L1318.36 859.387L1308.03 855.515H1308.06Z" fill="#DFDFDE"/>
           </g>
+          </g>
           <g className="hero-scene__keke">
+            {/* Contact shadow. Inside the lane transform so it travels and scales with
+    the vehicle, but outside the body group so the suspension does not lift it
+    off the road. See the traffic note in Hero.css. */}
+            <ellipse className="shadow" cx="1288" cy="880" rx="46" ry="7" fill="#15223a" opacity="0.22"/>
+            {/* The keke rides the danfo's track — see Hero.css. This stands its
+                wheels on the danfo's wheels and sizes it down to a tricycle. */}
+            <g className="keke-fit" transform="matrix(1.3 0 0 1.3 -148.50 -175.60)">
             <g className="hero-scene__keke-body">
               <path d="M1139.82 726.565C1139.82 726.565 1123.23 727.458 1121.28 730.874L1122.65 749.177L1117.85 753.166L1088.81 752.923H1070.1L1071.16 731.369L1073.6 727.38L1093.69 721.364L1102.23 719.248L1127.93 720.141L1138.59 721.276L1139.81 726.565H1139.82Z" fill="#B69FAC"/>
               <path d="M1077.65 755.378L1077.18 736.803L1077.91 727.865L1076.44 727.953L1075.77 735.736L1075.98 755.203L1077.65 755.378Z" fill="#59424B"/>
@@ -324,6 +338,7 @@ export function HeroScene() {
               <path d="M1124.26 792.488L1117.99 792.003C1117.99 792.003 1118.15 785.248 1119.29 783.793C1120.42 782.337 1123.44 781.308 1123.44 781.308V779.853L1126.47 779.096L1126.58 780.445C1126.58 780.445 1133.49 779.096 1137.27 784.385C1141.05 789.674 1139.06 790.489 1139.06 790.489L1130.8 792.168L1124.27 792.488H1124.26Z" fill="url(#paint1_linear_11099_11033)"/>
               <path d="M1068.9 786.8C1068.9 786.8 1067.99 786.052 1067.85 790.517C1067.72 794.981 1068.63 796.902 1069.04 796.902C1069.45 796.902 1070.59 792.914 1069.61 789.303C1068.63 785.693 1068.9 786.809 1068.9 786.809V786.8Z" fill="#F8F8FC"/>
             </g>
+          </g>
           </g>
         </g>
       </g>

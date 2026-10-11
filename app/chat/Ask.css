@@ -289,6 +289,45 @@
   line-height: 1.6;
 }
 
+/* A list under an answer that is one: a day's sessions, a ticket's contents. */
+.ask__lines {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #46433d;
+}
+
+.ask__lines li {
+  padding: 5px 0;
+  border-top: 1px solid #ece8dd;
+}
+
+.ask__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.ask__links a,
+.ask__none a {
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--amber);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.ask__links a:hover,
+.ask__none a:hover {
+  text-decoration-color: currentColor;
+}
+
 .ask__none {
   margin: 0;
   padding-left: 12px;

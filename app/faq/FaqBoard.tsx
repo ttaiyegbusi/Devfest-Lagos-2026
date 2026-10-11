@@ -3,10 +3,10 @@
 import { useId, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FAQS, GROUPS } from "./questions";
-/* The same matcher the hero's ask panel uses. Two copies would drift the first
-   time either was tuned, and "the FAQ found it but the panel did not" is a bug
+/* The same ranking the ask panel uses. Two copies would drift the first time
+   either was tuned, and "the FAQ found it but the panel did not" is a bug
    nobody would think to look for. */
-import { matches } from "./search";
+import { search } from "./search";
 import "./Faq.css";
 
 /* The rail and the questions, on two grounds.
@@ -32,7 +32,7 @@ export function FaqBoard({ clearHref }: { clearHref: string }) {
   const query = (useSearchParams().get("q") ?? "").trim();
 
   const shown = query
-    ? FAQS.filter((f) => matches(`${f.q} ${f.a}`, query))
+    ? search(query)
     : FAQS.filter((f) => group === "All" || f.group === group);
 
   // The list reserves the height of the longest category so switching filters

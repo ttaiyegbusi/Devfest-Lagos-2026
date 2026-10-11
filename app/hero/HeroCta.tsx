@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { AskPanel } from "../chat/AskPanel";
+import { useRef } from "react";
+import { useAsk } from "../chat/useAsk";
 import { TICKETS } from "../links";
 
 /* The hero's pair of actions: buy, and ask.
@@ -12,7 +12,7 @@ import { TICKETS } from "../links";
  * you asked, in a panel, and the primary action gets the space it deserves. */
 
 export function HeroCta() {
-  const [asking, setAsking] = useState(false);
+  const { open: asking, toggle } = useAsk();
   const trigger = useRef<HTMLButtonElement>(null);
 
   return (
@@ -31,7 +31,7 @@ export function HeroCta() {
           className="hero__ask-open"
           ref={trigger}
           aria-expanded={asking}
-          onClick={() => setAsking((v) => !v)}
+          onClick={() => toggle(trigger.current)}
         >
           <span className="visually-hidden">
             {asking ? "Close the question panel" : "Ask a question about DevFest"}
@@ -44,8 +44,6 @@ export function HeroCta() {
           </svg>
         </button>
       </div>
-
-      <AskPanel open={asking} onClose={() => setAsking(false)} returnTo={trigger} />
     </>
   );
 }

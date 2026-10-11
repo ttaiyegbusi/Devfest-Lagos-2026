@@ -27,12 +27,17 @@
  * STILL TO CONFIRM, marked TODO below:
  *   · where volunteer applications go.
  */
-import { SOCIALS } from "../links";
+/* With its .ts, because scripts/starters.mjs reads this file under plain Node —
+   see the note in app/chat/entry.ts. */
+import { SOCIALS } from "../links.ts";
 
 export type Faq = {
   q: string;
   a: string;
   group: string;
+  /** Words people ask with that the copy does not use — "venue", "refund",
+   *  "price". Searched, never shown. See app/faq/match.ts. */
+  tags?: string[];
   /** Links under the answer, where the answer is not the whole story. */
   links?: { label: string; href: string }[];
 };
@@ -61,6 +66,7 @@ export const FAQS: Faq[] = [
   {
     group: "About DevFest",
     q: "When & where will DevFest Lagos 2026 take place?",
+    tags: ["venue", "location", "address", "date", "dates", "held", "happening", "place", "theatre"],
     a: "DevFest Lagos 2026 will be held on the 13th and 14th of November 2026 — a Friday and a Saturday — with each day's sessions kickstarting by 9:00 AM prompt at the National Theatre, Iganmu, Lagos.",
   },
   {
@@ -71,56 +77,67 @@ export const FAQS: Faq[] = [
   {
     group: "About DevFest",
     q: "I'm a non-technical person, can I still attend DevFest Lagos 2026?",
+    tags: ["designer", "writer", "beginner", "student", "newbie", "nontechnical"],
     a: "Yes you can. There are sessions covering the writing, product design and product management side of tech as well as the engineering.",
   },
   {
     group: "Ticketing and Access",
     q: "How can I register for DevFest Lagos 2026?",
-    a: "To attend DevFest Lagos 2026 you register through the official event registration platform. You can select the day you want to attend based on what each day has on it, and your confirmation and QR code are emailed to you as soon as payment clears.",
+    tags: ["registration", "signup", "sign up", "join", "book"],
+    a: "To attend DevFest Lagos 2026 you register through the official event registration platform. You can select the day you want to attend based on what each day has on it, and your confirmation and ticket ID are emailed to you as soon as payment clears.",
   },
   {
     group: "Ticketing and Access",
     q: "Can I buy tickets for the event through this platform?",
-    a: "Yes. Tickets are sold here, and your confirmation and QR code are emailed to you as soon as payment clears.",
+    tags: ["purchase", "website", "online"],
+    a: "Yes. Tickets are sold here, and your confirmation and ticket ID are emailed to you as soon as payment clears.",
   },
   {
     group: "Ticketing and Access",
     q: "How do I pay for my ticket?",
+    tags: ["payment", "card", "bank"],
     a: "Payments go through our payment partner and accept cards and bank transfer. Nothing is charged until you confirm.",
   },
   {
     group: "Ticketing and Access",
     q: "Is lunch or swag included in my ticket?",
+    tags: ["food", "meal", "eat", "drinks", "shirt", "merch", "freebies"],
     a: "Each ticket lists exactly what it covers — see “Pick your ticket” on the home page.",
   },
   {
     group: "Upgrading Tickets",
     q: "What does a ticket grant me access to?",
+    tags: ["cover", "include", "party", "booths", "networking"],
     a: "All talks and sessions, the sponsor booths, the networking area and the after party. The difference between the two tickets is how many days: Standard covers one day of the two, and Full Experience covers both.",
   },
   {
     group: "Claiming Tickets",
     q: "Are tickets refundable?",
+    tags: ["refund", "money back", "cancel"],
     a: "No. Tickets for DevFest Lagos 2026 are non-refundable, so please be sure of the day you are picking before you pay.",
   },
   {
     group: "Claiming Tickets",
     q: "Can I transfer a ticket to someone else?",
+    tags: ["resell", "sell", "give", "friend", "name change"],
     a: "No. Each ticket is tied to a specific attendee and cannot be transferred to another person. If you are bringing people with you, buy each of them their own ticket in their own name.",
   },
   {
     group: "Claiming Tickets",
     q: "What if I register and can't attend any more?",
+    tags: ["miss", "unable", "absent"],
     a: "Tickets are non-refundable for DevFest Lagos 2026 and not transferable — each one is tied to a specific attendee and cannot be passed to another person. Let us know as early as you can all the same, so your place can go to someone waiting for one.",
   },
   {
     group: "Claiming Tickets",
     q: "What information do I need to provide when buying tickets for others?",
-    a: "Each attendee needs their own name and email address. The ticket is issued in that name and the QR code goes to that inbox, which is also why a ticket cannot be handed to somebody else later.",
+    tags: ["group", "friends", "team", "bulk", "details"],
+    a: "Each attendee needs their own name and email address. The ticket is issued in that name and the ticket ID goes to that inbox, which is also why a ticket cannot be handed to somebody else later.",
   },
   {
     group: "At the Event",
     q: "Is there a code of conduct for attendees?",
+    tags: ["rules", "harassment", "behaviour", "behavior", "guidelines"],
     a: "Yes, there is a community conduct guideline that all attendees are expected to follow. We are committed to creating a safe and inclusive environment for all participants — please review the guidelines and stick to them, so the experience is a respectful and enjoyable one for everyone.",
     links: [
       {
@@ -132,11 +149,13 @@ export const FAQS: Faq[] = [
   {
     group: "At the Event",
     q: "What time does each day start?",
+    tags: ["begin", "doors", "open", "arrive", "early"],
     a: "Each day's sessions kickstart by 9:00 AM prompt, and doors open before that for registration. The full running order, room by room, is on the schedule page.",
   },
   {
     group: "At the Event",
     q: "How can I get updates and announcements about DevFest Lagos 2026?",
+    tags: ["news", "newsletter", "follow", "social", "twitter", "contact", "reach"],
     a: "Stay tuned by following our official social media channels and checking back here. You can also subscribe to our newsletter, at the bottom of this page, for the latest on speakers, sessions and event details.",
     links: [
       { label: "X", href: SOCIALS.X },
@@ -149,6 +168,7 @@ export const FAQS: Faq[] = [
     /* TODO: a direct destination for volunteer applications. Until there is
        one the answer sends people where the call is actually announced. */
     q: "Can I volunteer to help make DevFest Lagos 2026 a success?",
+    tags: ["volunteering", "crew"],
     a: "Yes — we welcome volunteers who are passionate about contributing to the success of DevFest Lagos 2026. To join the volunteer team, follow our social media channels for updates and information on how to get involved.",
     links: [
       { label: "X", href: SOCIALS.X },
@@ -159,6 +179,7 @@ export const FAQS: Faq[] = [
   {
     group: "Getting Involved",
     q: "Can I still submit a proposal for a session or workshop (Call for Papers)?",
+    tags: ["cfp", "speak", "become a speaker", "apply", "talk"],
     a: "No you can't. The call for papers for DevFest Lagos 2026 is officially closed. Speakers are announced on the speakers page as they are confirmed.",
   },
 ];

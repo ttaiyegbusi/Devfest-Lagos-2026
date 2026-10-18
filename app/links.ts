@@ -7,6 +7,10 @@
 /** Ticketing is a separate host, so anything pointing here leaves the site. */
 export const TICKETS = "https://tickets.devfestlagos.com/buy";
 
+/** Landmark Event Centre on Google Maps. The ask panel's answer to "how do I
+ *  get there?" is this link and nothing else. */
+export const VENUE_MAP = "https://maps.app.goo.gl/rgW3CRUkedhZYUMR6";
+
 /** The conference game, also its own host. Listed in the footer's Product column. */
 export const GAME = "https://game.devfestlagos.com/";
 

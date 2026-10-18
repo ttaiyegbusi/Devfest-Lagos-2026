@@ -15,6 +15,8 @@ export type When = {
   /** Minutes since midnight. `to` is exclusive. */
   from: number;
   to: number;
+  /** The sheet gave no end time, so `to` is a guess and not a length to quote. */
+  guessed?: boolean;
 };
 
 /* Nothing at a conference happens before eight in the morning, so a bare
@@ -44,13 +46,12 @@ export function toMinutes(text: string): number | null {
 const DAY_NAMES = ["one", "two", "three", "four", "five"];
 const DAY_ORDER = ["first", "second", "third", "fourth", "fifth"];
 
-/** The time and the day a question names. Either may be missing. */
-export function asked(query: string): { minutes?: number; day?: number } {
-  let text = query.toLowerCase();
-  let day: number | undefined;
-
+/** The day a question names, and the question with that day taken out. */
+export function dayIn(query: string): { day?: number; rest: string } {
+  const text = query.toLowerCase();
   const numbered = /\bday\s*(\d|one|two|three|four|five)\b/.exec(text);
   const ordered = /\b(first|second|third|fourth|fifth|1st|2nd|3rd|4th|5th)\s+day\b/.exec(text);
+  let day: number | undefined;
   if (numbered) {
     const n = numbered[1];
     day = /\d/.test(n) ? Number(n) - 1 : DAY_NAMES.indexOf(n);
@@ -58,9 +59,17 @@ export function asked(query: string): { minutes?: number; day?: number } {
     const n = ordered[1];
     day = /\d/.test(n) ? Number(n[0]) - 1 : DAY_ORDER.indexOf(n);
   }
-  // Out of the way, so the 1 of "day 1" is not read as one o'clock.
   const found = numbered ?? ordered;
-  if (found) text = text.replace(found[0], " ");
+  return {
+    ...(day === undefined || day < 0 ? {} : { day }),
+    // Out of the way, so the 1 of "day 1" is not read as one o'clock.
+    rest: found ? text.replace(found[0], " ") : text,
+  };
+}
+
+/** The time and the day a question names. Either may be missing. */
+export function asked(query: string): { minutes?: number; day?: number } {
+  const { day, rest: text } = dayIn(query);
 
   let minutes = toMinutes(text) ?? undefined;
   if (minutes === undefined) {
@@ -69,7 +78,7 @@ export function asked(query: string): { minutes?: number; day?: number } {
     if (bare) minutes = clock(Number(bare[1]), 0) ?? undefined;
   }
 
-  return { ...(minutes === undefined ? {} : { minutes }), ...(day === undefined || day < 0 ? {} : { day }) };
+  return { ...(minutes === undefined ? {} : { minutes }), ...(day === undefined ? {} : { day }) };
 }
 
 /** "3:30 PM", for saying the time back. */
@@ -77,6 +86,15 @@ export function spoken(minutes: number): string {
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;
   return `${h % 12 || 12}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
+}
+
+/** "40 minutes", "1 hour", "1 hour 30 minutes", for saying a length back. */
+export function lasting(minutes: number): string {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  const hours = h ? `${h} hour${h === 1 ? "" : "s"}` : "";
+  const mins = m ? `${m} minute${m === 1 ? "" : "s"}` : "";
+  return [hours, mins].filter(Boolean).join(" ") || "0 minutes";
 }
 
 /** The entries running at the time `query` names: null when it names no

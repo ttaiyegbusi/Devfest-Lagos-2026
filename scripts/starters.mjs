@@ -32,6 +32,7 @@ const MUST_ANSWER = [
   "ticket price",
   "What time does it start?",
   "Where is the venue?",
+  "How do I get to the venue?",
   "Can I get a refund?",
   "How do I volunteer?",
   "How can I become a speaker?",
@@ -76,13 +77,24 @@ for (const s of [...STARTERS, ...MUST_ANSWER]) {
 }
 
 /* Questions about a time are answered from the clock, not from words. The
-   real sessions are in a spreadsheet this cannot see, so two stand in for
-   them: lunch on the first day, a closing on the second. */
-const session = (q, day, label, from, to) => ({ q, a: "", when: { day, label, from, to } });
+   real sessions are in a spreadsheet this cannot see, so a few stand in for
+   them: registration and a keynote each day, lunch on the first, a closing and
+   the party on the second. */
+const session = (q, day, label, from, to, tags = []) => ({ q, a: "", tags, when: { day, label, from, to } });
 const TIMED = [
   ...ENTRIES,
+  session("Registration", 0, "Day One", 8 * 60, 9 * 60),
+  session("Key Note 1", 0, "Day One", 9 * 60 + 50, 10 * 60 + 30, ["Keynote", "keynote"]),
   session("Lunch", 0, "Day One", 12 * 60, 12 * 60 + 40),
+  session("Registration", 1, "Day Two", 8 * 60, 9 * 60),
+  session("Keynote", 1, "Day Two", 9 * 60 + 15, 9 * 60 + 45, ["Keynote"]),
   session("Closing", 1, "Day Two", 15 * 60, 16 * 60),
+  session("Party", 1, "Day Two", 18 * 60, 21 * 60, ["after", "afterparty"]),
+  // A speaker whose session is a workshop, so "talk" is not in it.
+  {
+    q: "Ada Okafor",
+    a: "Engineer. Speaking on Day Two. Their session (workshop): “Shipping Agents”, Day Two, 2:00 PM–3:00 PM in Room 3.",
+  },
 ];
 const AT = [
   ["What is happening at 12pm on Day 1", "Lunch"],
@@ -92,9 +104,21 @@ const AT = [
   ["15:30 on the second day", "Closing"],
   ["who is on at 3:30 on day two", "Closing"],
   ["What is happening at 3:30pm on Day 1", "3:30 PM on Day One"],
+  // When the event starts is read off the schedule, not the FAQ.
+  ["What time does it start?", "When does DevFest Lagos start?"],
+  ["What time does the event start?", "When does DevFest Lagos start?"],
+  ["when does day 2 start", "When does the day start?"],
+  // How long a session runs, by what people call it.
+  ["How long will the after party be?", "Party (Day Two)"],
+  ["how long is the keynote on day 1", "Key Note 1 (Day One)"],
+  ["what time does the party start", "Party (Day Two)"],
   // And a question with no time in it is still a search.
-  ["What time does it start?", "What time does each day start?"],
   ["When and where is DevFest Lagos 2026?", "When & where will DevFest Lagos 2026 take place?"],
+  ["How do I get to the venue?", "How do I get to the venue?"],
+  // A speaker by name, however the session is put.
+  ["when is Ada's session", "Ada Okafor"],
+  ["what time is Ada's talk", "Ada Okafor"],
+  ["when is Ada presenting", "Ada Okafor"],
 ];
 console.log("\nQuestions about a time");
 for (const [q, want] of AT) {

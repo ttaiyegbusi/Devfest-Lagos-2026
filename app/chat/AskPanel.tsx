@@ -296,10 +296,13 @@ export function AskPanel({
                     {NO_ANSWER.after}
                   </p>
                 ) : (
-                  x.hits.map((f) => (
-                    <div className="ask__answer" key={f.q}>
+                  x.hits.map((f, n) => (
+                    /* By position as well: lunch on each day is two answers
+                       with one title. */
+                    <div className="ask__answer" key={`${n}-${f.q}`}>
                       <p className="ask__answer-q">{f.q}</p>
-                      <p className="ask__answer-a">{f.a}</p>
+                      {/* Empty where the link is the answer: directions. */}
+                      {f.a && <p className="ask__answer-a">{f.a}</p>}
                       {f.lines && (
                         <ul className="ask__lines">
                           {f.lines.map((line) => (

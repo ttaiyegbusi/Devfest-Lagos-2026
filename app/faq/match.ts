@@ -35,8 +35,16 @@ export const STOP_WORDS = new Set([
    "where" and "time" ask for a fact the right entry holds without using the
    word — "When is the keynote?" is a question about the keynote. They are
    dropped only when the question has something else in it: "What is DevFest?"
-   and "When and where is it?" are made of nothing else, and deserve answers. */
-const WEAK_WORDS = new Set(["devfest", "lagos", "2026", "when", "where", "time"]);
+   and "When and where is it?" are made of nothing else, and deserve answers.
+
+   The same goes for the words for a session: "when is Sebastine's talk?" is a
+   question about Sebastine, whether the schedule calls it a talk, a workshop
+   or a panel, and "when is Chisom presenting?" no less. */
+const WEAK_WORDS = new Set([
+  "devfest", "lagos", "2026", "when", "where", "time",
+  "session", "sessions", "talk", "talks", "talking", "present", "presenting", "presentation",
+  "presentations",
+]);
 
 const NUMBER = /^\p{N}+$/u;
 

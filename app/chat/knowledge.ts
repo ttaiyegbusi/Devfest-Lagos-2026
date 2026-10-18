@@ -4,7 +4,7 @@ import { getSponsors, type Sponsor } from "../sponsors/list";
 import { SQUADS } from "../team/roster";
 import teamFile from "../team/team.json";
 import { staticEntries, type Entry } from "./entry";
-import { toMinutes, type When } from "./when";
+import { spoken, toMinutes, type When } from "./when";
 
 /* Everything the ask panel can answer.
  *
@@ -32,6 +32,13 @@ const ORDINALS = [
 
 const span = (time: string, until?: string) => (until ? `${time}–${until}` : time);
 
+/* "1:00 PM" for the sheet's "13:00", or the sheet's own words if they are not
+   a time. */
+const clock = (time: string) => {
+  const minutes = toMinutes(time);
+  return minutes === null ? time : spoken(minutes);
+};
+
 const person = (p: { name: string; role: string; org: string }) => {
   const title = [p.role, p.org].filter(Boolean).join(", ");
   return title ? `${p.name} (${title})` : p.name;
@@ -44,7 +51,19 @@ function slot(day: number, label: string, time: string, until?: string): { when?
   const from = toMinutes(time);
   if (from === null) return {};
   const end = until ? toMinutes(until) : null;
-  return { when: { day, label, from, to: end !== null && end > from ? end : from + 30 } };
+  return end !== null && end > from
+    ? { when: { day, label, from, to: end } }
+    : { when: { day, label, from, to: from + 30, guessed: true } };
+}
+
+/* What people call a session that its title does not: the sheet says "Party"
+   and "Key Note 1", the corridor says "after party" and "keynote". */
+function aliases(title: string): string[] {
+  const t = title.toLowerCase();
+  return [
+    ...(/\bparty\b/.test(t) ? ["after", "afterparty"] : []),
+    ...(/\bkey\s+note\b/.test(t) ? ["keynote"] : []),
+  ];
 }
 
 /* A room relaying another room's session is a row in the sheet and not a
@@ -87,10 +106,11 @@ function schedule(agenda: Agenda): Entry[] {
         ]
           .filter(Boolean)
           .join(" "),
-        /* Only the format. The room and the speakers are in the answer, where
-           they count for less: a search for a speaker should lead with the
-           speaker, and "day 2" should not find every talk in Room 2. */
-        tags: s.format ? [s.format] : [],
+        /* Only the format and the session's other names. The room and the
+           speakers are in the answer, where they count for less: a search for
+           a speaker should lead with the speaker, and "day 2" should not find
+           every talk in Room 2. */
+        tags: [...(s.format ? [s.format] : []), ...aliases(s.title)],
         links: [SCHEDULE],
         ...slot(index, day.label, s.time, s.until),
       })),
@@ -111,16 +131,19 @@ function speakers(lineup: Lineup, agenda: Agenda): Entry[] {
   }
 
   /* Where each speaker is on the schedule, if the schedule says. */
-  const slots = new Map<string, string>();
+  /* Said as "their session (talk)" so that "when is Chisom's session?" and
+     "…'s workshop?" find the speaker: the sheet's titles use neither word. A
+     speaker on twice gets both. */
+  const slots = new Map<string, string[]>();
   if (agenda.published) {
     for (const day of agenda.days) {
       for (const s of day.sessions) {
         if (isRelay(s.title)) continue;
+        const kind = s.format ? ` (${s.format.toLowerCase()})` : "";
+        const said = `Their session${kind}: “${s.title}”, ${day.label}, ${span(clock(s.time), s.until && clock(s.until))}${s.track ? ` in ${s.track}` : ""}.`;
         for (const p of s.speakers) {
-          slots.set(
-            p.name.toLowerCase(),
-            `“${s.title}”, ${day.label} at ${s.time}${s.track ? ` in ${s.track}` : ""}.`,
-          );
+          const key = p.name.toLowerCase();
+          slots.set(key, [...(slots.get(key) ?? []), said]);
         }
       }
     }
@@ -138,7 +161,7 @@ function speakers(lineup: Lineup, agenda: Agenda): Entry[] {
       q: s.name,
       a: [
         `${[s.role, s.org].filter(Boolean).join(", ") || "Speaker"}. Speaking on ${day.label}.`,
-        slots.get(s.name.toLowerCase()) ?? "",
+        ...(slots.get(s.name.toLowerCase()) ?? []),
       ]
         .filter(Boolean)
         .join(" "),

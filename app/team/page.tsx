@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { HeroNav } from "../hero/HeroNav";
 import { SpeakerGrid } from "../speakers/SpeakerGrid";
 import { SiteFooter } from "../footer/SiteFooter";
-import { HEADCOUNT, SQUADS } from "./roster";
+import { getTeam } from "./roster";
 import "../hero/Hero.css";
 import "../shell/Page.css";
 import "../speakers/SpeakerGrid.css";
@@ -27,7 +27,9 @@ export const metadata: Metadata = {
     "The volunteers who put DevFest Lagos 2026 on: organising, programme, design and media, community and partnerships.",
 };
 
-export default function TeamPage() {
+export default async function TeamPage() {
+  const { squads: SQUADS, headcount: HEADCOUNT } = await getTeam();
+
   return (
     <>
       <div className="site-chrome">
@@ -43,8 +45,8 @@ export default function TeamPage() {
           </h1>
           <p className="leaf__lede">
             {HEADCOUNT
-              ? `DevFest Lagos is put on by ${HEADCOUNT} volunteers, in four teams. None of them are paid for it.`
-              : "DevFest Lagos is put on by volunteers, and none of them are paid for it."}
+              ? `DevFest Lagos is brought to life by ${HEADCOUNT} passionate volunteers across dedicated teams completely driven by community spirit.`
+              : "DevFest Lagos is brought to life by passionate volunteers across dedicated teams completely driven by community spirit."}
           </p>
         </div>
 

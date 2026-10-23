@@ -2,14 +2,14 @@ import { DevFestLogo } from "../hero/DevFestLogo";
 import { LandmarkScene } from "./LandmarkScene";
 import { Sponsors } from "../sponsors/Sponsors";
 import "./SiteFooter.css";
-import { GAME, SOCIALS, TICKETS } from "../links";
+import { SOCIALS, TICKETS } from "../links";
 
 const COLUMNS: {
   heading: string;
   links: { label: string; href?: string }[];
 }[] = [
   {
-    heading: "Devfest",
+    heading: "Links",
     links: [
       { label: "Schedule", href: "/schedule" },
       { label: "Speakers", href: "/speakers" },
@@ -26,15 +26,6 @@ const COLUMNS: {
       { label: "Instagram", href: SOCIALS.Instagram },
       { label: "Facebook", href: SOCIALS.Facebook },
       { label: "Youtube", href: SOCIALS.Youtube },
-    ],
-  },
-  {
-    heading: "Product",
-    links: [
-      { label: "Download Devfest App", href: "https://apps.apple.com/ng/app/devfest-lagos-2024/id6737826901" },
-      { label: "Play Game", href: GAME },
-      { label: "DP Generator", href: "https://devfestlagos.com/dp-generator" },
-      { label: "Buy Tickets", href: TICKETS },
     ],
   },
 ];

@@ -109,6 +109,9 @@
   width: 100%;
   line-height: 0;
   margin-top: -38vw;
+  /* Pulled up under the sponsors band, so it would otherwise swallow clicks
+     on the sponsor links. Nothing in the scene is interactive. */
+  pointer-events: none;
 }
 
 .foot__landmark {

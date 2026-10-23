@@ -4,7 +4,7 @@
   "squads": [
     {
       "name": "Organising",
-      "blurb": "The people who ensures everything works.",
+      "blurb": "The masterminds keeping operations, logistics, and everything in between running smoothly.",
       "people": [
         { "name": "Funmilayo Kanmodi", "role": "Organizing" },
         { "name": "Funke Olasupo", "role": "Organizing" },
@@ -20,7 +20,7 @@
 },
     {
       "name": "Digital Working Group",
-      "blurb": "Who ensures the websites & apps work as it should.",
+      "blurb": "The builders crafting the digital experiences, websites, and apps you use.",
       "people": [
           { "name": "Faith Onasanya", "role": "Product Builder" },
           { "name": "TemiTope Aiyegbusi", "role": "Product Builder" },

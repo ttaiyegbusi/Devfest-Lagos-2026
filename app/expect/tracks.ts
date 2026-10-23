@@ -93,7 +93,7 @@ export type Track = {
 export const TRACKS: Track[] = [
   {
     n: "01",
-    title: "Panel Sessions and\nGlobal Keynotes",
+    title: "Panel Sessions and Keynotes from Global Speakers",
     points: [
       "Engineers who shipped it, on stage",
       "Questions taken from the floor",

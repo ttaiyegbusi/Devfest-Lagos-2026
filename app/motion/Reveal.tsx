@@ -33,7 +33,19 @@ const TRIGGER = { near: 0.18, late: 0.55 };
 
 export function Reveal() {
   useEffect(() => {
-    const show = (el: Element) => el.setAttribute("data-shown", "");
+    /* Each member's place in its own group's queue is written here, on
+       release, rather than when the group is first seen. The stylesheet only
+       reads it once the group is shown, and a group behind a Suspense boundary
+       is seen the moment its HTML streams in — before React has hydrated it —
+       so writing then put a style attribute on the server's markup that React
+       did not render, and it reported a hydration mismatch. A group that is
+       its own single member has no queue. */
+    const show = (el: Element) => {
+      el.querySelectorAll<HTMLElement>("[data-rise]").forEach((member, i) =>
+        member.style.setProperty("--rise-i", String(i)),
+      );
+      el.setAttribute("data-shown", "");
+    };
 
     // No observer — an old browser, or one with it switched off. Show the page
     // rather than leave the reader looking at nothing.
@@ -81,13 +93,6 @@ export function Reveal() {
       for (const group of root.querySelectorAll<HTMLElement>("[data-reveal]")) {
         if (known.has(group)) continue;
         known.add(group);
-
-        // Each member's place in its own group's queue, read once. The
-        // stylesheet turns it into a delay, so none of this runs again while
-        // scrolling. A group that is its own single member has no queue.
-        group
-          .querySelectorAll<HTMLElement>("[data-rise]")
-          .forEach((el, i) => el.style.setProperty("--rise-i", String(i)));
 
         // Written bare in JSX, `data-reveal` reaches the DOM as the string
         // "true", so `late` is the opt-in rather than both being named.

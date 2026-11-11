@@ -4,7 +4,8 @@ import { useState } from "react";
 import type { Day } from "./lineup";
 import { DayTabs } from "../shell/DayTabs";
 import { panelProps } from "../shell/tabs";
-import { GalleryIcon, GridIcon, ViewToggle } from "../shell/ViewToggle";
+import { ViewToggle } from "../shell/ViewToggle";
+import { GalleryIcon, GridIcon } from "../shell/icons";
 import { useRememberedView } from "../shell/views";
 import { SpeakerGallery, SpeakerGrid } from "./SpeakerGrid";
 

@@ -4,7 +4,8 @@ import { useState } from "react";
 import type { Day, Presenter, Session } from "./agenda";
 import { DayTabs } from "../shell/DayTabs";
 import { panelProps } from "../shell/tabs";
-import { GalleryIcon, ListIcon, ViewToggle } from "../shell/ViewToggle";
+import { ViewToggle } from "../shell/ViewToggle";
+import { GalleryIcon, ListIcon } from "../shell/icons";
 import { useRememberedView } from "../shell/views";
 
 /* The schedule, two ways.

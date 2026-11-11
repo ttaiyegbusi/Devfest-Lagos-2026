@@ -332,9 +332,99 @@ transparent pixels is meaningless. Composited over the panel fill they measure
 
 Nothing needed resizing. The shots are already authored at the size they are
 displayed — 220 x 249 for the strip, the grid and the after-party band, 492 x 567
-for panel 01 — so there is no oversized-image win here and no need for `srcset`.
+for panel 01 — so there is no oversized-image win here.
 The flip side: **at 2x device pixel ratio they are upscaled and will read soft.**
 Fixing that needs higher-resolution originals, not code.
+
+Measured on the deployed site at 1440 x 900: every shot renders at exactly 1:1
+with its source, so the shortfall on a 2x display is exactly 2.00x across all
+three groups — nothing is half-right.
+
+The code side of that is now in place. `retina()` in `app/expect/assets.ts`
+gives a shot its double the moment a `@2x` file is dropped in beside it:
+`/expect/after-party-1.webp` takes `/expect/after-party-1@2x.webp` and the two
+go out as a `srcset`, so the browser picks by device ratio. The file is checked
+on disk rather than assumed — the same bargain `onDisk()` already strikes for
+the photographs themselves — because a `srcset` naming a file that is not there
+costs a 404 and a blank frame on exactly the displays it was meant to help.
+With no `@2x` present the attribute is absent and the single `src` stands.
+
+So what is still needed is twenty files, at exactly double:
+
+| Shots | Count | Now | Needed at `@2x` |
+|---|---|---|---|
+| `after-party-1..12` | 12 | 220 x 249 | **440 x 498** |
+| `workshops-1..4` | 4 | 220 x 249 | **440 x 498** |
+| `panel-sessions-1..4` | 4 | 492 x 567 | **984 x 1134** |
+
+Cut them from the original photographs, not by upscaling these — an upscale
+carries no detail the 220px file did not already have, and costs bytes to say
+so.
+
+`scripts/reshoot.py` does the cutting, so nobody has to match twenty framings
+by eye:
+
+```bash
+python3 scripts/reshoot.py ~/devfest-photos --check
+```
+
+It takes the shots that already exist as the statement of what the framing
+should be. Each one is searched for inside every original — normalised
+cross-correlation over a sweep of crop sizes, then refined at full resolution
+— and the rectangle it came from is cut again at twice the size. Originals can
+be named anything and arrive in any order; the pairing is worked out, not
+configured.
+
+A match below r=0.80 is refused rather than guessed, and the shot is listed so
+it can be dealt with by hand. `--check` writes a side-by-side into `proof/`,
+1x on the left and the new cut on the right, so the framing can be seen rather
+than trusted. `--only <substring>` narrows a run to one group.
+
+Panel 01's four keep their alpha. The bowed print edge is drawn into the
+artwork, not photographed, so the mask comes from the 1x file and is upscaled
+while the picture underneath is re-cut — upscaling a smooth mask loses nothing,
+which is not true of a photograph.
+
+Measured on this machine: recovers a known rectangle to within 1px at r=0.98 or
+better, and about 2.7s per shot, so a full twenty is roughly a minute. Run
+against the real archive it found three of the four workshops originals at
+r=0.980, 0.999 and 0.993, and refused the fourth — whose original was not in
+the folder — at 0.713.
+
+### Cutting a shot that does not exist yet
+
+`reshoot` re-finds a framing already chosen. For a photograph arriving for the
+first time there is nothing to find, so `scripts/cutshot.py` takes the framing
+as an argument and writes both sizes at once:
+
+```bash
+python3 scripts/cutshot.py <original> workshops-3 134 440 2032
+```
+
+Left, top and width in the original's own pixels; the height follows from the
+frame, because every shot in a group shares one and a crop that drifts off it
+gets letterboxed by the grid rather than politely accommodated. `--frame panel`
+selects panel 01's taller 492x567.
+
+The four workshops shots were cut this way from the 2400x3600 originals in the
+2025 archive. Recorded so they can be cut again — at 3x, or after a re-edit —
+without anyone choosing the framing a second time:
+
+| Shot | Original | Crop (left, top, width) |
+|---|---|---|
+| `workshops-1` | `DSC01429.jpg` | 228, 420, 1944 |
+| `workshops-2` | `DSC05638.jpg` | 62, 486, 2278 |
+| `workshops-3` | `DSC06329.jpg` | 134, 440, 2032 |
+| `workshops-4` | `DSC09208 (1).jpg` | 146, 350, 2209 |
+
+Each leaves 150–180px of headroom above the head at original scale. That is
+deliberate and worth keeping: see the commit that anchored the speaker-card
+crops high, "so the cards stop beheading people".
+
+Output is `<name>@2x.webp` beside each shot, WebP q82 `method=6`, the same
+settings as the 1x files — a srcset pair the browser may pick either half of
+should not be two differently-processed pictures. Nothing is overwritten and
+the 1x files are untouched. No code change is needed: `retina()` finds them.
 
 Re-run the conversion the same way if new shots land: WebP q82, `method=6`,
 alpha kept only where a shot actually uses it.

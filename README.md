@@ -261,6 +261,10 @@ artwork) and WebP keeps it, so don't flatten those. Nothing needed resizing —
 the shots are authored at the size they are displayed, which also means they
 will read soft on a 2× display until higher-resolution originals exist.
 
+Dropping a `@2x` file in beside a shot is all that takes: `retina()` in
+`app/expect/assets.ts` finds it on disk and serves the pair as a `srcset`.
+HANDOFF lists the twenty files and the exact sizes wanted.
+
 ### The topic cloud
 
 Twenty-four pills, dropped into a heap by matter-js. They stay **real DOM

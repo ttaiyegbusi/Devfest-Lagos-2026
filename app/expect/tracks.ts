@@ -207,28 +207,30 @@ export const TRACKS: Track[] = [
     line: "rgba(255, 255, 255, 0.35)",
     media: {
       kind: "grid",
-      // Laid out to match the reference: raised arm and lectern along the top,
-      // the two floor shots beneath.
+      // Numbered in reading order, so the file name says where the shot sits:
+      // 1 and 2 along the top, 3 and 4 beneath. The list used to run backwards
+      // from 4, which meant the only way to know what was where was to open
+      // all four.
       shots: [
         {
-          image: "/expect/workshops-4.webp",
-          alt: "A speaker with one arm raised, smiling, in front of the DevFest stage graphics.",
-          tint: ["#34a853", "#0e2a1c"],
-        },
-        {
-          image: "/expect/workshops-3.webp",
-          alt: "A speaker at a glass lectern with a laptop, wearing a headset microphone.",
+          image: "/expect/workshops-1.webp",
+          alt: "A speaker in a white blouse and full red skirt, hands clasped, smiling at the room.",
           tint: ["#ea4335", "#3a1210"],
         },
         {
           image: "/expect/workshops-2.webp",
-          alt: "A speaker in a blue kaftan addressing the room.",
+          alt: "A speaker in a blue kaftan and glasses, wearing a headset microphone, mid-sentence.",
           tint: ["#4285f4", "#0d1f3f"],
         },
         {
-          image: "/expect/workshops-1.webp",
-          alt: "A speaker in a denim jacket and patterned headwrap, arms open, presenting to the room.",
-          tint: ["#8b5cf6", "#231449"],
+          image: "/expect/workshops-3.webp",
+          alt: "A speaker in a red and black patterned agbada with yellow sleeves, at a glass lectern with a laptop.",
+          tint: ["#fbbc04", "#3b2a05"],
+        },
+        {
+          image: "/expect/workshops-4.webp",
+          alt: "A speaker in a white tee, both hands raised mid-gesture, explaining a point.",
+          tint: ["#34a853", "#0e2a1c"],
         },
       ],
     },

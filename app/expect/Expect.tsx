@@ -1,7 +1,7 @@
 import { type CSSProperties } from "react";
 import { type Media, type Shot, type Track } from "./tracks";
 import { PillPit } from "./PillPit";
-import { onDisk } from "./assets";
+import { onDisk, retina } from "./assets";
 import { PaperFrame } from "./PaperFrame";
 import { DraggableStrip } from "./DraggableStrip";
 import "./Expect.css";
@@ -173,6 +173,9 @@ function Art({
       <img
         className={className}
         src={shot.image}
+        // Absent until a @2x companion is dropped in beside the photograph;
+        // see retina() in assets.ts for why it is checked rather than assumed.
+        srcSet={retina(shot.image)}
         alt={shot.alt ?? ""}
         style={style}
         loading="lazy"

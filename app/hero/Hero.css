@@ -985,6 +985,32 @@
   transition: color 420ms ease;
 }
 
+/* Where it is happening. Smaller than the lede and in the same ink rather
+   than a greyed-down version of it: this copy sits over an illustration, and
+   a muted grey that reads cleanly on flat cream can land on a cloud or a
+   rooftop and stop being legible. Size and the pin separate it from the
+   sentence above; colour is left to do the reading. */
+.hero__where {
+  display: flex;
+  /* Top, not centre: on a narrow phone this wraps to two lines, and centring
+     leaves the pin hovering in the gutter between them rather than marking
+     where the line starts. The nudge sits it on the first line's baseline. */
+  align-items: flex-start;
+  gap: 8px;
+  margin: 12px 0 0;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--hero-type);
+  transition: color 420ms ease;
+}
+
+/* The pin holds its size while the line wraps around it. */
+.hero__where svg {
+  flex: none;
+  margin-top: 4px;
+}
+
 /* The pair of actions. The buy block keeps the width and height the search
    field held, so the hero's vertical rhythm against the reference is unchanged;
    the ask control is a square of the same height beside it. */
@@ -1112,6 +1138,10 @@
   .hero__lede {
     font-size: 21px;
     line-height: 27px;
+  }
+
+  .hero__where {
+    font-size: 16px;
   }
 
   .hero__copy {
@@ -1300,6 +1330,11 @@
   .hero__lede {
     font-size: 18px;
     line-height: 25px;
+  }
+
+  .hero__where {
+    font-size: 15px;
+    line-height: 22px;
   }
 
   .hero__copy {

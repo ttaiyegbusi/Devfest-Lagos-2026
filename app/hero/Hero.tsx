@@ -49,6 +49,25 @@ export function Hero() {
             Google Developer Group Lagos (GDG Lagos).
           </p>
 
+          {/* The venue, on its own line rather than folded into the lede above.
+              Where it is happening is a different kind of fact from what it is
+              — it gets looked for, not read — so it is set smaller and apart,
+              where the eye can find it without reading the sentence again.
+              The pin repeats the one the schedule cards use for a track, so a
+              place is drawn the same way wherever the site states one. */}
+          <p className="hero__where" data-rise>
+            <svg width="13" height="15" viewBox="0 0 12 14" aria-hidden="true" fill="none">
+              <path
+                d="M6 13s4.5-4.2 4.5-7.4A4.5 4.5 0 0 0 1.5 5.6C1.5 8.8 6 13 6 13Z"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                strokeLinejoin="round"
+              />
+              <circle cx="6" cy="5.5" r="1.6" stroke="currentColor" strokeWidth="1.2" />
+            </svg>
+            Landmark Event Centre, Victoria Island.
+          </p>
+
           <HeroCta />
         </div>
       </div>
